@@ -76,7 +76,7 @@ class ConfigurationAncrage:
 
 class Cable:
 
-    def __init__(self, point_ancrage, nom_sommet_source, sommet_source,diametre):
+    def __init__(self, point_ancrage, nom_sommet_source, sommet_source,diametre, tension_min = 1., tension_max = 100.):
         self.nom_sommet_source = nom_sommet_source
         self.point_ancrage     = point_ancrage
         self.sommet_source     = sommet_source
@@ -85,6 +85,27 @@ class Cable:
                                    vecteur_depart  = self.point_ancrage,
                                    vecteur_arrivee = self.sommet_source
                                  )
+        self.tension_min = tension_min
+        self.tension_max = tension_max
+
+    ####  metodos adicionados  #####:
+
+    def get_sommet_source (self):
+        return self.sommet_source
+
+    def get_point_ancrage(self):
+        return self.point_ancrage
+
+    def get_tension_min(self):
+        return self.tension_min
+
+    def get_tension_max(self):
+        return self.tension_max
+
+    def get_vecteur_unitaire(self):
+        return self.vecteur / self.longueur()
+
+    #################################
 
     def longueur(self):
         return self.vecteur.norme()
