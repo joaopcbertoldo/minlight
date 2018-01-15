@@ -24,14 +24,14 @@ cv2.namedWindow('img',0)
 while(1):
 
     ret, img = cap.read()
-   
+
     if cv2.waitKey(1) & 0xFF == ord('q'):
         mark=0
         print('end')
         break
-    
+
     #take 20 picture to calibrate
-    if name==20:
+    if count==20: #!!!!!!!!!!wasnt it supposed to be count? how could it have worked like this?
         break
 
 
@@ -39,22 +39,24 @@ while(1):
 
     # Find the chess board corners
     ret, corners = cv2.findChessboardCorners(gray, (9,6),None)
-    
+
     # If found, add object points, image points (after refining them)
     if ret == True:
-        
+
 
         corners2 = cv2.cornerSubPix(gray,corners,(15,15),(-1,-1),criteria)
-        
+
 
         # Draw and display the corners
         img = cv2.drawChessboardCorners(img, (9,6), corners2,ret)
         cv2.imshow('img',img)
-        
-        if (cv2.waitKey(5000) & 0xFF >0):
- 
+
+
+       	#take piciture every 5s
+        if (cv2.waitKey(500) & 0xFF >0):
+
             print(count)
-            name+=1
+            count+=1
             objpoints.append(objp)
             imgpoints.append(corners2)
 
@@ -62,20 +64,20 @@ while(1):
             break
     else:
         cv2.imshow('img',img)
-cv2.destroyAllWindows()    
+cv2.destroyAllWindows()
 
 #calibaration
-ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1],None,None) 
+ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1],None,None)
 
 
 #caculate the average error
 tot_error = 0
-for i in xrange(len(objpoints)):
+for i in range(len(objpoints)):
     imgpoints2, _ = cv2.projectPoints(objpoints[i], rvecs[i], tvecs[i], mtx, dist)
     error = cv2.norm(imgpoints[i],imgpoints2, cv2.NORM_L2)/len(imgpoints2)
     tot_error += error
 
-print "total error: ", tot_error/len(objpoints)
+print ("total error: ", tot_error/len(objpoints))
 
 
 
@@ -84,4 +86,3 @@ np.savetxt("distortion_coeffs.txt" ,dist)
 np.savetxt("intrinsic_matrix.txt" ,mtx)
 
 cv2.destroyAllWindows()
-
