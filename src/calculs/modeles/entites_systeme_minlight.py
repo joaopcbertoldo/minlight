@@ -105,6 +105,15 @@ class Cable:
     def get_vecteur_unitaire(self):
         return self.vecteur / self.longueur()
 
+    def get_nparray(self):
+        return np.array([self.vecteur[0], vecteur[1], vecteur[2]])
+
+    def get_nparray_unitaire(self):
+        vx = self.vecteur[0]
+        vy = self.vecteur[1]
+        vz = self.vecteur[2]
+        return np.array([vx, vy, vz]) / self.longueur()
+
     #################################
 
     def longueur(self):

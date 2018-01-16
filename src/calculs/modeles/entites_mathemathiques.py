@@ -48,6 +48,9 @@ class Vecteur3D(matrix):
     def cross(self,v2):
         return Vecteur3D(self[1]*v2[2] , self[2]*v2[0] , self[0]*v2[1])
 
+    def get_nparray(self):
+        return np.array([self[0], self[1], self[2]])
+
 class TupleAnglesRotation():
 
     @staticmethod
