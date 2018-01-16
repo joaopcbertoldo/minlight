@@ -15,7 +15,7 @@ objpoints = [] # 3d point in real world space
 imgpoints = [] # 2d points in image plane.
 
 
-
+int a
 cap = cv2.VideoCapture(0)
 count=0 #count the number of picture taken
 
