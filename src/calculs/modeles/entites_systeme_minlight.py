@@ -112,7 +112,7 @@ class Cable:
         vx = self.vecteur[0]
         vy = self.vecteur[1]
         vz = self.vecteur[2]
-        return np.array([vx, vy, vz]) / self.longueur()
+        return np.array([vx, vy, vz]).reshape(1,3) / self.longueur()
 
     #################################
 
