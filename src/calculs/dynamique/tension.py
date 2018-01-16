@@ -47,14 +47,22 @@ def get_tension (cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7)
     # eq de l'equilibre: A^t . F + w = 0, F_min < Fi < F_max, A^t = transpose(A)
 
     A = np.array([
-        [np.append(cable0.get_vecteur_unitaire(), np.cross(cable0.get_sommet_source() - centre_masse, cable0.get_vecteur_unitaire()))],
-        [np.append(cable1.get_vecteur_unitaire(), np.cross(cable1.get_sommet_source() - centre_masse, cable1.get_vecteur_unitaire()))],
-        [np.append(cable2.get_vecteur_unitaire(), np.cross(cable2.get_sommet_source() - centre_masse, cable2.get_vecteur_unitaire()))],
-        [np.append(cable3.get_vecteur_unitaire(), np.cross(cable3.get_sommet_source() - centre_masse, cable3.get_vecteur_unitaire()))],
-        [np.append(cable4.get_vecteur_unitaire(), np.cross(cable4.get_sommet_source() - centre_masse, cable4.get_vecteur_unitaire()))],
-        [np.append(cable5.get_vecteur_unitaire(), np.cross(cable5.get_sommet_source() - centre_masse, cable5.get_vecteur_unitaire()))],
-        [np.append(cable6.get_vecteur_unitaire(), np.cross(cable6.get_sommet_source() - centre_masse, cable6.get_vecteur_unitaire()))],
-        [np.append(cable7.get_vecteur_unitaire(), np.cross(cable7.get_sommet_source() - centre_masse, cable7.get_vecteur_unitaire()))]
+        [np.append(cable0.get_nparray_unitaire(), np.cross(cable0.get_sommet_source().get_nparray() -
+                                                           centre_masse.get_nparray(), cable0.get_nparray_unitaire()))],
+        [np.append(cable1.get_nparray_unitaire(), np.cross(cable1.get_sommet_source().get_nparray() -
+                                                           centre_masse.get_nparray(), cable1.get_nparray_unitaire()))],
+        [np.append(cable2.get_nparray_unitaire(), np.cross(cable2.get_sommet_source().get_nparray() -
+                                                           centre_masse.get_nparray(), cable2.get_nparray_unitaire()))],
+        [np.append(cable3.get_nparray_unitaire(), np.cross(cable3.get_sommet_source().get_nparray() -
+                                                           centre_masse.get_nparray(), cable3.get_nparray_unitaire()))],
+        [np.append(cable4.get_nparray_unitaire(), np.cross(cable4.get_sommet_source() -
+                                                           centre_masse.get_nparray(), cable4.get_nparray_unitaire()))],
+        [np.append(cable5.get_nparray_unitaire(), np.cross(cable5.get_sommet_source() -
+                                                           centre_masse.get_nparray(), cable5.get_nparray_unitaire()))],
+        [np.append(cable6.get_nparray_unitaire(), np.cross(cable6.get_sommet_source() -
+                                                           centre_masse.get_nparray(), cable6.get_nparray_unitaire()))],
+        [np.append(cable7.get_nparray_unitaire(), np.cross(cable7.get_sommet_source() -
+                                                           centre_masse.get_nparray(), cable7.get_nparray_unitaire()))]
     ]).reshape(8, 6)
 
     w = np.array([0, 0, -m * g, 0, 0, 0])
@@ -95,19 +103,32 @@ long = 1.0
 larg = 1.0
 haut = 1.0
 
-point_ancrage = [np.array([0.0, 0.0, 5.0]), np.array([4.0, 0.0, 5.0]),
-                 np.array([4.0, 6.0, 5.0]), np.array([0.0, 6.0, 5.0])]
+#point_ancrage = [np.array([0.0, 0.0, 5.0]), np.array([4.0, 0.0, 5.0]),
+#                 np.array([4.0, 6.0, 5.0]), np.array([0.0, 6.0, 5.0])]
+point_ancrage = [Vecteur3D(0.0, 0.0, 5.0), Vecteur3D(4.0, 0.0, 5.0),
+                 Vecteur3D(4.0, 6.0, 5.0), Vecteur3D(0.0, 6.0, 5.0)]
 
-centre_masse = np.array([2.0, 3.0, 2.5])
 
-sommet_source = [centre_masse + np.array([-long / 2, -larg / 2, -haut / 2]),
-                 centre_masse + np.array([ long / 2, -larg / 2, -haut / 2]),
-                 centre_masse + np.array([ long / 2,  larg / 2, -haut / 2]),
-                 centre_masse + np.array([-long / 2,  larg / 2, -haut / 2]),
-                 centre_masse + np.array([-long / 2, -larg / 2,  haut / 2]),
-                 centre_masse + np.array([ long / 2, -larg / 2,  haut / 2]),
-                 centre_masse + np.array([ long / 2,  larg / 2,  haut / 2]),
-                 centre_masse + np.array([-long / 2,  larg / 2,  haut / 2])]
+#centre_masse = np.array([2.0, 3.0, 2.5])
+centre_masse = Vecteur3D(2.0, 3.0, 2.5)
+
+#sommet_source = [centre_masse + np.array([-long / 2, -larg / 2, -haut / 2]),
+#                 centre_masse + np.array([ long / 2, -larg / 2, -haut / 2]),
+#                 centre_masse + np.array([ long / 2,  larg / 2, -haut / 2]),
+#                 centre_masse + np.array([-long / 2,  larg / 2, -haut / 2]),
+#                 centre_masse + np.array([-long / 2, -larg / 2,  haut / 2]),
+#                 centre_masse + np.array([ long / 2, -larg / 2,  haut / 2]),
+#                 centre_masse + np.array([ long / 2,  larg / 2,  haut / 2]),
+#                 centre_masse + np.array([-long / 2,  larg / 2,  haut / 2])]
+sommet_source = [   Vecteur3D(1.5, 2.5, 2.0),
+                    Vecteur3D(2.5, 2.5, 2.0),
+                    Vecteur3D(2.5, 3.5, 2.0),
+                    Vecteur3D(1.5, 3.5, 2.0),
+                    Vecteur3D(1.5, 2.5, 3.0),
+                    Vecteur3D(2.5, 2.5, 3.0),
+                    Vecteur3D(2.5, 3.5, 3.0),
+                    Vecteur3D(1.5, 3.5, 3.0),
+                 ]
 
 # cables de chaque sommet
 
@@ -115,14 +136,14 @@ sommet_source = [centre_masse + np.array([-long / 2, -larg / 2, -haut / 2]),
 ############# pegar o nome dos sommets com o joao ###############
 ######## devo usar a classe Vecteur3D ? se sim, precisa adicionar um metodo
 ######## pra converter em np.array, porque preciso das funçoes do numpy
-cable0 = Cable(point_ancrage[0], sommet_source[4],1., 1., 100.)
-cable1 = Cable(point_ancrage[0], sommet_source[5],1., 1., 100.)
-cable2 = Cable(point_ancrage[1], sommet_source[5],1., 1., 100.)
-cable3 = Cable(point_ancrage[1], sommet_source[6],1., 1., 100.)
-cable4 = Cable(point_ancrage[2], sommet_source[6],1., 1., 100.)
-cable5 = Cable(point_ancrage[2], sommet_source[7],1., 1., 100.)
-cable6 = Cable(point_ancrage[3], sommet_source[7],1., 1., 100.)
-cable7 = Cable(point_ancrage[3], sommet_source[4],1., 1., 100.)
+cable0 = Cable(point_ancrage[0], "a", sommet_source[4],1., 1., 100.)
+cable1 = Cable(point_ancrage[0], "a", sommet_source[5],1., 1., 100.)
+cable2 = Cable(point_ancrage[1], "a", sommet_source[5],1., 1., 100.)
+cable3 = Cable(point_ancrage[1], "a", sommet_source[6],1., 1., 100.)
+cable4 = Cable(point_ancrage[2], "a", sommet_source[6],1., 1., 100.)
+cable5 = Cable(point_ancrage[2], "a", sommet_source[7],1., 1., 100.)
+cable6 = Cable(point_ancrage[3], "a", sommet_source[7],1., 1., 100.)
+cable7 = Cable(point_ancrage[3], "a", sommet_source[4],1., 1., 100.)
 
 
 F = get_tension(
