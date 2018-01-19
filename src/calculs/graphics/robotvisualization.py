@@ -4,7 +4,10 @@ from src.calculs.modeles.entite_cable_robot import *
 from src.calculs.graphics.trackball import Trackball
 from OpenGL.GL import *
 from OpenGL.GLU import *
+from src.calculs.setups.parametres_objets import camera_position, camera_direction
+from src.calculs.graphics.cameraOpening import CameraOpening
 import time
+from numpy import radians
 
 
 class RobotVisualization:
@@ -273,6 +276,8 @@ class RobotVisualization:
 
         self.reset_viewer_matrix()
 
+        my_camera_opening = CameraOpening(camera_position,camera_direction, radians(170))
+
         while True:
             self.manage_events()
             self.execute_transformations()
@@ -280,6 +285,7 @@ class RobotVisualization:
                 self.update_uniforms()
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
             self._cable_robot.draw(origin,self.draw_maisonette)
+            my_camera_opening.draw()
             pygame.display.flip()
             pygame.time.wait(10)
 

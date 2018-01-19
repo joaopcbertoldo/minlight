@@ -135,6 +135,18 @@ systeme_spherique_baie_vitree = SystemeRepereSpherique(
     ypr_angles=rotation_systeme_spherique
 )
 
+''' ************************ Camera ************************ '''
+
+#direction
+camera_direction = Vecteur3D(dimensions_chambre['longueur'],0,0)
+
+#position
+camera_position = Vecteur3D(
+        x=-dimensions_chambre['longueur']/2,  # mm
+        y=0 ,  # mm
+        z=0 #mm
+)
+
 
 def __main__():
     print('parametres_objets chargés')

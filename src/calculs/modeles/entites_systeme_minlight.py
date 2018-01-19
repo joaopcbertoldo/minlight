@@ -105,15 +105,6 @@ class Cable:
     def get_vecteur_unitaire(self):
         return self.vecteur / self.longueur()
 
-    def get_nparray(self):
-        return np.array([self.vecteur[0], vecteur[1], vecteur[2]])
-
-    def get_nparray_unitaire(self):
-        vx = self.vecteur[0]
-        vy = self.vecteur[1]
-        vz = self.vecteur[2]
-        return np.array([vx, vy, vz]) / self.longueur()
-
     #################################
 
     def longueur(self):
@@ -211,7 +202,7 @@ class Cable:
             )
         glBegin(GL_LINES)
         for vertex in edge:
-                glColor3fv((0.5,0.5,0.3))
+                glColor4fv((0.5,0.5,0.3,1.0))
                 glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(verticies[vertex])
         glEnd()
@@ -443,7 +434,7 @@ class Pave:
         for i in range(len(newSommets)):
             self.sommets[i].set_xyz(newSommets[i].item(0),newSommets[i].item(1),newSommets[i].item(2))
 
-    def draw(self,origin,color = (0.45,0.45,0.45),drawFaces = True):
+    def draw(self,origin,color = (0.45,0.45,0.45,1.0),drawFaces = True):
         edges = (
             (0,1),
             (0,2),
@@ -481,7 +472,7 @@ class Pave:
                 normal = get_plane_normal(surface,self.sommets,self.centre)
                 normal_tuple = normal.get_coordonnees()
                 for vertex in surface:
-                    glColor3fv(color)
+                    glColor4fv(color)
                     glNormal3fv(normal_tuple)
                     glVertex3fv(verticiesInOrigin[vertex])
             glEnd()
@@ -490,7 +481,7 @@ class Pave:
         glBegin(GL_LINES)
         for edge in edges:
             for vertex in edge:
-                glColor3fv((0.0,0.0,0.0))
+                glColor4fv((0.0,0.0,0.0,1.0))
                 glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(verticiesInOrigin[vertex])
         glEnd()
@@ -500,7 +491,7 @@ class Chambre(Pave):
     def __init__(self, centre, ypr_angles, dimensions):
         super().__init__(centre,ypr_angles,dimensions)
 
-    def draw(self,origin,color = (0.2,0.2,0.2),drawFaces = True):
+    def draw(self,origin,color = (0.2,0.2,0.2,1.0),drawFaces = True):
         edges = (
             (0,1),
             (0,2),
@@ -522,7 +513,7 @@ class Chambre(Pave):
 
         glBegin(GL_QUADS)
         for vertex in ground:
-            glColor3fv(color)
+            glColor4fv(color)
             glNormal3fv(normal_tuple)
             glVertex3fv(self.sommets[vertex] - origin)
         glEnd()
@@ -531,7 +522,7 @@ class Chambre(Pave):
         glBegin(GL_LINES)
         for edge in edges:
             for vertex in edge:
-                glColor3fv((0.0,0.0,0.0))
+                glColor4fv((0.0,0.0,0.0,1.0))
                 glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(self.sommets[vertex] - origin)
         glEnd()
@@ -606,7 +597,7 @@ class Source(Pave):
         glBegin(GL_QUADS)
         for j in range(number_levels -2):
             for i in range(self.points_per_level ):
-                glColor3fv((0.95,0.95,0))
+                glColor4fv((0.95,0.95,0,1.0))
                 glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(self.points_parable[i%self.points_per_level + (j+1)*self.points_per_level ] - origin)
                 glVertex3fv(self.points_parable[i + 1 + (j+1)*self.points_per_level] - origin)
@@ -616,7 +607,7 @@ class Source(Pave):
         glBegin(GL_LINES)
         for j in range(number_levels ):
             for i in range(self.points_per_level ):
-                glColor3fv((0.5,0.5,0.5))
+                glColor4fv((0.5,0.5,0.5,1.0))
                 glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(self.points_parable[i + j*self.points_per_level] - origin)
                 glVertex3fv(self.points_parable[(i + 1 )%self.points_per_level + j*self.points_per_level ] - origin)
@@ -625,7 +616,7 @@ class Source(Pave):
         glBegin(GL_LINES)
         for i in range(len(self.points_parable ) - self.points_per_level ):
             for j in (i,i + self.points_per_level):
-                glColor3fv((0.5,0.5,0.5))
+                glColor4fv((0.5,0.5,0.5,1.0))
                 glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(self.points_parable[j] - origin)
         glEnd()
@@ -658,21 +649,21 @@ class Source(Pave):
             (7,3,2,6)
         )
 
-        light = (4,6,7,5)
+        light = (1,3,2,0)
 
         normal = get_plane_normal(light,self.sommets,self.centre)
         normal_tuple = normal.get_coordonnees()
         glBegin(GL_QUADS)
-    #    for vertex in light:
-    #        glNormal3fv(normal_tuple)
-    #        glColor3fv((0.95,0.95,0))
-    #        glVertex3fv(self.sommets[vertex] - origin)
+        for vertex in light:
+            glNormal3fv(normal_tuple)
+            glColor4fv((1.0,1.0,1.0,1.0))
+            glVertex3fv(self.sommets[vertex] - origin)
         glEnd()
 
         glBegin(GL_LINES)
         for edge in edges:
             for vertex in edge:
-                glColor3fv((0.0,0.0,0.0))
+                glColor4fv((0.0,0.0,0.0,1.0))
                 glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(self.sommets[vertex] - origin)
         glEnd()
@@ -782,19 +773,19 @@ class Maisonette(Pave):
         glBegin(GL_QUADS)
         for surface in surfaces_outside:
             for vertex in surface.edges:
-                glColor3fv((0.4,0.4,0.4))
+                glColor4fv((0.4,0.4,0.4,1.0))
                 glNormal3fv(surface.normal)
                 glVertex3fv(verticiesInOrigin[vertex])
         for surface in surfaces_inside:
             for vertex in surface.edges:
-                glColor3fv((0.6,0.6,0.6))
+                glColor4fv((0.6,0.6,0.6,1.0))
                 glNormal3fv(surface.normal)
                 glVertex3fv(verticiesInOrigin[vertex])
         glEnd()
         glBegin(GL_LINES)
         for edge in edges:
             for vertex in edge:
-                glColor3fv((0.0,0.0,0.0))
+                glColor4fv((0.0,0.0,0.0,1.0))
                 glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(verticiesInOrigin[vertex])
         glEnd()
@@ -833,7 +824,7 @@ class Maisonette(Pave):
         glBegin(GL_QUADS)
         for surface in surfaces:
             for vertex in surface.edges:
-                glColor3fv((0.4,0.4,0.4))
+                glColor4fv((0.4,0.4,0.4,1.0))
                 glNormal3fv(surface.normal)
                 glVertex3fv(verticiesInOrigin[vertex])
         glEnd()
@@ -842,7 +833,7 @@ class Maisonette(Pave):
         glBegin(GL_LINES)
         for edge in edges:
             for vertex in edge:
-                glColor3fv((0.0,0.0,0.0))
+                glColor4fv((0.0,0.0,0.0,1.0))
                 glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(verticiesInOrigin[vertex])
         glEnd()
