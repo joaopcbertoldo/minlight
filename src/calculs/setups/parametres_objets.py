@@ -136,15 +136,35 @@ systeme_spherique_baie_vitree = SystemeRepereSpherique(
 )
 
 ''' ************************ Camera ************************ '''
-
-#direction
-camera_direction = Vecteur3D(dimensions_chambre['longueur'],0,0)
+camera_direction = Vecteur3D(
+        x=0,
+        y=0,
+        z=0
+)
 
 #position
-camera_position = Vecteur3D(
+camera_position1 = Vecteur3D(
         x=-dimensions_chambre['longueur']/2,  # mm
-        y=0 ,  # mm
-        z=0 #mm
+        y=-0.25*dimensions_chambre['largeur'] ,  # mm
+        z=-0.1*dimensions_chambre['hauteur'] #mm
+)
+
+camera_position2 = Vecteur3D(
+        x=-dimensions_chambre['longueur']/2,  # mm
+        y=-0.25*dimensions_chambre['largeur'] ,  # mm
+        z=0.25*dimensions_chambre['hauteur'] #mm
+)
+
+camera_position3 = Vecteur3D(
+        x=-dimensions_chambre['longueur']/2,  # mm
+        y=0.25*dimensions_chambre['largeur'] ,  # mm
+        z=-0.25*dimensions_chambre['hauteur'] #mm
+)
+
+camera_position4 = Vecteur3D(
+        x=-dimensions_chambre['longueur']/2,  # mm
+        y=0.25*dimensions_chambre['largeur'] ,  # mm
+        z=0.25*dimensions_chambre['hauteur'] #mm
 )
 
 

@@ -23,18 +23,17 @@ class CameraOpening:
         pos_z = -self.position.get_z()
 
         self.vertexList.append(self.position)
-        self.vertexList.append(Vecteur3D(dimensions_chambre['longueur']/2 ,pos_y + 0.5*dimensions_chambre['largeur'],pos_z + 0.5*dimensions_chambre['hauteur']))
-        self.vertexList.append(Vecteur3D(dimensions_chambre['longueur']/2,pos_y + 0.5*dimensions_chambre['largeur'],pos_z - 0.5*dimensions_chambre['hauteur']))
-        self.vertexList.append(Vecteur3D(dimensions_chambre['longueur']/2,pos_y  - 0.5*dimensions_chambre['largeur'],pos_z + 0.5*dimensions_chambre['hauteur']))
-        self.vertexList.append(Vecteur3D(dimensions_chambre['longueur']/2,pos_y - 0.5*dimensions_chambre['largeur'],pos_z - 0.5*dimensions_chambre['hauteur']))
+        self.vertexList.append(Vecteur3D(self.position.get_x() + 0.25*dimensions_chambre['longueur'],self.position.get_y() + 0.25*dimensions_chambre['longueur']*tan(self.opening/2),self.position.get_z() + 0.25*dimensions_chambre['longueur']*tan(self.opening/2)))
+        self.vertexList.append(Vecteur3D(self.position.get_x() + 0.25*dimensions_chambre['longueur'],self.position.get_y() + 0.25*dimensions_chambre['longueur']*tan(self.opening/2),self.position.get_z()- 0.25*dimensions_chambre['longueur']*tan(self.opening/2)))
+        self.vertexList.append(Vecteur3D(self.position.get_x() + 0.25*dimensions_chambre['longueur'],self.position.get_y()  -0.25*dimensions_chambre['longueur']*tan(self.opening/2),self.position.get_z() + 0.25*dimensions_chambre['longueur']*tan(self.opening/2)))
+        self.vertexList.append(Vecteur3D(self.position.get_x() + 0.25*dimensions_chambre['longueur'],self.position.get_y()  -0.25*dimensions_chambre['longueur']*tan(self.opening/2),self.position.get_z()-0.25*dimensions_chambre['longueur']*tan(self.opening/2)))
 
     def draw(self):
         triangles = (
-            #    Surface((0,2,6,4),(0,0,1)), #ground
-            (0,3,1), #ceiling
-            (0,4,3), #back face
-            (0,2,4), # left face looking from source
-            (0,1,2)# right face looking from source
+            (0,3,1),
+            (0,4,3),
+            (0,2,4),
+            (0,1,2)
             )
 
         glBegin(GL_TRIANGLES)
@@ -47,10 +46,10 @@ class CameraOpening:
 
         glBegin(GL_LINES)
         for vertex in self.vertexList:
-            glColor3fv((0.0,0.0,0.0))
+            glColor3fv((0.6,0.,0.9))
             glNormal3fv((0.0,0.0,0.0))
             glVertex3fv(self.position)
-            glColor3fv((0.0,0.0,0.0))
+            glColor3fv((0.6,0.,0.9))
             glNormal3fv((0.0,0.0,0.0))
             glVertex3fv(vertex)
         glEnd()
