@@ -1,4 +1,5 @@
 import copy
+from abc import ABCMeta, abstractmethod
 
 
 class CableRobot:
@@ -14,25 +15,36 @@ class CableRobot:
         sommets_source = self._source.get_dictionnaire_sommets()
         self._cables = self._config_ancrage.get_cables(sommets_source, self._diametre_cables)
 
-    def draw(self, origin,draw_maisonette):
+        self._observers = list()
+
+    def draw(self, origin, draw_maisonette):
         for cable in self._cables:
             cable.draw(origin)
         self._chambre.draw(origin)
-        if( draw_maisonette):
+        if draw_maisonette:
             self._maisonette.draw(origin)
         self._source.draw(origin)
 
-    def rotate_source(self, delta_yaw=0, delta_pitch=0, delta_roll=0):
+    def rotate_source(self, delta_yaw=0, delta_pitch=0, delta_roll=0, notify=True):
         self._source.rotate(delta_yaw, delta_pitch, delta_roll)
+        self._notify_observers(notify)
 
-    def translate_source(self, delta_x=0, delta_y=0, delta_z=0):
+    def translate_source(self, delta_x=0, delta_y=0, delta_z=0, notify=True):
         self._source.translate(delta_x, delta_y, delta_z)
+        self._notify_observers(notify)
 
-    def set_source_position(self, centre):
+    def set_source_position(self, centre, notify=True):
         self._source.set_position(centre)
+        self._notify_observers(notify)
 
-    def set_source_angles(self, angles):
+    def set_source_angles(self, angles, notify=True):
         self._source.set_angles(angles)
+        self._notify_observers(notify)
+
+    def set_source_configuration(self, centre, angles, notify=True):
+        self.set_source_position(centre, notify=False)
+        self.set_source_angles(angles, notify=False)
+        self._notify_observers(notify)
 
     def get_light_centre(self):
         return self._source.get_light_centre()
@@ -45,3 +57,25 @@ class CableRobot:
 
     def get_centre(self):
         return self._chambre.get_centre()
+
+    def subscribe_observer(self, observer):
+        self._observers.append(observer)
+
+    def _notify_observers(self, enable):
+        if enable:
+            for observer in self._observers:
+                observer.notify(self)
+
+    def get_cable(self, nom_cable):
+        return (copy.deepcopy(cable) for cable in self._cables if cable.nom_sommet_source == nom_cable).next()
+
+    def get_source(self):
+        return copy.deepcopy(self._source)
+
+
+class CableRobotObserver:
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def notify(self, cable_robot):
+        pass

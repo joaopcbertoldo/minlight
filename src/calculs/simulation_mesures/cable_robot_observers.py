@@ -23,7 +23,7 @@ class HistoriqueValeur:
     def get_valeurs(self):
         return self._valeurs
 
-    def get_couples(self):
+    def get_couples_temps_valeur(self):
         return list(zip(self._temps, self._valeurs))
 
     def get_lists_temps_valeurs(self):
@@ -64,6 +64,42 @@ class ObserverLongueurCable(CableRobotObserver):
 
     def get_historique_accelerations(self):
         return self._longueurs.get_historique_differences().get_historique_differences()
+
+
+class ObserverLongueur8Cables:
+
+    def __init__(self, cable_robot, intervale):
+        self._dict_observers = dict()
+
+        self._dict_observers['PF000'] = ObserverLongueurCable('PF000', intervale)
+        self._dict_observers['PF001'] = ObserverLongueurCable('PF001', intervale)
+        self._dict_observers['PF010'] = ObserverLongueurCable('PF010', intervale)
+        self._dict_observers['PF011'] = ObserverLongueurCable('PF011', intervale)
+        self._dict_observers['PF100'] = ObserverLongueurCable('PF100', intervale)
+        self._dict_observers['PF101'] = ObserverLongueurCable('PF101', intervale)
+        self._dict_observers['PF110'] = ObserverLongueurCable('PF110', intervale)
+        self._dict_observers['PF111'] = ObserverLongueurCable('PF111', intervale)
+
+        for observer in self._dict_observers.values():
+            cable_robot.subscribe_observer(observer)
+
+    def get_dict_historiques_longueurs(self):
+        return {nom: observer.get_historique_longueurs() for nom, observer in self._dict_observers.items()}
+
+    def get_dict_historique_vitesses(self):
+        return {nom: observer.get_historique_vitesses() for nom, observer in self._dict_observers.items()}
+
+    def get_dict_historique_accelerations(self):
+        return {nom: observer.get_historique_accelerations() for nom, observer in self._dict_observers.items()}
+
+    def get_historique_longueurs(self, nom_cable):
+        return self._dict_observers[nom_cable].get_historique_longueurs()
+
+    def get_historique_vitesses(self, nom_cable):
+        return self._dict_observers[nom_cable].get_historique_vitesses()
+
+    def get_historique_accelerations(self, nom_cable):
+        return self._dict_observers[nom_cable].get_historique_accelerations()
 
 
 class ObserverPoint3D(CableRobotObserver):
