@@ -13,7 +13,7 @@ from src.calculs.modeles.entites_systeme_minlight import \
     ConfigurationAncrage,                       \
     ConfigurationCable
 
-from src.calculs.simulation.angles_limites import VerificateurAnglesLimites
+from src.calculs.simulation_angles_limites.angles_limites import VerificateurAnglesLimites
 
 '''
     Setup d'un faux systeme.
