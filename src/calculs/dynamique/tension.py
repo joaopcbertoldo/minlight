@@ -23,7 +23,7 @@ def get_tension (cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7)
     '''
 
     # masse du cube et gravité de la Terre
-    m = 2.0  # kg
+    m = 50.0  # kg
     g = 9.8  # m/s^2
 
     F_min = np.array([cable0.get_tension_min(),
@@ -65,6 +65,8 @@ def get_tension (cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7)
                                                            centre_masse.get_nparray(), cable7.get_nparray_unitaire()))]
     ]).reshape(8, 6)
 
+    print(A)
+
     w = np.array([0, 0, -m * g, 0, 0, 0])
 
     # algorithme retourne np.array[-1.,-1.,-1.,-1.,-1.,-1.,-1.,-1.] si la position n'appartient pas
@@ -75,9 +77,10 @@ def get_tension (cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7)
         return -1*np.ones(8)
         print("Wrench matrix not invertible")
 
-    F_med = (F_min+F_max)/2
-
+   # F_med = (F_min+F_max)/2
+    F_med = 1000*np.ones(8)
     A_pseudo_transp = np.dot(A, np.linalg.inv(np.dot(np.transpose(A), A)))
+
 
     F_v = - np.dot(A_pseudo_transp, w + np.dot(np.transpose(A), F_med))
 
@@ -96,21 +99,16 @@ def get_tension (cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7)
 
 
 
-# TESTE:
 
+# TESTE:
 long = 1.0
 larg = 1.0
 haut = 1.0
 
-#point_ancrage = [np.array([0.0, 0.0, 5.0]), np.array([4.0, 0.0, 5.0]),
-#                 np.array([4.0, 6.0, 5.0]), np.array([0.0, 6.0, 5.0])]
 point_ancrage = [Vecteur3D(0.0, 0.0, 5.0), Vecteur3D(4.0, 0.0, 5.0),
                  Vecteur3D(4.0, 6.0, 5.0), Vecteur3D(0.0, 6.0, 5.0)]
 
-
-#centre_masse = np.array([2.0, 3.0, 2.5])
 centre_masse = Vecteur3D(2.0, 3.0, 2.5)
-
 #sommet_source = [centre_masse + np.array([-long / 2, -larg / 2, -haut / 2]),
 #                 centre_masse + np.array([ long / 2, -larg / 2, -haut / 2]),
 #                 centre_masse + np.array([ long / 2,  larg / 2, -haut / 2]),
@@ -129,22 +127,14 @@ sommet_source = [   Vecteur3D(1.5, 2.5, 2.0),
                     Vecteur3D(1.5, 3.5, 3.0),
                  ]
 
-# cables de chaque sommet
-
-
-############# pegar o nome dos sommets com o joao ###############
-######## devo usar a classe Vecteur3D ? se sim, precisa adicionar um metodo
-######## pra converter em np.array, porque preciso das funçoes do numpy
-cable0 = Cable(point_ancrage[0], "S001", sommet_source[4],1., 1., 100.)
-cable1 = Cable(point_ancrage[0], "S101", sommet_source[5],1., 1., 100.)
-cable2 = Cable(point_ancrage[1], "S101", sommet_source[5],1., 1., 100.)
-cable3 = Cable(point_ancrage[1], "S111", sommet_source[6],1., 1., 100.)
-cable4 = Cable(point_ancrage[2], "S111", sommet_source[6],1., 1., 100.)
-cable5 = Cable(point_ancrage[2], "S011", sommet_source[7],1., 1., 100.)
-cable6 = Cable(point_ancrage[3], "S011", sommet_source[7],1., 1., 100.)
-cable7 = Cable(point_ancrage[3], "S001", sommet_source[4],1., 1., 100.)
-
-
+cable0 = Cable(sommet_source[4], "S001", point_ancrage[0], 1., 1., 100.)
+cable1 = Cable(sommet_source[5], "S101", point_ancrage[0], 1., 1., 100.)
+cable2 = Cable(sommet_source[5], "S101", point_ancrage[1], 1., 1., 100.)
+cable3 = Cable(sommet_source[6], "S111", point_ancrage[1], 1., 1., 100.)
+cable4 = Cable(sommet_source[6], "S111", point_ancrage[2], 1., 1., 100.)
+cable5 = Cable(sommet_source[7], "S011", point_ancrage[2], 1., 1., 100.)
+cable6 = Cable(sommet_source[7], "S011", point_ancrage[3], 1., 1., 100.)
+cable7 = Cable(sommet_source[4], "S001", point_ancrage[3], 1., 1., 100.)
 F = get_tension(
     cable0,
     cable1,
@@ -155,6 +145,6 @@ F = get_tension(
     cable6,
     cable7,
     )
-
 print(F)
 print('')
+
