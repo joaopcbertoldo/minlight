@@ -2,8 +2,7 @@ import numpy as np
 import cv2
 import glob
 
-
-def fncalibration ():
+def fncalibration (cap):
 
 
     # termination criteria
@@ -20,7 +19,7 @@ def fncalibration ():
 
 
 
-    cap = cv2.VideoCapture(0)
+
     count=0 #count the number of picture taken
 
     cv2.namedWindow('img',0)
@@ -85,8 +84,9 @@ def fncalibration ():
     return  dist,mtx,errormoyen
 
 
+cap = cv2.VideoCapture(0)
 
-resultat=fncalibration()
+resultat=fncalibration(cap)
 
 
 print ("total error: ", resultat[2])
