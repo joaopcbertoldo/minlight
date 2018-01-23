@@ -4,7 +4,7 @@ from src.calculs.modeles.entite_cable_robot import *
 from src.calculs.graphics.trackball import Trackball
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from src.calculs.setups.parametres_objets import camera_position, camera_direction
+from src.calculs.setups.parametres_objets import camera_position1,camera_position2,camera_position3,camera_position4, camera_direction
 from src.calculs.graphics.cameraOpening import CameraOpening
 import time
 from numpy import radians
@@ -276,7 +276,12 @@ class RobotVisualization:
 
         self.reset_viewer_matrix()
 
-        my_camera_opening = CameraOpening(camera_position,camera_direction, radians(170))
+        my_camera_opening1 = CameraOpening(camera_position1,camera_direction, radians(100))
+        my_camera_opening2 = CameraOpening(camera_position2,camera_direction, radians(100))
+        my_camera_opening3 = CameraOpening(camera_position3,camera_direction, radians(100))
+        my_camera_opening4 = CameraOpening(camera_position4,camera_direction, radians(100))
+
+
 
         while True:
             self.manage_events()
@@ -285,7 +290,10 @@ class RobotVisualization:
                 self.update_uniforms()
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
             self._cable_robot.draw(origin,self.draw_maisonette)
-            my_camera_opening.draw()
+            my_camera_opening1.draw()
+        #    my_camera_opening2.draw()
+        #    my_camera_opening3.draw()
+        #    my_camera_opening4.draw()
             pygame.display.flip()
             pygame.time.wait(10)
 
@@ -302,6 +310,11 @@ class RobotVisualization:
         initial_time = time.time()
         i = 0
 
+        my_camera_opening1 = CameraOpening(camera_position1,camera_direction, radians(100))
+        my_camera_opening2 = CameraOpening(camera_position2,camera_direction, radians(100))
+        my_camera_opening3 = CameraOpening(camera_position3,camera_direction, radians(100))
+        my_camera_opening4 = CameraOpening(camera_position4,camera_direction, radians(100))
+
         while True:
             self.manage_events()
             self.execute_transformations()
@@ -311,15 +324,12 @@ class RobotVisualization:
             i = (time.time() - initial_time)
             i = i/time_step
             i = int(i*speed)
-
-            print("i : "+ str(i))
-        #    print(" delta t" + str((time.time() - initial_time)))
-        #    print(" delta t real" + str(i*600))
             self._cable_robot.set_source_position(trajectory[int(i% len(trajectory))].get_centre())
-        #    print("posicao : " + str(trajectory[int(i/10)].get_centre()))
             self._cable_robot.set_source_angles(trajectory[int(i% len(trajectory))].get_angle())
-        #    print(" anglo : " + str(trajectory[100*i].get_angle()))
-
             self._cable_robot.draw(origin,self.draw_maisonette)
+            my_camera_opening1.draw()
+            my_camera_opening2.draw()
+            my_camera_opening3.draw()
+            my_camera_opening4.draw()
             pygame.display.flip()
             pygame.time.wait(10)

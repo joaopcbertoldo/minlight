@@ -51,6 +51,9 @@ class Vecteur3D(matrix):
     def get_nparray(self):
         return np.array([self[0], self[1], self[2]]).reshape(1,3)
 
+    def get_nparray_unitaire(self):
+        return np.array([self[0], self[1], self[2]]).reshape(1,3)/self.norme()
+
 class TupleAnglesRotation():
 
     @staticmethod
