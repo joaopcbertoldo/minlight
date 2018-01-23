@@ -2,8 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/calculs/simulation_mesures/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/calculs/simulation_mesures/cable_robot_observers.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/calculs/simulation_mesures/simulateur_mesure.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/__init__.py" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/__init__.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/angles_limites.py" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/angles_limites.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/angles_limites_factory.py" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/angles_limites_factory.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/banc_tests.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/graphes/faux.png" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/graphes/faux.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/graphes/sh_sch_haut_bas.png" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/graphes/sh_sch_haut_bas.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/graphes/sh_sch_haut_haut.png" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/graphes/sh_sch_haut_haut.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/graphes/sh_sch_haut_mid.png" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/graphes/sh_sch_haut_mid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/graphes/simple_haut_bas.png" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/graphes/simple_haut_bas.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/graphes/simple_haut_haut.png" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/graphes/simple_haut_haut.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/graphes/simple_haut_mid.png" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/graphes/simple_haut_mid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/resultats_limites/faux.pickle" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/resultats_limites/faux.pickle" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/resultats_limites/sh_sch_haut_bas.pickle" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/resultats_limites/sh_sch_haut_bas.pickle" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/resultats_limites/sh_sch_haut_haut.pickle" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/resultats_limites/sh_sch_haut_haut.pickle" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/resultats_limites/sh_sch_haut_mid.pickle" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/resultats_limites/sh_sch_haut_mid.pickle" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/resultats_limites/simple_haut_bas.pickle" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/resultats_limites/simple_haut_bas.pickle" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/resultats_limites/simple_haut_haut.pickle" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/resultats_limites/simple_haut_haut.pickle" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/simulation/resultats_limites/simple_haut_mid.pickle" afterPath="$PROJECT_DIR$/src/calculs/simulation_angles_limites/resultats_limites/simple_haut_mid.pickle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/dynamique/trajectoire.py" afterPath="$PROJECT_DIR$/src/calculs/dynamique/trajectoire.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/graphics/robotvisualization2.py" afterPath="$PROJECT_DIR$/src/calculs/graphics/robotvisualization2.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/modeles/entite_cable_robot.py" afterPath="$PROJECT_DIR$/src/calculs/modeles/entite_cable_robot.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/setups/faux.py" afterPath="$PROJECT_DIR$/src/calculs/setups/faux.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/setups/parametres_objets.py" afterPath="$PROJECT_DIR$/src/calculs/setups/parametres_objets.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,43 +48,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TODO list" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TODO list">
+      <file leaf-file-name="drawTrajectoire.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/calculs/drawTrajectoire.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="trajectoire.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/calculs/dynamique/trajectoire.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="100" column="31" lean-forward="true" selection-start-line="100" selection-start-column="31" selection-end-line="100" selection-end-column="31" />
-              <folding>
-                <element signature="e#44#100#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="parametres_objets.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/calculs/setups/parametres_objets.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="123" column="0" lean-forward="false" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="entites_mathemathiques.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_mathemathiques.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="197" column="8" lean-forward="false" selection-start-line="197" selection-start-column="8" selection-end-line="197" selection-end-column="8" />
+            <state relative-caret-position="264">
+              <caret line="17" column="23" lean-forward="false" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -83,7 +75,6 @@
       <find>dimensions_pave</find>
       <find>get_dimensions_pave</find>
       <find>creer_cables</find>
-      <find>Cable</find>
       <find>space</find>
       <find>rot</find>
       <find>TupleAnglesRotation</find>
@@ -106,7 +97,8 @@
       <find>self._view_controlable</find>
       <find>glScale</find>
       <find>gl</find>
-      <find>gl</find>
+      <find>Cable</find>
+      <find>get_light</find>
     </findStrings>
     <replaceStrings>
       <replace>Vecteur3D</replace>
@@ -136,12 +128,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/calculs/simulation.py" />
-        <option value="$PROJECT_DIR$/src/calculs/banc_tests.py" />
-        <option value="$PROJECT_DIR$/src/calculs/setups_simulation/faux.py" />
-        <option value="$PROJECT_DIR$/src/calculs/__init__.py" />
-        <option value="$PROJECT_DIR$/src/calculs/modeles/outils2.py" />
-        <option value="$PROJECT_DIR$/src/calculs/simulation/setups_simulation/faux.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/setups/__main__.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/simulation.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/setups/faux.py" />
@@ -166,35 +152,41 @@
         <option value="$PROJECT_DIR$/bibliothèques graphiques.txt" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" />
-        <option value="$PROJECT_DIR$/src/calculs/setups/parametres_objets.py" />
         <option value="$PROJECT_DIR$/src/calculs/setups/parametres_ancrage.py" />
-        <option value="$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py" />
-        <option value="$PROJECT_DIR$/src/calculs/drawCube.py" />
         <option value="$PROJECT_DIR$/src/calculs/commande/commandable.py" />
         <option value="$PROJECT_DIR$/src/calculs/commande/commandeur.py" />
         <option value="$PROJECT_DIR$/src/calculs/graphics/robot_visualization.py" />
         <option value="$PROJECT_DIR$/src/calculs/control/pygame_controlable.py" />
         <option value="$PROJECT_DIR$/src/calculs/control/controlable.py" />
         <option value="$PROJECT_DIR$/src/calculs/control/pave_source_controlable.py" />
-        <option value="$PROJECT_DIR$/src/calculs/modeles/entite_cable_robot.py" />
         <option value="$PROJECT_DIR$/src/calculs/control/cable_robot_source_controlable.py" />
         <option value="$PROJECT_DIR$/src/calculs/control/source_keyboard_controler.py" />
-        <option value="$PROJECT_DIR$/src/calculs/graphics/robotvisualization.py" />
         <option value="$PROJECT_DIR$/src/calculs/drawCube2.py" />
         <option value="$PROJECT_DIR$/src/calculs/control/pygame_view_controlable.py" />
         <option value="$PROJECT_DIR$/src/calculs/control/keyboard_controlers.py" />
-        <option value="$PROJECT_DIR$/src/calculs/graphics/robotvisualization2.py" />
         <option value="$PROJECT_DIR$/TODO list" />
-        <option value="$PROJECT_DIR$/src/calculs/dynamique/trajectoire.py" />
         <option value="$PROJECT_DIR$/src/calculs/drawTrajectoire.py" />
+        <option value="$PROJECT_DIR$/src/calculs/simulation_angles_limites/banc_tests.py" />
+        <option value="$PROJECT_DIR$/src/calculs/dynamique/trajectoire.py" />
+        <option value="$PROJECT_DIR$/src/calculs/setups/parametres_objets.py" />
+        <option value="$PROJECT_DIR$/src/calculs/simulation_vitesses_cables/simulateur_vitesses_angles.py" />
+        <option value="$PROJECT_DIR$/src/calculs/simulation_mesures/simulateur_mesure.py" />
+        <option value="$PROJECT_DIR$/src/calculs/simulation_mesures/mesureur_mesurable.py" />
+        <option value="$PROJECT_DIR$/src/calculs/graphics/robotvisualization.py" />
+        <option value="$PROJECT_DIR$/src/calculs/simulation_mesures/cable_robot_observable.py" />
+        <option value="$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py" />
+        <option value="$PROJECT_DIR$/src/calculs/modeles/entite_cable_robot.py" />
+        <option value="$PROJECT_DIR$/src/calculs/simulation_mesures/cable_robot_observers.py" />
+        <option value="$PROJECT_DIR$/src/calculs/drawCube.py" />
+        <option value="$PROJECT_DIR$/src/calculs/graphics/robotvisualization2.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1376" />
-    <option name="height" value="754" />
+    <option name="x" value="-7" />
+    <option name="y" value="2" />
+    <option name="width" value="1372" />
+    <option name="height" value="743" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -242,7 +234,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -290,6 +281,7 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -309,18 +301,18 @@
     </option>
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Repository\minlight\src\calculs\modeles" />
+      <recent name="C:\Repository\minlight\src\calculs" />
+      <recent name="C:\Repository\minlight\trash" />
+      <recent name="C:\Repository\minlight" />
+      <recent name="C:\Repository\minlight\calculs géometriques" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Repository\minlight\src\calculs" />
       <recent name="C:\Repository\minlight\src\calculs\graphics" />
       <recent name="C:\Repository\minlight\src\calculs\simulation\setups" />
       <recent name="C:\Repository\minlight\calculs géometriques" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Repository\minlight\src\calculs" />
-      <recent name="C:\Repository\minlight\trash" />
-      <recent name="C:\Repository\minlight" />
-      <recent name="C:\Repository\minlight\calculs géometriques" />
-      <recent name="C:\Repository\minlight\src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -335,7 +327,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.drawTrajectoire">
+  <component name="RunManager" selected="Python.drawCube2">
     <configuration default="false" name="banc_tests" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -499,9 +491,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.drawTrajectoire" />
-        <item index="1" class="java.lang.String" itemvalue="Python.drawCube2" />
-        <item index="2" class="java.lang.String" itemvalue="Python.drawCube" />
+        <item index="0" class="java.lang.String" itemvalue="Python.drawCube2" />
+        <item index="1" class="java.lang.String" itemvalue="Python.drawCube" />
+        <item index="2" class="java.lang.String" itemvalue="Python.drawTrajectoire" />
         <item index="3" class="java.lang.String" itemvalue="Python.banc_tests" />
         <item index="4" class="java.lang.String" itemvalue="Python.parametres_ancrage" />
       </list>
@@ -517,13 +509,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1508855063589</updated>
-    </task>
-    <task id="LOCAL-00004" summary="...">
-      <created>1510064277622</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1510064277622</updated>
     </task>
     <task id="LOCAL-00005" summary="...">
       <created>1510352666705</created>
@@ -861,7 +846,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512301021591</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="hotfix 180 graus">
+      <created>1512493185050</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1512493185050</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TodoView">
@@ -874,28 +866,39 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1376" height="754" extended-state="6" />
+    <frame x="-7" y="2" width="1372" height="743" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2511381" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22222222" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27769348" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32072368" sideWeight="0.52276176" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24051593" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12828948" sideWeight="0.47723824" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24048707" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2814871" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="304" y="14" width="374" height="621" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32401314" sideWeight="0.47723824" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27010623" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928678" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28453946" sideWeight="0.48860183" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928678" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27769348" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32072368" sideWeight="0.52276176" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24051593" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2814871" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="304" y="14" width="374" height="621" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12828948" sideWeight="0.47723824" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27010623" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4238965" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928678" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28453946" sideWeight="0.48860183" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52435315" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -926,7 +929,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="organização de modulos" />
     <MESSAGE value="ajustes" />
     <MESSAGE value="entites math mexido sem querer" />
     <MESSAGE value="faux test rangé, il faut tourner" />
@@ -951,14 +953,15 @@
     <MESSAGE value="create cables do sistema" />
     <MESSAGE value="movendo setups" />
     <MESSAGE value="controler de teclado e controlavel de visulização e source" />
-    <option name="LAST_COMMIT_MESSAGE" value="controler de teclado e controlavel de visulização e source" />
+    <MESSAGE value="hotfix 180 graus" />
+    <option name="LAST_COMMIT_MESSAGE" value="hotfix 180 graus" />
     <option name="UPDATE_GROUP_BY_PACKAGES" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/calculs/simulation/angles_limites.py</url>
+          <url>file://$PROJECT_DIR$/src/calculs/simulation_angles_limites/angles_limites.py</url>
           <line>144</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
@@ -1010,21 +1013,14 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Program Files/Anaconda3/Lib/site-packages/matplotlib/backends/__init__.py" />
-    <entry file="file://C:/Program Files/Anaconda3/Lib/site-packages/matplotlib/pyplot.py" />
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/graphes/simple_haut_haut.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/banc_tests.py">
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation_angles_limites/banc_tests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/graphes/simple_haut_mid.png">
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation_angles_limites/graphes/simple_haut_mid.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -1056,12 +1052,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/graphes/sh_sch_haut_mid.png">
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation_angles_limites/graphes/sh_sch_haut_mid.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/graphes/simple_haut_bas.png">
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation_angles_limites/graphes/simple_haut_bas.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -1082,20 +1078,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/angles_limites.py">
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation_angles_limites/angles_limites.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="236">
           <caret line="24" column="35" lean-forward="false" selection-start-line="19" selection-start-column="17" selection-end-line="24" selection-end-column="35" />
           <folding>
             <element signature="e#0#96#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/banc_tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3863">
-          <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1109,7 +1098,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/angles_limites_factory.py">
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation_angles_limites/angles_limites_factory.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="237">
           <caret line="18" column="58" lean-forward="true" selection-start-line="18" selection-start-column="58" selection-end-line="18" selection-end-column="58" />
@@ -1120,21 +1109,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1430">
           <caret line="682" column="4" lean-forward="false" selection-start-line="682" selection-start-column="4" selection-end-line="682" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/setups/parametres_ancrage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="41" lean-forward="false" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entite_cable_robot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="26" column="62" lean-forward="false" selection-start-line="26" selection-start-column="62" selection-end-line="26" selection-end-column="62" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1152,16 +1126,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="378" column="85" lean-forward="true" selection-start-line="378" selection-start-column="85" selection-end-line="378" selection-end-column="85" />
-          <folding>
-            <element signature="e#0#68#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1120166012/time.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
@@ -1173,24 +1137,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
           <caret line="37" column="4" lean-forward="false" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/control/controlable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="57" column="4" lean-forward="false" selection-start-line="57" selection-start-column="4" selection-end-line="87" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/drawCube.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="14" column="23" lean-forward="true" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#49#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1242,9 +1188,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="57" column="25" lean-forward="false" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#64#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1252,9 +1195,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
           <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1265,49 +1205,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/control/cable_robot_source_controlable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="8" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/graphics/robotvisualization2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2760">
-          <caret line="127" column="49" lean-forward="false" selection-start-line="127" selection-start-column="49" selection-end-line="127" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/control/keyboard_controlers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3519">
           <caret line="157" column="8" lean-forward="false" selection-start-line="157" selection-start-column="8" selection-end-line="157" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/drawCube2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#61#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/dynamique/miscellaneous.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1315,61 +1216,144 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1627">
           <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/drawCube2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/trajectoires_jolies">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/dynamique/miscellaneous.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/setups/parametres_ancrage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-173">
+          <caret line="2" column="41" lean-forward="false" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/setups/parametres_objets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="102" column="38" lean-forward="false" selection-start-line="102" selection-start-column="38" selection-end-line="102" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/dynamique/trajectoire.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1725">
+          <caret line="21" column="8" lean-forward="false" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/control/controlable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/control/cable_robot_source_controlable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="42" lean-forward="true" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/graphics/robotvisualization.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="309" column="36" lean-forward="true" selection-start-line="309" selection-start-column="36" selection-end-line="309" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation_angles_limites/banc_tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1012">
+          <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_mathemathiques.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="14" column="21" lean-forward="true" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entite_cable_robot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="19" column="8" lean-forward="false" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/graphics/robotvisualization2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="173" column="47" lean-forward="false" selection-start-line="173" selection-start-column="47" selection-end-line="173" selection-end-column="47" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/drawCube.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation_mesures/cable_robot_observers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation_mesures/simulateur_mesure.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TODO list">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
-          <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
-          <folding />
+          <caret line="10" column="30" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/graphics/robotvisualization.py">
+    <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="312" column="0" lean-forward="false" selection-start-line="312" selection-start-column="0" selection-end-line="312" selection-end-column="0" />
+        <state relative-caret-position="138">
+          <caret line="264" column="18" lean-forward="false" selection-start-line="264" selection-start-column="0" selection-end-line="266" selection-end-column="0" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#0#68#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/drawTrajectoire.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#49#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_mathemathiques.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="197" column="8" lean-forward="false" selection-start-line="197" selection-start-column="8" selection-end-line="197" selection-end-column="8" />
+        <state relative-caret-position="264">
+          <caret line="17" column="23" lean-forward="false" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/setups/parametres_objets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="123" column="0" lean-forward="false" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/dynamique/trajectoire.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="100" column="31" lean-forward="true" selection-start-line="100" selection-start-column="31" selection-end-line="100" selection-end-column="31" />
-          <folding>
-            <element signature="e#44#100#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

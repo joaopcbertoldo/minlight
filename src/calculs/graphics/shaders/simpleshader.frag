@@ -23,7 +23,7 @@ void main()
 		else
 		{
 			gl_FragColor.xyz = 0.5*out_Color.xyz;
-			gl_FragColor.w = 1.0;
+			gl_FragColor.w = out_Color.w;
 		}
 }
 	//gl_FragColor = out_Normal;

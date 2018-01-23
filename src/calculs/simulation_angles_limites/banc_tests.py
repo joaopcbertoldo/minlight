@@ -6,7 +6,7 @@ from src.calculs.modeles.entites_mathemathiques import \
     IntervalleLineaire
 from src.calculs.modeles.enums import UniteAngleEnum
 from src.calculs.setups import faux
-from src.calculs.simulation import angles_limites_factory
+from src.calculs.simulation_angles_limites import angles_limites_factory
 
 matplotlib.use('Agg')
 

@@ -29,15 +29,15 @@ dimensions_chambre = \
         # on considere le sisteme à partir de l'évaporateur
         longueur=8500,  # mm
         largeur=5000,   # mm
-        hauteur=4000    # mm
+        hauteur=3800    # mm
     )
 
 # centre
 centre_chambre = \
     Vecteur3D(
         x=dimensions_chambre['longueur'] / 2,  # mm
-        y=dimensions_chambre['largeur' ] / 2,  # mm
-        z=dimensions_chambre['hauteur' ] / 2   # mm
+        y=dimensions_chambre['largeur'] / 2,  # mm
+        z=dimensions_chambre['hauteur'] / 2   # mm
     )
 
 # pavé
@@ -99,8 +99,8 @@ dimensions_source = \
 centre_source = \
     Vecteur3D(
         x=dimensions_chambre['longueur'] / 5,  # mm
-        y=dimensions_chambre['largeur' ] / 2,  # mm
-        z=dimensions_chambre['hauteur' ] / 2   # mm
+        y=dimensions_chambre['largeur'] / 2,  # mm
+        z=dimensions_chambre['hauteur'] / 2   # mm
     )
 
 source = \
@@ -133,6 +133,38 @@ rotation_systeme_spherique = \
 systeme_spherique_baie_vitree = SystemeRepereSpherique(
     centre=centre_systeme_spherique,
     ypr_angles=rotation_systeme_spherique
+)
+
+''' ************************ Camera ************************ '''
+camera_direction = Vecteur3D(
+        x=0,
+        y=0,
+        z=0
+)
+
+#position
+camera_position1 = Vecteur3D(
+        x=-dimensions_chambre['longueur']/2,  # mm
+        y=-0.25*dimensions_chambre['largeur'] ,  # mm
+        z=-0.1*dimensions_chambre['hauteur'] #mm
+)
+
+camera_position2 = Vecteur3D(
+        x=-dimensions_chambre['longueur']/2,  # mm
+        y=-0.25*dimensions_chambre['largeur'] ,  # mm
+        z=0.25*dimensions_chambre['hauteur'] #mm
+)
+
+camera_position3 = Vecteur3D(
+        x=-dimensions_chambre['longueur']/2,  # mm
+        y=0.25*dimensions_chambre['largeur'] ,  # mm
+        z=-0.25*dimensions_chambre['hauteur'] #mm
+)
+
+camera_position4 = Vecteur3D(
+        x=-dimensions_chambre['longueur']/2,  # mm
+        y=0.25*dimensions_chambre['largeur'] ,  # mm
+        z=0.25*dimensions_chambre['hauteur'] #mm
 )
 
 
