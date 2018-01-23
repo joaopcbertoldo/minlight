@@ -78,7 +78,7 @@ def get_tension (cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7)
         print("Wrench matrix not invertible")
 
    # F_med = (F_min+F_max)/2
-    F_med = 1000*np.ones(8)
+    F_med = 100*np.ones(8)
     A_pseudo_transp = np.dot(A, np.linalg.inv(np.dot(np.transpose(A), A)))
 
 
@@ -135,6 +135,7 @@ cable4 = Cable(sommet_source[6], "S111", point_ancrage[2], 1., 1., 100.)
 cable5 = Cable(sommet_source[7], "S011", point_ancrage[2], 1., 1., 100.)
 cable6 = Cable(sommet_source[7], "S011", point_ancrage[3], 1., 1., 100.)
 cable7 = Cable(sommet_source[4], "S001", point_ancrage[3], 1., 1., 100.)
+
 F = get_tension(
     cable0,
     cable1,
