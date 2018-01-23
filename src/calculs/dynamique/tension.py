@@ -55,13 +55,13 @@ def get_tension (cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7)
                                                            centre_masse.get_nparray(), cable2.get_nparray_unitaire()))],
         [np.append(cable3.get_nparray_unitaire(), np.cross(cable3.get_sommet_source().get_nparray() -
                                                            centre_masse.get_nparray(), cable3.get_nparray_unitaire()))],
-        [np.append(cable4.get_nparray_unitaire(), np.cross(cable4.get_sommet_source() -
+        [np.append(cable4.get_nparray_unitaire(), np.cross(cable4.get_sommet_source().get_nparray() -
                                                            centre_masse.get_nparray(), cable4.get_nparray_unitaire()))],
-        [np.append(cable5.get_nparray_unitaire(), np.cross(cable5.get_sommet_source() -
+        [np.append(cable5.get_nparray_unitaire(), np.cross(cable5.get_sommet_source().get_nparray() -
                                                            centre_masse.get_nparray(), cable5.get_nparray_unitaire()))],
-        [np.append(cable6.get_nparray_unitaire(), np.cross(cable6.get_sommet_source() -
+        [np.append(cable6.get_nparray_unitaire(), np.cross(cable6.get_sommet_source().get_nparray() -
                                                            centre_masse.get_nparray(), cable6.get_nparray_unitaire()))],
-        [np.append(cable7.get_nparray_unitaire(), np.cross(cable7.get_sommet_source() -
+        [np.append(cable7.get_nparray_unitaire(), np.cross(cable7.get_sommet_source().get_nparray() -
                                                            centre_masse.get_nparray(), cable7.get_nparray_unitaire()))]
     ]).reshape(8, 6)
 
@@ -97,7 +97,6 @@ def get_tension (cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7)
 
 
 # TESTE:
-
 
 long = 1.0
 larg = 1.0
@@ -136,14 +135,14 @@ sommet_source = [   Vecteur3D(1.5, 2.5, 2.0),
 ############# pegar o nome dos sommets com o joao ###############
 ######## devo usar a classe Vecteur3D ? se sim, precisa adicionar um metodo
 ######## pra converter em np.array, porque preciso das funçoes do numpy
-cable0 = Cable(point_ancrage[0], "a", sommet_source[4],1., 1., 100.)
-cable1 = Cable(point_ancrage[0], "a", sommet_source[5],1., 1., 100.)
-cable2 = Cable(point_ancrage[1], "a", sommet_source[5],1., 1., 100.)
-cable3 = Cable(point_ancrage[1], "a", sommet_source[6],1., 1., 100.)
-cable4 = Cable(point_ancrage[2], "a", sommet_source[6],1., 1., 100.)
-cable5 = Cable(point_ancrage[2], "a", sommet_source[7],1., 1., 100.)
-cable6 = Cable(point_ancrage[3], "a", sommet_source[7],1., 1., 100.)
-cable7 = Cable(point_ancrage[3], "a", sommet_source[4],1., 1., 100.)
+cable0 = Cable(point_ancrage[0], "S001", sommet_source[4],1., 1., 100.)
+cable1 = Cable(point_ancrage[0], "S101", sommet_source[5],1., 1., 100.)
+cable2 = Cable(point_ancrage[1], "S101", sommet_source[5],1., 1., 100.)
+cable3 = Cable(point_ancrage[1], "S111", sommet_source[6],1., 1., 100.)
+cable4 = Cable(point_ancrage[2], "S111", sommet_source[6],1., 1., 100.)
+cable5 = Cable(point_ancrage[2], "S011", sommet_source[7],1., 1., 100.)
+cable6 = Cable(point_ancrage[3], "S011", sommet_source[7],1., 1., 100.)
+cable7 = Cable(point_ancrage[3], "S001", sommet_source[4],1., 1., 100.)
 
 
 F = get_tension(

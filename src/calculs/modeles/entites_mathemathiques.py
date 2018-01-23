@@ -49,7 +49,7 @@ class Vecteur3D(matrix):
         return Vecteur3D(self[1]*v2[2] , self[2]*v2[0] , self[0]*v2[1])
 
     def get_nparray(self):
-        return np.array([self[0], self[1], self[2]])
+        return np.array([self[0], self[1], self[2]]).reshape(1,3)
 
 class TupleAnglesRotation():
 
