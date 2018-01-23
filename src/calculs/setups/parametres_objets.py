@@ -29,15 +29,15 @@ dimensions_chambre = \
         # on considere le sisteme à partir de l'évaporateur
         longueur=8500,  # mm
         largeur=5000,   # mm
-        hauteur=4000    # mm
+        hauteur=3800    # mm
     )
 
 # centre
 centre_chambre = \
     Vecteur3D(
         x=dimensions_chambre['longueur'] / 2,  # mm
-        y=dimensions_chambre['largeur' ] / 2,  # mm
-        z=dimensions_chambre['hauteur' ] / 2   # mm
+        y=dimensions_chambre['largeur'] / 2,  # mm
+        z=dimensions_chambre['hauteur'] / 2   # mm
     )
 
 # pavé
@@ -99,8 +99,8 @@ dimensions_source = \
 centre_source = \
     Vecteur3D(
         x=dimensions_chambre['longueur'] / 5,  # mm
-        y=dimensions_chambre['largeur' ] / 2,  # mm
-        z=dimensions_chambre['hauteur' ] / 2   # mm
+        y=dimensions_chambre['largeur'] / 2,  # mm
+        z=dimensions_chambre['hauteur'] / 2   # mm
     )
 
 source = \
