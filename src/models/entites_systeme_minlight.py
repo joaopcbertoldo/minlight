@@ -6,42 +6,42 @@ from numpy import random, arcsin,degrees,radians,cos,sin,arccos
 from src.calculs.graphics.outils import Surface
 
 
-class DimensionsPave:
+class BoxDimensions:
 
-    def __init__(self, longueur, largeur, hauteur):
-        self._dimensions = {'longueur': longueur, 'largeur': largeur, 'hauteur': hauteur}
+    def __init__(self, length, width, height):
+        self._dimensions = {'length': length, 'width': width, 'height': height}
 
     def __getitem__(self, key):
         return self._dimensions[key]
 
     def get_tuple_dimensions(self):
-        return self._dimensions['longueur'], self._dimensions['largeur'], self._dimensions['hauteur']
+        return self._dimensions['length'], self._dimensions['width'], self._dimensions['height']
 
 
-class ConfigurationCable:
+class CableConfiguration:
 
-    def __init__(self, point_ancrage, nom_sommet_source):
-        self._nom_sommet_source = nom_sommet_source
-        self._point_ancrage     = point_ancrage
+    def __init__(self, fixed_point, source_vertex_name):
+        self._source_vertex_name = source_vertex_name
+        self._fixed_point     = fixed_point
 
-    def get_point_ancrage(self):
-        return self._point_ancrage
+    def get_fixed_point(self):
+        return self._fixed_point
 
-    def get_nom_sommet_source(self):
-        return self._nom_sommet_source
+    def get_source_vertex_name(self):
+        return self._source_vertex_name
 
     def __getitem__(self, key):
-        if key == 'nom_sommet_source':
-            return self._nom_sommet_source
+        if key == 'source_vertex_name':
+            return self._source_vertex_name
 
-        elif key == 'point_ancrage':
-            return self._point_ancrage
+        elif key == 'fixed_point':
+            return self._fixed_point
 
         else:
-            raise KeyError('nom_sommet_source ou point_ancrage')
+            raise KeyError('source_vertex_name or fixed_point')
 
 
-class ConfigurationAncrage:
+class Fi....Configuration:
 
     def __init__(self, configs_cables):
         if len(configs_cables) != 8:
@@ -49,20 +49,20 @@ class ConfigurationAncrage:
 
         self._configs_cables = configs_cables
 
-    def get_config_cable(self, nom_sommet_source):
+    def get_config_cable(self, source_vertex_name):
         return next(config_cable
                     for config_cable in self._configs_cables
-                    if config_cable['nom_sommet_source'] == nom_sommet_source)
+                    if config_cable['source_vertex_name'] == source_vertex_name)
 
     def get_cables(self, sommets_source, diametre_cable):
         return [
             Cable(
-                nom_sommet_source=nom_sommet,
-                point_ancrage=self.get_config_cable(nom_sommet).get_point_ancrage(),
-                sommet_source=sommets_source[nom_sommet],
-                diametre=diametre_cable
+                source_vertex_name=vertex_name,
+                fixed_point=self.get_config_cable(vertex_name).get_fixed_point(),
+                source_vertex=sommets_source[vertex_name],
+                diameter=diametre_cable
             )
-            for nom_sommet in Pave.noms_sommets_pave
+            for vertex_name in Pave.noms_sommets_pave
         ]
 
     def get_points_fixes(self):
@@ -76,14 +76,14 @@ class ConfigurationAncrage:
 
 class Cable:
 
-    def __init__(self, point_ancrage, nom_sommet_source, sommet_source,diametre, tension_min = 1., tension_max = 100.):
-        self.nom_sommet_source = nom_sommet_source
-        self.point_ancrage     = point_ancrage
-        self.sommet_source     = sommet_source
-        self.diametre          = diametre
-        self.vecteur           = Vecteur3D.vecteur_depuis_difference_deux_vecteurs(
-                                   vecteur_depart  = self.point_ancrage,
-                                   vecteur_arrivee = self.sommet_source
+    def __init__(self, fixed_point, source_vertex_name, source_vertex, diameter, tension_min = 1., tension_max = 100.):
+        self.source_vertex_name = source_vertex_name
+        self.fixed_point       = fixed_point
+        self.source_vertex     = source_vertex
+        self.diameter          = diameter
+        self.vector           = Vec3.vecteur_depuis_difference_deux_vecteurs(
+                                   vector_depart  = self.fixed_point,
+                                   vecteur_arrivee = self.source_vertex
                                  )
         self.tension_min = tension_min
         self.tension_max = tension_max
@@ -91,10 +91,10 @@ class Cable:
     ####  metodos adicionados  #####:
 
     def get_sommet_source (self):
-        return self.sommet_source
+        return self.source_vertex
 
     def get_point_ancrage(self):
-        return self.point_ancrage
+        return self.fixed_point
 
     def get_tension_min(self):
         return self.tension_min
@@ -103,15 +103,15 @@ class Cable:
         return self.tension_max
 
     def get_vecteur_unitaire(self):
-        return self.vecteur / self.longueur()
+        return self.vector / self.longueur()
 
     def get_nparray_unitaire(self):
-        return self.vecteur.get_nparray_unitaire()
+        return self.vector.get_nparray_unitaire()
 
     #################################
 
     def longueur(self):
-        return self.vecteur.norme()
+        return self.vector.norme()
 
 
     def get_generator_points_discretisation(self, nombre_points=300, inclure_sommet_ancrage=False, inclure_sommet_source=False):
@@ -121,13 +121,13 @@ class Cable:
 
         linear_range = range(range_min, range_max)
 
-        return (self.point_ancrage + (i / nombre_points) * self.vecteur for i in linear_range)
+        return (self.fixed_point + (i / nombre_points) * self.vector for i in linear_range)
 
     def intersects_cable(self, cable2):
 
-        origin = self.point_ancrage
+        origin = self.fixed_point
         #print("origin:" + str(origin.transpose()))
-        direction = self.point_ancrage - self.sommet_source
+        direction = self.fixed_point - self.source_vertex
         #print("direction before normalization:" + str(direction.transpose()))
         direction = direction.get_vecteur_diretion()
         #print("direction after normalization:" + str(direction.transpose()))
@@ -145,7 +145,7 @@ class Cable:
         axis = normalePlane2.get_vecteur_diretion()
         centre = pointPlane1
 
-        radius = cable2.diametre/2 + self.diametre/2
+        radius = cable2.diametre/2 + self.diameter / 2
 
         a = direction.scalar_product(direction) - direction.scalar_product(axis)**2
         b = 2*(direction.scalar_product(origin - centre )   - direction.scalar_product(axis)*axis.scalar_product(origin - centre))
@@ -201,7 +201,7 @@ class Cable:
     def draw(self,origin):
         edge = (0,1)
         verticies = (
-            self.sommet_source - origin,self.point_ancrage - origin
+            self.source_vertex - origin, self.fixed_point - origin
             )
         glBegin(GL_LINES)
         for vertex in edge:
