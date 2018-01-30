@@ -69,14 +69,11 @@ for i in range (4):
 
 while(1):
     position =[0,0,0,0,0,0,0]
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        print('end')
-        break
-
-
 
     for j in range(4):
-        position_j=position_detect.fnpostion(dist[j],mtx[j],cap[j])
+        ret, img = cap[j].read()
+        cv2.imshow('img'+str(j),img)
+        position_j=position_detect.fnpostion(dist[j],mtx[j],ret, img)
 
         #defalut : 60 degree for limite_pitch and limite_yaw
         if quality(position_j,np.pi/3,np.pi/3):
@@ -92,6 +89,8 @@ while(1):
     print ('-------rotation--------')
     print (yaw,pitch,rall)
 
-
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        print('end')
+        break
 
 cv2.destroyAllWindows()
