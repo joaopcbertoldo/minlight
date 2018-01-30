@@ -111,7 +111,7 @@ class Cable:
     #################################
 
     def longueur(self):
-        return self.vector.norme()
+        return self.vector.norm()
 
 
     def get_generator_points_discretisation(self, nombre_points=300, inclure_sommet_ancrage=False, inclure_sommet_source=False):
@@ -228,7 +228,7 @@ class Pave:
 
         demi_long, demi_larg, demi_haut = long / 2, larg / 2, haut / 2
 
-        x, y, z = point.get_coordonnees()
+        x, y, z = point.get_tuple()
 
         return -demi_long <= x <= demi_long and \
                -demi_larg <= y <= demi_larg and \
@@ -473,7 +473,7 @@ class Pave:
             glBegin(GL_QUADS)
             for surface in surfaces:
                 normal = get_plane_normal(surface,self.sommets,self.centre)
-                normal_tuple = normal.get_coordonnees()
+                normal_tuple = normal.get_tuple()
                 for vertex in surface:
                     glColor4fv(color)
                     glNormal3fv(normal_tuple)
@@ -512,7 +512,7 @@ class Chambre(Pave):
         ground = (4,6,2,0)
 
         normal = get_plane_normal(ground,self.sommets,-self.centre)
-        normal_tuple = normal.get_coordonnees()
+        normal_tuple = normal.get_tuple()
 
         glBegin(GL_QUADS)
         for vertex in ground:
@@ -655,7 +655,7 @@ class Source(Pave):
         light = (1,3,2,0)
 
         normal = get_plane_normal(light,self.sommets,self.centre)
-        normal_tuple = normal.get_coordonnees()
+        normal_tuple = normal.get_tuple()
         glBegin(GL_QUADS)
         for vertex in light:
             glNormal3fv(normal_tuple)

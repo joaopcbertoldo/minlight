@@ -80,8 +80,8 @@ Fonction qui teste si un point est dans le volume du soleil
 def appartientVolumeSoleil(point, centre, theta, phi):
 
     def matriceRotation(angle, vecteur):
-        norme = vecteur / np.linalg.norm(vecteur)
-        x, y, z = getCoordonnees(norme)
+        norm = vecteur / np.linalg.norm(vecteur)
+        x, y, z = getCoordonnees(norm)
         c = math.cos(angle)
         s = math.sin(angle)
         r11 = x**2 + (1-x**2)*c

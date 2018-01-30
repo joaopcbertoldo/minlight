@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/math_entities.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/math_entities.py" afterPath="$PROJECT_DIR$/src/math_entities.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/entites_systeme_minlight.py" afterPath="$PROJECT_DIR$/src/models/entites_systeme_minlight.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/visualization/trackball.py" afterPath="$PROJECT_DIR$/src/visualization/trackball.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trash/calculs géometriques/fichierCompletColine.py" afterPath="$PROJECT_DIR$/trash/calculs géometriques/fichierCompletColine.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trash/calculs géometriques/parametrage2.py" afterPath="$PROJECT_DIR$/trash/calculs géometriques/parametrage2.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trash/calculs géometriques/parametrage3.py" afterPath="$PROJECT_DIR$/trash/calculs géometriques/parametrage3.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trash/calculs géometriques/parametrage4.py" afterPath="$PROJECT_DIR$/trash/calculs géometriques/parametrage4.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trash/outils.py" afterPath="$PROJECT_DIR$/trash/outils.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trash/trash.py" afterPath="$PROJECT_DIR$/trash/trash.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,10 +35,10 @@
       <file leaf-file-name="math_entities.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/math_entities.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1214">
-              <caret line="101" column="78" lean-forward="false" selection-start-line="101" selection-start-column="78" selection-end-line="101" selection-end-column="78" />
+            <state relative-caret-position="161">
+              <caret line="68" column="0" lean-forward="true" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#0#33#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -47,10 +55,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>get_ypr_angles</find>
-      <find>get_rpy_angles</find>
-      <find>dimensions_pave</find>
-      <find>get_dimensions_pave</find>
       <find>creer_cables</find>
       <find>space</find>
       <find>rot</find>
@@ -77,6 +81,10 @@
       <find>Cable</find>
       <find>get_light</find>
       <find>Vecteur3D</find>
+      <find>get_coordonnees</find>
+      <find>n</find>
+      <find>norm</find>
+      <find>norme</find>
     </findStrings>
     <replaceStrings>
       <replace>Vecteur3D</replace>
@@ -99,6 +107,8 @@
       <replace>self._rotate_func</replace>
       <replace>self._scale_func</replace>
       <replace>Vec3</replace>
+      <replace>get_tuple</replace>
+      <replace>norm</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -489,13 +499,6 @@
       <option name="presentableId" value="Default" />
       <updated>1508855063589</updated>
     </task>
-    <task id="LOCAL-00009" summary="verificação de point no pave dentro da classe pavé">
-      <created>1510421628931</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1510421628931</updated>
-    </task>
     <task id="LOCAL-00010" summary="verificação de point no pave dentro da classe pavé">
       <created>1510421704498</created>
       <option name="number" value="00010" />
@@ -832,7 +835,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517327235850</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="math entities">
+      <created>1517327455293</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1517327455293</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TodoView">
@@ -847,10 +857,10 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="2" width="1372" height="743" extended-state="0" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21385084" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21385084" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27769348" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32072368" sideWeight="0.52276176" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.110552765" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2562814" sideWeight="0.51445967" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2562814" sideWeight="0.48554033" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12828948" sideWeight="0.47723824" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24048707" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37519026" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="304" y="14" width="374" height="621" />
@@ -897,7 +907,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="resolution de conflit" />
     <MESSAGE value="correção de nomes de métodos no pavé" />
     <MESSAGE value="resultats du faux !!!" />
     <MESSAGE value="get points fixes dans le config dancrage" />
@@ -922,7 +931,8 @@
     <MESSAGE value="observador para trajetorias de cabo" />
     <MESSAGE value="math entities name change" />
     <MESSAGE value="vecteur3d to vec3" />
-    <option name="LAST_COMMIT_MESSAGE" value="vecteur3d to vec3" />
+    <MESSAGE value="math entities" />
+    <option name="LAST_COMMIT_MESSAGE" value="math entities" />
     <option name="UPDATE_GROUP_BY_PACKAGES" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1297,14 +1307,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/entites_systeme_minlight.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="248" column="23" lean-forward="false" selection-start-line="248" selection-start-column="23" selection-end-line="248" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/setups/parametres_ancrage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
@@ -1315,12 +1317,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/entites_systeme_minlight.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="475" column="38" lean-forward="false" selection-start-line="475" selection-start-column="38" selection-end-line="475" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/math_entities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1214">
-          <caret line="101" column="78" lean-forward="false" selection-start-line="101" selection-start-column="78" selection-end-line="101" selection-end-column="78" />
+        <state relative-caret-position="161">
+          <caret line="68" column="0" lean-forward="true" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
