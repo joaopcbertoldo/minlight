@@ -246,7 +246,7 @@ class Pave:
         self.update_sommets()
 
     def translate(self,delta_x,delta_y,delta_z):
-        self.centre += Vecteur3D(delta_x,delta_y,delta_z)
+        self.centre += Vec3(delta_x,delta_y,delta_z)
         self.update_sommets()
 
     def set_position(self,centre):
@@ -264,21 +264,21 @@ class Pave:
         res = (Rot * point) + self.centre
 
         # il faut faire ça sinon le retour est une matrice rot
-        return Vecteur3D(res.__getitem__((0,0)), res.__getitem__((1,0)), res.__getitem__((2,0)))
+        return Vec3(res.__getitem__((0,0)), res.__getitem__((1,0)), res.__getitem__((2,0)))
 
     def set_sommets_pave_origine(self):
         # dimensions
         long, larg, haut = self.dimensions.get_tuple_dimensions()
 
         # sommets (coins) du pavé centré dans l'origine
-        S000 = Vecteur3D(- long / 2, - larg / 2, - haut / 2)
-        S100 = Vecteur3D(+ long / 2, - larg / 2, - haut / 2)
-        S010 = Vecteur3D(- long / 2, + larg / 2, - haut / 2)
-        S110 = Vecteur3D(+ long / 2, + larg / 2, - haut / 2)
-        S001 = Vecteur3D(- long / 2, - larg / 2, + haut / 2)
-        S101 = Vecteur3D(+ long / 2, - larg / 2, + haut / 2)
-        S011 = Vecteur3D(- long / 2, + larg / 2, + haut / 2)
-        S111 = Vecteur3D(+ long / 2, + larg / 2, + haut / 2)
+        S000 = Vec3(- long / 2, - larg / 2, - haut / 2)
+        S100 = Vec3(+ long / 2, - larg / 2, - haut / 2)
+        S010 = Vec3(- long / 2, + larg / 2, - haut / 2)
+        S110 = Vec3(+ long / 2, + larg / 2, - haut / 2)
+        S001 = Vec3(- long / 2, - larg / 2, + haut / 2)
+        S101 = Vec3(+ long / 2, - larg / 2, + haut / 2)
+        S011 = Vec3(- long / 2, + larg / 2, + haut / 2)
+        S111 = Vec3(+ long / 2, + larg / 2, + haut / 2)
 
         # sommets (coins) de la source repérés par rapport à son centre
         return [S000, S001, S010, S011, S100, S101, S110, S111]
@@ -325,7 +325,7 @@ class Pave:
         point_repere_pave = Rot * (point - self.centre)
 
         # il faut faire ça parce que l'operation cidessus renvoie une matrice rotation
-        point_repere_pave = Vecteur3D(point_repere_pave.__getitem__((0,0)),
+        point_repere_pave = Vec3(point_repere_pave.__getitem__((0,0)),
                                       point_repere_pave.__getitem__((1,0)),
                                       point_repere_pave.__getitem__((2,0)))
 
@@ -350,29 +350,29 @@ class Pave:
             for j in range(k + 1):
               x = i*longueur/k
               z = j*hauteur/k
-              points_to_be_tested.append(Vecteur3D(x,0,z))
-              points_to_be_tested.append(Vecteur3D(x,largeur,z))
+              points_to_be_tested.append(Vec3(x,0,z))
+              points_to_be_tested.append(Vec3(x,largeur,z))
 
               x = i*longueur/k
               y = j*largeur/k
-              points_to_be_tested.append(Vecteur3D(x,y,0))
-              points_to_be_tested.append(Vecteur3D(x,y,hauteur))
+              points_to_be_tested.append(Vec3(x,y,0))
+              points_to_be_tested.append(Vec3(x,y,hauteur))
 
 
               y = i*largeur/k
               z = j*hauteur/k
-              points_to_be_tested.append(Vecteur3D(0,y,z))
-              points_to_be_tested.append(Vecteur3D(longueur,y,z))
+              points_to_be_tested.append(Vec3(0,y,z))
+              points_to_be_tested.append(Vec3(longueur,y,z))
 
         for index in range(len(points_to_be_tested)):
               points_to_be_tested[index] = (self.ypr_angles.get_matrice_rotation())*points_to_be_tested[index]
 
               #next line converts from 3d rotation matrix to vecteur3d
-              points_to_be_tested[index] = Vecteur3D(points_to_be_tested[index].__getitem__((0,0)),
+              points_to_be_tested[index] = Vec3(points_to_be_tested[index].__getitem__((0,0)),
                                                      points_to_be_tested[index].__getitem__((1,0)),
                                                      points_to_be_tested[index].__getitem__((2,0)))
 
-              points_to_be_tested[index] = points_to_be_tested[index] + self.centre - Vecteur3D(longueur/2,largeur/2,hauteur/2)
+              points_to_be_tested[index] = points_to_be_tested[index] + self.centre - Vec3(longueur/2,largeur/2,hauteur/2)
 
               if( pave2.point_appartient_pave(points_to_be_tested[index])):
                       return True
@@ -417,7 +417,7 @@ class Pave:
         res = Rot * p + centre_systeme
 
         # il faut faire ça sinon le retour est une matrice rot
-        self.centre = Vecteur3D(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
+        self.centre = Vec3(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
 
         self.ypr_angles = \
             TupleAnglesRotation(
@@ -564,10 +564,10 @@ class Source(Pave):
                 x0 = r*sin(theta_rad)*cos(phi_rad)
                 y0 = r*sin(theta_rad)*sin(phi_rad)
                 z0 = r*(1 - sqrt( 1 - sin(theta_rad)*sin(theta_rad)))
-                p = Vecteur3D(x0,y0,z0)
-                p = matRot*p - Vecteur3D(longueur/2,0,0)
-                p = Vecteur3D(p.item(0),p.item(1),p.item(2))
-                p2 = Vecteur3D(p.item(0),p.item(1),p.item(2))
+                p = Vec3(x0,y0,z0)
+                p = matRot*p - Vec3(longueur/2,0,0)
+                p = Vec3(p.item(0),p.item(1),p.item(2))
+                p2 = Vec3(p.item(0),p.item(1),p.item(2))
                 self.points_parable_origin.append(p)
                 self.points_parable.append(p2)
         self.squares_edges = []
@@ -680,36 +680,36 @@ class Maisonette(Pave):
         self.set_sommets_inside()
 
     def set_sommets_inside(self):
-        S0 =  self.sommets[0] - Vecteur3D(-self.wall_width, -self.wall_width,-self.wall_width)
-        S1 =  self.sommets[1] - Vecteur3D(-self.wall_width, -self.wall_width,self.wall_width)
-        S2 =  self.sommets[2] - Vecteur3D(-self.wall_width, self.wall_width,-self.wall_width)
-        S3 =  self.sommets[3] - Vecteur3D(-self.wall_width, self.wall_width,self.wall_width)
+        S0 =  self.sommets[0] - Vec3(-self.wall_width, -self.wall_width,-self.wall_width)
+        S1 =  self.sommets[1] - Vec3(-self.wall_width, -self.wall_width,self.wall_width)
+        S2 =  self.sommets[2] - Vec3(-self.wall_width, self.wall_width,-self.wall_width)
+        S3 =  self.sommets[3] - Vec3(-self.wall_width, self.wall_width,self.wall_width)
 
-        S4 =  self.sommets[4] - Vecteur3D(self.wall_width , -self.wall_width,-self.wall_width)
-        S5 =  self.sommets[5] - Vecteur3D(self.wall_width, -self.wall_width,self.wall_width)
-        S6 =  self.sommets[6] - Vecteur3D(self.wall_width, self.wall_width ,-self.wall_width)
-        S7 =  self.sommets[7] - Vecteur3D(self.wall_width, self.wall_width,self.wall_width )
+        S4 =  self.sommets[4] - Vec3(self.wall_width , -self.wall_width,-self.wall_width)
+        S5 =  self.sommets[5] - Vec3(self.wall_width, -self.wall_width,self.wall_width)
+        S6 =  self.sommets[6] - Vec3(self.wall_width, self.wall_width ,-self.wall_width)
+        S7 =  self.sommets[7] - Vec3(self.wall_width, self.wall_width,self.wall_width )
 
-        S4 =  self.sommets[4] - Vecteur3D(self.wall_width , -self.wall_width,-self.wall_width)
-        S5 =  self.sommets[5] - Vecteur3D(self.wall_width, -self.wall_width,self.wall_width)
-        S6 =  self.sommets[6] - Vecteur3D(self.wall_width, self.wall_width ,-self.wall_width)
-        S7 =  self.sommets[7] - Vecteur3D(self.wall_width, self.wall_width,self.wall_width )
+        S4 =  self.sommets[4] - Vec3(self.wall_width , -self.wall_width,-self.wall_width)
+        S5 =  self.sommets[5] - Vec3(self.wall_width, -self.wall_width,self.wall_width)
+        S6 =  self.sommets[6] - Vec3(self.wall_width, self.wall_width ,-self.wall_width)
+        S7 =  self.sommets[7] - Vec3(self.wall_width, self.wall_width,self.wall_width )
 
         longueur,largeur, hauteur = self.dimensions.get_tuple_dimensions()
 
         # window_inside_points
 
-        S8 =  self.sommets[1] - Vecteur3D(-self.wall_width, -(largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
-        S9 =  self.sommets[3] - Vecteur3D(-self.wall_width, (largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
-        S10 =  self.sommets[2] - Vecteur3D(-self.wall_width, (largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
-        S11 =  self.sommets[0] - Vecteur3D(-self.wall_width, -(largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S8 =  self.sommets[1] - Vec3(-self.wall_width, -(largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S9 =  self.sommets[3] - Vec3(-self.wall_width, (largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S10 =  self.sommets[2] - Vec3(-self.wall_width, (largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S11 =  self.sommets[0] - Vec3(-self.wall_width, -(largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
 
         #  window_outside_points
 
-        S12 =  self.sommets[1] - Vecteur3D(0, -(largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
-        S13 =  self.sommets[3] - Vecteur3D(0, (largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
-        S14 =  self.sommets[2] - Vecteur3D(0, (largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
-        S15 =  self.sommets[0] - Vecteur3D(0, -(largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S12 =  self.sommets[1] - Vec3(0, -(largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S13 =  self.sommets[3] - Vec3(0, (largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S14 =  self.sommets[2] - Vec3(0, (largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S15 =  self.sommets[0] - Vec3(0, -(largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
 
         S16 = self.sommets[0]
         S17 = self.sommets[1]

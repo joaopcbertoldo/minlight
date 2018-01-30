@@ -1,7 +1,7 @@
 from src.calculs.modeles.enums import UniteAngleEnum
 
 from src.calculs.modeles.entites_mathemathiques import \
-    Vecteur3D,                                \
+    Vec3,                                \
     TupleAnglesRotation,                      \
     SpaceRechercheAnglesLimites,              \
     IntervalleLineaire,                       \
@@ -34,7 +34,7 @@ dimensions_chambre = \
 
 # centre
 centre_chambre = \
-    Vecteur3D(
+    Vec3(
         x=dimensions_chambre['longueur'] / 2,  # mm
         y=dimensions_chambre['largeur'] / 2,  # mm
         z=dimensions_chambre['hauteur'] / 2   # mm
@@ -63,7 +63,7 @@ dimensions_maisonette = \
 
 # centre
 centre_maisonette = \
-    Vecteur3D(
+    Vec3(
         x=distance_evaporateur_maisonette + dimensions_maisonette['longueur'] / 2,
         y=dimensions_chambre['largeur'] / 2,
         z=dimensions_maisonette['hauteur'] / 2
@@ -97,7 +97,7 @@ dimensions_source = \
     )
 
 centre_source = \
-    Vecteur3D(
+    Vec3(
         x=dimensions_chambre['longueur'] / 5,  # mm
         y=dimensions_chambre['largeur'] / 2,  # mm
         z=dimensions_chambre['hauteur'] / 2   # mm
@@ -114,7 +114,7 @@ source = \
 
 # centre - supposé dans le centre de la face d'intérêt de la maisonette
 centre_systeme_spherique = \
-    Vecteur3D(
+    Vec3(
         x=distance_evaporateur_maisonette,
         y=dimensions_chambre['largeur'] / 2,
         z=dimensions_maisonette['hauteur'] / 2
@@ -136,32 +136,32 @@ systeme_spherique_baie_vitree = SystemeRepereSpherique(
 )
 
 ''' ************************ Camera ************************ '''
-camera_direction = Vecteur3D(
+camera_direction = Vec3(
         x=0,
         y=0,
         z=0
 )
 
 #position
-camera_position1 = Vecteur3D(
+camera_position1 = Vec3(
         x=-dimensions_chambre['longueur']/2,  # mm
         y=-0.25*dimensions_chambre['largeur'] ,  # mm
         z=-0.1*dimensions_chambre['hauteur'] #mm
 )
 
-camera_position2 = Vecteur3D(
+camera_position2 = Vec3(
         x=-dimensions_chambre['longueur']/2,  # mm
         y=-0.25*dimensions_chambre['largeur'] ,  # mm
         z=0.25*dimensions_chambre['hauteur'] #mm
 )
 
-camera_position3 = Vecteur3D(
+camera_position3 = Vec3(
         x=-dimensions_chambre['longueur']/2,  # mm
         y=0.25*dimensions_chambre['largeur'] ,  # mm
         z=-0.25*dimensions_chambre['hauteur'] #mm
 )
 
-camera_position4 = Vecteur3D(
+camera_position4 = Vec3(
         x=-dimensions_chambre['longueur']/2,  # mm
         y=0.25*dimensions_chambre['largeur'] ,  # mm
         z=0.25*dimensions_chambre['hauteur'] #mm

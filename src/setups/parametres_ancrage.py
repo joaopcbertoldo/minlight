@@ -1,4 +1,4 @@
-from src.calculs.modeles.entites_mathemathiques import Vecteur3D
+from src.calculs.modeles.entites_mathemathiques import Vec3
 
 from src.calculs.setups.parametres_objets import dimensions_chambre, distance_evaporateur_maisonette
 
@@ -27,38 +27,38 @@ class Ideal:
     @staticmethod
     def get_haut_bas():
         return {
-            'PF_000': Vecteur3D(      0,       0,       0),  # PF_000
-            'PF_100': Vecteur3D(Ideal.x,       0,       0),  # PF_100
-            'PF_010': Vecteur3D(      0, Ideal.y,       0),  # PF_010
-            'PF_110': Vecteur3D(Ideal.x, Ideal.y,       0),  # PF_110
-            'PF_001': Vecteur3D(      0,       0, Ideal.z),  # PF_001
-            'PF_101': Vecteur3D(Ideal.x,       0, Ideal.z),  # PF_101
-            'PF_011': Vecteur3D(      0, Ideal.y, Ideal.z),  # PF_011
-            'PF_111': Vecteur3D(Ideal.x, Ideal.y, Ideal.z)   # PF_111
+            'PF_000': Vec3(      0,       0,       0),  # PF_000
+            'PF_100': Vec3(Ideal.x,       0,       0),  # PF_100
+            'PF_010': Vec3(      0, Ideal.y,       0),  # PF_010
+            'PF_110': Vec3(Ideal.x, Ideal.y,       0),  # PF_110
+            'PF_001': Vec3(      0,       0, Ideal.z),  # PF_001
+            'PF_101': Vec3(Ideal.x,       0, Ideal.z),  # PF_101
+            'PF_011': Vec3(      0, Ideal.y, Ideal.z),  # PF_011
+            'PF_111': Vec3(Ideal.x, Ideal.y, Ideal.z)   # PF_111
         }
 
     @staticmethod
     def get_haut_mid():
         return {
-            'PF_000': Vecteur3D(      0,       0, Ideal.z/2),  # PF_000
-            'PF_100': Vecteur3D(Ideal.x,       0, Ideal.z/2),  # PF_100
-            'PF_010': Vecteur3D(      0, Ideal.y, Ideal.z/2),  # PF_010
-            'PF_110': Vecteur3D(Ideal.x, Ideal.y, Ideal.z/2),  # PF_110
-            'PF_001': Vecteur3D(      0,       0, Ideal.z),    # PF_001
-            'PF_101': Vecteur3D(Ideal.x,       0, Ideal.z),    # PF_101
-            'PF_011': Vecteur3D(      0, Ideal.y, Ideal.z),    # PF_011
-            'PF_111': Vecteur3D(Ideal.x, Ideal.y, Ideal.z)     # PF_111
+            'PF_000': Vec3(      0,       0, Ideal.z/2),  # PF_000
+            'PF_100': Vec3(Ideal.x,       0, Ideal.z/2),  # PF_100
+            'PF_010': Vec3(      0, Ideal.y, Ideal.z/2),  # PF_010
+            'PF_110': Vec3(Ideal.x, Ideal.y, Ideal.z/2),  # PF_110
+            'PF_001': Vec3(      0,       0, Ideal.z),    # PF_001
+            'PF_101': Vec3(Ideal.x,       0, Ideal.z),    # PF_101
+            'PF_011': Vec3(      0, Ideal.y, Ideal.z),    # PF_011
+            'PF_111': Vec3(Ideal.x, Ideal.y, Ideal.z)     # PF_111
         }
 
     @staticmethod
     def get_haut_haut():
         return {
-            'PF_000': Vecteur3D(      0,       0, Ideal.z),  # PF_000
-            'PF_100': Vecteur3D(Ideal.x,       0, Ideal.z),  # PF_100
-            'PF_010': Vecteur3D(      0, Ideal.y, Ideal.z),  # PF_010
-            'PF_110': Vecteur3D(Ideal.x, Ideal.y, Ideal.z),  # PF_110
-            'PF_001': Vecteur3D(      0,       0, Ideal.z),  # PF_001
-            'PF_101': Vecteur3D(Ideal.x,       0, Ideal.z),  # PF_101
-            'PF_011': Vecteur3D(      0, Ideal.y, Ideal.z),  # PF_011
-            'PF_111': Vecteur3D(Ideal.x, Ideal.y, Ideal.z)   # PF_111
+            'PF_000': Vec3(      0,       0, Ideal.z),  # PF_000
+            'PF_100': Vec3(Ideal.x,       0, Ideal.z),  # PF_100
+            'PF_010': Vec3(      0, Ideal.y, Ideal.z),  # PF_010
+            'PF_110': Vec3(Ideal.x, Ideal.y, Ideal.z),  # PF_110
+            'PF_001': Vec3(      0,       0, Ideal.z),  # PF_001
+            'PF_101': Vec3(Ideal.x,       0, Ideal.z),  # PF_101
+            'PF_011': Vec3(      0, Ideal.y, Ideal.z),  # PF_011
+            'PF_111': Vec3(Ideal.x, Ideal.y, Ideal.z)   # PF_111
         }

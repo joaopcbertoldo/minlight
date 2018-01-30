@@ -140,7 +140,7 @@ class Configuration:
         res = Rot * p + centre_systeme
 
         # il faut faire ça sinon le retour est une matrice rot
-        self.centre = Vecteur3D(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
+        self.centre = Vec3(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
 
         self.ypr_angles = \
             TupleAnglesRotation(

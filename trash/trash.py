@@ -130,7 +130,7 @@ def tester_interdictions_points(generator_points, tests_interdictions):
 
 
 
-sommets = [Vecteur3D(sommet[0], sommet[1], sommet[2]) for sommet in product((1,-1), repeat=3)]
+sommets = [Vec3(sommet[0], sommet[1], sommet[2]) for sommet in product((1,-1), repeat=3)]
 
 # !!!!!!!!!!!!!!! faire gaffe avec les arrondissement
 def points_dans_meme_plane(p1, p2, p3, p4):
@@ -140,7 +140,7 @@ def points_dans_meme_plane(p1, p2, p3, p4):
     # coordonnees du vec resultant du prod vect
     u, v, w = tuple(cross(vec1.T, vec2.T)[0].tolist())
 
-    normal = Vecteur3D(u,v,w)
+    normal = Vec3(u,v,w)
 
     k1 = normal.T.dot(p1)
     k4 = normal.T.dot(p4)
@@ -245,7 +245,7 @@ def aretes_cube(sommets):
     aretes['11z'] = arete_cube(sommets['S110'], sommets['S111'])
     return aretes
 
-pave = Pave(centre = Vecteur3D(0,0,0),
+pave = Pave(centre = Vec3(0,0,0),
             ypr_angles = TupleAnglesRotation(0,0,0),
             dimensions = DimensionsPave(2,2,2))
 

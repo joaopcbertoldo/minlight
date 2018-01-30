@@ -1,4 +1,4 @@
-from src.calculs.modeles.entites_mathemathiques import Vecteur3D
+from src.calculs.modeles.entites_mathemathiques import Vec3
 from numpy import sqrt,arccos
 from OpenGL.GL import *
 from OpenGL.GLU import *
@@ -78,10 +78,10 @@ class Trackball:
        d = x*x+y*y
        radiusSquared = self.ballRadius*self.ballRadius
        if (d > radiusSquared):
-           return Vecteur3D(x,y, 0 )
+           return Vec3(x,y, 0 )
 
        else:
-           return Vecteur3D(x,y, sqrt(radiusSquared - d))
+           return Vec3(x,y, sqrt(radiusSquared - d))
 
     def reset(self):
         fov = 30

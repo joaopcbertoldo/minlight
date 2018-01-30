@@ -1,4 +1,4 @@
-from ..modeles.entites_mathemathiques import Vecteur3D, TupleAnglesRotation, CoordonnesSpherique
+from ..modeles.entites_mathemathiques import Vec3, TupleAnglesRotation, CoordonnesSpherique
 from ..modeles.entites_systeme_minlight import Pave
 import pickle
 from datetime import datetime
@@ -45,7 +45,7 @@ class VerificateurAnglesLimites:
         self.verbose = configs_simulation['verbose']
 
         self.source = Pave(
-            centre=Vecteur3D(0,0,0),
+            centre=Vec3(0,0,0),
             ypr_angles=TupleAnglesRotation(0,0,0),
             dimensions=dimensions_source
         )
@@ -201,7 +201,7 @@ class VerificateurAnglesLimites:
         y_centre_source = sum(point.get_y() for point in self.config_ancrage.get_points_fixes()) / 8
         z_centre_source = self.chambre.dimensions['hauteur'] / 2
 
-        centre_demo = Vecteur3D(x_centre_source, y_centre_source, z_centre_source)
+        centre_demo = Vec3(x_centre_source, y_centre_source, z_centre_source)
 
         source_demo = Pave(
             dimensions=self.dimensions_source,

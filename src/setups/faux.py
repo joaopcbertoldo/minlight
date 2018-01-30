@@ -1,7 +1,7 @@
 from ..modeles.enums import UniteAngleEnum
 
 from src.calculs.modeles.entites_mathemathiques import \
-    Vecteur3D,                                \
+    Vec3,                                \
     TupleAnglesRotation,                      \
     SpaceRechercheAnglesLimites,              \
     IntervalleLineaire,                       \
@@ -23,7 +23,7 @@ from src.calculs.simulation_angles_limites.angles_limites import VerificateurAng
 ''' ************************ Maisonette ************************ '''
 # centre
 centre_maisonette = \
-    Vecteur3D(
+    Vec3(
         x = 7500,  # mm
         y = 5000,  # mm
         z = 5000   # mm
@@ -61,7 +61,7 @@ dimensions_source = \
 
 # centre
 centre_chambre = \
-    Vecteur3D(
+    Vec3(
         x = 5000,  # mm
         y = 5000,  # mm
         z = 5000   # mm
@@ -99,14 +99,14 @@ z = 10000  # mm
 # la numérotation <<PF_xxx>> suit la logique des sommets des pavés
 # le <<xxx>> indique à quel "coin" de la chambre le point est fixé
 
-PF_000 = Vecteur3D(0, 0, 0)  # PF_000
-PF_100 = Vecteur3D(x, 0, 0)  # PF_100
-PF_010 = Vecteur3D(0, y, 0)  # PF_010
-PF_110 = Vecteur3D(x, y, 0)  # PF_110
-PF_001 = Vecteur3D(0, 0, z)  # PF_001
-PF_101 = Vecteur3D(x, 0, z)  # PF_101
-PF_011 = Vecteur3D(0, y, z)  # PF_011
-PF_111 = Vecteur3D(x, y, z)  # PF_111
+PF_000 = Vec3(0, 0, 0)  # PF_000
+PF_100 = Vec3(x, 0, 0)  # PF_100
+PF_010 = Vec3(0, y, 0)  # PF_010
+PF_110 = Vec3(x, y, 0)  # PF_110
+PF_001 = Vec3(0, 0, z)  # PF_001
+PF_101 = Vec3(x, 0, z)  # PF_101
+PF_011 = Vec3(0, y, z)  # PF_011
+PF_111 = Vec3(x, y, z)  # PF_111
 
 
 ''' ****** Configurations des Câbles ****** '''
@@ -133,7 +133,7 @@ config_ancrage = ConfigurationAncrage(
 
 # centre - supposé dans le centre de la face d'intérêt de la maisonette
 centre_systeme_spherique = \
-    Vecteur3D(
+    Vec3(
         x = 5000,  # mm
         y = 5000,  # mm
         z = 5000   # mm
