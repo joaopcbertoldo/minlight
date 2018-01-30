@@ -8,7 +8,7 @@ import glob
 
 
 
-def fnpostion (dist,mtx,cap):
+def fnpostion (dist,mtx,ret, img):
 
 	criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 	objp = np.zeros((6*9,3), np.float32)
@@ -23,8 +23,6 @@ def fnpostion (dist,mtx,cap):
 	noimg=1
 
 
-	ret, img = cap.read()
-	cv2.imshow('img',img)
 
 
 
@@ -53,3 +51,6 @@ def fnpostion (dist,mtx,cap):
 
 
 	return 	xyz,angle,axis_rotation,noimg
+
+
+cv2.destroyAllWindows()
