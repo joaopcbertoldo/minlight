@@ -245,9 +245,9 @@ def aretes_cube(sommets):
     aretes['11z'] = arete_cube(sommets['S110'], sommets['S111'])
     return aretes
 
-pave = Pave(centre = Vec3(0,0,0),
+pave = Box(centre = Vec3(0,0,0),
             ypr_angles = TupleAnglesRotation(0,0,0),
-            dimensions = DimensionsPave(2,2,2))
+            dimensions = BoxDimensions(2,2,2))
 
 sommets = pave.get_dictionnaire_sommets()
 

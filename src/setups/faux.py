@@ -8,9 +8,9 @@ from src.calculs.modeles.entites_mathemathiques import \
     SystemeRepereSpherique
 
 from src.calculs.modeles.entites_systeme_minlight import \
-    DimensionsPave,                             \
-    Pave,                                       \
-    ConfigurationAncrage,                       \
+    BoxDimensions,                             \
+    Box,                                       \
+    CableLayout,                       \
     ConfigurationCable
 
 from src.calculs.simulation_angles_limites.angles_limites import VerificateurAnglesLimites
@@ -31,7 +31,7 @@ centre_maisonette = \
 
 # dimensions
 dimensions_maisonette = \
-    DimensionsPave(
+    BoxDimensions(
         longueur =  5000,  # mm
         largeur  = 10000,  # mm
         hauteur  = 10000   # mm
@@ -39,7 +39,7 @@ dimensions_maisonette = \
 
 # pave
 maisonette = \
-    Pave(
+    Box(
         centre     = centre_maisonette,
         ypr_angles = TupleAnglesRotation.ZERO(),
         dimensions = dimensions_maisonette
@@ -50,7 +50,7 @@ maisonette = \
 
 # dimensions
 dimensions_source = \
-    DimensionsPave(
+    BoxDimensions(
         longueur = 1000,  # mm
         largeur  = 1000,  # mm
         hauteur  = 1000   # mm
@@ -69,7 +69,7 @@ centre_chambre = \
 
 # dimensions
 dimensions_chambre = \
-    DimensionsPave(
+    BoxDimensions(
         longueur = 10000,  # mm
         largeur  = 10000,  # mm
         hauteur  = 10000   # mm
@@ -77,7 +77,7 @@ dimensions_chambre = \
 
 # pavé
 chambre = \
-    Pave(
+    Box(
         centre     = centre_chambre,
         ypr_angles = TupleAnglesRotation.ZERO(),
         dimensions = dimensions_chambre
@@ -124,7 +124,7 @@ cc_111 = ConfigurationCable(nom_sommet_source='S111', point_ancrage= PF_111)  # 
 
 
 ''' ****** Configurations des Câbles ****** '''
-config_ancrage = ConfigurationAncrage(
+config_ancrage = CableLayout(
     configs_cables=[cc_000, cc_100, cc_010, cc_110, cc_001, cc_101, cc_011, cc_111]
 )
 

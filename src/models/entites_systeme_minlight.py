@@ -1,5 +1,5 @@
 from .outils2 import solutions_formule_quadratique, get_plane_normal
-from .entites_mathemathiques import *
+from .math_entities import *
 from .enums import *
 from OpenGL.GL import *
 from numpy import random, arcsin,degrees,radians,cos,sin,arccos
@@ -41,7 +41,7 @@ class CableConfiguration:
             raise KeyError('source_vertex_name or fixed_point')
 
 
-class Fi....Configuration:
+class CableLayout:
 
     def __init__(self, configs_cables):
         if len(configs_cables) != 8:
@@ -62,7 +62,7 @@ class Fi....Configuration:
                 source_vertex=sommets_source[vertex_name],
                 diameter=diametre_cable
             )
-            for vertex_name in Pave.noms_sommets_pave
+            for vertex_name in Box.noms_sommets_pave
         ]
 
     def get_points_fixes(self):
@@ -211,7 +211,7 @@ class Cable:
         glEnd()
 
 
-class Pave:
+class Box:
 
     noms_sommets_pave = ('S000', 'S001', 'S010', 'S011', 'S100', 'S101', 'S110', 'S111')
 
@@ -490,7 +490,7 @@ class Pave:
         glEnd()
 
 
-class Chambre(Pave):
+class Chambre(Box):
     def __init__(self, centre, ypr_angles, dimensions):
         super().__init__(centre,ypr_angles,dimensions)
 
@@ -531,7 +531,7 @@ class Chambre(Pave):
         glEnd()
 
 
-class Source(Pave):
+class Source(Box):
     def __init__(self, centre, ypr_angles, dimensions):
         super().__init__(centre,ypr_angles,dimensions)
         self.create_parable()
@@ -672,7 +672,7 @@ class Source(Pave):
         glEnd()
 
 
-class Maisonette(Pave):
+class Maisonette(Box):
     def __init__(self, centre, ypr_angles, dimensions,window_dimensions,wall_width =150):
         super().__init__(centre,ypr_angles,dimensions)
         self.window_dimensions = window_dimensions

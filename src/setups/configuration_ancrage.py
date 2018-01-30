@@ -1,6 +1,6 @@
 from enum import Enum
 from pprint import pprint
-from src.calculs.modeles.entites_systeme_minlight import ConfigurationAncrage, ConfigurationCable
+from src.calculs.modeles.entites_systeme_minlight import CableLayout, ConfigurationCable
 
 
 ''' ************************ Configurations des Câbles ************************ '''
@@ -316,7 +316,7 @@ def _creer_config_ancrage():
     configs_cables = [ConfigurationCable(Aux.points_fixes[pf], Aux.dict_config_complet[pf])
                       for pf in noms_points_fixes]
 
-    config_ancrage = ConfigurationAncrage(configs_cables)
+    config_ancrage = CableLayout(configs_cables)
 
     return config_ancrage
 
@@ -425,7 +425,7 @@ def get_config_ancrage_rien_croise():
     cc_011 = ConfigurationCable(nom_sommet_source='S011', point_ancrage=PF_011)  # cc_011 = PF_011 --> S011
     cc_111 = ConfigurationCable(nom_sommet_source='S111', point_ancrage=PF_111)  # cc_111 = PF_111 --> S111
 
-    config_ancrage = ConfigurationAncrage(
+    config_ancrage = CableLayout(
         configs_cables=[cc_000, cc_100, cc_010, cc_110, cc_001, cc_101, cc_011, cc_111]
     )
 
@@ -442,7 +442,7 @@ def get_config_ancrage_xy_croise_sens_horloge_en_bas():
     cc_011 = ConfigurationCable(nom_sommet_source='S001', point_ancrage=PF_011)  # cc_011 = PF_011 --> S001
     cc_111 = ConfigurationCable(nom_sommet_source='S011', point_ancrage=PF_111)  # cc_111 = PF_111 --> S011
 
-    config_ancrage = ConfigurationAncrage(
+    config_ancrage = CableLayout(
         configs_cables=[cc_000, cc_100, cc_010, cc_110, cc_001, cc_101, cc_011, cc_111]
     )
 
@@ -459,7 +459,7 @@ def get_config_ancrage_xy_croise_sens_horloge_en_haut():
     cc_011 = ConfigurationCable(nom_sommet_source='S111', point_ancrage=PF_011)  # cc_011 = PF_011 --> S111
     cc_111 = ConfigurationCable(nom_sommet_source='S101', point_ancrage=PF_111)  # cc_111 = PF_111 --> S101
 
-    config_ancrage = ConfigurationAncrage(
+    config_ancrage = CableLayout(
         configs_cables=[cc_000, cc_100, cc_010, cc_110, cc_001, cc_101, cc_011, cc_111]
     )
 
