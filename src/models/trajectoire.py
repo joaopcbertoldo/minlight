@@ -162,7 +162,7 @@ class Configuration:
         y =
         z =
 
-        return Vecteur3D(),
+        return Vec3(),
         '''
 
 # test
