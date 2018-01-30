@@ -1,5 +1,5 @@
 from ..modeles.entites_mathemathiques import Vec3, TupleAnglesRotation, CoordonnesSpherique
-from ..modeles.entites_systeme_minlight import Pave
+from ..modeles.entites_systeme_minlight import Box
 import pickle
 from datetime import datetime
 from OpenGL.GL import *
@@ -44,7 +44,7 @@ class VerificateurAnglesLimites:
 
         self.verbose = configs_simulation['verbose']
 
-        self.source = Pave(
+        self.source = Box(
             centre=Vec3(0,0,0),
             ypr_angles=TupleAnglesRotation(0,0,0),
             dimensions=dimensions_source
@@ -203,7 +203,7 @@ class VerificateurAnglesLimites:
 
         centre_demo = Vec3(x_centre_source, y_centre_source, z_centre_source)
 
-        source_demo = Pave(
+        source_demo = Box(
             dimensions=self.dimensions_source,
             centre=centre_demo,
             ypr_angles=TupleAnglesRotation.ZERO()

@@ -8,9 +8,9 @@ from src.calculs.modeles.entites_mathemathiques import \
     SystemeRepereSpherique
 
 from src.calculs.modeles.entites_systeme_minlight import \
-    DimensionsPave,                             \
-    Pave,                                       \
-    ConfigurationAncrage,                       \
+    BoxDimensions,                             \
+    Box,                                       \
+    CableLayout,                       \
     ConfigurationCable,                         \
     Source,                                     \
     Chambre,                                     \
@@ -25,7 +25,7 @@ Paramètres
 
 # dimensions
 dimensions_chambre = \
-    DimensionsPave(
+    BoxDimensions(
         # on considere le sisteme à partir de l'évaporateur
         longueur=8500,  # mm
         largeur=5000,   # mm
@@ -55,7 +55,7 @@ distance_evaporateur_maisonette = 3500  # mm
 
 # dimensions
 dimensions_maisonette = \
-    DimensionsPave(
+    BoxDimensions(
         longueur=5000,  # mm
         largeur=2500,   # mm
         hauteur=2900    # mm
@@ -90,7 +90,7 @@ maisonette = \
 
 # dimensions
 dimensions_source = \
-    DimensionsPave(
+    BoxDimensions(
         longueur=800,  # mm
         largeur=1600,   # mm
         hauteur=1600    # mm
