@@ -46,25 +46,25 @@ def get_tension (cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7)
 
     # eq de l'equilibre: A^t . F + w = 0, F_min < Fi < F_max, A^t = transpose(A)
 
-    #normalized cable vectors
-    u0 = cable0.get_nparray_unitaire()
-    u1 = cable1.get_nparray_unitaire()
-    u2 = cable2.get_nparray_unitaire()
-    u3 = cable3.get_nparray_unitaire()
-    u4 = cable4.get_nparray_unitaire()
-    u5 = cable5.get_nparray_unitaire()
-    u6 = cable6.get_nparray_unitaire()
-    u7 = cable7.get_nparray_unitaire()
+    # normalized cable vectors
+    u0 = cable0.get_direction_source_to_fixed()
+    u1 = cable1.get_direction_source_to_fixed()
+    u2 = cable2.get_direction_source_to_fixed()
+    u3 = cable3.get_direction_source_to_fixed()
+    u4 = cable4.get_direction_source_to_fixed()
+    u5 = cable5.get_direction_source_to_fixed()
+    u6 = cable6.get_direction_source_to_fixed()
+    u7 = cable7.get_direction_source_to_fixed()
 
     #vectors from center of mass to "ancrage"
-    b0 = cable0.get_sommet_source().get_nparray() - centre_masse.get_nparray()
-    b1 = cable1.get_sommet_source().get_nparray() - centre_masse.get_nparray()
-    b2 = cable2.get_sommet_source().get_nparray() - centre_masse.get_nparray()
-    b3 = cable3.get_sommet_source().get_nparray() - centre_masse.get_nparray()
-    b4 = cable4.get_sommet_source().get_nparray() - centre_masse.get_nparray()
-    b5 = cable5.get_sommet_source().get_nparray() - centre_masse.get_nparray()
-    b6 = cable6.get_sommet_source().get_nparray() - centre_masse.get_nparray()
-    b7 = cable7.get_sommet_source().get_nparray() - centre_masse.get_nparray()
+    b0 = cable0.get_sommet_source() - centre_masse
+    b1 = cable1.get_sommet_source() - centre_masse
+    b2 = cable2.get_sommet_source() - centre_masse
+    b3 = cable3.get_sommet_source() - centre_masse
+    b4 = cable4.get_sommet_source() - centre_masse
+    b5 = cable5.get_sommet_source() - centre_masse
+    b6 = cable6.get_sommet_source() - centre_masse
+    b7 = cable7.get_sommet_source() - centre_masse
 
 
 

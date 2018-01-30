@@ -40,7 +40,7 @@ class Vec3(matrix):
     def norm(self):
         return norm(self)
 
-    def get_vecteur_diretion(self):
+    def get_direction(self):
         return self.copy() / self.norm()
 
     def scalar_product(self,v):
@@ -55,14 +55,15 @@ class Vec3(matrix):
     def cross(self,v2):
         return Vec3(self[1] * v2[2], self[2] * v2[0], self[0] * v2[1])
 
-    def get_nparray(self):
-        return np.array([self[0], self[1], self[2]]).reshape(1,3)
-
     def get_nparray_unitaire(self):
         return np.array([self[0], self[1], self[2]]).reshape(1,3)/self.norm()
 
 
 class Point:
+
+    @staticmethod
+    def _point_from_vec3(vec: Vec3):
+        return Point(*vec.get_tuple())
 
     def __init__(self, x, y, z):
         self._vec3 = Vec3(x, y, z)
@@ -82,26 +83,11 @@ class Point:
     def get_tuple(self):
         return self._vec3.get_tuple()
 
-    def get_vecteur_diretion(self):
-        return self.copy() / self.norm()
+    def __add__(self, other: Vec3):
+        return Point._point_from_vec3(self._vec3 + other)
 
-    def scalar_product(self,v):
-        return self.item(0)*v.item(0) + self.item(1)*v.item(1) + self.item(2)*v.item(2)
-
-    def normalize(self):
-        norm = self.norm()
-        self[0] /= norm
-        self[1] /= norm
-        self[2] /= norm
-
-    def cross(self,v2):
-        return Vec3(self[1] * v2[2], self[2] * v2[0], self[0] * v2[1])
-
-    def get_nparray(self):
-        return np.array([self[0], self[1], self[2]]).reshape(1,3)
-
-    def get_nparray_unitaire(self):
-        return np.array([self[0], self[1], self[2]]).reshape(1,3)/self.norm()
+    def __sub__(self, other):
+        return 0
 
 
 class TupleAnglesRotation():

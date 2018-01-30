@@ -82,10 +82,13 @@ class Cable:
         self.fixed_point       = fixed_point
         self.source_vertex     = source_vertex
         self.diameter          = diameter
+        self.vector = self.fixed_point - self.source_vertex
+        '''
         self.vector           = Vec3.vecteur_depuis_difference_deux_vecteurs(
                                    vector_depart  = self.fixed_point,
                                    vecteur_arrivee = self.source_vertex
                                  )
+        '''
         self.tension_min = tension_min
         self.tension_max = tension_max
 
@@ -106,14 +109,14 @@ class Cable:
     def get_vecteur_unitaire(self):
         return self.vector / self.longueur()
 
-    def get_nparray_unitaire(self):
-        return self.vector.get_nparray_unitaire()
+    def get_direction_fixed_to_source(self):
+        return self.vector.get_direction()
 
-    #################################
+    def get_direction_source_to_fixed(self):
+        return - self.vector.get_direction()
 
     def longueur(self):
         return self.vector.norm()
-
 
     def get_generator_points_discretisation(self, nombre_points=300, inclure_sommet_ancrage=False, inclure_sommet_source=False):
         range_min = 0 if inclure_sommet_ancrage else 1
@@ -130,7 +133,7 @@ class Cable:
         #print("origin:" + str(origin.transpose()))
         direction = self.fixed_point - self.source_vertex
         #print("direction before normalization:" + str(direction.transpose()))
-        direction = direction.get_vecteur_diretion()
+        direction = direction.get_direction()
         #print("direction after normalization:" + str(direction.transpose()))
 
         normalePlane1 = cable2.point_ancrage - cable2.sommet_source
@@ -143,7 +146,7 @@ class Cable:
         pointPlane2 = cable2.sommet_source
         #print("point plane2" + str(pointPlane2.transpose()))
 
-        axis = normalePlane2.get_vecteur_diretion()
+        axis = normalePlane2.get_direction()
         centre = pointPlane1
 
         radius = cable2.diameter/2 + self.diameter / 2
@@ -546,7 +549,7 @@ class Source(Box):
         return (self.sommets[5] + self.sommets[7] + self.sommets[6] + self.sommets[4])/4 #5,7,6,4 are the verticies of the light face
 
     def get_light_direction(self):
-        return (self.get_light_centre() - self.centre).get_vecteur_diretion()
+        return (self.get_light_centre() - self.centre).get_direction()
 
     def create_parable(self): # creates visualization of the parable, must finish!!!!!!!
         longueur,largeur,hauteur = self.dimensions.get_tuple_dimensions()
