@@ -231,9 +231,9 @@ def direction_difference_2_points(depart, arrive):
 
     x, y, z = get_coordonnees_vecteur_3d(vec)
 
-    norme = norme_vecteur(vec)
+    norm = norme_vecteur(vec)
 
-    xn, yn, zn = x / norme, y / norme, z / norme
+    xn, yn, zn = x / norm, y / norm, z / norm
 
     return vecteur_3d(xn, yn, zn)
 

@@ -45,7 +45,7 @@ class Trackball:
 
     def applyRotationMatrix(self):
         if (self.isRotating):
-            if ( (self.currentRotationVector - self.startRotationVector).norme() > 1E-6 ):
+            if ( (self.currentRotationVector - self.startRotationVector).norm() > 1E-6 ):
                 rotationAxis = self.currentRotationVector.cross(self.startRotationVector)
                 rotationAxis.normalize()
                 val = self.currentRotationVector.transpose().dot(self.startRotationVector)

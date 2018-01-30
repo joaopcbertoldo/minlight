@@ -227,7 +227,7 @@ def faces_cube(sommets):
     return faces
 
 def arete_cube(s1, s2):
-    return tuple([coord1, coord2] for coord1, coord2 in zip(s1.get_coordonnees(), s2.get_coordonnees()))
+    return tuple([coord1, coord2] for coord1, coord2 in zip(s1.get_tuple(), s2.get_tuple()))
 
 def aretes_cube(sommets):
     aretes = {}

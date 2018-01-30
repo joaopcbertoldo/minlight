@@ -1,7 +1,10 @@
+from deprecated import deprecated
+
 import numpy as np
 
 from src.enums import *
 from numpy import cos, sin, pi, matrix, sqrt
+from numpy.linalg import norm
 
 
 class Vec3(matrix):
@@ -13,37 +16,41 @@ class Vec3(matrix):
     def __new__(cls, x, y, z):
         return super(Vec3, cls).__new__(cls, "{}; {}; {}".format(x, y, z))
 
-    def set_xyz(self,x,y,z):
+    @deprecated
+    def set_xyz(self, x, y, z):
         self[0] = x
         self[1] = y
         self[2] = z
 
+    @deprecated
     def get_x(self):
         return self.item(0)
 
+    @deprecated
     def get_y(self):
         return self.item(1)
 
+    @deprecated
     def get_z(self):
         return self.item(2)
 
-    def get_coordonnees(self):
+    def get_tuple(self):
         return self.item(0), self.item(1), self.item(2)
 
-    def norme(self):
-        return sqrt((self.T *self).item((0,0)))
+    def norm(self):
+        return norm(self)
 
     def get_vecteur_diretion(self):
-        return self.copy() / self.norme()
+        return self.copy() / self.norm()
 
     def scalar_product(self,v):
         return self.item(0)*v.item(0) + self.item(1)*v.item(1) + self.item(2)*v.item(2)
 
     def normalize(self):
-        norme = self.norme()
-        self[0] /= norme
-        self[1] /= norme
-        self[2] /= norme
+        norm = self.norm()
+        self[0] /= norm
+        self[1] /= norm
+        self[2] /= norm
 
     def cross(self,v2):
         return Vec3(self[1] * v2[2], self[2] * v2[0], self[0] * v2[1])
@@ -52,7 +59,7 @@ class Vec3(matrix):
         return np.array([self[0], self[1], self[2]]).reshape(1,3)
 
     def get_nparray_unitaire(self):
-        return np.array([self[0], self[1], self[2]]).reshape(1,3)/self.norme()
+        return np.array([self[0], self[1], self[2]]).reshape(1,3)/self.norm()
 
 
 class Point:
@@ -60,37 +67,32 @@ class Point:
     def __init__(self, x, y, z):
         self._vec3 = Vec3(x, y, z)
 
-    def set_xyz(self,x,y,z):
-        self[0] = x
-        self[1] = y
-        self[2] = z
+    def set_xyz(self, x, y, z):
+        self._vec3 = Vec3(x, y, z)
 
     def get_x(self):
-        return self.item(0)
+        return self._vec3.item(0)
 
     def get_y(self):
-        return self.item(1)
+        return self._vec3.item(1)
 
     def get_z(self):
-        return self.item(2)
+        return self._vec3.item(2)
 
-    def get_coordonnees(self):
-        return self.item(0), self.item(1), self.item(2)
-
-    def norme(self):
-        return sqrt((self.T *self).item((0,0)))
+    def get_tuple(self):
+        return self._vec3.get_tuple()
 
     def get_vecteur_diretion(self):
-        return self.copy() / self.norme()
+        return self.copy() / self.norm()
 
     def scalar_product(self,v):
         return self.item(0)*v.item(0) + self.item(1)*v.item(1) + self.item(2)*v.item(2)
 
     def normalize(self):
-        norme = self.norme()
-        self[0] /= norme
-        self[1] /= norme
-        self[2] /= norme
+        norm = self.norm()
+        self[0] /= norm
+        self[1] /= norm
+        self[2] /= norm
 
     def cross(self,v2):
         return Vec3(self[1] * v2[2], self[2] * v2[0], self[0] * v2[1])
@@ -99,7 +101,7 @@ class Point:
         return np.array([self[0], self[1], self[2]]).reshape(1,3)
 
     def get_nparray_unitaire(self):
-        return np.array([self[0], self[1], self[2]]).reshape(1,3)/self.norme()
+        return np.array([self[0], self[1], self[2]]).reshape(1,3)/self.norm()
 
 
 class TupleAnglesRotation():
