@@ -6,23 +6,18 @@ from numpy.linalg import inv, det
 import numpy as np
 
 
-# Calculer les tensions F :
-
 def get_tension (cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7):
     '''
+    Function to calculate the tension in each cable.
+    Reference: "Closed-form force distribution for parallel wire robots",
+    A. Pott, T. Bruckmann, and L. Mikelsons
 
-    :param cable0:
-    :param cable1:
-    :param cable2:
-    :param cable3:
-    :param cable4:
-    :param cable5:
-    :param cable6:
-    :param cable7:
-    :return: F, un np.array contenant 8 valeurs de tension de chaque cable
+    :param cable: Instances of the Cable class.
+
+    :return: F, a np.array containing 8 tension values (in Newtons).
     '''
 
-    # masse du cube et gravité de la Terre
+    # Source's mass and Earth's gravity
     m = 50.0  # kg
     g = 9.8  # m/s^2
 
@@ -44,7 +39,7 @@ def get_tension (cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7)
                       cable6.get_tension_max(),
                       cable7.get_tension_max()])
 
-    # eq de l'equilibre: A^t . F + w = 0, F_min < Fi < F_max, A^t = transpose(A)
+    # Equilibrium equation: A^t . F + w = 0, F_min < Fi < F_max, A^t = transpose(A)
 
     # normalized cable vectors
     u0 = cable0.get_direction_source_to_fixed()
@@ -56,7 +51,7 @@ def get_tension (cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7)
     u6 = cable6.get_direction_source_to_fixed()
     u7 = cable7.get_direction_source_to_fixed()
 
-    #vectors from center of mass to "ancrage"
+    #vectors from center of mass to source's vertex
     b0 = cable0.get_sommet_source() - centre_masse
     b1 = cable1.get_sommet_source() - centre_masse
     b2 = cable2.get_sommet_source() - centre_masse
