@@ -42,7 +42,7 @@ TODO : gráfico angulos max --> área sob o gráfico
 TODO : gráfico angulos max --> volume no grafico 3d (2angulos + rho)
 TODO : optimizar configuração em func dos ângulos máx --> ancragem
 TODO : optimizar configuração em func dos ângulos máx --> ponto fixo
-TODO : optimizar configuração em func dos ângulos máx --> diametre de la parabole
+TODO : optimizar configuração em func dos ângulos máx --> diameter de la parabole
 TODO : optimizar configuração em func dos ângulos máx --> ponto de ancragem
 TODO : interface controlador/controlável (bridge)
     para conectar as várias entradas : joystick, teclado, código
@@ -67,6 +67,6 @@ TODO : acoplar código que dá comando de intensidade de luz no modelo
 TODO : código com a lei de comando do sistema de filtro
 TODO : configurar a posição de ancragem no cubo (não necessariamente nos sommets)
 TODO : encapsular comportamento de busca de posição possível (ang max + traj)
-TODO : diametre = 1500
+TODO : diameter = 1500
 TODO : gerar sistema inteiro a partir das configs
 TODO : tirar as velocidades / deslocamentos do cabo + source a partir da trajetoria

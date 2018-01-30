@@ -28,7 +28,7 @@ space_recherche = \
         unite=UniteAngleEnum.DEGRE
     )
 
-# diametre des câbles
+# diameter des câbles
 diametre_cable = 10  # mm
 
 # discretisation des câbles

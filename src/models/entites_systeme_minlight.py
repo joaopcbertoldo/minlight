@@ -4,6 +4,7 @@ from .enums import *
 from OpenGL.GL import *
 from numpy import random, arcsin,degrees,radians,cos,sin,arccos
 from src.calculs.graphics.outils import Surface
+from deprecated import deprecated
 
 
 class BoxDimensions:
@@ -17,7 +18,7 @@ class BoxDimensions:
     def get_tuple_dimensions(self):
         return self._dimensions['length'], self._dimensions['width'], self._dimensions['height']
 
-
+@deprecated
 class CableConfiguration:
 
     def __init__(self, fixed_point, source_vertex_name):
@@ -145,7 +146,7 @@ class Cable:
         axis = normalePlane2.get_vecteur_diretion()
         centre = pointPlane1
 
-        radius = cable2.diametre/2 + self.diameter / 2
+        radius = cable2.diameter/2 + self.diameter / 2
 
         a = direction.scalar_product(direction) - direction.scalar_product(axis)**2
         b = 2*(direction.scalar_product(origin - centre )   - direction.scalar_product(axis)*axis.scalar_product(origin - centre))
