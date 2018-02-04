@@ -59,16 +59,27 @@ def get_tension(cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7):
     b6 = cable6.get_sommet_source() - centre_masse
     b7 = cable7.get_sommet_source() - centre_masse
 
+    #A = np.array([
+    #    [np.append(u0, np.cross(b0, u0))],
+    #    [np.append(u1, np.cross(b1, u1))],
+    #    [np.append(u2, np.cross(b2, u2))],
+    #    [np.append(u3, np.cross(b3, u3))],
+    #    [np.append(u4, np.cross(b4, u4))],
+    #    [np.append(u5, np.cross(b5, u5))],
+    #    [np.append(u6, np.cross(b6, u6))],
+    #    [np.append(u7, np.cross(b7, u7))]
+    #]).reshape(8, 6)
+
     A = np.array([
-        [np.append(u0, np.cross(b0, u0))],
-        [np.append(u1, np.cross(b1, u1))],
-        [np.append(u2, np.cross(b2, u2))],
-        [np.append(u3, np.cross(b3, u3))],
-        [np.append(u4, np.cross(b4, u4))],
-        [np.append(u5, np.cross(b5, u5))],
-        [np.append(u6, np.cross(b6, u6))],
-        [np.append(u7, np.cross(b7, u7))]
-    ]).reshape(8, 6)
+        [u0.get_x(), u0.get_y(), u0.get_z(), b0.cross(u0).get_x(), b0.cross(u0).get_y(), b0.cross(u0).get_z()],
+        [u1.get_x(), u1.get_y(), u1.get_z(), b1.cross(u1).get_x(), b1.cross(u1).get_y(), b1.cross(u1).get_z()],
+        [u2.get_x(), u2.get_y(), u2.get_z(), b2.cross(u2).get_x(), b2.cross(u2).get_y(), b2.cross(u2).get_z()],
+        [u3.get_x(), u3.get_y(), u3.get_z(), b3.cross(u3).get_x(), b3.cross(u3).get_y(), b3.cross(u3).get_z()],
+        [u4.get_x(), u4.get_y(), u4.get_z(), b4.cross(u4).get_x(), b4.cross(u4).get_y(), b4.cross(u4).get_z()],
+        [u5.get_x(), u5.get_y(), u5.get_z(), b5.cross(u5).get_x(), b5.cross(u5).get_y(), b5.cross(u5).get_z()],
+        [u6.get_x(), u6.get_y(), u6.get_z(), b6.cross(u6).get_x(), b6.cross(u6).get_y(), b6.cross(u6).get_z()],
+        [u7.get_x(), u7.get_y(), u7.get_z(), b7.cross(u7).get_x(), b7.cross(u7).get_y(), b7.cross(u7).get_z()]
+    ])
 
     w = np.array([0, 0, -m * g, 0, 0, 0])
 
