@@ -55,7 +55,7 @@ class ObserverLongueurCable(CableRobotObserver):
 
     def notify(self, cable_robot):
         cable = cable_robot.get_cable(self.nom_cable)
-        self._longueurs.ajouter(cable.longueur())
+        self._longueurs.ajouter(cable.length())
 
     def get_historique_longueurs(self):
         return self._longueurs

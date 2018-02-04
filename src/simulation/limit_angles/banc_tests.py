@@ -1,12 +1,9 @@
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 import matplotlib
 
-from src.calculs.modeles.entites_mathemathiques import \
-    SpaceRechercheAnglesLimites, \
-    IntervalleLineaire
-from src.calculs.modeles.enums import UniteAngleEnum
-from src.calculs.setups import faux
-from src.calculs.simulation_angles_limites import angles_limites_factory
+from src.math_entities import SpaceRechercheAnglesLimites, IntervalleLineaire
+from src.enums import UniteAngleEnum
+from src.setups import faux
+from src.simulation.limit_angles import angles_limites_factory
 
 matplotlib.use('Agg')
 

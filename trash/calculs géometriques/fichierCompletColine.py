@@ -27,13 +27,13 @@ LongS = 1.00  # cm
 LargS = 1.00  # cm
 HautS = 1.00  # cm
 dimensionsSource = {}
-dimensionsSource['longueur'] = LongS
-dimensionsSource['largeur' ] = LargS
-dimensionsSource['hauteur']  = HautS
+dimensionsSource['length'] = LongS
+dimensionsSource['width' ] = LargS
+dimensionsSource['height']  = HautS
 dimensionsMaison = {}
-dimensionsMaison['longueur'] = LongM
-dimensionsMaison['largeur' ] = LargM
-dimensionsMaison['hauteur']  = HautM
+dimensionsMaison['length'] = LongM
+dimensionsMaison['width' ] = LargM
+dimensionsMaison['height']  = HautM
 
 ## Outils
 
@@ -94,13 +94,13 @@ def sommetsDeLaSource(centreSource, theta, phi, dimensionsSource):
     :param centreSoleil: centre de la source dans le système de repère de la chambre
     :param theta: remplir...
     :param phi: remplir...
-    :param dimensionsSource: (dictionnaire) longueur, largeur, hauteur du pave de la source
+    :param dimensionsSource: (dictionnaire) length, width, height du pave de la source
     :return: liste des sommets de la source par rapport au système de repère de la chambre
     '''
 
-    demiLong = dimensionsSource['longueur'] / 2
-    demiLarg = dimensionsSource['largeur'] / 2
-    demiHaut = dimensionsSource['hauteur'] / 2
+    demiLong = dimensionsSource['length'] / 2
+    demiLarg = dimensionsSource['width'] / 2
+    demiHaut = dimensionsSource['height'] / 2
 
     # sommets (coins) de la source repérés par rapport à son centre
     B11 = creerPoint(- demiLong, - demiLarg, + demiHaut)
@@ -142,13 +142,13 @@ def appartientVolumeMaison(point):
 def appartientVolumePaveALOrigine(point, dimensions):
     '''
     Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
-    :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
+    :param dimensions: (dictionnaire) length, width, height du pave de la source
     :return: False/True
     '''
 
     demiLong = dimensions['longuer'] / 2
-    demiLarg = dimensions['largeur'] / 2
-    demiHaut = dimensions['hauteur'] / 2
+    demiLarg = dimensions['width'] / 2
+    demiHaut = dimensions['height'] / 2
 
     x, y, z = getCoordonnees(point)
 
@@ -158,7 +158,7 @@ def appartientVolumePaveALOrigine(point, dimensions):
 def appartientVolumePaveDeplace(point, centre, dimensions):
     '''
     Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
-    :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
+    :param dimensions: (dictionnaire) length, width, height du pave de la source
     :param centre: centre du pavé repéré dans le sys de coordonnées globale
     :return: False/True
     '''
@@ -168,14 +168,14 @@ def appartientVolumePaveDeplace(point, centre, dimensions):
 def appartientVolumePaveAPartirDuCoinMini(point, pointMini, dimensions):
     '''
     Fonction qui teste si un point est dans le volume d'un pavé dont le point Mini est donné.
-    :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
+    :param dimensions: (dictionnaire) length, width, height du pave de la source
     :param pointMini: sommet le plus proche de l'origine dans le sys de coordonnées globale
     :return: False/True
     '''
 
-    long = dimensions['longueur']
-    larg = dimensions['largeur']
-    haut = dimensions['hauteur']
+    long = dimensions['length']
+    larg = dimensions['width']
+    haut = dimensions['height']
 
     x, y, z = getCoordonnees(point - pointMini)
 
@@ -439,7 +439,7 @@ PaHautBas5 =(creerPoint(0, 0, 4), \
             creerPoint(5, 5, 4), \
             creerPoint(5, 5, 0))
             
-#Aux quatres coins hauts et anlges à mi-hauteur
+#Aux quatres coins hauts et anlges à mi-height
 # à 10 m
 PaHautMihaut10=(creerPoint(0, 0, 4), \
                 creerPoint(0, 0, 2), \

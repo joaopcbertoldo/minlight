@@ -52,12 +52,12 @@ def get_rpy_angles(angles):
     return angles['row'], angles['pitch'], angles['yaw']
 
 
-def dimensions_pave(longueur, largeur, hauteur):
-    return {'longueur': longueur, 'largeur': largeur, 'hauteur': hauteur}
+def dimensions_pave(length, width, height):
+    return {'length': length, 'width': width, 'height': height}
 
 
 def get_dimensions_pave(dimensions):
-    return dimensions['longueur'], dimensions['largeur'], dimensions['hauteur']
+    return dimensions['length'], dimensions['width'], dimensions['height']
 
 
 def vecteur_difference_2_points(depart, arrive):
@@ -159,7 +159,7 @@ def sommets_pave(centre, ypr_angles, dimensions):
     :param centreSoleil: centre de la source dans le système de repère de la chambre
     :param theta: remplir...
     :param phi: remplir...
-    :param dimensionsSource: (dictionnaire) longueur, largeur, hauteur du pave de la source
+    :param dimensionsSource: (dictionnaire) length, width, height du pave de la source
     :return: liste des sommets de la source par rapport au système de repère de la chambre
     '''
 
@@ -182,7 +182,7 @@ def sommets_pave(centre, ypr_angles, dimensions):
 def point_appartient_pave_origine(point, dimensions):
     '''
     Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
-    :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
+    :param dimensions: (dictionnaire) length, width, height du pave de la source
     :return: False/True
     '''
     long, larg, haut = get_dimensions_pave(dimensions)
@@ -199,7 +199,7 @@ def point_appartient_pave_origine(point, dimensions):
 def point_appartient_pave(point, centre, ypr_angles, dimensions):
     '''
     Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
-    :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
+    :param dimensions: (dictionnaire) length, width, height du pave de la source
     :param centre: centre du pavé repéré dans le sys de coordonnées globale
     :return: False/True
     '''
@@ -219,7 +219,7 @@ def point_appartient_pave(point, centre, ypr_angles, dimensions):
 def point_appartient_pave_droit_S000(point, centre, dimensions):
     '''
     Fonction qui teste si un point est dans le volume d'un pavé dont le point Mini est donné.
-    :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
+    :param dimensions: (dictionnaire) length, width, height du pave de la source
     :param centre: centre du pavé repéré dans le sys de coordonnées globale
     :return: False/True
     '''
