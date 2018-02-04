@@ -1,9 +1,6 @@
-from numpy import cos, sin, pi, matrix, sqrt
-from numpy.linalg import pinv
+from numpy import cos, sin, matrix, sqrt
 import numpy as np
 from pprint import pprint
-
-import shapely.geometry as geom
 
 
 def point_3d(x, y, z):
@@ -264,7 +261,7 @@ def tester_interdictions_points(generator_points, tests_interdictions):
                 resultats[t['nom']] = t['message_probleme']
     return resultats
 
-
+"""
 def verifier_cables(cables, maisonette, source, chambre, N_discretisation=300):
     centre_maisonette, dimensions_maisonette = maisonette['centre'], maisonette['dimensions']
 
@@ -365,7 +362,7 @@ def maxTheta(r, phi, maisonette, source, chambre, configs_ancrag)
                 continue
             maxTheta[phiDegrees] = thetaDegrees
             break
-
+"""
 
 
 

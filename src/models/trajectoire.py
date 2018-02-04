@@ -1,6 +1,6 @@
 from math import cos, sin, asin, pi
 
-from src.enums import UniteAngleEnum, SequenceAnglesRotationEnum
+from src.enums import AngleUnityEnum, RotationSequenceEnum
 from src.math_entities import CoordonnesSpherique, Vec3, TupleAnglesRotation
 from src.models.miscellaneous import x_sph, y_sph, z_sph, secondes_dans_horaire, point_azimut
 from src.setups import parametres_objets
@@ -112,8 +112,8 @@ class Configuration:
         self.set_centre_xyz(parametres_objets.systeme_spherique_baie_vitree)
 
     def set_centre_xyz(self, systeme_spherique):
-        #  roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=UniteAngleEnum.DEGRE)
-        coordonnees_spheriques = CoordonnesSpherique(self.ro, self.position_theta, self.position_phi, UniteAngleEnum.DEGRE)
+        #  roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=AngleUnityEnum.degree)
+        coordonnees_spheriques = CoordonnesSpherique(self.ro, self.position_theta, self.position_phi, AngleUnityEnum.degree)
         # p = centre de la source pour le systeme cartesien à partir du quel le spherique est defini
         p = systeme_spherique.convertir_en_cartesien(coordonnees_spheriques)
 
@@ -132,8 +132,8 @@ class Configuration:
                 row=0,
                 pitch=self.position_phi,
                 yaw=self.position_theta,
-                sequence=SequenceAnglesRotationEnum.YPR,
-                unite=UniteAngleEnum.DEGRE  # !!!!!!!!!!!!!!!!!!!!!!!!
+                sequence=RotationSequenceEnum.ypr,
+                unite=AngleUnityEnum.degree  # !!!!!!!!!!!!!!!!!!!!!!!!
             )
 
     def get_angle(self):

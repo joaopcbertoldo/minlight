@@ -5,7 +5,7 @@ import numpy as np
 from numpy import cos, sin, pi, matrix, sqrt
 from numpy.linalg import norm
 
-from src.enums import AngleRotationEnum, UniteAngleEnum, SequenceAnglesRotationEnum
+from src.enums import RotationAngleEnum, AngleUnityEnum, RotationSequenceEnum
 
 
 class Vec3(matrix):
@@ -104,8 +104,8 @@ class TupleAnglesRotation():
         return TupleAnglesRotation(0,0,0)
 
     def __init__(self, row, pitch, yaw,
-                 sequence = SequenceAnglesRotationEnum.YPR,
-                 unite    = UniteAngleEnum.DEGRE):
+                 sequence = RotationSequenceEnum.ypr,
+                 unite    = AngleUnityEnum.degree):
 
         self._row      = row
         self._pitch    = pitch
@@ -114,31 +114,31 @@ class TupleAnglesRotation():
         self._unite    = unite
         self._recalculer_matrice = True
         self._matrix_x = MatriceRotation3D(
-            angle  = AngleRotationEnum.ROW,
+            angle  = RotationAngleEnum.row,
             valeur = self._row,
             unite  = self._unite
         )
 
         self._matrix_y = MatriceRotation3D(
-            angle  = AngleRotationEnum.PITCH,
+            angle  = RotationAngleEnum.pitch,
             valeur = self._pitch,
             unite  = self._unite
         )
 
         self._matrix_z = MatriceRotation3D(
-            angle  = AngleRotationEnum.YAW,
+            angle  = RotationAngleEnum.yaw,
             valeur = self._yaw,
             unite  = self._unite
         )
 
-        if self._sequence == SequenceAnglesRotationEnum.RPY:
+        if self._sequence == RotationSequenceEnum.rpy:
             self._matrice_rotation = self._matrix_x.dot(self._matrix_y.dot(self._matrix_z))
 
-        elif self._sequence == SequenceAnglesRotationEnum.YPR:
+        elif self._sequence == RotationSequenceEnum.ypr:
             self._matrice_rotation = self._matrix_z.dot(self._matrix_y.dot(self._matrix_x))
 
         else:
-            raise Exception('SequenceAnglesRotationEnum inconu')
+            raise Exception('RotationSequenceEnum inconu')
 
     def incrementer(self,delta_yaw,delta_pitch,delta_row):
         self._yaw+=delta_yaw
@@ -154,8 +154,8 @@ class TupleAnglesRotation():
         def ypr(): return self._yaw, self._pitch, self._row
 
         switch = {
-            SequenceAnglesRotationEnum.RPY : rpy,
-            SequenceAnglesRotationEnum.YPR : ypr
+            RotationSequenceEnum.rpy : rpy,
+            RotationSequenceEnum.ypr : ypr
         }
 
         return switch[self._sequence]()
@@ -168,25 +168,25 @@ class TupleAnglesRotation():
     def get_matrice_rotation(self):
         if self._recalculer_matrice:
             self._matrix_x = MatriceRotation3D(
-                angle  = AngleRotationEnum.ROW,
+                angle  = RotationAngleEnum.row,
                 valeur = self._row,
                 unite  = self._unite
             )
             self._matrix_y = MatriceRotation3D(
-                angle  = AngleRotationEnum.PITCH,
+                angle  = RotationAngleEnum.pitch,
                 valeur = self._pitch,
                 unite  = self._unite
             )
 
             self._matrix_z = MatriceRotation3D(
-                angle  = AngleRotationEnum.YAW,
+                angle  = RotationAngleEnum.yaw,
                 valeur = self._yaw,
                 unite  = self._unite
             )
-            if self._sequence == SequenceAnglesRotationEnum.RPY:
+            if self._sequence == RotationSequenceEnum.rpy:
                 self._matrice_rotation = self._matrix_x.dot(self._matrix_y.dot(self._matrix_z))
 
-            elif self._sequence == SequenceAnglesRotationEnum.YPR:
+            elif self._sequence == RotationSequenceEnum.ypr:
                 self._matrice_rotation = self._matrix_z.dot(self._matrix_y.dot(self._matrix_x))
             self._recalculer_matrice = False
         return self._matrice_rotation
@@ -197,9 +197,9 @@ class TupleAnglesRotation():
             row      = -self._row,
             pitch    = -self._pitch,
             yaw      = -self._yaw,
-            sequence = SequenceAnglesRotationEnum.RPY if self._sequence == SequenceAnglesRotationEnum.YPR else
-                       SequenceAnglesRotationEnum.YPR if self._sequence == SequenceAnglesRotationEnum.RPY else
-                       SequenceAnglesRotationEnum.INCONU,
+            sequence = RotationSequenceEnum.rpy if self._sequence == RotationSequenceEnum.ypr else
+                       RotationSequenceEnum.ypr if self._sequence == RotationSequenceEnum.rpy else
+                       RotationSequenceEnum.unknown,
             unite    = self._unite
         )
 
@@ -219,14 +219,14 @@ class MatriceRotation3D(matrix):
                      '  0,    0, 1  '
 
     ROTATION_STR_SWITCH = {
-        AngleRotationEnum.ROW   : ROTATION_X_STR,
-        AngleRotationEnum.PITCH : ROTATION_Y_STR,
-        AngleRotationEnum.YAW   : ROTATION_Z_STR
+        RotationAngleEnum.row   : ROTATION_X_STR,
+        RotationAngleEnum.pitch : ROTATION_Y_STR,
+        RotationAngleEnum.yaw   : ROTATION_Z_STR
     }
 
 
-    def __new__(cls, angle, valeur, unite = UniteAngleEnum.DEGRE):
-        radians = valeur if unite == UniteAngleEnum.RADIAN else valeur * pi / 180
+    def __new__(cls, angle, valeur, unite = AngleUnityEnum.degree):
+        radians = valeur if unite == AngleUnityEnum.radian else valeur * pi / 180
 
         str = cls.ROTATION_STR_SWITCH[angle].format(s = sin(radians), c = cos(radians))
 
@@ -247,14 +247,14 @@ class CoordonnesSpherique():
         self.unite = unite
 
 
-    def get_coordonnees_spheriques(self, unite_desiree = UniteAngleEnum.INCONU):
-        if unite_desiree == self.unite or unite_desiree == UniteAngleEnum.INCONU:
+    def get_coordonnees_spheriques(self, unite_desiree = AngleUnityEnum.unknown):
+        if unite_desiree == self.unite or unite_desiree == AngleUnityEnum.unknown:
             return self.roh, self.theta, self.phi
 
-        elif unite_desiree == UniteAngleEnum.DEGRE and self.unite == UniteAngleEnum.RADIAN:
+        elif unite_desiree == AngleUnityEnum.degree and self.unite == AngleUnityEnum.radian:
             return self.roh, self.theta * 180 / pi, self.phi * 180 / pi
 
-        elif unite_desiree == UniteAngleEnum.RADIAN and self.unite == UniteAngleEnum.DEGRE:
+        elif unite_desiree == AngleUnityEnum.radian and self.unite == AngleUnityEnum.degree:
             return self.roh, self.theta * pi / 180, self.phi * pi / 180
 
         else:
@@ -272,7 +272,7 @@ class SystemeRepereSpherique():
 
 
     def convertir_en_cartesien(self, coordonnees_spheriques):
-        roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=UniteAngleEnum.RADIAN)
+        roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=AngleUnityEnum.radian)
 
         return Vec3(roh * cos(phi) * cos(theta),
                     roh * cos(phi) * sin(theta),

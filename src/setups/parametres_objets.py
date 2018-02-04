@@ -1,4 +1,4 @@
-from src.enums import UniteAngleEnum
+from src.enums import AngleUnityEnum
 
 from src.math_entities import \
     Vec3,                                \
@@ -121,7 +121,7 @@ rotation_systeme_spherique = \
         yaw=180,  # degrés
         pitch=0,  # degrés
         row=0,    # degrés
-        unite=UniteAngleEnum.DEGRE,
+        unite=AngleUnityEnum.degree,
     )
 
 # systeme sphérique

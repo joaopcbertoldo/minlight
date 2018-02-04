@@ -13,7 +13,7 @@ from src.models.entites_systeme_minlight import CableLayout, CableConfiguration
 
 
 class DirectionEnum(Enum):
-    INCONU = 0
+    unknown = 0
     X = 1
     Y = 2
     Z = 3
@@ -23,7 +23,7 @@ class DirectionEnum(Enum):
 
 
 class PlanEnum(Enum):
-    INCONU = 0
+    unknown = 0
     XY = 1
     XZ = 2
     YZ = 3
@@ -32,14 +32,14 @@ class PlanEnum(Enum):
         return DirectionEnum.X if self == self.YZ else \
                DirectionEnum.Y if self == self.XZ else \
                DirectionEnum.Z if self == self.XY else \
-               DirectionEnum.INCONU
+               DirectionEnum.unknown
 
 
 ''' ************************ Sous Configurations des Câbles ************************ '''
 
 
 class SousConfigCableEnum(Enum):
-    INCONU = 0
+    unknown = 0
     SIMPLE = 1
     CROISE_UP_DOWN = 2
     CROISE_LEFT_RIGHT = 3
@@ -48,7 +48,7 @@ class SousConfigCableEnum(Enum):
 
 
 class Sequence3emeDirectionEnum(Enum):
-    INCONU = 0
+    unknown = 0
     CONSTANTE = 1
     DEUX_A_DEUX = 2
     INTERMITANTE = 3

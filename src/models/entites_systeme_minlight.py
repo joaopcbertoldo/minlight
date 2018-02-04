@@ -3,7 +3,7 @@ from deprecated import deprecated
 from OpenGL.GL import *
 from numpy import arcsin, degrees, radians, cos, sin, sqrt
 
-from src.enums import SequenceAnglesRotationEnum, UniteAngleEnum
+from src.enums import RotationSequenceEnum, AngleUnityEnum
 from src.math_entities import Vec3, TupleAnglesRotation
 from src.models.outils2 import solutions_formule_quadratique, get_plane_normal
 from src.visualization.outils import Surface
@@ -393,7 +393,7 @@ class Box:
         '''
         source changed to self, not sure if it works
         '''
-        roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=UniteAngleEnum.DEGRE)
+        roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=AngleUnityEnum.degree)
 
         # p = centre de la source pour le systeme cartesien à partir du quel le spherique est defini
         p = systeme_spherique.convertir_en_cartesien(coordonnees_spheriques)
@@ -413,8 +413,8 @@ class Box:
                 row=0,
                 pitch=phi,
                 yaw=theta,
-                sequence=SequenceAnglesRotationEnum.YPR,
-                unite=UniteAngleEnum.DEGRE  # !!!!!!!!!!!!!!!!!!!!!!!!
+                sequence=RotationSequenceEnum.ypr,
+                unite=AngleUnityEnum.degree  # !!!!!!!!!!!!!!!!!!!!!!!!
             )
 
     def update_sommets(self):

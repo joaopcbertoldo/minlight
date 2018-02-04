@@ -1,7 +1,7 @@
 import matplotlib
 
 from src.math_entities import SpaceRechercheAnglesLimites, IntervalleLineaire
-from src.enums import UniteAngleEnum
+from src.enums import AngleUnityEnum
 from src.setups import faux
 from src.simulation.limit_angles import angles_limites_factory
 
@@ -22,7 +22,7 @@ space_recherche = \
         intervalle_rho=intervalle_rho,
         intervalle_phi=intervalle_phi,
         intervalle_theta=intervalle_theta,
-        unite=UniteAngleEnum.DEGRE
+        unite=AngleUnityEnum.degree
     )
 
 # diameter des câbles

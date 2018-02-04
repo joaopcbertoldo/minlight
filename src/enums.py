@@ -1,21 +1,23 @@
 from enum import Enum
 
 
-class UniteAngleEnum(Enum):
-    """Indicates the unity used to measure angle."""
-    INCONU = 0
-    RADIAN = 1
-    DEGRE = 2
+class AngleUnityEnum(Enum):
+    """Unity used to measure angles."""
+    unknown = 0
+    radian = 1
+    degree = 2
 
 
-class AngleRotationEnum(Enum):
-    INCONU = 0
-    ROW = 1
-    PITCH = 2
-    YAW = 3
+class RotationAngleEnum(Enum):
+    """Row (body's x axis), pitch(body's y axis), yaw(body's z axis)."""
+    unknown = 0
+    row = 1
+    pitch = 2
+    yaw = 3
 
 
-class SequenceAnglesRotationEnum(Enum):
-    INCONU = 0
-    RPY = 1
-    YPR = 2
+class RotationSequenceEnum(Enum):
+    """Sequence of the three rotation angles (ex: row, pitch, yaw)."""
+    unknown = 0
+    rpy = 1
+    ypr = 2
