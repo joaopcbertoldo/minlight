@@ -2,21 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulation/limit_angles/graphes/simple_haut_haut.png" afterPath="$PROJECT_DIR$/src/simulation/limit_angles/graphes/simple_haut_haut.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulation/limit_angles/graphes/simple_haut_mid.png" afterPath="$PROJECT_DIR$/src/simulation/limit_angles/graphes/simple_haut_mid.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulation/limit_angles/resultats_limites/simple_haut_haut.pickle" afterPath="$PROJECT_DIR$/src/simulation/limit_angles/resultats_limites/simple_haut_haut.pickle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulation/limit_angles/resultats_limites/simple_haut_mid.pickle" afterPath="$PROJECT_DIR$/src/simulation/limit_angles/resultats_limites/simple_haut_mid.pickle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/entites_systeme_minlight.py" afterPath="$PROJECT_DIR$/src/models/entites_systeme_minlight.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/trajectoire.py" afterPath="$PROJECT_DIR$/src/models/trajectoire.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/setups/configuration_ancrage.py" afterPath="$PROJECT_DIR$/src/setups/configuration_ancrage.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/setups/faux.py" afterPath="$PROJECT_DIR$/src/setups/faux.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/setups/parametres_ancrage.py" afterPath="$PROJECT_DIR$/src/setups/parametres_ancrage.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/setups/parametres_objets.py" afterPath="$PROJECT_DIR$/src/setups/parametres_objets.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulation/limit_angles/angles_limites.py" afterPath="$PROJECT_DIR$/src/simulation/limit_angles/angles_limites.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulation/limit_angles/angles_limites_factory.py" afterPath="$PROJECT_DIR$/src/simulation/limit_angles/angles_limites_factory.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulation/limit_angles/banc_tests.py" afterPath="$PROJECT_DIR$/src/simulation/limit_angles/banc_tests.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/visualization/cameraOpening.py" afterPath="$PROJECT_DIR$/src/visualization/cameraOpening.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/visualization/outils.py" afterPath="$PROJECT_DIR$/src/visualization/outils.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/visualization/robotvisualization.py" afterPath="$PROJECT_DIR$/src/visualization/robotvisualization.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/visualization/robotvisualization2.py" afterPath="$PROJECT_DIR$/src/visualization/robotvisualization2.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/visualization/trackball.py" afterPath="$PROJECT_DIR$/src/visualization/trackball.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,23 +28,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="simulateur_mesure.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/simulation/mesures/simulateur_mesure.py">
+      <file leaf-file-name="trackball.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/visualization/trackball.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="-1725">
+              <caret line="15" column="8" lean-forward="true" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#30#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cameraOpening.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/visualization/cameraOpening.py">
+      <file leaf-file-name="tension.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/models/tension.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <element signature="e#0#13#0" expanded="true" />
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -140,10 +133,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/bibliothèques graphiques.txt" />
-        <option value="$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py" />
-        <option value="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" />
-        <option value="$PROJECT_DIR$/src/calculs/setups/parametres_ancrage.py" />
         <option value="$PROJECT_DIR$/src/calculs/commande/commandable.py" />
         <option value="$PROJECT_DIR$/src/calculs/commande/commandeur.py" />
         <option value="$PROJECT_DIR$/src/calculs/graphics/robot_visualization.py" />
@@ -172,7 +161,6 @@
         <option value="$PROJECT_DIR$/src/calculs/dynamique/tension.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation_mesures/cable_robot_observers.py" />
         <option value="$PROJECT_DIR$/src/math.py" />
-        <option value="$PROJECT_DIR$/src/visualization/trackball.py" />
         <option value="$PROJECT_DIR$/src/enums.py" />
         <option value="$PROJECT_DIR$/src/camera/choixcamera.py" />
         <option value="$PROJECT_DIR$/src/camera/calibration.py" />
@@ -191,6 +179,11 @@
         <option value="$PROJECT_DIR$/src/simulation/limit_angles/angles_limites.py" />
         <option value="$PROJECT_DIR$/src/simulation/limit_angles/angles_limites_factory.py" />
         <option value="$PROJECT_DIR$/src/simulation/limit_angles/banc_tests.py" />
+        <option value="$PROJECT_DIR$/src/visualization/cameraOpening.py" />
+        <option value="$PROJECT_DIR$/src/visualization/outils.py" />
+        <option value="$PROJECT_DIR$/src/visualization/robotvisualization.py" />
+        <option value="$PROJECT_DIR$/src/visualization/robotvisualization2.py" />
+        <option value="$PROJECT_DIR$/src/visualization/trackball.py" />
       </list>
     </option>
   </component>
@@ -269,24 +262,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="minlight" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="minlight" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="visualization" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -521,13 +496,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1508855063589</updated>
-    </task>
-    <task id="LOCAL-00016" summary="criando graficos">
-      <created>1510493380032</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1510493380032</updated>
     </task>
     <task id="LOCAL-00017" summary="criando graficos">
       <created>1510493389048</created>
@@ -865,7 +833,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517782526640</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="correcting imports...">
+      <created>1517785741565</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1517785741565</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TodoView">
@@ -909,7 +884,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="source et cables de demo de config dancrage" />
     <MESSAGE value="ajeitando a demo de config ancrage" />
     <MESSAGE value="terminado os sous configs de ancrage" />
     <MESSAGE value="configs prontas" />
@@ -934,7 +908,8 @@
     <MESSAGE value="fixing the imports" />
     <MESSAGE value="pbm in tension" />
     <MESSAGE value="changed to length, width, height" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed to length, width, height" />
+    <MESSAGE value="correcting imports..." />
+    <option name="LAST_COMMIT_MESSAGE" value="correcting imports..." />
     <option name="UPDATE_GROUP_BY_PACKAGES" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -992,15 +967,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Program Files/Python36/Lib/site-packages/OpenGL/arrays/numpymodule.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1627">
-          <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/drawCube2.py" />
-    <entry file="file://$PROJECT_DIR$/src/calculs/trajectoires_jolies" />
     <entry file="file://$PROJECT_DIR$/src/calculs/dynamique/miscellaneous.py" />
     <entry file="file://$PROJECT_DIR$/src/calculs/setups/parametres_ancrage.py" />
     <entry file="file://$PROJECT_DIR$/src/calculs/setups/parametres_objets.py" />
@@ -1027,14 +993,6 @@
     <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entite_cable_robot.py" />
     <entry file="file://$PROJECT_DIR$/src/calculs/simulation_mesures/cable_robot_observers.py" />
     <entry file="file://$PROJECT_DIR$/src/math.py" />
-    <entry file="file://$PROJECT_DIR$/src/visualization/trackball.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/enums.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
@@ -1137,16 +1095,6 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/tension.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1261,6 +1209,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/visualization/cameraOpening.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="17" column="9" lean-forward="false" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/simulation/mesures/simulateur_mesure.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1269,12 +1227,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/visualization/cameraOpening.py">
+    <entry file="file://$PROJECT_DIR$/src/visualization/outils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="14" lean-forward="true" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/visualization/robotvisualization.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="45" column="25" lean-forward="true" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="25" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/visualization/robotvisualization2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1549">
+          <caret line="100" column="8" lean-forward="false" selection-start-line="100" selection-start-column="8" selection-end-line="100" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/visualization/trackball.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1725">
+          <caret line="15" column="8" lean-forward="true" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/tension.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>

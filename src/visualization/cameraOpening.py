@@ -1,11 +1,9 @@
-import pygame
-from pygame.locals import *
-from src.calculs.modeles.entites_mathemathiques import Vec3
-from OpenGL.GL import *
-from OpenGL.GLU import *
-from src.calculs.setups.parametres_objets import dimensions_chambre
 from numpy import tan
-import time
+
+from OpenGL.GL import *
+
+from src.math_entities import Vec3
+from src.setups.parametres_objets import dimensions_chambre
 
 
 class CameraOpening:

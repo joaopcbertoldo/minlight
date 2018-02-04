@@ -1,11 +1,13 @@
-import pygame
-from pygame.locals import *
-from src.calculs.graphics.trackball import Trackball
+import time
+
 from OpenGL.GL import *
 from OpenGL.GLU import *
-import time
-from src.calculs.control.keyboard_controlers import SourceKeyboardController, ViewKeyboardController
-from src.calculs.control.pygame_view_controlable import PygameViewControlable
+from pygame.locals import *
+import pygame
+
+from src.visualization.trackball import Trackball
+from src.visualization.control.keyboard_controlers import SourceKeyboardController, ViewKeyboardController
+from src.visualization.control.pygame_view_controlable import PygameViewControlable
 
 
 class RobotVisualization2:

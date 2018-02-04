@@ -1,13 +1,16 @@
-import pygame
-from pygame.locals import *
-from src.calculs.modeles.entite_cable_robot import *
-from src.calculs.graphics.trackball import Trackball
+from numpy import radians
+import time
+
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from src.calculs.setups.parametres_objets import camera_position1,camera_position2,camera_position3,camera_position4, camera_direction
-from src.calculs.graphics.cameraOpening import CameraOpening
-import time
-from numpy import radians
+from pygame.locals import *
+import pygame
+
+from src.models.entite_cable_robot import *
+from src.visualization.trackball import Trackball
+from src.visualization.cameraOpening import CameraOpening
+from src.setups.parametres_objets import camera_position1, camera_position2, camera_position3, camera_position4, \
+                                         camera_direction
 
 
 class RobotVisualization:
