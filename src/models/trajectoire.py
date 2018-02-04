@@ -1,51 +1,45 @@
 from math import cos, sin, asin, pi
 
-from src.math_entities import *
-from src.models.entites_systeme_minlight import *
-#from src.models.miscellaneous import *
+from src.enums import UniteAngleEnum, SequenceAnglesRotationEnum
+from src.math_entities import CoordonnesSpherique, Vec3, TupleAnglesRotation
+from src.models.miscellaneous import x_sph, y_sph, z_sph, secondes_dans_horaire, point_azimut
 from src.setups import parametres_objets
 
 
-class Trajectoire():
-
-    '''
+class Trajectoire:
+    """
     :param date: String en format '29/07'
     :param latitude: string en format '63.2/N', ou '63.2/S'
     :param heure: string en format '18:48'
     :param orientation_nord: float entre 0.0 et 360.0
     :param orientation_zenit: float entre 0.0 et 90.0
-    '''
+    """
 
     # provavelmente é melhor tirar heure_initiale, heure_finale e intervalle do construtor
     # e coloca-los como parametro dos metodos
     def __init__(self, date, latitude, heure_initiale, heure_finale,
-                intervalle, ro, orientation_nord = 0.0, orientation_zenit=0.0):
+                 intervalle, ro, orientation_nord = 0.0, orientation_zenit=0.0):
         self.date = date
         self.latitude = latitude
-        self.heure_initiale =heure_initiale
+        self.heure_initiale = heure_initiale
         self.heure_finale = heure_finale
         self.intervalle = intervalle
-        #
+
         self.ro = ro
-        #
+
         self.orientation_nord = orientation_nord
         self.orientation_zenit = orientation_zenit
 
-# coord spheriques prenant y comme nord
+    # coord spheriques prenant y comme nord
     '''
     Fonction qui donne la position du soleil vue par un observeur sur Terre.
-
-    
     :return: coordonnees [sol_azimut, sol_altitude] pour la position solaire vue.
-
     '''
-
-    def position_soleil (self, heure):
+    def position_soleil(self, heure):
         secs = 60 * (int(heure.split(':')[0]) * 60 + int(heure.split(':')[1]))
         return self.position_soleil_secondes(secs)
 
-    def position_soleil_secondes (self, secs):
-
+    def position_soleil_secondes(self, secs):
         dic_mois = \
              {
                  '01': 31,
@@ -63,7 +57,6 @@ class Trajectoire():
              }
 
         # calcule le nombre n de jours dans la date (n=1 si date == '01/01')
-
         n = int(self.date.split('/')[0])
 
         for key in list(dic_mois.keys()):
@@ -73,40 +66,33 @@ class Trajectoire():
                 break
 
         # recuperer la valeur de latitude
-
         if self.latitude.split('/')[1] == 'N':
             lat = pi/180*float(self.latitude.split('/')[0])
         else:
             lat = -1*pi/180*float(self.latitude.split('/')[0])
 
-
         # declin = angle de declinaison, calculé à partir de n
         declin = -pi / 180 * 23.45 * cos(2 * pi * (n + 10) / 365)
 
-
         # determiner la position [soleil_aizmut, soleil_altitude] du soleil:
-        w_Terre = 2*pi/(24*60*60)  #en rad/seconde
+        w__terre = 2*pi/(24*60*60)  # en rad/seconde
 
-        x = x_sph(declin, w_Terre*secs)
-        y = y_sph(declin, w_Terre*secs) * sin(lat) + z_sph(declin) * cos(lat)
-        z = -y_sph(declin, w_Terre*secs) * cos(lat) + z_sph(declin) * sin(lat)
+        x = x_sph(declin, w__terre*secs)
+        y = y_sph(declin, w__terre*secs) * sin(lat) + z_sph(declin) * cos(lat)
+        z = -y_sph(declin, w__terre*secs) * cos(lat) + z_sph(declin) * sin(lat)
 
         soleil_altitude = asin(z)*180/pi  # en degres
         soleil_azimut = point_azimut(x, y)
 
         return [soleil_azimut-self.orientation_nord + 180, soleil_altitude-self.orientation_zenit]
 
-
-    def get_trajectoire (self):
+    def get_trajectoire(self):
         points_trajectoire = []
 
         n_points = int((secondes_dans_horaire(self.heure_finale)-secondes_dans_horaire(self.heure_initiale))/self.intervalle)
         for i in range(n_points):
             points_trajectoire.append(
-                self.position_soleil_secondes(secondes_dans_horaire(self.heure_initiale) + i* self.intervalle));
-
-            '''
-            '''
+                self.position_soleil_secondes(secondes_dans_horaire(self.heure_initiale) + i * self.intervalle))
         return points_trajectoire
 
     def get_configurations(self):
@@ -116,27 +102,27 @@ class Trajectoire():
             lista_config.append(config)
         return lista_config
 
+
 class Configuration:
+
     def __init__(self, pair_theta_phi, ro):
         self.position_theta = pair_theta_phi[0]
         self.position_phi = pair_theta_phi[1]
         self.ro = ro
         self.set_centre_xyz(parametres_objets.systeme_spherique_baie_vitree)
 
-
     def set_centre_xyz(self, systeme_spherique):
-
-      #  roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=UniteAngleEnum.DEGRE)
+        #  roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=UniteAngleEnum.DEGRE)
         coordonnees_spheriques = CoordonnesSpherique(self.ro, self.position_theta, self.position_phi, UniteAngleEnum.DEGRE)
         # p = centre de la source pour le systeme cartesien à partir du quel le spherique est defini
         p = systeme_spherique.convertir_en_cartesien(coordonnees_spheriques)
 
         centre_systeme, ypr_angles_systeme = systeme_spherique.get_centre_et_ypr_angles()
 
-        Rot = ypr_angles_systeme.get_tuple_angles_pour_inverser_rotation() \
+        rot = ypr_angles_systeme.get_tuple_angles_pour_inverser_rotation() \
             .get_matrice_rotation()
 
-        res = Rot * p + centre_systeme
+        res = rot * p + centre_systeme
 
         # il faut faire ça sinon le retour est une matrice rot
         self.centre = Vec3(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
@@ -155,24 +141,12 @@ class Configuration:
 
     def get_centre(self):
         return self.centre
-        '''
-    def get_coords(self):
-        x =
-        y =
-        z =
 
-        return Vec3(),
-        '''
 
 # test
-
 traj = Trajectoire('03/03', '60.3/N', '16:01', '20:00', 600, 2000)
 a = traj.position_soleil('12:01')
+
 print(a)
-
-#print(traj.get_trajectoire())
 print('')
-#config = Configuration(a)
-#print(config.get_centre())
-
 print(traj.get_configurations())

@@ -1,6 +1,7 @@
 from enum import Enum
 from pprint import pprint
-from src.calculs.modeles.entites_systeme_minlight import CableLayout, CableConfiguration
+
+from src.models.entites_systeme_minlight import CableLayout, CableConfiguration
 
 
 ''' ************************ Configurations des Câbles ************************ '''
@@ -328,70 +329,46 @@ def get_simple(points_fixes):
     :return: 
     """
     Aux.sous_config_cable_0 = SousConfigCable(SousConfigCableEnum.SIMPLE, PlanEnum.XY)
-
     Aux.sequence_pf_0 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(0)
-
     Aux.sequence_s_0 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(0)
-
     Aux.sous_config_cable_1 = SousConfigCable(SousConfigCableEnum.SIMPLE, PlanEnum.XY)
-
     Aux.sequence_pf_1 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(1)
-
     Aux.sequence_s_1 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(1)
-
     Aux.points_fixes = points_fixes
-
     return _creer_config_ancrage()
 
 
 def get_tourne_sh_sch(points_fixes):
     """
-
     :param points_fixes: dictionnaire des points fixes d'ancrage
     :return: 
     """
     Aux.sous_config_cable_0 = SousConfigCable(SousConfigCableEnum.TOURNE_SENS_HORLOGE, PlanEnum.XY)
-
     Aux.sequence_pf_0 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(0)
-
     Aux.sequence_s_0 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(0)
-
     Aux.sous_config_cable_1 = SousConfigCable(SousConfigCableEnum.TOURNE_SENS_CONTRE_HORLOGE, PlanEnum.XY)
-
     Aux.sequence_pf_1 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(1)
-
     Aux.sequence_s_1 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(1)
-
     Aux.points_fixes = points_fixes
-
     return _creer_config_ancrage()
 
 
 def get_tourne_sch_sh(points_fixes):
     """
-
     :param points_fixes: dictionnaire des points fixes d'ancrage
     :return: 
     """
     Aux.sous_config_cable_0 = SousConfigCable(SousConfigCableEnum.TOURNE_SENS_CONTRE_HORLOGE, PlanEnum.XY)
-
     Aux.sequence_pf_0 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(0)
-
     Aux.sequence_s_0 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(0)
-
     Aux.sous_config_cable_1 = SousConfigCable(SousConfigCableEnum.TOURNE_SENS_HORLOGE, PlanEnum.XY)
-
     Aux.sequence_pf_1 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(1)
-
     Aux.sequence_s_1 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(1)
-
     Aux.points_fixes = points_fixes
-
     return _creer_config_ancrage()
 
 
 ''' ************************ Tests ************************ '''
-
 
 
 scs = [SousConfigCableEnum.TOURNE_SENS_CONTRE_HORLOGE,
@@ -404,6 +381,7 @@ plans = [PlanEnum.XY, PlanEnum.XZ, PlanEnum.XY]
 
 scps = [SousConfigCable(sous_config=sc, plan=p) for sc in scs for p in plans]
 
+
 def __main__():
     for scp in scps:
         print(scp)
@@ -413,17 +391,17 @@ def __main__():
 
 ''' ************************ Configurations Rien Croisé ************************ '''
 
-
+"""
 # Description
 def get_config_ancrage_rien_croise():
-    cc_000 = CableConfiguration(nom_sommet_source='S000', point_ancrage=PF_000)  # cc_000 = PF_000 --> S000
-    cc_100 = CableConfiguration(nom_sommet_source='S100', point_ancrage=PF_100)  # cc_100 = PF_100 --> S100
-    cc_010 = CableConfiguration(nom_sommet_source='S010', point_ancrage=PF_010)  # cc_010 = PF_010 --> S010
-    cc_110 = CableConfiguration(nom_sommet_source='S110', point_ancrage=PF_110)  # cc_110 = PF_110 --> S110
-    cc_001 = CableConfiguration(nom_sommet_source='S001', point_ancrage=PF_001)  # cc_001 = PF_001 --> S001
-    cc_101 = CableConfiguration(nom_sommet_source='S101', point_ancrage=PF_101)  # cc_101 = PF_101 --> S101
-    cc_011 = CableConfiguration(nom_sommet_source='S011', point_ancrage=PF_011)  # cc_011 = PF_011 --> S011
-    cc_111 = CableConfiguration(nom_sommet_source='S111', point_ancrage=PF_111)  # cc_111 = PF_111 --> S111
+    cc_000 = CableConfiguration(source_vertex_name='S000', fixed_point=PF_000)  # cc_000 = PF_000 --> S000
+    cc_100 = CableConfiguration(source_vertex_name='S100', fixed_point=PF_100)  # cc_100 = PF_100 --> S100
+    cc_010 = CableConfiguration(source_vertex_name='S010', fixed_point=PF_010)  # cc_010 = PF_010 --> S010
+    cc_110 = CableConfiguration(source_vertex_name='S110', fixed_point=PF_110)  # cc_110 = PF_110 --> S110
+    cc_001 = CableConfiguration(source_vertex_name='S001', fixed_point=PF_001)  # cc_001 = PF_001 --> S001
+    cc_101 = CableConfiguration(source_vertex_name='S101', fixed_point=PF_101)  # cc_101 = PF_101 --> S101
+    cc_011 = CableConfiguration(source_vertex_name='S011', fixed_point=PF_011)  # cc_011 = PF_011 --> S011
+    cc_111 = CableConfiguration(source_vertex_name='S111', fixed_point=PF_111)  # cc_111 = PF_111 --> S111
 
     config_ancrage = CableLayout(
         configs_cables=[cc_000, cc_100, cc_010, cc_110, cc_001, cc_101, cc_011, cc_111]
@@ -433,35 +411,34 @@ def get_config_ancrage_rien_croise():
 
 
 def get_config_ancrage_xy_croise_sens_horloge_en_bas():
-    cc_000 = CableConfiguration(nom_sommet_source='S010', point_ancrage=PF_000)  # cc_000 = PF_000 --> S010
-    cc_100 = CableConfiguration(nom_sommet_source='S000', point_ancrage=PF_100)  # cc_100 = PF_100 --> S000
-    cc_010 = CableConfiguration(nom_sommet_source='S110', point_ancrage=PF_010)  # cc_010 = PF_010 --> S110
-    cc_110 = CableConfiguration(nom_sommet_source='S100', point_ancrage=PF_110)  # cc_110 = PF_110 --> S100
-    cc_001 = CableConfiguration(nom_sommet_source='S101', point_ancrage=PF_001)  # cc_001 = PF_001 --> S101
-    cc_101 = CableConfiguration(nom_sommet_source='S111', point_ancrage=PF_101)  # cc_101 = PF_101 --> S111
-    cc_011 = CableConfiguration(nom_sommet_source='S001', point_ancrage=PF_011)  # cc_011 = PF_011 --> S001
-    cc_111 = CableConfiguration(nom_sommet_source='S011', point_ancrage=PF_111)  # cc_111 = PF_111 --> S011
+    cc_000 = CableConfiguration(source_vertex_name='S010', fixed_point=PF_000)  # cc_000 = PF_000 --> S010
+    cc_100 = CableConfiguration(source_vertex_name='S000', fixed_point=PF_100)  # cc_100 = PF_100 --> S000
+    cc_010 = CableConfiguration(source_vertex_name='S110', fixed_point=PF_010)  # cc_010 = PF_010 --> S110
+    cc_110 = CableConfiguration(source_vertex_name='S100', fixed_point=PF_110)  # cc_110 = PF_110 --> S100
+    cc_001 = CableConfiguration(source_vertex_name='S101', fixed_point=PF_001)  # cc_001 = PF_001 --> S101
+    cc_101 = CableConfiguration(source_vertex_name='S111', fixed_point=PF_101)  # cc_101 = PF_101 --> S111
+    cc_011 = CableConfiguration(source_vertex_name='S001', fixed_point=PF_011)  # cc_011 = PF_011 --> S001
+    cc_111 = CableConfiguration(source_vertex_name='S011', fixed_point=PF_111)  # cc_111 = PF_111 --> S011
 
     config_ancrage = CableLayout(
         configs_cables=[cc_000, cc_100, cc_010, cc_110, cc_001, cc_101, cc_011, cc_111]
     )
 
     return config_ancrage
-
 
 def get_config_ancrage_xy_croise_sens_horloge_en_haut():
-    cc_000 = CableConfiguration(nom_sommet_source='S100', point_ancrage=PF_000)  # cc_000 = PF_000 --> S100
-    cc_100 = CableConfiguration(nom_sommet_source='S110', point_ancrage=PF_100)  # cc_100 = PF_100 --> S110
-    cc_010 = CableConfiguration(nom_sommet_source='S000', point_ancrage=PF_010)  # cc_010 = PF_010 --> S000
-    cc_110 = CableConfiguration(nom_sommet_source='S010', point_ancrage=PF_110)  # cc_110 = PF_110 --> S010
-    cc_001 = CableConfiguration(nom_sommet_source='S011', point_ancrage=PF_001)  # cc_001 = PF_001 --> S011
-    cc_101 = CableConfiguration(nom_sommet_source='S001', point_ancrage=PF_101)  # cc_101 = PF_101 --> S001
-    cc_011 = CableConfiguration(nom_sommet_source='S111', point_ancrage=PF_011)  # cc_011 = PF_011 --> S111
-    cc_111 = CableConfiguration(nom_sommet_source='S101', point_ancrage=PF_111)  # cc_111 = PF_111 --> S101
+    cc_000 = CableConfiguration(source_vertex_name='S100', fixed_point=PF_000)  # cc_000 = PF_000 --> S100
+    cc_100 = CableConfiguration(source_vertex_name='S110', fixed_point=PF_100)  # cc_100 = PF_100 --> S110
+    cc_010 = CableConfiguration(source_vertex_name='S000', fixed_point=PF_010)  # cc_010 = PF_010 --> S000
+    cc_110 = CableConfiguration(source_vertex_name='S010', fixed_point=PF_110)  # cc_110 = PF_110 --> S010
+    cc_001 = CableConfiguration(source_vertex_name='S011', fixed_point=PF_001)  # cc_001 = PF_001 --> S011
+    cc_101 = CableConfiguration(source_vertex_name='S001', fixed_point=PF_101)  # cc_101 = PF_101 --> S001
+    cc_011 = CableConfiguration(source_vertex_name='S111', fixed_point=PF_011)  # cc_011 = PF_011 --> S111
+    cc_111 = CableConfiguration(source_vertex_name='S101', fixed_point=PF_111)  # cc_111 = PF_111 --> S101
 
     config_ancrage = CableLayout(
         configs_cables=[cc_000, cc_100, cc_010, cc_110, cc_001, cc_101, cc_011, cc_111]
     )
 
     return config_ancrage
-
+"""

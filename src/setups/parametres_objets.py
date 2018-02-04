@@ -7,7 +7,6 @@ from src.math_entities import \
 
 from src.models.entites_systeme_minlight import \
     BoxDimensions,                             \
-    CableConfiguration,                         \
     Source,                                     \
     Chambre,                                     \
     Maisonette
