@@ -1,5 +1,6 @@
-from src.calculs.modeles.entite_cable_robot import CableRobotObserver
 import numpy as np
+
+from src.models.entite_cable_robot import CableRobotObserver
 
 
 class HistoriqueValeur:

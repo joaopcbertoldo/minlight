@@ -6,10 +6,10 @@ def verifier_cables(cables, maisonette, source, chambre, n_discretisation_cables
     bilan = {}
     message_standard = \
         {
-            'maisonette' : 'ok',
-            'source'     : 'ok',
-            'chambre'    : 'ok',
-            'croisement' : 'ok'
+            'maisonette': 'ok',
+            'source': 'ok',
+            'chambre': 'ok',
+            'croisement': 'ok'
         }
 
     for cable in cables:
@@ -58,7 +58,8 @@ def bilan_cables_tout_ok(bilan_cables):
 
 
 def solutions_formule_quadratique(a, b, c):
-    return ((-b - sqrt(b*b - 4*a*c))/(2*a),(-b + sqrt(b*b - 4*a*c))/(2*a))
+    return (-b - sqrt(b ** 2 - 4 * a * c)) / 2 / a, (-b + sqrt(b ** 2 - 4 * a * c)) / 2 / a
+
 
 def get_plane_normal(surface,verticies,reference_point):
     centre_plane = verticies[surface[0]] + verticies[surface[1]] + verticies[surface[2]] + verticies[surface[3]]

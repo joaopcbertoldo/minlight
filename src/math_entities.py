@@ -2,7 +2,7 @@ from deprecated import deprecated
 
 import numpy as np
 
-from numpy import cos, sin, pi, matrix
+from numpy import cos, sin, pi, matrix, sqrt
 from numpy.linalg import norm
 
 from src.enums import AngleRotationEnum, UniteAngleEnum, SequenceAnglesRotationEnum
@@ -41,13 +41,16 @@ class Vec3(matrix):
         return self.copy() / self.norm()
 
     def inner(self, v):
-        return np.inner(self.T, v.T)
+        x1, y1, z1 = self.get_tuple()
+        x2, y2, z2 = v.get_tuple()
+        return sqrt(x1*x2 + y1*y2 + z1*z2)
 
     def cross(self, v):
-        return np.cross(self.T, v.T)
+        res = np.cross(self.T, v.T)
+        return Vec3(res[0, 0], res[0, 1], res[0, 2])
 
     def __str__(self):
-        return f'Vec3({self[0]}, {self[1]}, {self[2]})'
+        return f'Vec3({self[0, 0]}, {self[1, 0]}, {self[2, 0]})'
 
     def __repr__(self):
         return str(self)

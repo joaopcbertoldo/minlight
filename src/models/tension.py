@@ -1,5 +1,5 @@
-from src.calculs.modeles.entites_systeme_minlight import Cable
-from src.calculs.modeles.entites_mathemathiques import Vec3
+from src.models.entites_systeme_minlight import Cable
+from src.math_entities import Vec3
 
 from numpy import sqrt
 from numpy.linalg import inv, det
@@ -51,7 +51,7 @@ def get_tension (cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7)
     u6 = cable6.get_direction_source_to_fixed()
     u7 = cable7.get_direction_source_to_fixed()
 
-    #vectors from center of mass to source's vertex
+    # vectors from center of mass to source's vertex
     b0 = cable0.get_sommet_source() - centre_masse
     b1 = cable1.get_sommet_source() - centre_masse
     b2 = cable2.get_sommet_source() - centre_masse
@@ -62,17 +62,15 @@ def get_tension (cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7)
     b7 = cable7.get_sommet_source() - centre_masse
 
 
-
     A = np.array([
-        [np.append(u0, np.cross(b0, u0))],
-        [np.append(u1, np.cross(b1, u1))],
-        [np.append(u2, np.cross(b2, u2))],
-        [np.append(u3, np.cross(b3, u3))],
-        [np.append(u4, np.cross(b4, u4))],
-        [np.append(u5, np.cross(b5, u5))],
-        [np.append(u6, np.cross(b6, u6))],
-        [np.append(u7, np.cross(b7, u7))]
-
+        [np.append(u0, b0.cross(u0))],
+        [np.append(u1, b1.cross(u1))],
+        [np.append(u2, b2.cross(u2))],
+        [np.append(u3, b3.cross(u3))],
+        [np.append(u4, b4.cross(u4))],
+        [np.append(u5, b5.cross(u5))],
+        [np.append(u6, b6.cross(u6))],
+        [np.append(u7, b7.cross(u7))]
         ]).reshape(8, 6)
 
     w = np.array([0, 0, -m * g, 0, 0, 0])
