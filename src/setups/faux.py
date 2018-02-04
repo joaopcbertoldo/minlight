@@ -11,7 +11,7 @@ from src.calculs.modeles.entites_systeme_minlight import \
     BoxDimensions,                             \
     Box,                                       \
     CableLayout,                       \
-    ConfigurationCable
+    CableConfiguration
 
 from src.calculs.simulation_angles_limites.angles_limites import VerificateurAnglesLimites
 
@@ -32,9 +32,9 @@ centre_maisonette = \
 # dimensions
 dimensions_maisonette = \
     BoxDimensions(
-        longueur =  5000,  # mm
-        largeur  = 10000,  # mm
-        hauteur  = 10000   # mm
+        length =  5000,  # mm
+        width  = 10000,  # mm
+        height  = 10000   # mm
     )
 
 # pave
@@ -51,9 +51,9 @@ maisonette = \
 # dimensions
 dimensions_source = \
     BoxDimensions(
-        longueur = 1000,  # mm
-        largeur  = 1000,  # mm
-        hauteur  = 1000   # mm
+        length = 1000,  # mm
+        width  = 1000,  # mm
+        height  = 1000   # mm
     )
 
 
@@ -70,9 +70,9 @@ centre_chambre = \
 # dimensions
 dimensions_chambre = \
     BoxDimensions(
-        longueur = 10000,  # mm
-        largeur  = 10000,  # mm
-        hauteur  = 10000   # mm
+        length = 10000,  # mm
+        width  = 10000,  # mm
+        height  = 10000   # mm
     )
 
 # pavé
@@ -89,7 +89,7 @@ chambre = \
 ''' ****** Points Fixes ****** '''
 # toutes les ancrages sont supposées dans les coins de la chambre
 # donc, les coordonnées sont toujours, soit 0, soit la dimension de la chambre
-# sauf la longueur qui s'arrete juste au niveau de la maisonette
+# sauf la length qui s'arrete juste au niveau de la maisonette
 
 # coordonnées d'ancrage
 x = 5000   # mm
@@ -113,14 +113,14 @@ PF_111 = Vec3(x, y, z)  # PF_111
 # la numérotation <<cc_xxx>> suit la logique des sommets des pavés
 # le <<xxx>> indique à quel sommet le cable sera rataché DANS LA SOURCE
 
-cc_000 = ConfigurationCable(nom_sommet_source='S000', point_ancrage= PF_000)  # cc_000
-cc_100 = ConfigurationCable(nom_sommet_source='S100', point_ancrage= PF_100)  # cc_100
-cc_010 = ConfigurationCable(nom_sommet_source='S010', point_ancrage= PF_010)  # cc_010
-cc_110 = ConfigurationCable(nom_sommet_source='S110', point_ancrage= PF_110)  # cc_110
-cc_001 = ConfigurationCable(nom_sommet_source='S001', point_ancrage= PF_001)  # cc_001
-cc_101 = ConfigurationCable(nom_sommet_source='S101', point_ancrage= PF_101)  # cc_101
-cc_011 = ConfigurationCable(nom_sommet_source='S011', point_ancrage= PF_011)  # cc_011
-cc_111 = ConfigurationCable(nom_sommet_source='S111', point_ancrage= PF_111)  # cc_111
+cc_000 = CableConfiguration(nom_sommet_source='S000', point_ancrage= PF_000)  # cc_000
+cc_100 = CableConfiguration(nom_sommet_source='S100', point_ancrage= PF_100)  # cc_100
+cc_010 = CableConfiguration(nom_sommet_source='S010', point_ancrage= PF_010)  # cc_010
+cc_110 = CableConfiguration(nom_sommet_source='S110', point_ancrage= PF_110)  # cc_110
+cc_001 = CableConfiguration(nom_sommet_source='S001', point_ancrage= PF_001)  # cc_001
+cc_101 = CableConfiguration(nom_sommet_source='S101', point_ancrage= PF_101)  # cc_101
+cc_011 = CableConfiguration(nom_sommet_source='S011', point_ancrage= PF_011)  # cc_011
+cc_111 = CableConfiguration(nom_sommet_source='S111', point_ancrage= PF_111)  # cc_111
 
 
 ''' ****** Configurations des Câbles ****** '''

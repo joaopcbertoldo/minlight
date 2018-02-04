@@ -3,7 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/tension.py" afterPath="$PROJECT_DIR$/src/models/tension.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/cable_robot_observers.py" afterPath="$PROJECT_DIR$/src/models/cable_robot_observers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/entites_systeme_minlight.py" afterPath="$PROJECT_DIR$/src/models/entites_systeme_minlight.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/trajectoire.py" afterPath="$PROJECT_DIR$/src/models/trajectoire.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/setups/configuration_ancrage.py" afterPath="$PROJECT_DIR$/src/setups/configuration_ancrage.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/setups/faux.py" afterPath="$PROJECT_DIR$/src/setups/faux.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/setups/parametres_ancrage.py" afterPath="$PROJECT_DIR$/src/setups/parametres_ancrage.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/setups/parametres_objets.py" afterPath="$PROJECT_DIR$/src/setups/parametres_objets.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulation/limit_angles/angles_limites.py" afterPath="$PROJECT_DIR$/src/simulation/limit_angles/angles_limites.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/visualization/cameraOpening.py" afterPath="$PROJECT_DIR$/src/visualization/cameraOpening.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trash/calculs géometriques/fichierCompletColine.py" afterPath="$PROJECT_DIR$/trash/calculs géometriques/fichierCompletColine.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trash/outils.py" afterPath="$PROJECT_DIR$/trash/outils.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,14 +34,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="math_entities.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/math_entities.py">
+      <file leaf-file-name="cable_robot_observers.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/models/cable_robot_observers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="42" column="23" lean-forward="true" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#33#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="118">
+              <caret line="57" column="38" lean-forward="false" selection-start-line="57" selection-start-column="38" selection-end-line="57" selection-end-column="38" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -39,20 +47,32 @@
       <file leaf-file-name="trajectoire.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/trajectoire.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+            <state relative-caret-position="61">
+              <caret line="4" column="39" lean-forward="true" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tension.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/models/tension.py">
+      <file leaf-file-name="parametres_objets.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/setups/parametres_objets.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3519">
-              <caret line="153" column="0" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
+            <state relative-caret-position="139">
+              <caret line="12" column="14" lean-forward="true" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#0#36#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="configuration_ancrage.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/setups/configuration_ancrage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="19" column="25" lean-forward="true" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -69,18 +89,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>TupleAnglesRotation</find>
-      <find>datetime</find>
-      <find>ancrage_</find>
-      <find>n_discretisation_cables</find>
-      <find>get_tuple_angles_pour_inverser_rotation</find>
-      <find>ypr_angles</find>
-      <find>intersection_avec_pave</find>
-      <find>intersection_avec_autre_pave</find>
-      <find>x</find>
-      <find>y</find>
-      <find>z</find>
-      <find>True</find>
       <find>remplir_sous_config_cable</find>
       <find>dimensions_chambre</find>
       <find>translation_step</find>
@@ -89,7 +97,6 @@
       <find>self._view_controlable</find>
       <find>glScale</find>
       <find>gl</find>
-      <find>Cable</find>
       <find>get_light</find>
       <find>Vecteur3D</find>
       <find>get_coordonnees</find>
@@ -99,6 +106,19 @@
       <find>get_vecteur_diretion</find>
       <find>scalar_product</find>
       <find>solutions_formule_quadratique</find>
+      <find>la</find>
+      <find>largeur</find>
+      <find>l</find>
+      <find>lon</find>
+      <find>long</find>
+      <find>longu</find>
+      <find>longue</find>
+      <find>longueu</find>
+      <find>longueur</find>
+      <find>CableConfiguration</find>
+      <find>ConfigurationCable</find>
+      <find>hauteur</find>
+      <find>Cable</find>
     </findStrings>
     <replaceStrings>
       <replace>Vecteur3D</replace>
@@ -125,6 +145,10 @@
       <replace>norm</replace>
       <replace>get_direction</replace>
       <replace>inner</replace>
+      <replace>width</replace>
+      <replace>length</replace>
+      <replace>CableConfiguration</replace>
+      <replace>height</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -133,8 +157,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/calculs/simulation/__init__.py" />
-        <option value="$PROJECT_DIR$/src/calculs/simulation/setups/parametres_ancrage.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/setups/__init__.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/angles_limites_factory.py" />
         <option value="$PROJECT_DIR$/src/calculs/shaders/simpleshader.vert" />
@@ -174,16 +196,18 @@
         <option value="$PROJECT_DIR$/src/math.py" />
         <option value="$PROJECT_DIR$/src/visualization/trackball.py" />
         <option value="$PROJECT_DIR$/src/enums.py" />
-        <option value="$PROJECT_DIR$/src/models/entites_systeme_minlight.py" />
         <option value="$PROJECT_DIR$/src/camera/choixcamera.py" />
         <option value="$PROJECT_DIR$/src/camera/calibration.py" />
-        <option value="$PROJECT_DIR$/src/models/cable_robot_observers.py" />
         <option value="$PROJECT_DIR$/src/models/entite_cable_robot.py" />
-        <option value="$PROJECT_DIR$/src/models/trajectoire.py" />
         <option value="$PROJECT_DIR$/src/models/miscellaneous.py" />
         <option value="$PROJECT_DIR$/src/models/outils2.py" />
         <option value="$PROJECT_DIR$/src/math_entities.py" />
         <option value="$PROJECT_DIR$/src/models/tension.py" />
+        <option value="$PROJECT_DIR$/src/models/trajectoire.py" />
+        <option value="$PROJECT_DIR$/src/models/cable_robot_observers.py" />
+        <option value="$PROJECT_DIR$/src/setups/parametres_objets.py" />
+        <option value="$PROJECT_DIR$/src/setups/configuration_ancrage.py" />
+        <option value="$PROJECT_DIR$/src/models/entites_systeme_minlight.py" />
       </list>
     </option>
   </component>
@@ -332,43 +356,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.tension">
-    <configuration default="false" name="cable_robot_observers" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/models" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="minlight" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/models/cable_robot_observers.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="entite_cable_robot" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/models" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="minlight" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/models/entite_cable_robot.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.parametres_objets">
     <configuration default="false" name="miscellaneous" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -418,6 +406,42 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="minlight" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/math_entities.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="trajectoire" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="minlight" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/models/trajectoire.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="parametres_objets" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/setups" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="minlight" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/setups/parametres_objets.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -488,19 +512,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.cable_robot_observers" />
-      <item index="1" class="java.lang.String" itemvalue="Python.entite_cable_robot" />
-      <item index="2" class="java.lang.String" itemvalue="Python.miscellaneous" />
-      <item index="3" class="java.lang.String" itemvalue="Python.tension" />
-      <item index="4" class="java.lang.String" itemvalue="Python.math_entities" />
+      <item index="0" class="java.lang.String" itemvalue="Python.miscellaneous" />
+      <item index="1" class="java.lang.String" itemvalue="Python.tension" />
+      <item index="2" class="java.lang.String" itemvalue="Python.math_entities" />
+      <item index="3" class="java.lang.String" itemvalue="Python.trajectoire" />
+      <item index="4" class="java.lang.String" itemvalue="Python.parametres_objets" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.tension" />
-        <item index="1" class="java.lang.String" itemvalue="Python.math_entities" />
-        <item index="2" class="java.lang.String" itemvalue="Python.miscellaneous" />
-        <item index="3" class="java.lang.String" itemvalue="Python.entite_cable_robot" />
-        <item index="4" class="java.lang.String" itemvalue="Python.cable_robot_observers" />
+        <item index="0" class="java.lang.String" itemvalue="Python.parametres_objets" />
+        <item index="1" class="java.lang.String" itemvalue="Python.trajectoire" />
+        <item index="2" class="java.lang.String" itemvalue="Python.tension" />
+        <item index="3" class="java.lang.String" itemvalue="Python.math_entities" />
+        <item index="4" class="java.lang.String" itemvalue="Python.miscellaneous" />
       </list>
     </recent_temporary>
   </component>
@@ -514,13 +538,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1508855063589</updated>
-    </task>
-    <task id="LOCAL-00014" summary="correçao de identacao no teste pavé pavé">
-      <created>1510425285419</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1510425285419</updated>
     </task>
     <task id="LOCAL-00015" summary="teste de angulos debugado">
       <created>1510490276291</created>
@@ -858,7 +875,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517781845507</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="pbm in tension">
+      <created>1517781933615</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1517781933615</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TodoView">
@@ -873,17 +897,17 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="2" width="1372" height="743" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21689498" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21689498" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27769348" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2562814" sideWeight="0.51445967" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3316583" sideWeight="0.48554033" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24048707" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37519026" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="304" y="14" width="374" height="621" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46231157" sideWeight="0.47723824" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.03852596" sideWeight="0.47723824" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27010623" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928678" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13400336" sideWeight="0.48860183" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13400336" sideWeight="0.48860183" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -985,20 +1009,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1120166012/pygame/constants.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-364">
-          <caret line="209" column="0" lean-forward="false" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Program Files/Python36/Lib/site-packages/OpenGL/raw/GL/VERSION/GL_2_0.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="111" column="4" lean-forward="false" selection-start-line="111" selection-start-column="4" selection-end-line="111" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
@@ -1109,16 +1119,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/cable_robot_observers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/entite_cable_robot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
@@ -1193,10 +1193,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/tension.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3381">
+          <caret line="153" column="0" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/trajectoire.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="61">
+          <caret line="4" column="39" lean-forward="true" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/setups/configuration_ancrage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="19" column="25" lean-forward="true" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/setups/parametres_objets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="12" column="14" lean-forward="true" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/entites_systeme_minlight.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9890">
-          <caret line="128" column="24" lean-forward="true" selection-start-line="128" selection-start-column="23" selection-end-line="128" selection-end-column="28" />
+        <state relative-caret-position="125">
+          <caret line="599" column="0" lean-forward="true" selection-start-line="599" selection-start-column="0" selection-end-line="599" selection-end-column="0" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>
@@ -1205,7 +1243,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/math_entities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
+        <state relative-caret-position="966">
           <caret line="42" column="23" lean-forward="true" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="23" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
@@ -1213,21 +1251,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/trajectoire.py">
+    <entry file="file://$PROJECT_DIR$/src/models/cable_robot_observers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+        <state relative-caret-position="118">
+          <caret line="57" column="38" lean-forward="false" selection-start-line="57" selection-start-column="38" selection-end-line="57" selection-end-column="38" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/tension.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3519">
-          <caret line="153" column="0" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

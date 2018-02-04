@@ -1,17 +1,13 @@
-from src.calculs.modeles.enums import UniteAngleEnum
+from src.enums import UniteAngleEnum
 
-from src.calculs.modeles.entites_mathemathiques import \
+from src.math_entities import \
     Vec3,                                \
     TupleAnglesRotation,                      \
-    SpaceRechercheAnglesLimites,              \
-    IntervalleLineaire,                       \
     SystemeRepereSpherique
 
-from src.calculs.modeles.entites_systeme_minlight import \
+from src.models.entites_systeme_minlight import \
     BoxDimensions,                             \
-    Box,                                       \
-    CableLayout,                       \
-    ConfigurationCable,                         \
+    CableConfiguration,                         \
     Source,                                     \
     Chambre,                                     \
     Maisonette
@@ -27,17 +23,17 @@ Paramètres
 dimensions_chambre = \
     BoxDimensions(
         # on considere le sisteme à partir de l'évaporateur
-        longueur=8500,  # mm
-        largeur=5000,   # mm
-        hauteur=3800    # mm
+        length=8500,  # mm
+        width=5000,   # mm
+        height=3800    # mm
     )
 
 # centre
 centre_chambre = \
     Vec3(
-        x=dimensions_chambre['longueur'] / 2,  # mm
-        y=dimensions_chambre['largeur'] / 2,  # mm
-        z=dimensions_chambre['hauteur'] / 2   # mm
+        x=dimensions_chambre['length'] / 2,  # mm
+        y=dimensions_chambre['width'] / 2,  # mm
+        z=dimensions_chambre['height'] / 2   # mm
     )
 
 # pavé
@@ -56,24 +52,24 @@ distance_evaporateur_maisonette = 3500  # mm
 # dimensions
 dimensions_maisonette = \
     BoxDimensions(
-        longueur=5000,  # mm
-        largeur=2500,   # mm
-        hauteur=2900    # mm
+        length=5000,  # mm
+        width=2500,   # mm
+        height=2900    # mm
     )
 
 # centre
 centre_maisonette = \
     Vec3(
-        x=distance_evaporateur_maisonette + dimensions_maisonette['longueur'] / 2,
-        y=dimensions_chambre['largeur'] / 2,
-        z=dimensions_maisonette['hauteur'] / 2
+        x=distance_evaporateur_maisonette + dimensions_maisonette['length'] / 2,
+        y=dimensions_chambre['width'] / 2,
+        z=dimensions_maisonette['height'] / 2
     )
 
 # window dimensions
-window_dimensions = \
-    { 'largeur' : 1200,
-    'hauteur' : 2150
-    }
+window_dimensions = {
+    'width': 1200,
+    'height': 2150
+}
 
 
 # pave
@@ -82,7 +78,7 @@ maisonette = \
         centre=centre_maisonette,
         ypr_angles=TupleAnglesRotation.ZERO(),
         dimensions=dimensions_maisonette,
-        window_dimensions = window_dimensions
+        window_dimensions=window_dimensions
     )
 
 
@@ -91,23 +87,23 @@ maisonette = \
 # dimensions
 dimensions_source = \
     BoxDimensions(
-        longueur=800,  # mm
-        largeur=1600,   # mm
-        hauteur=1600    # mm
+        length=800,  # mm
+        width=1600,   # mm
+        height=1600    # mm
     )
 
 centre_source = \
     Vec3(
-        x=dimensions_chambre['longueur'] / 5,  # mm
-        y=dimensions_chambre['largeur'] / 2,  # mm
-        z=dimensions_chambre['hauteur'] / 2   # mm
+        x=dimensions_chambre['length'] / 5,  # mm
+        y=dimensions_chambre['width'] / 2,  # mm
+        z=dimensions_chambre['height'] / 2   # mm
     )
 
 source = \
     Source(
-        centre = centre_source,
-        ypr_angles = TupleAnglesRotation.ZERO(),
-        dimensions = dimensions_source
+        centre=centre_source,
+        ypr_angles=TupleAnglesRotation.ZERO(),
+        dimensions=dimensions_source
     )
 
 ''' ************************ Systeme Spherique Baie Vitrée ************************ '''
@@ -116,8 +112,8 @@ source = \
 centre_systeme_spherique = \
     Vec3(
         x=distance_evaporateur_maisonette,
-        y=dimensions_chambre['largeur'] / 2,
-        z=dimensions_maisonette['hauteur'] / 2
+        y=dimensions_chambre['width'] / 2,
+        z=dimensions_maisonette['height'] / 2
     )
 
 # rotation
@@ -142,29 +138,29 @@ camera_direction = Vec3(
         z=0
 )
 
-#position
+# position
 camera_position1 = Vec3(
-        x=-dimensions_chambre['longueur']/2,  # mm
-        y=-0.25*dimensions_chambre['largeur'] ,  # mm
-        z=-0.1*dimensions_chambre['hauteur'] #mm
+        x=-dimensions_chambre['length']/2,  # mm
+        y=-0.25*dimensions_chambre['width'],  # mm
+        z=-0.1*dimensions_chambre['height']  # mm
 )
 
 camera_position2 = Vec3(
-        x=-dimensions_chambre['longueur']/2,  # mm
-        y=-0.25*dimensions_chambre['largeur'] ,  # mm
-        z=0.25*dimensions_chambre['hauteur'] #mm
+        x=-dimensions_chambre['length']/2,  # mm
+        y=-0.25*dimensions_chambre['width'],  # mm
+        z=0.25*dimensions_chambre['height']  # mm
 )
 
 camera_position3 = Vec3(
-        x=-dimensions_chambre['longueur']/2,  # mm
-        y=0.25*dimensions_chambre['largeur'] ,  # mm
-        z=-0.25*dimensions_chambre['hauteur'] #mm
+        x=-dimensions_chambre['length']/2,  # mm
+        y=0.25*dimensions_chambre['width'],  # mm
+        z=-0.25*dimensions_chambre['height']  # mm
 )
 
 camera_position4 = Vec3(
-        x=-dimensions_chambre['longueur']/2,  # mm
-        y=0.25*dimensions_chambre['largeur'] ,  # mm
-        z=0.25*dimensions_chambre['hauteur'] #mm
+        x=-dimensions_chambre['length']/2,  # mm
+        y=0.25*dimensions_chambre['width'],  # mm
+        z=0.25*dimensions_chambre['height']  # mm
 )
 
 

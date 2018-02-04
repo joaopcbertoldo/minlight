@@ -1,7 +1,7 @@
 from deprecated import deprecated
 
 from OpenGL.GL import *
-from numpy import arcsin, degrees, radians, cos, sin
+from numpy import arcsin, degrees, radians, cos, sin, sqrt
 
 from src.enums import SequenceAnglesRotationEnum, UniteAngleEnum
 from src.math_entities import Vec3, TupleAnglesRotation
@@ -110,7 +110,7 @@ class Cable:
         return self.tension_max
 
     def get_vecteur_unitaire(self):
-        return self.vector / self.longueur()
+        return self.vector / self.length()
 
     def get_direction_fixed_to_source(self):
         return self.vector.get_direction()
@@ -118,7 +118,7 @@ class Cable:
     def get_direction_source_to_fixed(self):
         return - self.vector.get_direction()
 
-    def longueur(self):
+    def length(self):
         return self.vector.norm()
 
     def get_generator_points_discretisation(self, nombre_points=300, inclure_sommet_ancrage=False, inclure_sommet_source=False):
@@ -166,14 +166,14 @@ class Cable:
         point1 = origin + solution1*direction
         point2 = origin + solution2*direction
 
-        if(solution1 >=0 and solution1 <= self.longueur() ):
+        if(solution1 >=0 and solution1 <= self.length() ):
             if( (normalePlane1.inner(point1 - pointPlane1) <= 0 ) \
                 and (normalePlane2.inner(point1 - pointPlane2) <= 0) ):
                 #print("achou o ponto 1" + str(point1.transpose()))
                 #print("acho o parametro:" + str(solution1))
                 return True
 
-        if(solution2 >=0 and solution2 <= self.longueur() ):
+        if(solution2 >=0 and solution2 <= self.length() ):
             if( (normalePlane1.inner(point2 - pointPlane1) <= 0 ) \
                     and (normalePlane2.inner(point2 - pointPlane2) <= 0) ):
                     #print("achou o ponto 2" + str(point2.transpose()))
@@ -227,7 +227,7 @@ class Box:
         """
         Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
         :param point:
-        :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
+        :param dimensions: (dictionnaire) length, width, height du pave de la source
         :return: False/True
         """
 
@@ -321,7 +321,7 @@ class Box:
     def point_appartient_pave(self, point):
         '''
         Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
-        :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
+        :param dimensions: (dictionnaire) length, width, height du pave de la source
         :param centre: centre du pavé repéré dans le sys de coordonnées globale
         :return: False/True
         '''
@@ -349,27 +349,27 @@ class Box:
 
         k = k_discretisation_arete
 
-        longueur,largeur, hauteur = self.dimensions.get_tuple_dimensions()
+        length,width, height = self.dimensions.get_tuple_dimensions()
 
         points_to_be_tested = []
 
         for i in range (k + 1):
             for j in range(k + 1):
-              x = i*longueur/k
-              z = j*hauteur/k
+              x = i*length/k
+              z = j*height/k
               points_to_be_tested.append(Vec3(x,0,z))
-              points_to_be_tested.append(Vec3(x,largeur,z))
+              points_to_be_tested.append(Vec3(x,width,z))
 
-              x = i*longueur/k
-              y = j*largeur/k
+              x = i*length/k
+              y = j*width/k
               points_to_be_tested.append(Vec3(x,y,0))
-              points_to_be_tested.append(Vec3(x,y,hauteur))
+              points_to_be_tested.append(Vec3(x,y,height))
 
 
-              y = i*largeur/k
-              z = j*hauteur/k
+              y = i*width/k
+              z = j*height/k
               points_to_be_tested.append(Vec3(0,y,z))
-              points_to_be_tested.append(Vec3(longueur,y,z))
+              points_to_be_tested.append(Vec3(length,y,z))
 
         for index in range(len(points_to_be_tested)):
               points_to_be_tested[index] = (self.ypr_angles.get_matrice_rotation())*points_to_be_tested[index]
@@ -379,7 +379,7 @@ class Box:
                                                      points_to_be_tested[index].__getitem__((1,0)),
                                                      points_to_be_tested[index].__getitem__((2,0)))
 
-              points_to_be_tested[index] = points_to_be_tested[index] + self.centre - Vec3(longueur/2,largeur/2,hauteur/2)
+              points_to_be_tested[index] = points_to_be_tested[index] + self.centre - Vec3(length/2,width/2,height/2)
 
               if( pave2.point_appartient_pave(points_to_be_tested[index])):
                       return True
@@ -544,8 +544,8 @@ class Source(Box):
         self.create_parable()
 
     def get_light_radius(self):
-        longueur,largeur,hauteur = self.dimensions.get_tuple_dimensions()
-        return hauteur/2
+        length,width,height = self.dimensions.get_tuple_dimensions()
+        return height/2
 
     def get_light_centre(self):
 
@@ -555,9 +555,9 @@ class Source(Box):
         return (self.get_light_centre() - self.centre).get_direction()
 
     def create_parable(self): # creates visualization of the parable, must finish!!!!!!!
-        longueur,largeur,hauteur = self.dimensions.get_tuple_dimensions()
-        r = ((hauteur*hauteur/4) + longueur*longueur)/(2*longueur)
-        self.angle_ouverture = degrees(arcsin(hauteur/(2*r)))
+        length,width,height = self.dimensions.get_tuple_dimensions()
+        r = ((height*height/4) + length*length)/(2*length)
+        self.angle_ouverture = degrees(arcsin(height/(2*r)))
         self.points_parable_origin = []
         self.points_parable = []
         rotation = TupleAnglesRotation(0,90,0)
@@ -572,7 +572,7 @@ class Source(Box):
                 y0 = r*sin(theta_rad)*sin(phi_rad)
                 z0 = r*(1 - sqrt( 1 - sin(theta_rad)*sin(theta_rad)))
                 p = Vec3(x0,y0,z0)
-                p = matRot*p - Vec3(longueur/2,0,0)
+                p = matRot*p - Vec3(length/2,0,0)
                 p = Vec3(p.item(0),p.item(1),p.item(2))
                 p2 = Vec3(p.item(0),p.item(1),p.item(2))
                 self.points_parable_origin.append(p)
@@ -582,7 +582,7 @@ class Source(Box):
         self.update_sommets()
 
     def update_sommets(self):
-        longueur,largeur,hauteur = self.dimensions.get_tuple_dimensions()
+        length,width,height = self.dimensions.get_tuple_dimensions()
         newSommets =[]
         newSommetsParable = []
         Rot = self.ypr_angles.get_matrice_rotation()
@@ -702,21 +702,21 @@ class Maisonette(Box):
         S6 =  self.sommets[6] - Vec3(self.wall_width, self.wall_width ,-self.wall_width)
         S7 =  self.sommets[7] - Vec3(self.wall_width, self.wall_width,self.wall_width )
 
-        longueur,largeur, hauteur = self.dimensions.get_tuple_dimensions()
+        length,width, height = self.dimensions.get_tuple_dimensions()
 
         # window_inside_points
 
-        S8 =  self.sommets[1] - Vec3(-self.wall_width, -(largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
-        S9 =  self.sommets[3] - Vec3(-self.wall_width, (largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
-        S10 =  self.sommets[2] - Vec3(-self.wall_width, (largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
-        S11 =  self.sommets[0] - Vec3(-self.wall_width, -(largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S8 =  self.sommets[1] - Vec3(-self.wall_width, -(width/2 - self.window_dimensions['width']/2) ,(height/2 - self.window_dimensions['height']/2))
+        S9 =  self.sommets[3] - Vec3(-self.wall_width, (width/2 - self.window_dimensions['width']/2) ,(height/2 - self.window_dimensions['height']/2))
+        S10 =  self.sommets[2] - Vec3(-self.wall_width, (width/2 - self.window_dimensions['width']/2) ,-(height/2 - self.window_dimensions['height']/2))
+        S11 =  self.sommets[0] - Vec3(-self.wall_width, -(width/2 - self.window_dimensions['width']/2) ,-(height/2 - self.window_dimensions['height']/2))
 
         #  window_outside_points
 
-        S12 =  self.sommets[1] - Vec3(0, -(largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
-        S13 =  self.sommets[3] - Vec3(0, (largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
-        S14 =  self.sommets[2] - Vec3(0, (largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
-        S15 =  self.sommets[0] - Vec3(0, -(largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S12 =  self.sommets[1] - Vec3(0, -(width/2 - self.window_dimensions['width']/2) ,(height/2 - self.window_dimensions['height']/2))
+        S13 =  self.sommets[3] - Vec3(0, (width/2 - self.window_dimensions['width']/2) ,(height/2 - self.window_dimensions['height']/2))
+        S14 =  self.sommets[2] - Vec3(0, (width/2 - self.window_dimensions['width']/2) ,-(height/2 - self.window_dimensions['height']/2))
+        S15 =  self.sommets[0] - Vec3(0, -(width/2 - self.window_dimensions['width']/2) ,-(height/2 - self.window_dimensions['height']/2))
 
         S16 = self.sommets[0]
         S17 = self.sommets[1]

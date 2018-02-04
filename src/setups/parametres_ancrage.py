@@ -11,15 +11,15 @@ Paramètres
 ''' ************************ Points Fixes ************************ '''
 # toutes les ancrages sont supposées dans les coins de la chambre
 # donc, les coordonnées sont toujours, soit 0, soit la dimension de la chambre
-# sauf la longueur qui s'arrete juste au niveau de la maisonette
+# sauf la length qui s'arrete juste au niveau de la maisonette
 
 
 class Ideal:
 
     # coordonnées d'ancrage
     x = distance_evaporateur_maisonette  # mm
-    y = dimensions_chambre['largeur']    # mm
-    z = dimensions_chambre['hauteur']    # mm
+    y = dimensions_chambre['width']    # mm
+    z = dimensions_chambre['height']    # mm
 
     # la numérotation <<PF_xxx>> suit la logique des sommets des pavés
     # le <<xxx>> indique à quel "coin" de la chambre le point est fixé

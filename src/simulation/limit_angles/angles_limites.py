@@ -199,7 +199,7 @@ class VerificateurAnglesLimites:
     def _get_source_demo_config_ancrage(self):
         x_centre_source = sum(point.get_x() for point in self.config_ancrage.get_points_fixes()) / 8
         y_centre_source = sum(point.get_y() for point in self.config_ancrage.get_points_fixes()) / 8
-        z_centre_source = self.chambre.dimensions['hauteur'] / 2
+        z_centre_source = self.chambre.dimensions['height'] / 2
 
         centre_demo = Vec3(x_centre_source, y_centre_source, z_centre_source)
 
