@@ -1,5 +1,4 @@
-from numpy import cos, sin, pi, matrix, sqrt
-from .entites_mathemathiques import *
+from numpy import sqrt
 
 
 def verifier_cables(cables, maisonette, source, chambre, n_discretisation_cables, bilan_incomplet=False):

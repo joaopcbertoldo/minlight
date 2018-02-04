@@ -1,14 +1,14 @@
 import numpy as np
+
 import cv2
-import glob
-import position_detect
+
+# import position_detect
 
 
+# piece High=4m Large=8.5m Wide=5m
 
-#piece High=4m Large=8.5m Wide=5m
 
-
-#function : change from the coordinate system camera to coordinate used by group trajectory
+# function : change from the coordinate system camera to coordinate used by group trajectory
 def change_repere(x,y,z,position):
     xyz=position[0]
     angle=position[1]

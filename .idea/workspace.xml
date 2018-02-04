@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/minlight.iml" afterPath="$PROJECT_DIR$/.idea/minlight.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/camera/calibration.py" afterPath="$PROJECT_DIR$/src/camera/calibration.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/camera/choixcamera.py" afterPath="$PROJECT_DIR$/src/camera/choixcamera.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/enums.py" afterPath="$PROJECT_DIR$/src/enums.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/math_entities.py" afterPath="$PROJECT_DIR$/src/math_entities.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/entites_systeme_minlight.py" afterPath="$PROJECT_DIR$/src/models/entites_systeme_minlight.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/outils2.py" afterPath="$PROJECT_DIR$/src/models/outils2.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/tension.py" afterPath="$PROJECT_DIR$/src/models/tension.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/visualization/trackball.py" afterPath="$PROJECT_DIR$/src/visualization/trackball.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,114 +29,7 @@
     <fileColor scope="Non-Project Files (Material Palenight)" color="2f2e43" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="math_entities.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/math_entities.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="86" column="40" lean-forward="false" selection-start-line="86" selection-start-column="40" selection-end-line="86" selection-end-column="40" />
-              <folding>
-                <element signature="e#0#33#0" expanded="true" />
-                <marker date="1517330909972" expanded="true" signature="175:881" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="2048:5602" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="2083:2243" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="2092:2201" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
-                <marker date="1517330909972" expanded="true" signature="2395:3475" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="3535:3666" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="3695:3986" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="3714:3755" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="3775:3816" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="3836:3944" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="4013:4040" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="4078:5077" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="4115:5039" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="5134:5602" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="5637:6628" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="6033:6187" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="6257:6492" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="6540:6628" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="6659:7413" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="6707:6811" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="6894:7413" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="7447:7959" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="7491:7561" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="7603:7647" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="7711:7959" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="7989:8082" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="8026:8082" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="8121:8494" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="8202:8383" ph="..." />
-                <marker date="1517330909972" expanded="true" signature="8415:8494" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tension.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/models/tension.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="48" column="6" lean-forward="false" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
-              <folding>
-                <element signature="e#0#62#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="entites_systeme_minlight.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/models/entites_systeme_minlight.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="942">
-              <caret line="116" column="0" lean-forward="false" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
-              <folding>
-                <marker date="1517330910023" expanded="true" signature="20621:20627" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="20621:25409" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="20658:21929" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="21230:21852" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="21298:21852" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="21960:22784" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="22185:22277" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="22473:22572" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="22820:24332" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="23014:23568" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="23066:23568" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="23650:23995" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="23702:23995" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="24114:24316" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="24166:24316" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="24362:25409" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="24427:24641" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="24706:24807" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="25008:25143" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="25213:25393" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="25245:25393" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="25434:31859" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="25524:25701" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="25736:28382" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="28417:30575" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="28448:28998" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="29070:29258" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="29342:29681" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="29902:30088" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="29943:30088" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="30128:30314" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="30169:30314" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="30383:30559" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="30415:30559" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="30603:31859" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="30667:30881" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="30970:31157" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="31410:31596" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="31451:31596" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="31667:31843" ph="..." />
-                <marker date="1517330910023" expanded="true" signature="31699:31843" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -145,8 +40,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>space</find>
-      <find>rot</find>
       <find>TupleAnglesRotation</find>
       <find>datetime</find>
       <find>ancrage_</find>
@@ -175,6 +68,8 @@
       <find>norm</find>
       <find>norme</find>
       <find>get_vecteur_diretion</find>
+      <find>scalar_product</find>
+      <find>solutions_formule_quadratique</find>
     </findStrings>
     <replaceStrings>
       <replace>Vecteur3D</replace>
@@ -200,6 +95,7 @@
       <replace>get_tuple</replace>
       <replace>norm</replace>
       <replace>get_direction</replace>
+      <replace>inner</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -208,11 +104,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/calculs/simulation/setups/haut_haut.py" />
-        <option value="$PROJECT_DIR$/src/calculs/simulation/setups/parametres.py" />
-        <option value="$PROJECT_DIR$/src/calculs/simulation/setups/parametres_objets.py" />
-        <option value="$PROJECT_DIR$/src/calculs/simulation/setups/parametres_points_fixes.py" />
-        <option value="$PROJECT_DIR$/src/calculs/simulation/setups/verificateur_angles_limites_factory.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/setups/parametres_ancrage_points_fixes.py" />
         <option value="$PROJECT_DIR$/src/calculs/modeles/entites_mathemathiques.py" />
         <option value="$PROJECT_DIR$/src/calculs/testAnglesLimites.py" />
@@ -256,9 +147,14 @@
         <option value="$PROJECT_DIR$/src/calculs/dynamique/tension.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation_mesures/cable_robot_observers.py" />
         <option value="$PROJECT_DIR$/src/math.py" />
-        <option value="$PROJECT_DIR$/src/models/entites_systeme_minlight.py" />
-        <option value="$PROJECT_DIR$/src/math_entities.py" />
         <option value="$PROJECT_DIR$/src/models/tension.py" />
+        <option value="$PROJECT_DIR$/src/visualization/trackball.py" />
+        <option value="$PROJECT_DIR$/src/enums.py" />
+        <option value="$PROJECT_DIR$/src/math_entities.py" />
+        <option value="$PROJECT_DIR$/src/models/outils2.py" />
+        <option value="$PROJECT_DIR$/src/models/entites_systeme_minlight.py" />
+        <option value="$PROJECT_DIR$/src/camera/choixcamera.py" />
+        <option value="$PROJECT_DIR$/src/camera/calibration.py" />
       </list>
     </option>
   </component>
@@ -314,8 +210,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -356,12 +250,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="setups" />
+              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -381,17 +277,17 @@
     </option>
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Repository\minlight\src\calculs" />
+      <recent name="C:\Repository\minlight\src\calculs\graphics" />
+      <recent name="C:\Repository\minlight\src\calculs\simulation\setups" />
+      <recent name="C:\Repository\minlight\calculs géometriques" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Repository\minlight\src\calculs\modeles" />
       <recent name="C:\Repository\minlight\src\calculs" />
       <recent name="C:\Repository\minlight\trash" />
       <recent name="C:\Repository\minlight" />
-      <recent name="C:\Repository\minlight\calculs géometriques" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Repository\minlight\src\calculs" />
-      <recent name="C:\Repository\minlight\src\calculs\graphics" />
-      <recent name="C:\Repository\minlight\src\calculs\simulation\setups" />
       <recent name="C:\Repository\minlight\calculs géometriques" />
     </key>
   </component>
@@ -407,43 +303,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.drawCube2">
-    <configuration default="false" name="banc_tests" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/calculs/simulation" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="minlight" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="parametres_ancrage" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/calculs/simulation/setups" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="minlight" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/calculs/simulation/setups/parametres_ancrage.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.entites_systeme_minlight">
     <configuration default="false" name="drawCube" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -493,6 +353,42 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="minlight" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/calculs/drawTrajectoire.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="entites_systeme_minlight" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="minlight" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/models/entites_systeme_minlight.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="outils2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="minlight" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/models/outils2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -563,19 +459,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.banc_tests" />
-      <item index="1" class="java.lang.String" itemvalue="Python.parametres_ancrage" />
-      <item index="2" class="java.lang.String" itemvalue="Python.drawCube" />
-      <item index="3" class="java.lang.String" itemvalue="Python.drawCube2" />
-      <item index="4" class="java.lang.String" itemvalue="Python.drawTrajectoire" />
+      <item index="0" class="java.lang.String" itemvalue="Python.drawCube" />
+      <item index="1" class="java.lang.String" itemvalue="Python.drawCube2" />
+      <item index="2" class="java.lang.String" itemvalue="Python.drawTrajectoire" />
+      <item index="3" class="java.lang.String" itemvalue="Python.entites_systeme_minlight" />
+      <item index="4" class="java.lang.String" itemvalue="Python.outils2" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.drawCube2" />
-        <item index="1" class="java.lang.String" itemvalue="Python.drawCube" />
-        <item index="2" class="java.lang.String" itemvalue="Python.drawTrajectoire" />
-        <item index="3" class="java.lang.String" itemvalue="Python.banc_tests" />
-        <item index="4" class="java.lang.String" itemvalue="Python.parametres_ancrage" />
+        <item index="0" class="java.lang.String" itemvalue="Python.entites_systeme_minlight" />
+        <item index="1" class="java.lang.String" itemvalue="Python.outils2" />
+        <item index="2" class="java.lang.String" itemvalue="Python.drawCube2" />
+        <item index="3" class="java.lang.String" itemvalue="Python.drawCube" />
+        <item index="4" class="java.lang.String" itemvalue="Python.drawTrajectoire" />
       </list>
     </recent_temporary>
   </component>
@@ -589,13 +485,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1508855063589</updated>
-    </task>
-    <task id="LOCAL-00011" summary="adaptaçao para usar funçao de ponto dentro de pave (agora na classe pavé)">
-      <created>1510423261448</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1510423261448</updated>
     </task>
     <task id="LOCAL-00012" summary="mudança no espaço de busca e angulos de coord esférica">
       <created>1510424417399</created>
@@ -933,7 +822,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517328782824</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="tension changes">
+      <created>1517330934350</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1517330934350</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TodoView">
@@ -948,58 +844,47 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="2" width="1372" height="743" extended-state="0" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21385084" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21689498" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27769348" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2562814" sideWeight="0.51445967" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3316583" sideWeight="0.48554033" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12828948" sideWeight="0.47723824" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24048707" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37519026" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="304" y="14" width="374" height="621" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28978226" sideWeight="0.47723824" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27010623" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28453946" sideWeight="0.48860183" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928678" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28453946" sideWeight="0.48860183" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
       <window_info id="TODO" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27769348" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2562814" sideWeight="0.51445967" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12828948" sideWeight="0.47723824" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24048707" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37519026" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="304" y="14" width="374" height="621" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28978226" sideWeight="0.47723824" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27010623" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21689498" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21385084" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3316583" sideWeight="0.48554033" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28453946" sideWeight="0.48860183" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928678" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-    </layout>
-    <layout-to-restore>
-      <window_info id="TODO" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52435315" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39144737" sideWeight="0.516692" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3294271" sideWeight="0.48330805" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24051593" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36397058" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="304" y="14" width="374" height="621" />
-      <window_info id="Terminal" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4408194" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23292868" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18585527" sideWeight="0.48860183" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28453946" sideWeight="0.48860183" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -1010,7 +895,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="resultats du faux !!!" />
     <MESSAGE value="get points fixes dans le config dancrage" />
     <MESSAGE value="ajustes para respeitar PEP 8" />
     <MESSAGE value="gets x, y, z no vecteur 3d" />
@@ -1035,7 +919,8 @@
     <MESSAGE value="vecteur3d to vec3" />
     <MESSAGE value="math entities" />
     <MESSAGE value="norme to norm" />
-    <option name="LAST_COMMIT_MESSAGE" value="norme to norm" />
+    <MESSAGE value="tension changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="tension changes" />
     <option name="UPDATE_GROUP_BY_PACKAGES" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1088,17 +973,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation_angles_limites/graphes/sh_sch_haut_mid.png" />
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation_angles_limites/graphes/simple_haut_bas.png" />
-    <entry file="file://$PROJECT_DIR$/src/calculs/shaders/simpleshader.vert" />
-    <entry file="file://$PROJECT_DIR$/src/calculs/shaders/simpleshader.frag" />
-    <entry file="file://$PROJECT_DIR$/bibliothèques graphiques.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="41" lean-forward="false" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/testLight.py" />
     <entry file="file://$PROJECT_DIR$/src/calculs/simulation_angles_limites/angles_limites.py" />
     <entry file="file://$PROJECT_DIR$/src/calculs/simulation_angles_limites/angles_limites_factory.py" />
@@ -1237,105 +1111,75 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="164">
           <caret line="173" column="16" lean-forward="true" selection-start-line="173" selection-start-column="16" selection-end-line="173" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/entites_systeme_minlight.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="942">
-          <caret line="116" column="0" lean-forward="false" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
-          <folding>
-            <marker date="1517330910023" expanded="true" signature="20621:20627" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="20621:25409" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="20658:21929" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="21230:21852" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="21298:21852" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="21960:22784" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="22185:22277" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="22473:22572" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="22820:24332" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="23014:23568" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="23066:23568" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="23650:23995" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="23702:23995" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="24114:24316" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="24166:24316" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="24362:25409" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="24427:24641" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="24706:24807" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="25008:25143" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="25213:25393" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="25245:25393" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="25434:31859" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="25524:25701" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="25736:28382" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="28417:30575" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="28448:28998" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="29070:29258" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="29342:29681" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="29902:30088" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="29943:30088" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="30128:30314" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="30169:30314" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="30383:30559" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="30415:30559" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="30603:31859" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="30667:30881" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="30970:31157" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="31410:31596" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="31451:31596" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="31667:31843" ph="..." />
-            <marker date="1517330910023" expanded="true" signature="31699:31843" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/math_entities.py">
+    <entry file="file://$PROJECT_DIR$/src/visualization/trackball.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
-          <caret line="86" column="40" lean-forward="false" selection-start-line="86" selection-start-column="40" selection-end-line="86" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#33#0" expanded="true" />
-            <marker date="1517330909972" expanded="true" signature="175:881" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="2048:5602" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="2083:2243" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="2092:2201" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
-            <marker date="1517330909972" expanded="true" signature="2395:3475" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="3535:3666" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="3695:3986" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="3714:3755" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="3775:3816" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="3836:3944" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="4013:4040" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="4078:5077" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="4115:5039" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="5134:5602" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="5637:6628" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="6033:6187" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="6257:6492" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="6540:6628" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="6659:7413" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="6707:6811" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="6894:7413" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="7447:7959" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="7491:7561" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="7603:7647" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="7711:7959" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="7989:8082" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="8026:8082" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="8121:8494" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="8202:8383" ph="..." />
-            <marker date="1517330909972" expanded="true" signature="8415:8494" ph="..." />
-          </folding>
+          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/models/tension.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
-          <caret line="48" column="6" lean-forward="false" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
+          <caret line="48" column="6" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/enums.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/outils2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/entites_systeme_minlight.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3404">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/math_entities.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
-            <element signature="e#0#62#0" expanded="true" />
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/camera/choixcamera.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/camera/calibration.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>

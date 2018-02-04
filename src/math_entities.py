@@ -2,16 +2,13 @@ from deprecated import deprecated
 
 import numpy as np
 
-from src.enums import *
-from numpy import cos, sin, pi, matrix, sqrt
+from numpy import cos, sin, pi, matrix
 from numpy.linalg import norm
+
+from src.enums import AngleRotationEnum, UniteAngleEnum, SequenceAnglesRotationEnum
 
 
 class Vec3(matrix):
-
-    @staticmethod
-    def vecteur_depuis_difference_deux_vecteurs(vecteur_depart, vecteur_arrivee):
-        return vecteur_arrivee - vecteur_depart
 
     def __new__(cls, x, y, z):
         return super(Vec3, cls).__new__(cls, "{}; {}; {}".format(x, y, z))
@@ -43,20 +40,17 @@ class Vec3(matrix):
     def get_direction(self):
         return self.copy() / self.norm()
 
-    def scalar_product(self,v):
-        return self.item(0)*v.item(0) + self.item(1)*v.item(1) + self.item(2)*v.item(2)
+    def inner(self, v):
+        return np.inner(self.T, v.T)
 
-    def normalize(self):
-        norm = self.norm()
-        self[0] /= norm
-        self[1] /= norm
-        self[2] /= norm
+    def cross(self, v):
+        return np.cross(self.T, v.T)
 
-    def cross(self,v2):
-        return Vec3(self[1] * v2[2], self[2] * v2[0], self[0] * v2[1])
+    def __str__(self):
+        return f'Vec3({self[0]}, {self[1]}, {self[2]})'
 
-    def get_nparray_unitaire(self):
-        return np.array([self[0], self[1], self[2]]).reshape(1,3)/self.norm()
+    def __repr__(self):
+        return str(self)
 
 
 class Point:
@@ -87,7 +81,13 @@ class Point:
         return Point._point_from_vec3(self._vec3 + other)
 
     def __sub__(self, other):
-        return 0
+        return self._vec3 - other._vec3
+
+    def __str__(self):
+        return f'Point({self.get_x()}, {self.get_y()}, {self.get_z()})'
+
+    def __repr__(self):
+        return str(self)
 
 
 class TupleAnglesRotation():

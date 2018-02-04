@@ -1,10 +1,12 @@
-from .outils2 import solutions_formule_quadratique, get_plane_normal
-from .math_entities import *
-from .enums import *
-from OpenGL.GL import *
-from numpy import random, arcsin,degrees,radians,cos,sin,arccos
-from src.calculs.graphics.outils import Surface
 from deprecated import deprecated
+
+from OpenGL.GL import *
+from numpy import arcsin, degrees, radians, cos, sin
+
+from src.enums import SequenceAnglesRotationEnum, UniteAngleEnum
+from src.math_entities import Vec3, TupleAnglesRotation
+from src.models.outils2 import solutions_formule_quadratique, get_plane_normal
+from src.visualization.outils import Surface
 
 
 class BoxDimensions:
@@ -17,6 +19,7 @@ class BoxDimensions:
 
     def get_tuple_dimensions(self):
         return self._dimensions['length'], self._dimensions['width'], self._dimensions['height']
+
 
 @deprecated
 class CableConfiguration:
@@ -151,9 +154,9 @@ class Cable:
 
         radius = cable2.diameter/2 + self.diameter / 2
 
-        a = direction.scalar_product(direction) - direction.scalar_product(axis)**2
-        b = 2*(direction.scalar_product(origin - centre )   - direction.scalar_product(axis)*axis.scalar_product(origin - centre))
-        c = (origin - centre).scalar_product(origin - centre )   - axis.scalar_product(origin - centre)**2 - radius**2
+        a = direction.inner(direction) - direction.inner(axis)**2
+        b = 2*(direction.inner(origin - centre )   - direction.inner(axis)*axis.inner(origin - centre))
+        c = (origin - centre).inner(origin - centre )   - axis.inner(origin - centre)**2 - radius**2
 
         if(b*b - 4*a*c < 0):
               #print("nao achou intersecao")
@@ -164,15 +167,15 @@ class Cable:
         point2 = origin + solution2*direction
 
         if(solution1 >=0 and solution1 <= self.longueur() ):
-            if( (normalePlane1.scalar_product(point1 - pointPlane1) <= 0 ) \
-                and (normalePlane2.scalar_product(point1 - pointPlane2) <= 0) ):
+            if( (normalePlane1.inner(point1 - pointPlane1) <= 0 ) \
+                and (normalePlane2.inner(point1 - pointPlane2) <= 0) ):
                 #print("achou o ponto 1" + str(point1.transpose()))
                 #print("acho o parametro:" + str(solution1))
                 return True
 
         if(solution2 >=0 and solution2 <= self.longueur() ):
-            if( (normalePlane1.scalar_product(point2 - pointPlane1) <= 0 ) \
-                    and (normalePlane2.scalar_product(point2 - pointPlane2) <= 0) ):
+            if( (normalePlane1.inner(point2 - pointPlane1) <= 0 ) \
+                    and (normalePlane2.inner(point2 - pointPlane2) <= 0) ):
                     #print("achou o ponto 2" + str(point2.transpose()))
                     #print("achou o parametro : " + str(solution2))
                     return True
