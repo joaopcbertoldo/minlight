@@ -1,5 +1,8 @@
 from deprecated import deprecated
 from copy import deepcopy
+from typing import Set, Iterable, Callable
+from threading import Thread
+from abc import ABC, abstractmethod
 
 import numpy as np
 
@@ -10,7 +13,11 @@ from src.enums import RotationAngleEnum, AngleUnityEnum, RotationOrderEnum
 
 
 class Vec3(matrix):
-    """3D vector. Used to perform vector operations."""
+    """3D _vector. Used to perform _vector operations."""
+
+    @staticmethod
+    def zero():
+        return Vec3(0, 0, 0)
 
     @staticmethod
     def vec3_from_ndarray(ndarray_: ndarray) -> 'Vec3':
@@ -56,7 +63,7 @@ class Vec3(matrix):
 
     @property
     def norm(self) -> float:
-        """Euclidean norm of the vector."""
+        """Euclidean norm of the _vector."""
         return norm(self)
 
     @property
@@ -113,6 +120,7 @@ class Point:
         self._vec3 = Vec3(x, y, z)
         self._name = name
 
+    @deprecated
     def set_xyz(self, x, y, z):
         """Set all 3 coordinates at a time."""
         self._vec3 = Vec3(x, y, z)
@@ -126,37 +134,22 @@ class Point:
         """X component getter."""
         return self._vec3.item(0)
 
-    @x.setter
-    def x(self, value: float):
-        """X component setter."""
-        self._vec3 = Vec3(value, self._vec3.y, self._vec3.z)
-
     @property
     def y(self) -> float:
         """Y component setter."""
         return self._vec3.item(1)
-
-    @y.setter
-    def y(self, value: float):
-        """Y component setter."""
-        self._vec3 = Vec3(self._vec3.x, value, self._vec3.z)
 
     @property
     def z(self) -> float:
         """Z component setter."""
         return self._vec3.item(2)
 
-    @z.setter
-    def z(self, value: float):
-        """Z component setter."""
-        self._vec3 = Vec3(self._vec3.x, self._vec3.y, value)
-
     def get_tuple(self):
         """Return a tuple with the 3 coordinates (x, y, z)."""
         return self._vec3.get_tuple()
 
     def __add__(self, other: Vec3) -> 'Point':
-        """Addition of a point and a vector (gives a Point)."""
+        """Addition of a point and a _vector (gives a Point)."""
         return Point._point_from_vec3(self._vec3 + other)
 
     def __sub__(self, other: 'Point') -> Vec3:
@@ -171,6 +164,50 @@ class Point:
     def __repr__(self):
         """Point(x, y, z)."""
         return str(self)
+
+
+class MobilePoint(Point):
+    """Point with the capability of changing its position dinamically. It keeps followers informed about changes."""
+
+    def __init__(self, x, y, z, name: str = None):
+        super().__init__(x, y, z, name)
+        self._followers: Set[AbsMobilePointFollower] = set()
+
+    def subscribe(self, follower):
+        if type(follower) != AbsMobilePointFollower:
+            raise Exception(f"follower must be of type '{AbsMobilePointFollower}'.")
+        self._followers.update([follower])
+
+    def subscribe_many(self, followers: Iterable):
+        for f in followers:
+            self.subscribe(f)
+
+    def set_xyz(self, x, y, z):
+        """Set all 3 coordinates at a time and notify followers."""
+        self._vec3 = Vec3(x, y, z)
+        for f in self._followers:
+            f.notify(self)
+
+
+class AbsMobilePointFollower(ABC):
+    _serial_register = 1
+
+    @abstractmethod
+    def _on_notify(self, p: MobilePoint):
+        pass
+
+    # def __init__(self, action: Callable[[MobilePoint], None]):
+    def __init__(self):
+        self._serial_nb = AbsMobilePointFollower._serial_register
+        AbsMobilePointFollower._serial_register += 1
+        # self._on_notify: Callable[[MobilePoint], None] = action
+
+    def __hash__(self):
+        return hash(self._serial_nb)
+
+    def notify(self, mobile_point):
+        p = Thread(target=self._on_notify, args=(mobile_point,))
+        p.start()
 
 
 class Orientation:

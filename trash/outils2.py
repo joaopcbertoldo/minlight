@@ -19,14 +19,14 @@ def verifier_cables(cables, maisonette, source, chambre, n_discretisation_cables
     for cable in cables:
 
         # maisonette
-        if cable.intersection_avec_pave(maisonette, n_discretisation_cables):
+        if cable.intersects_box(maisonette, n_discretisation_cables):
             bilan[cable.nom_sommet_source]['maisonette'] = '!'
 
             if bilan_incomplet:
                 break
 
         # source
-        if cable.intersection_avec_pave(source, n_discretisation_cables):
+        if cable.intersects_box(source, n_discretisation_cables):
             bilan[cable.nom_sommet_source]['source'] = '!'
 
             if bilan_incomplet:

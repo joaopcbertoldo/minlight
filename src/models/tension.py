@@ -19,23 +19,23 @@ def get_tension(cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7):
     m = 50.0  # kg
     g = 9.8  # m/s^2
 
-    f_min = np.array([cable0.get_tension_min(),
-                      cable1.get_tension_min(),
-                      cable2.get_tension_min(),
-                      cable3.get_tension_min(),
-                      cable4.get_tension_min(),
-                      cable5.get_tension_min(),
-                      cable6.get_tension_min(),
-                      cable7.get_tension_min()])
+    f_min = np.array([cable0.tension_min,
+                      cable1.tension_min,
+                      cable2.tension_min,
+                      cable3.tension_min,
+                      cable4.tension_min,
+                      cable5.tension_min,
+                      cable6.tension_min,
+                      cable7.tension_min])
 
-    f_max = np.array([cable0.get_tension_max(),
-                      cable1.get_tension_max(),
-                      cable2.get_tension_max(),
-                      cable3.get_tension_max(),
-                      cable4.get_tension_max(),
-                      cable5.get_tension_max(),
-                      cable6.get_tension_max(),
-                      cable7.get_tension_max()])
+    f_max = np.array([cable0.tension_max,
+                      cable1.tension_max,
+                      cable2.tension_max,
+                      cable3.tension_max,
+                      cable4.tension_max,
+                      cable5.tension_max,
+                      cable6.tension_max,
+                      cable7.tension_max])
 
     # Equilibrium equation: A^t . F + w = 0, f_min < Fi < f_max, A^t = transpose(A)
 
