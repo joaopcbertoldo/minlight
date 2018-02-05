@@ -1,8 +1,8 @@
 from math import cos, sin, asin, pi
 
-from src.enums import AngleUnityEnum, RotationSequenceEnum
-from src.math_entities import CoordonnesSpherique, Vec3, TupleAnglesRotation
-from src.models.miscellaneous import x_sph, y_sph, z_sph, secondes_dans_horaire, point_azimut
+from src.enums import AngleUnityEnum, RotationOrderEnum
+from src.math_entities import SphericalCoordinates, Vec3, Orientation
+from src.toolbox.useful import x_sph, y_sph, z_sph, secondes_dans_horaire, point_azimut
 from src.setups import parametres_objets
 
 

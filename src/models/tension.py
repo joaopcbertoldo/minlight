@@ -1,7 +1,7 @@
 import numpy as np
 
 from src.math_entities import Vec3
-from src.models.entites_systeme_minlight import Cable
+from src.models.cables import Cable
 
 
 def get_tension(cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7):

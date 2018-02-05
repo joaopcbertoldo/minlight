@@ -78,7 +78,7 @@ class Vec3(matrix):
 
     def __str__(self):
         """Vec(x, y, z)"""
-        return f'Vec3({self["x"]}, {self["y"]}, {self["z"]})'
+        return f'Vec3({self["x"]:.1f}, {self["y"]:.1f}, {self["z"]:.1f})'
 
     def __repr__(self):
         """Vec(x, y, z)"""
@@ -108,13 +108,18 @@ class Point:
         """Create a Point from a Vec3."""
         return Point(*vec.get_tuple())
 
-    def __init__(self, x, y, z):
+    def __init__(self, x, y, z, name: str = None):
         """Create a Point from its 3 coordinates (x, y, z)."""
         self._vec3 = Vec3(x, y, z)
+        self._name = name
 
     def set_xyz(self, x, y, z):
         """Set all 3 coordinates at a time."""
         self._vec3 = Vec3(x, y, z)
+
+    @property
+    def name(self) -> str:
+        return self._name
 
     @property
     def x(self) -> float:
@@ -159,8 +164,9 @@ class Point:
         return self._vec3 - other._vec3
 
     def __str__(self):
-        """Point(x, y, z)."""
-        return f"Point({self.x}, {self.y}, {self.z})"
+        """(name): Point(x, y, z)."""
+        str_ = f"{self._name}: " if self._name else ""
+        return str_ + f"Point({self.x:.1f}, {self.y:.1f}, {self.z:.1f})"
 
     def __repr__(self):
         """Point(x, y, z)."""

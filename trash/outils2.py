@@ -1,6 +1,7 @@
-from numpy import sqrt
+from deprecated import deprecated
 
 
+@deprecated
 def verifier_cables(cables, maisonette, source, chambre, n_discretisation_cables, bilan_incomplet=False):
 
     bilan = {}
@@ -51,19 +52,9 @@ def verifier_cables(cables, maisonette, source, chambre, n_discretisation_cables
 
     return bilan
 
-
+@deprecated
 def bilan_cables_tout_ok(bilan_cables):
     resumes_cables = list(bilan_cables.values())
     return all(message == 'ok' for resume in resumes_cables for message in list(resume.values()))
 
 
-def solutions_formule_quadratique(a, b, c):
-    return (-b - sqrt(b ** 2 - 4 * a * c)) / 2 / a, (-b + sqrt(b ** 2 - 4 * a * c)) / 2 / a
-
-
-def get_plane_normal(surface,verticies,reference_point):
-    centre_plane = verticies[surface[0]] + verticies[surface[1]] + verticies[surface[2]] + verticies[surface[3]]
-    centre_plane/=4
-    normal = centre_plane - reference_point
-
-    return normal.direction()

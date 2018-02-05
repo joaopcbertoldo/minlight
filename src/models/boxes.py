@@ -1,204 +1,38 @@
-from deprecated import deprecated
-
 from OpenGL.GL import *
 from numpy import arcsin, degrees, radians, cos, sin, sqrt
 
-from src.enums import RotationSequenceEnum, AngleUnityEnum
-from src.math_entities import Vec3, TupleAnglesRotation
-from src.models.outils2 import solutions_formule_quadratique, get_plane_normal
+from src.enums import RotationOrderEnum, AngleUnityEnum
+from src.math_entities import Vec3, Orientation
+from src.toolbox.useful import get_plane_normal
 from src.visualization.outils import Surface
 
 
 class BoxDimensions:
-    def __init__(self, length, width, height):
+    """Length, width, height. Imutable."""
+
+    def __init__(self, length: float, width: float, height: float):
+        """Everythin in mm."""
         self._dimensions = {'length': length, 'width': width, 'height': height}
 
     def __getitem__(self, key):
+        """Key e {length, width, height}."""
         return self._dimensions[key]
 
-    def get_tuple_dimensions(self):
+    def get_tuple(self):
+        """Return the tuple (length, width, height)."""
         return self._dimensions['length'], self._dimensions['width'], self._dimensions['height']
 
+    @property
+    def length(self) -> float:
+        return self._dimensions['length']
 
-@deprecated
-class CableConfiguration:
-    def __init__(self, fixed_point, source_vertex_name):
-        self._source_vertex_name = source_vertex_name
-        self._fixed_point = fixed_point
+    @property
+    def width(self) -> float:
+        return self._dimensions['width']
 
-    def get_fixed_point(self):
-        return self._fixed_point
-
-    def get_source_vertex_name(self):
-        return self._source_vertex_name
-
-    def __getitem__(self, key):
-        if key == 'source_vertex_name':
-            return self._source_vertex_name
-
-        elif key == 'fixed_point':
-            return self._fixed_point
-
-        else:
-            raise KeyError('source_vertex_name or fixed_point')
-
-
-class CableLayout:
-    def __init__(self, configs_cables):
-        if len(configs_cables) != 8:
-            raise Exception('Une config dancrage doit avoir 8 configs de cable')
-
-        self._configs_cables = configs_cables
-
-    def get_config_cable(self, source_vertex_name):
-        return next(config_cable
-                    for config_cable in self._configs_cables
-                    if config_cable['source_vertex_name'] == source_vertex_name)
-
-    def get_cables(self, sommets_source, diametre_cable):
-        return [
-            Cable(
-                source_vertex_name=vertex_name,
-                fixed_point=self.get_config_cable(vertex_name).get_fixed_point(),
-                source_vertex=sommets_source[vertex_name],
-                diameter=diametre_cable
-            )
-            for vertex_name in Box.noms_sommets_pave
-        ]
-
-    def get_points_fixes(self):
-        return [config_cable.get_fixed_point()
-                for config_cable in self._configs_cables]
-
-    def get_dictionnaire_points_fixes(self):
-        return {config_cable.get_nom_sommet_source(): config_cable.get_fixed_point()
-                for config_cable in self._configs_cables}
-
-
-class Cable:
-    def __init__(self, fixed_point, source_vertex_name, source_vertex, diameter, tension_min=1., tension_max=100.):
-        self.source_vertex_name = source_vertex_name
-        self.fixed_point = fixed_point
-        self.source_vertex = source_vertex
-        self.diameter = diameter
-        self.vector = self.fixed_point - self.source_vertex
-        '''
-        self.vector           = Vec3.vecteur_depuis_difference_deux_vecteurs(
-                                   vector_depart  = self.fixed_point,
-                                   vecteur_arrivee = self.source_vertex
-                                 )
-        '''
-        self.tension_min = tension_min
-        self.tension_max = tension_max
-
-    # ******** metodos adicionados  ********
-
-    def get_sommet_source(self):
-        return self.source_vertex
-
-    def get_fixed_point(self):
-        return self.fixed_point
-
-    def get_tension_min(self):
-        return self.tension_min
-
-    def get_tension_max(self):
-        return self.tension_max
-
-    def get_vecteur_unitaire(self):
-        return self.vector / self.length()
-
-    def get_direction_fixed_to_source(self):
-        return self.vector.direction()
-
-    def get_direction_source_to_fixed(self):
-        return - self.vector.direction()
-
-    def length(self):
-        return self.vector.norm()
-
-    def get_generator_points_discretisation(self, nombre_points=300, inclure_sommet_ancrage=False,
-                                            inclure_sommet_source=False):
-        range_min = 0 if inclure_sommet_ancrage else 1
-
-        range_max = nombre_points + (1 if inclure_sommet_source else 0)  # 1 pour compenser l'intervalle ouvert
-
-        linear_range = range(range_min, range_max)
-
-        return (self.fixed_point + (i / nombre_points) * self.vector for i in linear_range)
-
-    def intersects_cable(self, cable2):
-
-        origin = self.fixed_point
-        direction = self.fixed_point - self.source_vertex
-        direction = direction.direction()
-
-        normale_plane1 = cable2.point_ancrage - cable2.sommet_source
-        point_plane1 = cable2.point_ancrage
-
-        normale_plane2 = cable2.sommet_source - cable2.point_ancrage
-        point_plane2 = cable2.sommet_source
-
-        axis = normale_plane2.direction()
-        centre = point_plane1
-
-        radius = cable2.diameter / 2 + self.diameter / 2
-
-        a = direction.inner(direction) - direction.inner(axis) ** 2
-        b = 2 * (direction.inner(origin - centre) - direction.inner(axis) * axis.inner(origin - centre))
-        c = (origin - centre).inner(origin - centre) - axis.inner(origin - centre) ** 2 - radius ** 2
-
-        if b ** 2 - 4 * a * c < 0:
-            return False
-
-        solution1, solution2 = solutions_formule_quadratique(a, b, c)
-        point1 = origin + solution1 * direction
-        point2 = origin + solution2 * direction
-
-        if 0 <= solution1 <= self.length():
-            if (normale_plane1.inner(point1 - point_plane1) <= 0) and (normale_plane2.inner(point1 - point_plane2) <= 0):
-                return True
-
-        if 0 <= solution2 <= self.length():
-            if (normale_plane1.inner(point2 - point_plane1) <= 0) and (normale_plane2.inner(point2 - point_plane2) <= 0):
-                return True
-
-        return False
-
-    def intersection_avec_pave(self, pave,
-                               nombre_points_discretisation=100,
-                               inclure_sommet_ancrage=False,
-                               inclure_sommet_source=False):
-
-        generateur_points = self.get_generator_points_discretisation(nombre_points=nombre_points_discretisation,
-                                                                     inclure_sommet_ancrage=inclure_sommet_ancrage,
-                                                                     inclure_sommet_source=inclure_sommet_source)
-        appartient = [pave.point_appartient_pave(point) for point in generateur_points]
-        return any(appartient)
-        # return any(pave.point_appartient_pave(point) for point in generateur_points)
-
-    def entierement_dans_pave(self, pave,
-                              nombre_points_discretisation=100,
-                              inclure_sommet_ancrage=False,
-                              inclure_sommet_source=False):
-
-        generateur_points = self.get_generator_points_discretisation(nombre_points=nombre_points_discretisation,
-                                                                     inclure_sommet_ancrage=inclure_sommet_ancrage,
-                                                                     inclure_sommet_source=inclure_sommet_source)
-
-        return all(pave.point_appartient_pave(point) for point in generateur_points)
-
-    def draw(self, origin):
-        edge = (0, 1)
-        verticies = (
-            self.source_vertex - origin, self.fixed_point - origin
-        )
-        glBegin(GL_LINES)
-        for vertex in edge:
-            glColor4fv((0.5, 0.5, 0.3, 1.0))
-            glNormal3fv((0.0, 0.0, 0.0))
-            glVertex3fv(verticies[vertex])
-        glEnd()
+    @property
+    def height(self) -> float:
+        return self._dimensions['height']
 
 
 class Box:
@@ -213,7 +47,7 @@ class Box:
         :return: False/True
         """
 
-        long, larg, haut = dimensions.get_tuple_dimensions()
+        long, larg, haut = dimensions.get_tuple()
 
         demi_long, demi_larg, demi_haut = long / 2, larg / 2, haut / 2
 
@@ -257,7 +91,7 @@ class Box:
 
     def set_sommets_pave_origine(self):
         # dimensions
-        long, larg, haut = self.dimensions.get_tuple_dimensions()
+        long, larg, haut = self.dimensions.get_tuple()
 
         # sommets (coins) du pavé centré dans l'origine
         s000 = Vec3(- long / 2, - larg / 2, - haut / 2)
@@ -331,7 +165,7 @@ class Box:
 
         k = k_discretisation_arete
 
-        length, width, height = self.dimensions.get_tuple_dimensions()
+        length, width, height = self.dimensions.get_tuple()
 
         points_to_be_tested = []
 
@@ -409,11 +243,11 @@ class Box:
         self.centre = Vec3(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
 
         self.ypr_angles = \
-            TupleAnglesRotation(
+            Orientation(
                 row=0,
                 pitch=phi,
                 yaw=theta,
-                sequence=RotationSequenceEnum.ypr,
+                sequence=RotationOrderEnum.ypr,
                 unite=AngleUnityEnum.degree  # !!!!!!!!!!!!!!!!!!!!!!!!
             )
 
@@ -522,7 +356,7 @@ class Source(Box):
         self.create_parable()
 
     def get_light_radius(self):
-        length, width, height = self.dimensions.get_tuple_dimensions()
+        length, width, height = self.dimensions.get_tuple()
         return height / 2
 
     def get_light_centre(self):
@@ -534,12 +368,12 @@ class Source(Box):
         return (self.get_light_centre() - self.centre).direction()
 
     def create_parable(self):  # creates visualization of the parable, must finish!!!!!!!
-        length, width, height = self.dimensions.get_tuple_dimensions()
+        length, width, height = self.dimensions.get_tuple()
         r = ((height * height / 4) + length * length) / (2 * length)
         self.angle_ouverture = degrees(arcsin(height / (2 * r)))
         self.points_parable_origin = []
         self.points_parable = []
-        rotation = TupleAnglesRotation(0, 90, 0)
+        rotation = Orientation(0, 90, 0)
         self.points_per_level = 10
         self.angle_levels = 10
         matRot = rotation.get_matrice_rotation()
@@ -561,7 +395,7 @@ class Source(Box):
         self.update_sommets()
 
     def update_sommets(self):
-        length, width, height = self.dimensions.get_tuple_dimensions()
+        length, width, height = self.dimensions.get_tuple()
         newSommets = []
         newSommetsParable = []
         Rot = self.ypr_angles.get_matrice_rotation()
@@ -680,7 +514,7 @@ class Maisonette(Box):
         S6 = self.sommets[6] - Vec3(self.wall_width, self.wall_width, -self.wall_width)
         S7 = self.sommets[7] - Vec3(self.wall_width, self.wall_width, self.wall_width)
 
-        length, width, height = self.dimensions.get_tuple_dimensions()
+        length, width, height = self.dimensions.get_tuple()
 
         # window_inside_points
 
