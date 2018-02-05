@@ -109,10 +109,10 @@ class Cable:
         return self.vector / self.length()
 
     def get_direction_fixed_to_source(self):
-        return self.vector.get_direction()
+        return self.vector.direction()
 
     def get_direction_source_to_fixed(self):
-        return - self.vector.get_direction()
+        return - self.vector.direction()
 
     def length(self):
         return self.vector.norm()
@@ -131,7 +131,7 @@ class Cable:
 
         origin = self.fixed_point
         direction = self.fixed_point - self.source_vertex
-        direction = direction.get_direction()
+        direction = direction.direction()
 
         normale_plane1 = cable2.point_ancrage - cable2.sommet_source
         point_plane1 = cable2.point_ancrage
@@ -139,7 +139,7 @@ class Cable:
         normale_plane2 = cable2.sommet_source - cable2.point_ancrage
         point_plane2 = cable2.sommet_source
 
-        axis = normale_plane2.get_direction()
+        axis = normale_plane2.direction()
         centre = point_plane1
 
         radius = cable2.diameter / 2 + self.diameter / 2
@@ -531,7 +531,7 @@ class Source(Box):
             4]) / 4  # 5,7,6,4 are the verticies of the light face
 
     def get_light_direction(self):
-        return (self.get_light_centre() - self.centre).get_direction()
+        return (self.get_light_centre() - self.centre).direction()
 
     def create_parable(self):  # creates visualization of the parable, must finish!!!!!!!
         length, width, height = self.dimensions.get_tuple_dimensions()

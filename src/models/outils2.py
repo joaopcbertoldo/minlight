@@ -66,4 +66,4 @@ def get_plane_normal(surface,verticies,reference_point):
     centre_plane/=4
     normal = centre_plane - reference_point
 
-    return normal.get_direction()
+    return normal.direction()

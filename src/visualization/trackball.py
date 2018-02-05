@@ -30,7 +30,7 @@ class Trackball:
         y = ((self.height / 2) - _y)
 
         self.startRotationVector = self.convertXY(x, y)
-        self.startRotationVector = self.startRotationVector.get_direction()
+        self.startRotationVector = self.startRotationVector.direction()
 
         self.currentRotationVector = self.startRotationVector;
         self.isRotating = True
@@ -40,14 +40,14 @@ class Trackball:
         y = ((self.height / 2) - _y)
 
         self.currentRotationVector = self.convertXY(x, y)
-        self.currentRotationVector = self.currentRotationVector.get_direction()
+        self.currentRotationVector = self.currentRotationVector.direction()
         self.applyRotationMatrix()
 
     def applyRotationMatrix(self):
         if (self.isRotating):
             if ((self.currentRotationVector - self.startRotationVector).norm() > 1E-6):
                 rotationAxis = self.currentRotationVector.cross(self.startRotationVector)
-                rotationAxis = rotationAxis.get_direction()
+                rotationAxis = rotationAxis.direction()
                 val = self.currentRotationVector.transpose().dot(self.startRotationVector)
                 if (val > (1 - 0.0000000001)):
                     val = 1.0

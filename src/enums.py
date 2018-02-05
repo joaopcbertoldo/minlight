@@ -16,7 +16,7 @@ class RotationAngleEnum(Enum):
     yaw = 3
 
 
-class RotationSequenceEnum(Enum):
+class RotationOrderEnum(Enum):
     """Sequence of the three rotation angles (ex: row, pitch, yaw)."""
     unknown = 0
     rpy = 1
