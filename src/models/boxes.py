@@ -1,10 +1,8 @@
-from OpenGL.GL import *
+from deprecated import deprecated
 from numpy import arcsin, degrees, radians, cos, sin, sqrt
 
-from src.enums import RotationOrderEnum, AngleUnityEnum
-from src.math_entities import Vec3, Orientation
-from src.toolbox.useful import get_plane_normal
-from src.visualization.outils import Surface
+from src.enums import RotationOrderEnum, AngleUnityEnum, BoxVertexEnum
+from src.math_entities import Vec3, Orientation, Point, MobilePoint, AbsMobilePointFollower
 
 
 class BoxDimensions:
@@ -35,34 +33,35 @@ class BoxDimensions:
         return self._dimensions['height']
 
 
-class Box:
+class Box(AbsMobilePointFollower):
+
+    def _on_notify(self, p: MobilePoint):
+        pass
+
     noms_sommets_pave = ('S000', 'S001', 'S010', 'S011', 'S100', 'S101', 'S110', 'S111')
 
     @staticmethod
-    def point_appartient_pave_origine(point, dimensions):
+    def point_appartient_pave_origine(point, dimensions: BoxDimensions) -> bool:
         """
         Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
         :param point:
         :param dimensions: (dictionnaire) length, width, height du pave de la source
         :return: False/True
         """
-
         long, larg, haut = dimensions.get_tuple()
-
         demi_long, demi_larg, demi_haut = long / 2, larg / 2, haut / 2
-
         x, y, z = point.get_tuple()
 
         return -demi_long <= x <= demi_long and \
                -demi_larg <= y <= demi_larg and \
                -demi_haut <= z <= demi_haut
 
-    def __init__(self, centre, ypr_angles, dimensions):
+    def __init__(self, centre: MobilePoint, ypr_angles: Orientation, dimensions: BoxDimensions):
         self.centre = centre
         self.ypr_angles = ypr_angles
         self.dimensions = dimensions
         self.sommets_origine = self.set_sommets_pave_origine()
-        self.sommets = self.get_sommets_pave()
+        self.points = self.get_sommets_pave()
 
     def rotate(self, delta_yaw, delta_pitch, delta_row):
         self.ypr_angles.incrementer(delta_yaw, delta_pitch, delta_row)
@@ -93,7 +92,7 @@ class Box:
         # dimensions
         long, larg, haut = self.dimensions.get_tuple()
 
-        # sommets (coins) du pavé centré dans l'origine
+        # points (coins) du pavé centré dans l'origine
         s000 = Vec3(- long / 2, - larg / 2, - haut / 2)
         s100 = Vec3(+ long / 2, - larg / 2, - haut / 2)
         s010 = Vec3(- long / 2, + larg / 2, - haut / 2)
@@ -103,7 +102,7 @@ class Box:
         s011 = Vec3(- long / 2, + larg / 2, + haut / 2)
         s111 = Vec3(+ long / 2, + larg / 2, + haut / 2)
 
-        # sommets (coins) de la source repérés par rapport à son centre
+        # points (coins) de la source repérés par rapport à son centre
         return [s000, s001, s010, s011, s100, s101, s110, s111]
 
     def sommets_pave_origine(self):
@@ -121,29 +120,26 @@ class Box:
         https://en.wikipedia.org/wiki/Euler_angles#Rotation_matrix
 
         On suppose qu'on veut orienter le centre de la source par des angles
-        et la position du centre, on calcule les positios des sommets (les coins de la source).
-        :return: liste des sommets de la source par rapport au système de repère de la chambre
+        et la position du centre, on calcule les positios des points (les coins de la source).
+        :return: liste des points de la source par rapport au système de repère de la chambre
         """
 
         s_origine = self.sommets_pave_origine()
         return [self.changer_systeme_repere_pave_vers_globale(s) for s in s_origine]
 
     def sommets_pave(self):
-        return self.sommets
+        return self.points
 
+    @deprecated
     def get_dictionnaire_sommets(self):
-        return {nom: sommet for nom, sommet in zip(self.noms_sommets_pave, self.sommets)}
+        return {nom: sommet for nom, sommet in zip(self.noms_sommets_pave, self.points)}
 
-    def point_appartient_pave(self, point):
-        '''
-        Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
-        :param dimensions: (dictionnaire) length, width, height du pave de la source
-        :param centre: centre du pavé repéré dans le sys de coordonnées globale
-        :return: False/True
-        '''
-        Rot = self.ypr_angles \
-            .get_tuple_angles_pour_inverser_rotation() \
-            .get_matrice_rotation()
+    def get_dict_vertex_point(self) -> bool:
+        return {vertex: point for vertex, point in zip(BoxVertexEnum.list_vertices(), self.points)}
+
+    def is_in_box(self, point: Point) -> bool:
+        """Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine."""
+        Rot = self.ypr_angles.get_tuple_angles_pour_inverser_rotation().get_matrice_rotation()
 
         point_repere_pave = Rot * (point - self.centre)
 
@@ -155,13 +151,12 @@ class Box:
         return self.point_appartient_pave_origine(point_repere_pave, self.dimensions)
 
     def test_colision_en_autre_pave(self, pave2, k_discretisation_arete=10):
-
-        '''
+        """
         Tests if there are points on pave1's faces inside pave2.
         the function needs to be called twice to be sure that there are no intersections
         pave1: dictionary with dimensions(dictionary),centre(matrix 3x1), ypr_angles(dictionary)
-        k: (k+1)^2 = number of points to be tested on each face, the greater the k, the plus reliable the result
-        '''
+        k: (k+1)^2 = number of points to be tested on each face, the greater the k, the plus reliable the result.
+        """
 
         k = k_discretisation_arete
 
@@ -197,7 +192,7 @@ class Box:
             points_to_be_tested[index] = points_to_be_tested[index] + self.centre - Vec3(length / 2, width / 2,
                                                                                          height / 2)
 
-            if pave2.point_appartient_pave(points_to_be_tested[index]):
+            if pave2.is_in_box(points_to_be_tested[index]):
                 return True
 
         return False
@@ -221,7 +216,7 @@ class Box:
         # FIX POINT_APPARTIENT_PAVE AND POINT_3d
 
     def entierement_dans_autre_pave(self, autre):
-        return all(autre.point_appartient_pave(sommet) for sommet in self.sommets_pave())
+        return all(autre.is_in_box(sommet) for sommet in self.sommets_pave())
 
     def changer_a_partir_de_coordonnes_spheriques(self, coordonnees_spheriques, systeme_spherique):
         '''
@@ -258,96 +253,11 @@ class Box:
             newPoint = (Rot * sommet) + self.centre
             newSommets.append(newPoint)
         for i in range(len(newSommets)):
-            self.sommets[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
+            self.points[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
 
-    def draw(self, origin, color=(0.45, 0.45, 0.45, 1.0), drawFaces=True):
-        edges = (
-            (0, 1),
-            (0, 2),
-            (0, 4),
-            (1, 3),
-            (1, 5),
-            (7, 3),
-            (7, 5),
-            (7, 6),
-            (6, 2),
-            (6, 4),
-            (3, 2),
-            (5, 4)
-        )
-        surfaces = (
-            (0, 2, 6, 4),
-            (5, 7, 3, 1),
-            (4, 6, 7, 5),
-            (1, 3, 2, 0),
-            (6, 2, 3, 7),
-            (1, 0, 4, 5)
-        )
-
-        verticies = self.sommets_pave()
-        verticiesInOrigin = []
-
-        for v in verticies:
-            verticiesInOrigin.append(v - origin)
-
-        if drawFaces:
-            glBegin(GL_QUADS)
-            for surface in surfaces:
-                normal = get_plane_normal(surface, self.sommets, self.centre)
-                normal_tuple = normal.get_tuple()
-                for vertex in surface:
-                    glColor4fv(color)
-                    glNormal3fv(normal_tuple)
-                    glVertex3fv(verticiesInOrigin[vertex])
-            glEnd()
-
-        glBegin(GL_LINES)
-        for edge in edges:
-            for vertex in edge:
-                glColor4fv((0.0, 0.0, 0.0, 1.0))
-                glNormal3fv((0.0, 0.0, 0.0))
-                glVertex3fv(verticiesInOrigin[vertex])
-        glEnd()
-
-
-class Chambre(Box):
-    def __init__(self, centre, ypr_angles, dimensions):
-        super().__init__(centre, ypr_angles, dimensions)
-
-    def draw(self, origin, color=(0.2, 0.2, 0.2, 1.0), drawFaces=True):
-        edges = (
-            (0, 1),
-            (0, 2),
-            (0, 4),
-            (1, 3),
-            (1, 5),
-            (7, 3),
-            (7, 5),
-            (7, 6),
-            (6, 2),
-            (6, 4),
-            (3, 2),
-            (5, 4)
-        )
-        ground = (4, 6, 2, 0)
-
-        normal = get_plane_normal(ground, self.sommets, -self.centre)
-        normal_tuple = normal.get_tuple()
-
-        glBegin(GL_QUADS)
-        for vertex in ground:
-            glColor4fv(color)
-            glNormal3fv(normal_tuple)
-            glVertex3fv(self.sommets[vertex] - origin)
-        glEnd()
-
-        glBegin(GL_LINES)
-        for edge in edges:
-            for vertex in edge:
-                glColor4fv((0.0, 0.0, 0.0, 1.0))
-                glNormal3fv((0.0, 0.0, 0.0))
-                glVertex3fv(self.sommets[vertex] - origin)
-        glEnd()
+    @deprecated
+    def draw(self):
+        pass
 
 
 class Source(Box):
@@ -361,7 +271,7 @@ class Source(Box):
 
     def get_light_centre(self):
 
-        return (self.sommets[5] + self.sommets[7] + self.sommets[6] + self.sommets[
+        return (self.points[5] + self.points[7] + self.points[6] + self.points[
             4]) / 4  # 5,7,6,4 are the verticies of the light face
 
     def get_light_direction(self):
@@ -403,7 +313,7 @@ class Source(Box):
             newPoint = (Rot * sommet) + self.centre
             newSommets.append(newPoint)
         for i in range(len(newSommets)):
-            self.sommets[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
+            self.points[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
 
         for sommet in self.points_parable_origin:
             newPoint = (Rot * sommet) + self.centre
@@ -412,86 +322,17 @@ class Source(Box):
             self.points_parable[i].set_xyz(newSommetsParable[i].item(0), newSommetsParable[i].item(1),
                                            newSommetsParable[i].item(2))
 
+    deprecated
+    def draw(self):
+        pass
 
-            #    def draw_parable(self):
-
+    @deprecated
     def draw_parable(self, origin):
-        number_levels = int(self.angle_ouverture / self.angle_levels)
-        #    self.points_per_level = len(self.points_parable)
-        glBegin(GL_QUADS)
-        for j in range(number_levels - 2):
-            for i in range(self.points_per_level):
-                glColor4fv((0.95, 0.95, 0, 1.0))
-                glNormal3fv((0.0, 0.0, 0.0))
-                glVertex3fv(self.points_parable[i % self.points_per_level + (j + 1) * self.points_per_level] - origin)
-                glVertex3fv(self.points_parable[i + 1 + (j + 1) * self.points_per_level] - origin)
-                glVertex3fv(self.points_parable[(i + 1) % self.points_per_level + j * self.points_per_level] - origin)
-                glVertex3fv(self.points_parable[i + j * self.points_per_level] - origin)
-        glEnd()
-        glBegin(GL_LINES)
-        for j in range(number_levels):
-            for i in range(self.points_per_level):
-                glColor4fv((0.5, 0.5, 0.5, 1.0))
-                glNormal3fv((0.0, 0.0, 0.0))
-                glVertex3fv(self.points_parable[i + j * self.points_per_level] - origin)
-                glVertex3fv(self.points_parable[(i + 1) % self.points_per_level + j * self.points_per_level] - origin)
-        glEnd()
-
-        glBegin(GL_LINES)
-        for i in range(len(self.points_parable) - self.points_per_level):
-            for j in (i, i + self.points_per_level):
-                glColor4fv((0.5, 0.5, 0.5, 1.0))
-                glNormal3fv((0.0, 0.0, 0.0))
-                glVertex3fv(self.points_parable[j] - origin)
-        glEnd()
-
-    def draw(self, origin):
-        self.draw_parable(origin)
-        edges = (
-            (0, 1),
-            (0, 2),
-            (0, 4),
-            (1, 3),
-            (1, 5),
-            (7, 3),
-            (7, 5),
-            (7, 6),
-            (6, 2),
-            (6, 4),
-            (3, 2),
-            (5, 4)
-        )
-
-        #    edges = ()
-        surfaces = (
-            (1, 3, 2, 0),
-            (1, 0, 4, 5),
-            (0, 2, 6, 4),
-            (1, 3, 7, 5),
-            (7, 3, 2, 6)
-        )
-
-        light = (1, 3, 2, 0)
-
-        normal = get_plane_normal(light, self.sommets, self.centre)
-        normal_tuple = normal.get_tuple()
-        glBegin(GL_QUADS)
-        for vertex in light:
-            glNormal3fv(normal_tuple)
-            glColor4fv((1.0, 1.0, 1.0, 1.0))
-            glVertex3fv(self.sommets[vertex] - origin)
-        glEnd()
-
-        glBegin(GL_LINES)
-        for edge in edges:
-            for vertex in edge:
-                glColor4fv((0.0, 0.0, 0.0, 1.0))
-                glNormal3fv((0.0, 0.0, 0.0))
-                glVertex3fv(self.sommets[vertex] - origin)
-        glEnd()
+        pass
 
 
 class Maisonette(Box):
+
     def __init__(self, centre, ypr_angles, dimensions, window_dimensions, wall_width=150):
         super().__init__(centre, ypr_angles, dimensions)
         self.window_dimensions = window_dimensions
@@ -499,169 +340,56 @@ class Maisonette(Box):
         self.set_sommets_inside()
 
     def set_sommets_inside(self):
-        S0 = self.sommets[0] - Vec3(-self.wall_width, -self.wall_width, -self.wall_width)
-        S1 = self.sommets[1] - Vec3(-self.wall_width, -self.wall_width, self.wall_width)
-        S2 = self.sommets[2] - Vec3(-self.wall_width, self.wall_width, -self.wall_width)
-        S3 = self.sommets[3] - Vec3(-self.wall_width, self.wall_width, self.wall_width)
+        S0 = self.points[0] - Vec3(-self.wall_width, -self.wall_width, -self.wall_width)
+        S1 = self.points[1] - Vec3(-self.wall_width, -self.wall_width, self.wall_width)
+        S2 = self.points[2] - Vec3(-self.wall_width, self.wall_width, -self.wall_width)
+        S3 = self.points[3] - Vec3(-self.wall_width, self.wall_width, self.wall_width)
 
-        S4 = self.sommets[4] - Vec3(self.wall_width, -self.wall_width, -self.wall_width)
-        S5 = self.sommets[5] - Vec3(self.wall_width, -self.wall_width, self.wall_width)
-        S6 = self.sommets[6] - Vec3(self.wall_width, self.wall_width, -self.wall_width)
-        S7 = self.sommets[7] - Vec3(self.wall_width, self.wall_width, self.wall_width)
+        S4 = self.points[4] - Vec3(self.wall_width, -self.wall_width, -self.wall_width)
+        S5 = self.points[5] - Vec3(self.wall_width, -self.wall_width, self.wall_width)
+        S6 = self.points[6] - Vec3(self.wall_width, self.wall_width, -self.wall_width)
+        S7 = self.points[7] - Vec3(self.wall_width, self.wall_width, self.wall_width)
 
-        S4 = self.sommets[4] - Vec3(self.wall_width, -self.wall_width, -self.wall_width)
-        S5 = self.sommets[5] - Vec3(self.wall_width, -self.wall_width, self.wall_width)
-        S6 = self.sommets[6] - Vec3(self.wall_width, self.wall_width, -self.wall_width)
-        S7 = self.sommets[7] - Vec3(self.wall_width, self.wall_width, self.wall_width)
+        S4 = self.points[4] - Vec3(self.wall_width, -self.wall_width, -self.wall_width)
+        S5 = self.points[5] - Vec3(self.wall_width, -self.wall_width, self.wall_width)
+        S6 = self.points[6] - Vec3(self.wall_width, self.wall_width, -self.wall_width)
+        S7 = self.points[7] - Vec3(self.wall_width, self.wall_width, self.wall_width)
 
         length, width, height = self.dimensions.get_tuple()
 
         # window_inside_points
 
-        S8 = self.sommets[1] - Vec3(-self.wall_width, -(width / 2 - self.window_dimensions['width'] / 2),
-                                    (height / 2 - self.window_dimensions['height'] / 2))
-        S9 = self.sommets[3] - Vec3(-self.wall_width, (width / 2 - self.window_dimensions['width'] / 2),
-                                    (height / 2 - self.window_dimensions['height'] / 2))
-        S10 = self.sommets[2] - Vec3(-self.wall_width, (width / 2 - self.window_dimensions['width'] / 2),
-                                     -(height / 2 - self.window_dimensions['height'] / 2))
-        S11 = self.sommets[0] - Vec3(-self.wall_width, -(width / 2 - self.window_dimensions['width'] / 2),
-                                     -(height / 2 - self.window_dimensions['height'] / 2))
+        S8 = self.points[1] - Vec3(-self.wall_width, -(width / 2 - self.window_dimensions['width'] / 2),
+                                   (height / 2 - self.window_dimensions['height'] / 2))
+        S9 = self.points[3] - Vec3(-self.wall_width, (width / 2 - self.window_dimensions['width'] / 2),
+                                   (height / 2 - self.window_dimensions['height'] / 2))
+        S10 = self.points[2] - Vec3(-self.wall_width, (width / 2 - self.window_dimensions['width'] / 2),
+                                    -(height / 2 - self.window_dimensions['height'] / 2))
+        S11 = self.points[0] - Vec3(-self.wall_width, -(width / 2 - self.window_dimensions['width'] / 2),
+                                    -(height / 2 - self.window_dimensions['height'] / 2))
 
         #  window_outside_points
 
-        S12 = self.sommets[1] - Vec3(0, -(width / 2 - self.window_dimensions['width'] / 2),
-                                     (height / 2 - self.window_dimensions['height'] / 2))
-        S13 = self.sommets[3] - Vec3(0, (width / 2 - self.window_dimensions['width'] / 2),
-                                     (height / 2 - self.window_dimensions['height'] / 2))
-        S14 = self.sommets[2] - Vec3(0, (width / 2 - self.window_dimensions['width'] / 2),
-                                     -(height / 2 - self.window_dimensions['height'] / 2))
-        S15 = self.sommets[0] - Vec3(0, -(width / 2 - self.window_dimensions['width'] / 2),
-                                     -(height / 2 - self.window_dimensions['height'] / 2))
+        S12 = self.points[1] - Vec3(0, -(width / 2 - self.window_dimensions['width'] / 2),
+                                    (height / 2 - self.window_dimensions['height'] / 2))
+        S13 = self.points[3] - Vec3(0, (width / 2 - self.window_dimensions['width'] / 2),
+                                    (height / 2 - self.window_dimensions['height'] / 2))
+        S14 = self.points[2] - Vec3(0, (width / 2 - self.window_dimensions['width'] / 2),
+                                    -(height / 2 - self.window_dimensions['height'] / 2))
+        S15 = self.points[0] - Vec3(0, -(width / 2 - self.window_dimensions['width'] / 2),
+                                    -(height / 2 - self.window_dimensions['height'] / 2))
 
-        S16 = self.sommets[0]
-        S17 = self.sommets[1]
-        S18 = self.sommets[2]
-        S19 = self.sommets[3]
+        S16 = self.points[0]
+        S17 = self.points[1]
+        S18 = self.points[2]
+        S19 = self.points[3]
 
         self.sommets_extras = [S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19]
 
+    @deprecated
     def draw_inside(self, origin):
-        edges = (
-            (0, 1),
-            (0, 2),
-            (0, 4),
-            (1, 3),
-            (1, 5),
-            (7, 3),
-            (7, 5),
-            (7, 6),
-            (6, 2),
-            (6, 4),
-            (3, 2),
-            (5, 4),
-            # windows inside
-            (8, 9),
-            (9, 10),
-            (10, 11),
-            (11, 8),
-            # window outside
-            (12, 13),
-            (13, 14),
-            (14, 15),
-            (15, 12),
-            # wall between windows
-            (8, 12),
-            (9, 13),
-            (10, 14),
-            (11, 15)
+        pass
 
-        )
-        surfaces_inside = (
-            #####inside
-            Surface((5, 7, 6, 4), (-1, 0, 0)),
-            Surface((5, 4, 0, 1), (0, 1, 0)),
-            Surface((7, 3, 2, 6), (0, -1, 0)),
-            Surface((4, 6, 2, 0), (0, 0, 1)),
-            Surface((1, 3, 7, 5), (0, 0, 1))
-        )
-        surfaces_outside = (
-            #####outside front face
-            Surface((16, 17, 12, 15), (-1, 0, 0)),
-            Surface((19, 13, 12, 17), (-1, 0, 0)),
-            Surface((13, 19, 18, 14), (-1, 0, 0)),
-            Surface((16, 15, 14, 18), (-1, 0, 0)),
-            #####
-            Surface((8, 11, 15, 12), (0, -1, 0)),
-            Surface((12, 13, 9, 8), (0, 0, -1)),
-            Surface((13, 14, 10, 9), (0, 1, 0)),
-            Surface((14, 15, 11, 10), (0, 0, 1))
-        )
-        verticies = self.sommets_extras
-        verticiesInOrigin = []
-        for v in verticies:
-            verticiesInOrigin.append(v - origin)
-        glBegin(GL_QUADS)
-        for surface in surfaces_outside:
-            for vertex in surface.edges:
-                glColor4fv((0.4, 0.4, 0.4, 1.0))
-                glNormal3fv(surface.normal)
-                glVertex3fv(verticiesInOrigin[vertex])
-        for surface in surfaces_inside:
-            for vertex in surface.edges:
-                glColor4fv((0.6, 0.6, 0.6, 1.0))
-                glNormal3fv(surface.normal)
-                glVertex3fv(verticiesInOrigin[vertex])
-        glEnd()
-        glBegin(GL_LINES)
-        for edge in edges:
-            for vertex in edge:
-                glColor4fv((0.0, 0.0, 0.0, 1.0))
-                glNormal3fv((0.0, 0.0, 0.0))
-                glVertex3fv(verticiesInOrigin[vertex])
-        glEnd()
-
+    @deprecated
     def draw(self, origin):
-        self.draw_inside(origin)
-        edges = (
-            (0, 1),
-            (0, 2),
-            (0, 4),
-            (1, 3),
-            (1, 5),
-            (7, 3),
-            (7, 5),
-            (7, 6),
-            (6, 2),
-            (6, 4),
-            (3, 2),
-            (5, 4)
-        )
-        surfaces = (
-            #    Surface((0,2,6,4),(0,0,1)), #ground
-            Surface((5, 7, 3, 1), (0, 0, 1)),  # ceiling
-            Surface((4, 6, 7, 5), (1, 0, 0)),  # back face
-            Surface((6, 2, 3, 7), (0, 1, 0)),  # left face looking from source
-            Surface((1, 0, 4, 5), (0, -1, 0))  # right face looking from source
-
-        )
-
-        verticies = self.sommets_pave()
-        verticiesInOrigin = []
-        for v in verticies:
-            verticiesInOrigin.append(v - origin)
-
-        glBegin(GL_QUADS)
-        for surface in surfaces:
-            for vertex in surface.edges:
-                glColor4fv((0.4, 0.4, 0.4, 1.0))
-                glNormal3fv(surface.normal)
-                glVertex3fv(verticiesInOrigin[vertex])
-        glEnd()
-
-        glBegin(GL_LINES)
-        for edge in edges:
-            for vertex in edge:
-                glColor4fv((0.0, 0.0, 0.0, 1.0))
-                glNormal3fv((0.0, 0.0, 0.0))
-                glVertex3fv(verticiesInOrigin[vertex])
-        glEnd()
+        pass

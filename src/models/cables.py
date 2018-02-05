@@ -222,7 +222,7 @@ class Cable(AbsMobilePointFollower):
         dicretisation = self.get_discretisation(nb_points=nb_points,
                                                 include_fixed_point=include_fixed_point,
                                                 include_source_point=include_source_point)
-        appartient = (box.point_appartient_pave(point) for point in dicretisation)
+        appartient = (box.is_in_box(point) for point in dicretisation)
         return any(appartient)
 
     @deprecated
@@ -235,7 +235,7 @@ class Cable(AbsMobilePointFollower):
                                                     include_fixed_point=inclure_sommet_ancrage,
                                                     include_source_point=inclure_sommet_source)
 
-        return all(pave.point_appartient_pave(point) for point in generateur_points)
+        return all(pave.is_in_box(point) for point in generateur_points)
 
     def is_inside_box(self, box: Box, ends_considered=False) -> bool:
         """Wheter a cable is entirely inside a box."""
@@ -245,4 +245,4 @@ class Cable(AbsMobilePointFollower):
         else:
             e1 = self.fixed_point + self.direction_fixed_to_source / 1000
             e2 = self.source_point + self.direction_source_to_fixed / 1000
-        return box.point_appartient_pave(e1) and box.point_appartient_pave(e2)
+        return box.is_in_box(e1) and box.is_in_box(e2)
