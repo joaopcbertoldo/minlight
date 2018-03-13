@@ -40,24 +40,24 @@ def get_tension(cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7):
     # Equilibrium equation: A^t . F + w = 0, f_min < Fi < f_max, A^t = transpose(A)
 
     # normalized cable vectors
-    u0 = cable0.get_direction_source_to_fixed()
-    u1 = cable1.get_direction_source_to_fixed()
-    u2 = cable2.get_direction_source_to_fixed()
-    u3 = cable3.get_direction_source_to_fixed()
-    u4 = cable4.get_direction_source_to_fixed()
-    u5 = cable5.get_direction_source_to_fixed()
-    u6 = cable6.get_direction_source_to_fixed()
-    u7 = cable7.get_direction_source_to_fixed()
+    u0 = cable0.direction_source_to_fixed
+    u1 = cable1.direction_source_to_fixed
+    u2 = cable2.direction_source_to_fixed
+    u3 = cable3.direction_source_to_fixed
+    u4 = cable4.direction_source_to_fixed
+    u5 = cable5.direction_source_to_fixed
+    u6 = cable6.direction_source_to_fixed
+    u7 = cable7.direction_source_to_fixed
 
     # vectors from center of mass to source's vertex
-    b0 = cable0.get_sommet_source() - centre_masse
-    b1 = cable1.get_sommet_source() - centre_masse
-    b2 = cable2.get_sommet_source() - centre_masse
-    b3 = cable3.get_sommet_source() - centre_masse
-    b4 = cable4.get_sommet_source() - centre_masse
-    b5 = cable5.get_sommet_source() - centre_masse
-    b6 = cable6.get_sommet_source() - centre_masse
-    b7 = cable7.get_sommet_source() - centre_masse
+    b0 = cable0.source_point - centre_masse
+    b1 = cable1.source_point - centre_masse
+    b2 = cable2.source_point - centre_masse
+    b3 = cable3.source_point - centre_masse
+    b4 = cable4.source_point - centre_masse
+    b5 = cable5.source_point - centre_masse
+    b6 = cable6.source_point - centre_masse
+    b7 = cable7.source_point - centre_masse
 
     #A = np.array([
     #    [np.append(u0, np.cross(b0, u0))],
@@ -71,15 +71,18 @@ def get_tension(cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7):
     #]).reshape(8, 6)
 
     A = np.array([
-        [u0.x(), u0.y(), u0.z(), b0.cross(u0).x(), b0.cross(u0).get_y(), b0.cross(u0).get_z()],
-        [u1.x(), u1.y(), u1.z(), b1.cross(u1).x(), b1.cross(u1).get_y(), b1.cross(u1).get_z()],
-        [u2.x(), u2.y(), u2.z(), b2.cross(u2).x(), b2.cross(u2).get_y(), b2.cross(u2).get_z()],
-        [u3.x(), u3.y(), u3.z(), b3.cross(u3).x(), b3.cross(u3).get_y(), b3.cross(u3).get_z()],
-        [u4.x(), u4.y(), u4.z(), b4.cross(u4).x(), b4.cross(u4).get_y(), b4.cross(u4).get_z()],
-        [u5.x(), u5.y(), u5.z(), b5.cross(u5).x(), b5.cross(u5).get_y(), b5.cross(u5).get_z()],
-        [u6.x(), u6.y(), u6.z(), b6.cross(u6).x(), b6.cross(u6).get_y(), b6.cross(u6).get_z()],
-        [u7.x(), u7.y(), u7.z(), b7.cross(u7).x(), b7.cross(u7).get_y(), b7.cross(u7).get_z()]
+        [u0.x, u0.y, u0.z, b0.cross(u0).x, b0.cross(u0).y, b0.cross(u0).z],
+        [u1.x, u1.y, u1.z, b1.cross(u1).x, b1.cross(u1).y, b1.cross(u1).z],
+        [u2.x, u2.y, u2.z, b2.cross(u2).x, b2.cross(u2).y, b2.cross(u2).z],
+        [u3.x, u3.y, u3.z, b3.cross(u3).x, b3.cross(u3).y, b3.cross(u3).z],
+        [u4.x, u4.y, u4.z, b4.cross(u4).x, b4.cross(u4).y, b4.cross(u4).z],
+        [u5.x, u5.y, u5.z, b5.cross(u5).x, b5.cross(u5).y, b5.cross(u5).z],
+        [u6.x, u6.y, u6.z, b6.cross(u6).x, b6.cross(u6).y, b6.cross(u6).z],
+        [u7.x, u7.y, u7.z, b7.cross(u7).x, b7.cross(u7).y, b7.cross(u7).z]
     ])
+
+    #
+    print(b0, u0, b0.cross(u0))
 
     w = np.array([0, 0, -m * g, 0, 0, 0])
 
