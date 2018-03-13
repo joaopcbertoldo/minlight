@@ -125,6 +125,10 @@ class Point:
         self._vec3 = Vec3(x, y, z)
         self._name = name
 
+    @property
+    def vec3(self):
+        return deepcopy(self._vec3)
+
     @deprecated
     def set_xyz(self, x, y, z):
         """Set all 3 coordinates at a time."""
@@ -155,11 +159,21 @@ class Point:
 
     def __add__(self, other: Vec3) -> 'Point':
         """Addition of a point and a _vector (gives a Point)."""
-        return Point._point_from_vec3(self._vec3 + other)
+        # assert type
+        assert type(other) == Vec3, f"Operation undefined for {type(self)} and {type(other)}."
+        # compute
+        res = Point._point_from_vec3(self._vec3 + other)
+        # return
+        return res
 
     def __sub__(self, other: 'Point') -> Vec3:
         """Subtraction of two points (gives a Vector)."""
-        return self._vec3 - other._vec3
+        # assert type
+        assert type(other) == Vec3, f"Operation undefined for {type(self)} and {type(other)}."
+        # compute
+        res = self._vec3 - other._vec3
+        # return
+        return res
 
     def __str__(self):
         """(name): Point(x, y, z)."""
@@ -247,12 +261,12 @@ class Orientation:
 
     @property
     def unity(self) -> AngleUnityEnum:
-        """"""
+        """ """
         return self._unite
 
     @property
     def rotation_matrix(self) -> RotationMatrix:
-        """"""
+        """ """
         # check if it needs to be recomputed
         if self._recompute_flag:
             # compute them
@@ -263,6 +277,7 @@ class Orientation:
         return self._matrice_rotation
 
     def _compute_rotation_matrices(self):
+        """ """
         # row (rotation around x)
         self._matrix_x = RotationMatrix(
             angle=RotationAngleEnum.row,
@@ -316,7 +331,6 @@ class Orientation:
 
         return switch[self._order]()
 
-
     def get_tuple_angles_pour_inverser_rotation(self):
         return Orientation(
             row=-self._row,
@@ -362,10 +376,17 @@ class RotationMatrix(matrix):
         self._unite = unite
 
     def __mul__(self, other):
+        # rot mat * vec3
         if type(other) == Vec3:
             return Vec3.vec3_from_ndarray(self.dot(other))
+        # rot mat * rot mat
         elif type(other) == RotationMatrix:
             return self.dot(other)
+        # rot mat * point
+        elif type(other) == Point:
+            x, y, z = other.get_tuple()
+            x, y, z = (self * Vec3(x, y, z)).get_tuple()
+            return Point(x, y, z)
         else:
             raise Exception(f'Operation not defined for {type(self)} * {type(other)}.')
 

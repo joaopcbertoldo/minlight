@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/math_entities.py" afterPath="$PROJECT_DIR$/src/math_entities.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/boxes.py" afterPath="$PROJECT_DIR$/src/models/boxes.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="boxes.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="boxes.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/models/boxes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-27">
-              <caret line="81" column="60" lean-forward="true" selection-start-line="81" selection-start-column="60" selection-end-line="81" selection-end-column="60" />
+            <state relative-caret-position="391">
+              <caret line="135" column="22" lean-forward="false" selection-start-line="135" selection-start-column="22" selection-end-line="135" selection-end-column="22" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -38,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="math_entities.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="math_entities.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/math_entities.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="254" column="11" lean-forward="false" selection-start-line="254" selection-start-column="11" selection-end-line="254" selection-end-column="11" />
+            <state relative-caret-position="180">
+              <caret line="223" column="12" lean-forward="false" selection-start-line="223" selection-start-column="12" selection-end-line="223" selection-end-column="12" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -103,7 +104,7 @@
       <file leaf-file-name="enums.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/enums.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="575">
+            <state relative-caret-position="80">
               <caret line="25" column="19" lean-forward="false" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="19" />
               <folding />
             </state>
@@ -121,9 +122,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fix</find>
-      <find>fixe</find>
-      <find>fixed</find>
       <find>fixed_</find>
       <find>fixed_po</find>
       <find>fixed_poi</find>
@@ -151,6 +149,9 @@
       <find>translate(</find>
       <find>get_matrice_rotation</find>
       <find>get_unite</find>
+      <find>__add__</find>
+      <find>Point</find>
+      <find>class Point</find>
     </findStrings>
     <replaceStrings>
       <replace>rpy</replace>
@@ -240,8 +241,8 @@
         <option value="$PROJECT_DIR$/src/models/cables.py" />
         <option value="$PROJECT_DIR$/src/models/drawables.py" />
         <option value="$PROJECT_DIR$/src/enums.py" />
-        <option value="$PROJECT_DIR$/src/models/boxes.py" />
         <option value="$PROJECT_DIR$/src/math_entities.py" />
+        <option value="$PROJECT_DIR$/src/models/boxes.py" />
       </list>
     </option>
   </component>
@@ -348,7 +349,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="full.screen.before.presentation.mode" value="false" />
@@ -1033,7 +1034,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="199" />
+      <option name="time" value="200" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -1211,27 +1212,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1120166012/numpy/core/multiarray.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="3745" column="28" lean-forward="false" selection-start-line="3745" selection-start-column="28" selection-end-line="3745" selection-end-column="28" />
-          <folding>
-            <element signature="e#111759#116574#1" expanded="false" />
-            <element signature="e#116687#116995#0" expanded="false" />
-            <element signature="e#117109#117431#0" expanded="false" />
-            <element signature="e#117532#117845#0" expanded="false" />
-            <element signature="e#117946#118270#0" expanded="false" />
-            <element signature="e#118402#118797#0" expanded="false" />
-            <element signature="e#118917#119240#0" expanded="false" />
-            <element signature="e#119379#122429#0" expanded="false" />
-            <element signature="e#122520#123671#0" expanded="false" />
-            <element signature="e#123784#124117#0" expanded="false" />
-            <element signature="e#124225#124587#0" expanded="false" />
-            <element signature="e#124701#125027#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Program Files/Python36/Lib/typing.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
@@ -1330,14 +1310,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/enums.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="25" column="19" lean-forward="false" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/cables.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
@@ -1346,20 +1318,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/boxes.py">
+    <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1120166012/numpy/core/multiarray.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-27">
-          <caret line="81" column="60" lean-forward="true" selection-start-line="81" selection-start-column="60" selection-end-line="81" selection-end-column="60" />
+        <state relative-caret-position="188">
+          <caret line="4917" column="8" lean-forward="false" selection-start-line="4917" selection-start-column="8" selection-end-line="4917" selection-end-column="8" />
+          <folding>
+            <element signature="e#111759#116574#1" expanded="false" />
+            <element signature="e#116687#116995#0" expanded="false" />
+            <element signature="e#117109#117431#0" expanded="false" />
+            <element signature="e#117532#117845#0" expanded="false" />
+            <element signature="e#117946#118270#0" expanded="false" />
+            <element signature="e#118402#118797#0" expanded="false" />
+            <element signature="e#118917#119240#0" expanded="false" />
+            <element signature="e#119379#122429#0" expanded="false" />
+            <element signature="e#122520#123671#0" expanded="false" />
+            <element signature="e#123784#124117#0" expanded="false" />
+            <element signature="e#124225#124587#0" expanded="false" />
+            <element signature="e#124701#125027#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/enums.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="25" column="19" lean-forward="false" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/math_entities.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="223" column="12" lean-forward="false" selection-start-line="223" selection-start-column="12" selection-end-line="223" selection-end-column="12" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/math_entities.py">
+    <entry file="file://$PROJECT_DIR$/src/models/boxes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="254" column="11" lean-forward="false" selection-start-line="254" selection-start-column="11" selection-end-line="254" selection-end-column="11" />
+        <state relative-caret-position="391">
+          <caret line="135" column="22" lean-forward="false" selection-start-line="135" selection-start-column="22" selection-end-line="135" selection-end-column="22" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>

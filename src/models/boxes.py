@@ -61,6 +61,11 @@ class BoxDimensions:
 
 class Box(AbsMobilePointFollower):
 
+    # vertices points
+    _vertices_points: Dict[BoxVertexEnum, Point]
+    # vertices points from self reference frame
+    vertices_points_from_self_ref: Dict[BoxVertexEnum, Point]
+
     # vertices names in our notation, cf. doc/vertices_names_notation.pdf
     vertices_names_std_order = ('S000', 'S001', 'S010', 'S011', 'S100', 'S101', 'S110', 'S111')
     # TODO: draw the vertices when box not in origin
@@ -116,17 +121,20 @@ class Box(AbsMobilePointFollower):
         return self._vertices_points
 
     def _on_notify(self, center: MobilePoint):
+        """ """
         # update the box's points
         self._update_points()
 
     def _update_points(self):
-        newSommets = []
-        Rot = self._orientation.rotation_matrix()
-        for sommet in self.vertices_points_from_self_ref:
-            newPoint = (Rot * sommet) + self._centre
-            newSommets.append(newPoint)
-        for i in range(len(newSommets)):
-            self.points[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
+        """ """
+        #  get the rotation matrix
+        Rot = self._orientation.rotation_matrix
+        # iterate with the vertices points in origin
+        for vertex, point_in_self_ref in self.vertices_points_from_self_ref.items():
+            # compute the point
+            point = (Rot * point_in_self_ref) + self._centre.vec3
+            # store it
+            self._vertices_points[vertex] = point
 
     def _generate_vertex_points_from_self_reference(self) -> Dict[BoxVertexEnum, Point]:
         """Dict of BoxVertexEnum -> Point as if they were seen from the box's own reference frame."""
