@@ -241,31 +241,53 @@ class Orientation:
         self._order = order
         self._unite = unite
         self._recompute_flag = True
+        # compute rotation matrices
+        self._compute_rotation_matrices()
+        assert order == RotationOrderEnum.rpy or order == RotationOrderEnum.ypr, 'RotationOrderEnum inconu.'
 
+    @property
+    def unity(self) -> AngleUnityEnum:
+        """"""
+        return self._unite
+
+    @property
+    def rotation_matrix(self) -> RotationMatrix:
+        """"""
+        # check if it needs to be recomputed
+        if self._recompute_flag:
+            # compute them
+            self._compute_rotation_matrices()
+            # reset flag
+            self._recompute_flag = False
+        # return
+        return self._matrice_rotation
+
+    def _compute_rotation_matrices(self):
+        # row (rotation around x)
         self._matrix_x = RotationMatrix(
             angle=RotationAngleEnum.row,
             valeur=self._row,
             unite=self._unite
         )
-
+        # pitch (rotation around y)
         self._matrix_y = RotationMatrix(
             angle=RotationAngleEnum.pitch,
             valeur=self._pitch,
             unite=self._unite
         )
-
+        # yaw (rotation around z)
         self._matrix_z = RotationMatrix(
             angle=RotationAngleEnum.yaw,
             valeur=self._yaw,
             unite=self._unite
         )
-
+        # resultant rotation matrix
+        # multiplication for row-pitch-yaw
         if self._order == RotationOrderEnum.rpy:
             self._matrice_rotation = self._matrix_x.dot(self._matrix_y.dot(self._matrix_z))
+        # multiplication for yaw-pitch-row
         elif self._order == RotationOrderEnum.ypr:
             self._matrice_rotation = self._matrix_z.dot(self._matrix_y.dot(self._matrix_x))
-        else:
-            raise Exception('RotationOrderEnum inconu')
 
     def increment(self, delta_yaw: float, delta_pitch: float, delta_row: float):
         """Increment internal angles. Unity must agree with Rotation object's unity."""
@@ -294,41 +316,6 @@ class Orientation:
 
         return switch[self._order]()
 
-    def get_unite(self):
-        return self._unite
-
-    @property
-    def rotation_matrix(self):
-        # check if it needs to be recomputed
-        if self._recompute_flag:
-            # row (rotation around x)
-            self._matrix_x = RotationMatrix(
-                angle=RotationAngleEnum.row,
-                valeur=self._row,
-                unite=self._unite
-            )
-            # pitch (rotation around y)
-            self._matrix_y = RotationMatrix(
-                angle=RotationAngleEnum.pitch,
-                valeur=self._pitch,
-                unite=self._unite
-            )
-            # yaw (rotation around z)
-            self._matrix_z = RotationMatrix(
-                angle=RotationAngleEnum.yaw,
-                valeur=self._yaw,
-                unite=self._unite
-            )
-            # multiplication for row-pitch-yaw
-            if self._order == RotationOrderEnum.rpy:
-                self._matrice_rotation = self._matrix_x.dot(self._matrix_y.dot(self._matrix_z))
-            # multiplication for yaw-pitch-row
-            elif self._order == RotationOrderEnum.ypr:
-                self._matrice_rotation = self._matrix_z.dot(self._matrix_y.dot(self._matrix_x))
-            # reset flag
-            self._recompute_flag = False
-        # return
-        return self._matrice_rotation
 
     def get_tuple_angles_pour_inverser_rotation(self):
         return Orientation(
