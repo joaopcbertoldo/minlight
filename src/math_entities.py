@@ -169,7 +169,7 @@ class Point:
     def __sub__(self, other: 'Point') -> Vec3:
         """Subtraction of two points (gives a Vector)."""
         # assert type
-        assert type(other) == Vec3, f"Operation undefined for {type(self)} and {type(other)}."
+        assert isinstance(other, Point), f"Operation undefined for {type(self)} and {type(other)}."
         # compute
         res = self._vec3 - other._vec3
         # return
