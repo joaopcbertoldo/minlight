@@ -1,7 +1,7 @@
 import numpy as np
 
 from src.math_entities import *
-from src.models.cables import Cable
+from src.models.cables import *
 
 
 def get_tension(cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7):
@@ -71,14 +71,14 @@ def get_tension(cable0, cable1, cable2, cable3, cable4, cable5, cable6, cable7):
     #]).reshape(8, 6)
 
     A = np.array([
-        [u0.get_x(), u0.get_y(), u0.get_z(), b0.cross(u0).get_x(), b0.cross(u0).get_y(), b0.cross(u0).get_z()],
-        [u1.get_x(), u1.get_y(), u1.get_z(), b1.cross(u1).get_x(), b1.cross(u1).get_y(), b1.cross(u1).get_z()],
-        [u2.get_x(), u2.get_y(), u2.get_z(), b2.cross(u2).get_x(), b2.cross(u2).get_y(), b2.cross(u2).get_z()],
-        [u3.get_x(), u3.get_y(), u3.get_z(), b3.cross(u3).get_x(), b3.cross(u3).get_y(), b3.cross(u3).get_z()],
-        [u4.get_x(), u4.get_y(), u4.get_z(), b4.cross(u4).get_x(), b4.cross(u4).get_y(), b4.cross(u4).get_z()],
-        [u5.get_x(), u5.get_y(), u5.get_z(), b5.cross(u5).get_x(), b5.cross(u5).get_y(), b5.cross(u5).get_z()],
-        [u6.get_x(), u6.get_y(), u6.get_z(), b6.cross(u6).get_x(), b6.cross(u6).get_y(), b6.cross(u6).get_z()],
-        [u7.get_x(), u7.get_y(), u7.get_z(), b7.cross(u7).get_x(), b7.cross(u7).get_y(), b7.cross(u7).get_z()]
+        [u0.x(), u0.y(), u0.z(), b0.cross(u0).x(), b0.cross(u0).get_y(), b0.cross(u0).get_z()],
+        [u1.x(), u1.y(), u1.z(), b1.cross(u1).x(), b1.cross(u1).get_y(), b1.cross(u1).get_z()],
+        [u2.x(), u2.y(), u2.z(), b2.cross(u2).x(), b2.cross(u2).get_y(), b2.cross(u2).get_z()],
+        [u3.x(), u3.y(), u3.z(), b3.cross(u3).x(), b3.cross(u3).get_y(), b3.cross(u3).get_z()],
+        [u4.x(), u4.y(), u4.z(), b4.cross(u4).x(), b4.cross(u4).get_y(), b4.cross(u4).get_z()],
+        [u5.x(), u5.y(), u5.z(), b5.cross(u5).x(), b5.cross(u5).get_y(), b5.cross(u5).get_z()],
+        [u6.x(), u6.y(), u6.z(), b6.cross(u6).x(), b6.cross(u6).get_y(), b6.cross(u6).get_z()],
+        [u7.x(), u7.y(), u7.z(), b7.cross(u7).x(), b7.cross(u7).get_y(), b7.cross(u7).get_z()]
     ])
 
     w = np.array([0, 0, -m * g, 0, 0, 0])
@@ -140,14 +140,16 @@ sommet_source = [
     MobilePoint(1.5, 3.5, 3.0),
 ]
 
-cable0 = Cable(sommet_source[4], "S001", point_ancrage[0], 1., 10., 100.)
-cable1 = Cable(sommet_source[5], "S101", point_ancrage[0], 1., 10., 100.)
-cable2 = Cable(sommet_source[5], "S101", point_ancrage[1], 1., 10., 100.)
-cable3 = Cable(sommet_source[6], "S111", point_ancrage[1], 1., 10., 100.)
-cable4 = Cable(sommet_source[6], "S111", point_ancrage[2], 1., 10., 100.)
-cable5 = Cable(sommet_source[7], "S011", point_ancrage[2], 1., 10., 100.)
-cable6 = Cable(sommet_source[7], "S011", point_ancrage[3], 1., 10., 100.)
-cable7 = Cable(sommet_source[4], "S001", point_ancrage[3], 1., 10., 100.)
+cable0 = Cable(point_ancrage[0], sommet_source[4], BoxVertexEnum.v001, 1., 10., 100.)
+cable1 = Cable(point_ancrage[0], sommet_source[5], BoxVertexEnum.v101, 1., 10., 100.)
+cable2 = Cable(point_ancrage[1], sommet_source[5], BoxVertexEnum.v101, 1., 10., 100.)
+cable3 = Cable(point_ancrage[1], sommet_source[6], BoxVertexEnum.v111, 1., 10., 100.)
+cable4 = Cable(point_ancrage[2], sommet_source[6], BoxVertexEnum.v111, 1., 10., 100.)
+cable5 = Cable(point_ancrage[2], sommet_source[7], BoxVertexEnum.v011, 1., 10., 100.)
+cable6 = Cable(point_ancrage[3], sommet_source[7], BoxVertexEnum.v011, 1., 10., 100.)
+cable7 = Cable(point_ancrage[3], sommet_source[4], BoxVertexEnum.v001, 1., 10., 100.)
+
+
 
 F = get_tension(
     cable0,
