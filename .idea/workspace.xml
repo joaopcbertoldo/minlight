@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/enums.py" afterPath="$PROJECT_DIR$/src/enums.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/math_entities.py" afterPath="$PROJECT_DIR$/src/math_entities.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/boxes.py" afterPath="$PROJECT_DIR$/src/models/boxes.py" />
