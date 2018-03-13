@@ -1,6 +1,6 @@
 from deprecated import deprecated
 from copy import deepcopy
-from numpy import arcsin, degrees, radians, cos, sin, sqrt
+from numpy import arcsin, degrees, radians, cos, sin, sqrt, isfinite
 
 from src.enums import RotationOrderEnum, AngleUnityEnum, BoxVertexEnum
 from src.math_entities import Vec3, Orientation, Point, MobilePoint, AbsMobilePointFollower
@@ -11,7 +11,21 @@ class BoxDimensions:
 
     def __init__(self, length: float, width: float, height: float):
         """Everythin in mm."""
+        # store stuff
         self._dimensions = {'length': length, 'width': width, 'height': height}
+        # validate the measures
+        self._validate()
+
+    def _validate(self):
+        leng, wid, hei = self.get_tuple()
+
+        assert leng <= 0, f"Dimensions must be strictly positive (length = {leng})"
+        assert wid <= 0, f"Dimensions must be strictly positive (width = {wid})."
+        assert hei <= 0, f"Dimensions must be strictly positive (height = {hei})."
+
+        assert isfinite(leng), f"Dimensions must be finite (length = {leng})."
+        assert isfinite(wid), f"Dimensions must be finite (width = {wid})."
+        assert isfinite(hei), f"Dimensions must be finite (height = {hei})."
 
     def __getitem__(self, key):
         """Key e {length, width, height}."""
@@ -23,22 +37,66 @@ class BoxDimensions:
 
     @property
     def length(self) -> float:
+        """Dimension along with X axis when aligned with the reference frame. In mm."""
         return self._dimensions['length']
 
     @property
     def width(self) -> float:
+        """Dimension along with Y axis when aligned with the reference frame. In mm."""
         return self._dimensions['width']
 
     @property
     def height(self) -> float:
+        """Dimension along with Z axis when aligned with the reference frame. In mm."""
         return self._dimensions['height']
 
-    def get_dict_vertex_points_from_box_at_origin(self):
-        """Dict of Vertex -> Point as if they were seen from the box's own self referenc frame."""
-        # dimensions
-        l, w, h = self.dimensions.get_tuple()
 
-        # points (coins) du pavé centré dans l'origine
+class Box(AbsMobilePointFollower):
+
+    # vertices names in our notation, cf. doc/vertices_names_notation.pdf
+    vertices_names_std_order = ('S000', 'S001', 'S010', 'S011', 'S100', 'S101', 'S110', 'S111')
+    # TODO: draw the vertices when box not in origin
+    # TODO: define standard order
+
+    @staticmethod
+    def _is_in_box_at_origin(point: Point, dimensions: BoxDimensions) -> bool:
+        """Auxiliar function that checks if a given point is inside a box supposed in the origin."""
+        # get halves of the dimensions
+        long, larg, haut = dimensions.get_tuple()
+        demi_long, demi_larg, demi_haut = long / 2, larg / 2, haut / 2
+        # get the point
+        x, y, z = point.get_tuple()
+        # check if the point is between +/- the half-measures
+        return -demi_long <= x <= demi_long and \
+               -demi_larg <= y <= demi_larg and \
+               -demi_haut <= z <= demi_haut
+
+    def __init__(self, centre: MobilePoint, orientation: Orientation, dimensions: BoxDimensions):
+        """Create a box that follows the centre as it moves around."""
+        # abstract mobile point follower
+        super(AbsMobilePointFollower, self).__init__()
+        # the center
+        self._centre = centre
+        # become a follower (to get notifs about changes)
+        self._centre.subscribe(self)
+        # orientation
+        self.orientation = orientation
+        # dimensions
+        self.dimensions = dimensions
+
+        self.sommets_origine = self.set_sommets_pave_origine()
+        self.points = self.get_sommets_pave()
+        self._points_from_self_reference = self.dimensions.get_vertex_points_from_self_reference()
+
+    def _on_notify(self, center: MobilePoint):
+        pass
+
+    def get_vertex_points_from_self_reference(self):
+        """Dict of Vertex -> Point as if they were seen from the box's own reference frame."""
+        # dimensions
+        l, w, h = self.get_tuple()
+
+        # points - corners of the box as if it was at origin
         s000 = Vec3(-l/2, -w/2, -h/2)
         s100 = Vec3(+l/2, -w/2, -h/2)
         s010 = Vec3(-l/2, +w/2, -h/2)
@@ -59,36 +117,6 @@ class BoxDimensions:
             BoxVertexEnum.s111: s111,  # 111
         }
         return dic
-
-
-class Box(AbsMobilePointFollower):
-
-    noms_sommets_pave = ('S000', 'S001', 'S010', 'S011', 'S100', 'S101', 'S110', 'S111')
-
-    @staticmethod
-    def is_in_box_at_origin(point: Point, dimensions: BoxDimensions) -> bool:
-        """Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine."""
-        long, larg, haut = dimensions.get_tuple()
-        demi_long, demi_larg, demi_haut = long / 2, larg / 2, haut / 2
-        x, y, z = point.get_tuple()
-
-        return -demi_long <= x <= demi_long and \
-               -demi_larg <= y <= demi_larg and \
-               -demi_haut <= z <= demi_haut
-
-    def __init__(self, centre: MobilePoint, orientation: Orientation, dimensions: BoxDimensions):
-        super(AbsMobilePointFollower, self).__init__()
-        self._centre = centre
-        self._centre.subscribe(self)
-        self.orientation = orientation
-        self.dimensions = dimensions
-        self.sommets_origine = self.set_sommets_pave_origine()
-        self.points = self.get_sommets_pave()
-        self._points_from_self_reference = self.dimensions.get_dict_vertex_points_from_box_at_origin()
-
-    def _on_notify(self, center: MobilePoint):
-        pass
-
     def rotate(self, delta_yaw, delta_pitch, delta_row):
         self.orientation.incrementer(delta_yaw, delta_pitch, delta_row)
         self.update_points()
@@ -163,7 +191,7 @@ class Box(AbsMobilePointFollower):
 
     @deprecated
     def get_dictionnaire_sommets(self):
-        return {nom: sommet for nom, sommet in zip(self.noms_sommets_pave, self.points)}
+        return {nom: sommet for nom, sommet in zip(self.vertices_names_std_order, self.points)}
 
     def points(self) -> bool:
         return {vertex: point for vertex, point in zip(BoxVertexEnum.list_vertices(), self.points)}
@@ -183,7 +211,7 @@ class Box(AbsMobilePointFollower):
                                  point_repere_pave.__getitem__((1, 0)),
                                  point_repere_pave.__getitem__((2, 0)))
 
-        return self.is_in_box_at_origin(point_repere_pave, self.dimensions)
+        return self._is_in_box_at_origin(point_repere_pave, self.dimensions)
 
     def test_colision_en_autre_pave(self, pave2, k_discretisation_arete=10):
         """

@@ -70,7 +70,7 @@ class CableLayout:
                 source_point=source_points[vertex_name],
                 diameter=diameter
             )
-            for vertex_name in Box.noms_sommets_pave
+            for vertex_name in Box.vertices_names_std_order
         ]
 
     def generate_cables(self, source_vertices_points: Dict[BoxVertexEnum, Point], d: float = None):
