@@ -88,24 +88,38 @@ class Box(AbsMobilePointFollower):
         # become a follower (to get notifs about changes)
         self._centre.subscribe(self)
         # orientation
-        self.orientation = orientation
+        self._orientation = orientation
         # dimensions
-        self.dimensions = dimensions
+        self._dimensions = dimensions
         # deprecated
         # self.vertices_points_from_self_ref = self.set_sommets_pave_origine()
         # new
-        self.vertices_points_from_self_ref = self.get_vertex_points_from_self_reference()
+        self.vertices_points_from_self_ref = self._generate_vertex_points_from_self_reference()
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         self.points = self.get_sommets_pave()
-        self._points_from_self_reference = self.dimensions.get_vertex_points_from_self_reference()
+        self._points_from_self_reference = self._generate_vertex_points_from_self_reference()
+
+    @property
+    def orientation(self):
+        return self._orientation
+
+    @property
+    def dimensions(self):
+        return self._dimensions
+
+    @property
+    def centre(self):
+        return self._centre
 
     def _on_notify(self, center: MobilePoint):
-        pass
+        # update the box's points
+        self.update_points()
 
-    def get_vertex_points_from_self_reference(self) -> Dict[BoxVertexEnum, Point]:
+    def _generate_vertex_points_from_self_reference(self) -> Dict[BoxVertexEnum, Point]:
         """Dict of BoxVertexEnum -> Point as if they were seen from the box's own reference frame."""
 
         # dimensions
-        l, w, h = self.dimensions.get_tuple()
+        l, w, h = self._dimensions.get_tuple()
 
         # points - corners of the box as if it was at origin
         # cf. doc/vertices_names_notation.pdf
@@ -154,10 +168,9 @@ class Box(AbsMobilePointFollower):
         x, y, z = position.get_tuple()
         # set the mobile point's coordinates
         self._centre.set_xyz(x, y, z)
-        # update the box's points
-        self.update_points()
+        # update is done with the notification
 
-    def set_angles(self, ypr_angles):
+    def set_angles(self, ypr_angles: orientation):
         self.orientation = ypr_angles
         self.update_points()
 
