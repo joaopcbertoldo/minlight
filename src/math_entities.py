@@ -237,8 +237,65 @@ class AbsMobilePointFollower(ABC):
         p.start()
 
 
+class RotationMatrix(matrix):
+    """Rotation matrix for a specific orientation."""
+
+    _ROTATION_X_STR = '1,   0,    0 ;' + \
+                      '0, {c}, -{s} ;' + \
+                      '0, {s},  {c}  '
+
+    _ROTATION_Y_STR = ' {c}, 0, {s} ;' + \
+                      '   0, 1,   0 ;' + \
+                      '-{s}, 0, {c}  '
+
+    _ROTATION_Z_STR = '{c}, -{s}, 0 ;' + \
+                      '{s},  {c}, 0 ;' + \
+                      '  0,    0, 1  '
+
+    _ROTATION_STR_SWITCH = {
+        RotationAngleEnum.row: _ROTATION_X_STR,
+        RotationAngleEnum.pitch: _ROTATION_Y_STR,
+        RotationAngleEnum.yaw: _ROTATION_Z_STR
+    }
+
+    def __new__(cls, angle: RotationAngleEnum, valeur: float, unite: AngleUnityEnum = AngleUnityEnum.degree):
+        radians = valeur if unite == AngleUnityEnum.radian else valeur * pi / 180
+        str_ = cls._ROTATION_STR_SWITCH[angle]
+        str_ = str_.format(s=sin(radians), c=cos(radians))
+        return super(RotationMatrix, cls).__new__(cls, str_)
+
+    def __init__(self, angle: RotationAngleEnum, valeur: float, unite: AngleUnityEnum = AngleUnityEnum.degree):
+        self._angle = angle
+        self._valeur = valeur
+        self._unite = unite
+
+    def __mul__(self, other):
+        # rot mat * vec3
+        if type(other) == Vec3:
+            return Vec3.vec3_from_ndarray(self.dot(other))
+        # rot mat * rot mat
+        elif type(other) == RotationMatrix:
+            return self.dot(other)
+        # rot mat * point
+        elif isinstance(other, Point):
+            x, y, z = other.get_tuple()
+            x, y, z = (self * Vec3(x, y, z)).get_tuple()
+            return Point(x, y, z)
+        else:
+            raise Exception(f'Operation not defined for {type(self)} * {type(other)}.')
+
+    def __add__(self, other):
+        raise Exception(f'Operation not defined for {type(self)}.')
+
+    def __sub__(self, other):
+        raise Exception(f'Operation not defined for {type(self)}.')
+
+    def __truediv__(self, other):
+        raise Exception(f'Operation not defined for {type(self)}.')
+
+
 class Orientation:
-    """Represent the orientation of a rigid body with 3 rotation angles in a specific order."""
+    """(Mutable) Represent the orientation of a rigid body with 3 rotation angles in a specific order."""
 
     @staticmethod
     def zero():
@@ -330,6 +387,21 @@ class Orientation:
 
         return switch[self._order]()
 
+    def set_angles(self, row: float, pitch: float, yaw: float):
+        """Increment internal angles. Unity must agree with Rotation object's unity."""
+        # validate values
+        assert isfinite(yaw), f"Angles must be finite (yaw = {yaw})."
+        assert isfinite(pitch), f"Angles must be finite (pitch = {pitch})."
+        assert isfinite(row), f"Angles must be finite (row = {row})."
+        # yaw
+        self._yaw = yaw
+        # pitch
+        self._pitch = pitch
+        # row
+        self._row = row
+        # rotation matrix must be recalculated
+        self._recompute_flag = True
+
     def get_tuple_angles_pour_inverser_rotation(self):
         return Orientation(
             row=-self._row,
@@ -340,63 +412,6 @@ class Orientation:
             RotationOrderEnum.unknown,
             unite=self._unite
         )
-
-
-class RotationMatrix(matrix):
-    """Rotation matrix for a specific orientation."""
-
-    _ROTATION_X_STR = '1,   0,    0 ;' + \
-                      '0, {c}, -{s} ;' + \
-                      '0, {s},  {c}  '
-
-    _ROTATION_Y_STR = ' {c}, 0, {s} ;' + \
-                      '   0, 1,   0 ;' + \
-                      '-{s}, 0, {c}  '
-
-    _ROTATION_Z_STR = '{c}, -{s}, 0 ;' + \
-                      '{s},  {c}, 0 ;' + \
-                      '  0,    0, 1  '
-
-    _ROTATION_STR_SWITCH = {
-        RotationAngleEnum.row: _ROTATION_X_STR,
-        RotationAngleEnum.pitch: _ROTATION_Y_STR,
-        RotationAngleEnum.yaw: _ROTATION_Z_STR
-    }
-
-    def __new__(cls, angle: RotationAngleEnum, valeur: float, unite: AngleUnityEnum = AngleUnityEnum.degree):
-        radians = valeur if unite == AngleUnityEnum.radian else valeur * pi / 180
-        str_ = cls._ROTATION_STR_SWITCH[angle]
-        str_ = str_.format(s=sin(radians), c=cos(radians))
-        return super(RotationMatrix, cls).__new__(cls, str_)
-
-    def __init__(self, angle: RotationAngleEnum, valeur: float, unite: AngleUnityEnum = AngleUnityEnum.degree):
-        self._angle = angle
-        self._valeur = valeur
-        self._unite = unite
-
-    def __mul__(self, other):
-        # rot mat * vec3
-        if type(other) == Vec3:
-            return Vec3.vec3_from_ndarray(self.dot(other))
-        # rot mat * rot mat
-        elif type(other) == RotationMatrix:
-            return self.dot(other)
-        # rot mat * point
-        elif type(other) == Point:
-            x, y, z = other.get_tuple()
-            x, y, z = (self * Vec3(x, y, z)).get_tuple()
-            return Point(x, y, z)
-        else:
-            raise Exception(f'Operation not defined for {type(self)} * {type(other)}.')
-
-    def __add__(self, other):
-        raise Exception(f'Operation not defined for {type(self)}.')
-
-    def __sub__(self, other):
-        raise Exception(f'Operation not defined for {type(self)}.')
-
-    def __truediv__(self, other):
-        raise Exception(f'Operation not defined for {type(self)}.')
 
 
 class SphericalCoordinates:

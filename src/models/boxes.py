@@ -189,8 +189,9 @@ class Box(AbsMobilePointFollower):
         self._centre.set_xyz(x, y, z)
         # update is done with the notification
 
-    def set_angles(self, ypr_angles: orientation):
-        self.orientation = ypr_angles
+    def set_angles(self, ypr_angles: Orientation):
+        # self._orientation = ypr_angles
+        self._orientation.
         self._update_points()
 
     def changer_systeme_repere_pave_vers_globale(self, point):
