@@ -7,7 +7,13 @@ from src.math_entities import Vec3, Orientation, Point, MobilePoint, AbsMobilePo
 
 
 class BoxDimensions:
-    """Length, width, height. Imutable."""
+    """
+    Length, width, height. Imutable.
+    Dimensions are defined from a box set in origin and with all sides aligned along with XYZ axis.
+        X: length
+        Y: width
+        Z: height
+    """
 
     def __init__(self, length: float, width: float, height: float):
         """Everythin in mm."""
@@ -17,6 +23,7 @@ class BoxDimensions:
         self._validate()
 
     def _validate(self):
+        """Validate the numeric values of the dimensions."""
         leng, wid, hei = self.get_tuple()
 
         assert leng <= 0, f"Dimensions must be strictly positive (length = {leng})"
@@ -56,7 +63,7 @@ class Box(AbsMobilePointFollower):
     # vertices names in our notation, cf. doc/vertices_names_notation.pdf
     vertices_names_std_order = ('S000', 'S001', 'S010', 'S011', 'S100', 'S101', 'S110', 'S111')
     # TODO: draw the vertices when box not in origin
-    # TODO: define standard order
+    # TODO: define standard order in doc
 
     @staticmethod
     def _is_in_box_at_origin(point: Point, dimensions: BoxDimensions) -> bool:
