@@ -240,7 +240,7 @@ class Orientation:
         self._yaw = yaw
         self._order = order
         self._unite = unite
-        self._recalculer_matrice = True
+        self._recompute_flag = True
 
         self._matrix_x = RotationMatrix(
             angle=RotationAngleEnum.row,
@@ -280,7 +280,7 @@ class Orientation:
         # row
         self._row += delta_row
         # rotation matrix must be recalculated
-        self._recalculer_matrice = True
+        self._recompute_flag = True
 
     def get_angles(self):
         def rpy(): return self._row, self._pitch, self._yaw
@@ -297,31 +297,37 @@ class Orientation:
     def get_unite(self):
         return self._unite
 
-    def get_matrice_rotation(self):
-        if self._recalculer_matrice:
+    @property
+    def rotation_matrix(self):
+        # check if it needs to be recomputed
+        if self._recompute_flag:
+            # row (rotation around x)
             self._matrix_x = RotationMatrix(
                 angle=RotationAngleEnum.row,
                 valeur=self._row,
                 unite=self._unite
             )
-
+            # pitch (rotation around y)
             self._matrix_y = RotationMatrix(
                 angle=RotationAngleEnum.pitch,
                 valeur=self._pitch,
                 unite=self._unite
             )
-
+            # yaw (rotation around z)
             self._matrix_z = RotationMatrix(
                 angle=RotationAngleEnum.yaw,
                 valeur=self._yaw,
                 unite=self._unite
             )
-
+            # multiplication for row-pitch-yaw
             if self._order == RotationOrderEnum.rpy:
                 self._matrice_rotation = self._matrix_x.dot(self._matrix_y.dot(self._matrix_z))
+            # multiplication for yaw-pitch-row
             elif self._order == RotationOrderEnum.ypr:
                 self._matrice_rotation = self._matrix_z.dot(self._matrix_y.dot(self._matrix_x))
-            self._recalculer_matrice = False
+            # reset flag
+            self._recompute_flag = False
+        # return
         return self._matrice_rotation
 
     def get_tuple_angles_pour_inverser_rotation(self):

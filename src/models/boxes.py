@@ -96,31 +96,42 @@ class Box(AbsMobilePointFollower):
         # new
         self.vertices_points_from_self_ref = self._generate_vertex_points_from_self_reference()
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-        self.points = self.get_sommets_pave()
-        self._points_from_self_reference = self._generate_vertex_points_from_self_reference()
+        self._vertices_points = self._generate_vertex_points_from_self_reference()
 
     @property
-    def orientation(self):
-        return self._orientation
+    def orientation(self) -> Orientation:
+        return deepcopy(self._orientation)
 
     @property
-    def dimensions(self):
-        return self._dimensions
+    def dimensions(self) -> BoxDimensions:
+        return deepcopy(self._dimensions)
 
     @property
-    def centre(self):
-        return self._centre
+    def centre(self) -> Point:
+        x, y, z = self._centre.get_tuple()
+        return Point(x, y, z)
+
+    @property
+    def vertices_points(self):
+        return self._vertices_points
 
     def _on_notify(self, center: MobilePoint):
         # update the box's points
-        self.update_points()
+        self._update_points()
+
+    def _update_points(self):
+        newSommets = []
+        Rot = self._orientation.rotation_matrix()
+        for sommet in self.vertices_points_from_self_ref:
+            newPoint = (Rot * sommet) + self._centre
+            newSommets.append(newPoint)
+        for i in range(len(newSommets)):
+            self.points[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
 
     def _generate_vertex_points_from_self_reference(self) -> Dict[BoxVertexEnum, Point]:
         """Dict of BoxVertexEnum -> Point as if they were seen from the box's own reference frame."""
-
         # dimensions
         l, w, h = self._dimensions.get_tuple()
-
         # points - corners of the box as if it was at origin
         # cf. doc/vertices_names_notation.pdf
         v000 = Vec3(-l/2, -w/2, -h/2)  # v000
@@ -148,9 +159,9 @@ class Box(AbsMobilePointFollower):
     def rotate(self, delta_yaw: float, delta_pitch: float, delta_row: float):
         """Increment internal rotation. Unity must agree with Rotation object's unity."""
         # increment the rotation
-        self.orientation.increment(delta_yaw, delta_pitch, delta_row)
+        self._orientation.increment(delta_yaw, delta_pitch, delta_row)
         # update the box's points
-        self.update_points()
+        self._update_points()
 
     def translate_centre(self, dx: float, dy: float, dz: float):
         """Increment the centre's coordinates."""
@@ -159,7 +170,7 @@ class Box(AbsMobilePointFollower):
         # increment the mobile point
         self._centre.increment(dx, dy, dz)
         # update the box's points
-        self.update_points()
+        self._update_points()
 
     def set_centre_position(self, position: Point):
         # deprecated
@@ -172,11 +183,11 @@ class Box(AbsMobilePointFollower):
 
     def set_angles(self, ypr_angles: orientation):
         self.orientation = ypr_angles
-        self.update_points()
+        self._update_points()
 
     def changer_systeme_repere_pave_vers_globale(self, point):
         # matrice de rotation
-        Rot = self.orientation.get_matrice_rotation()
+        Rot = self.orientation.rotation_matrix()
 
         res = (Rot * point) + self._centre
 
@@ -243,7 +254,7 @@ class Box(AbsMobilePointFollower):
 
     def is_in_box(self, point: Point) -> bool:
         """Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine."""
-        Rot = self.orientation.get_tuple_angles_pour_inverser_rotation().get_matrice_rotation()
+        Rot = self.orientation.get_tuple_angles_pour_inverser_rotation().rotation_matrix()
 
         point_repere_pave = Rot * (point - self._centre)
 
@@ -286,7 +297,7 @@ class Box(AbsMobilePointFollower):
                 points_to_be_tested.append(Vec3(length, y, z))
 
         for index in range(len(points_to_be_tested)):
-            points_to_be_tested[index] = (self.orientation.get_matrice_rotation()) * points_to_be_tested[index]
+            points_to_be_tested[index] = (self.orientation.rotation_matrix()) * points_to_be_tested[index]
 
             # next line converts from 3d rotation matrix to vecteur3d
             points_to_be_tested[index] = Vec3(points_to_be_tested[index].__getitem__((0, 0)),
@@ -334,7 +345,7 @@ class Box(AbsMobilePointFollower):
         centre_systeme, ypr_angles_systeme = systeme_spherique.get_centre_et_ypr_angles()
 
         Rot = ypr_angles_systeme.get_tuple_angles_pour_inverser_rotation() \
-            .get_matrice_rotation()
+            .rotation_matrix()
 
         res = Rot * p + centre_systeme
 
@@ -350,14 +361,6 @@ class Box(AbsMobilePointFollower):
                 unite=AngleUnityEnum.degree  # !!!!!!!!!!!!!!!!!!!!!!!!
             )
 
-    def update_points(self):
-        newSommets = []
-        Rot = self.orientation.get_matrice_rotation()
-        for sommet in self.vertices_points_from_self_ref:
-            newPoint = (Rot * sommet) + self._centre
-            newSommets.append(newPoint)
-        for i in range(len(newSommets)):
-            self.points[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
 
     @deprecated
     def draw(self):
@@ -390,7 +393,7 @@ class Source(Box):
         rotation = Orientation(0, 90, 0)
         self.points_per_level = 10
         self.angle_levels = 10
-        matRot = rotation.get_matrice_rotation()
+        matRot = rotation.rotation_matrix()
         for theta in range(0, int(self.angle_ouverture), self.angle_levels):
             for phi in range(0, 360, int(360 / self.points_per_level)):
                 theta_rad = radians(theta)
@@ -406,13 +409,13 @@ class Source(Box):
                 self.points_parable.append(p2)
         self.squares_edges = []
         # for()
-        self.update_points()
+        self._update_points()
 
-    def update_points(self):
+    def _update_points(self):
         length, width, height = self.dimensions.get_tuple()
         newSommets = []
         newSommetsParable = []
-        Rot = self.orientation.get_matrice_rotation()
+        Rot = self.orientation.rotation_matrix()
         for sommet in self.vertices_points_from_self_ref:
             newPoint = (Rot * sommet) + self._centre
             newSommets.append(newPoint)

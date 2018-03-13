@@ -120,7 +120,7 @@ class Configuration:
         centre_systeme, ypr_angles_systeme = systeme_spherique.get_centre_et_ypr_angles()
 
         rot = ypr_angles_systeme.get_tuple_angles_pour_inverser_rotation() \
-            .get_matrice_rotation()
+            .rotation_matrix()
 
         res = rot * p + centre_systeme
 
