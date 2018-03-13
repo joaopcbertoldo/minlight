@@ -114,7 +114,7 @@ class Configuration:
     def set_centre_xyz(self, systeme_spherique):
         #  roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=AngleUnityEnum.degree)
         coordonnees_spheriques = CoordonnesSpherique(self.ro, self.position_theta, self.position_phi, AngleUnityEnum.degree)
-        # p = centre de la source pour le systeme cartesien à partir du quel le spherique est defini
+        # p = _centre de la source pour le systeme cartesien à partir du quel le spherique est defini
         p = systeme_spherique.convertir_en_cartesien(coordonnees_spheriques)
 
         centre_systeme, ypr_angles_systeme = systeme_spherique.get_centre_et_ypr_angles()

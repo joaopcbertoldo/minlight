@@ -1,4 +1,5 @@
 from deprecated import deprecated
+from copy import deepcopy
 from numpy import arcsin, degrees, radians, cos, sin, sqrt
 
 from src.enums import RotationOrderEnum, AngleUnityEnum, BoxVertexEnum
@@ -32,22 +33,41 @@ class BoxDimensions:
     def height(self) -> float:
         return self._dimensions['height']
 
+    def get_dict_vertex_points_from_box_at_origin(self):
+        """Dict of Vertex -> Point as if they were seen from the box's own self referenc frame."""
+        # dimensions
+        l, w, h = self.dimensions.get_tuple()
+
+        # points (coins) du pavé centré dans l'origine
+        s000 = Vec3(-l/2, -w/2, -h/2)
+        s100 = Vec3(+l/2, -w/2, -h/2)
+        s010 = Vec3(-l/2, +w/2, -h/2)
+        s110 = Vec3(+l/2, +w/2, -h/2)
+        s001 = Vec3(-l/2, -w/2, +h/2)
+        s101 = Vec3(+l/2, -w/2, +h/2)
+        s011 = Vec3(-l/2, +w/2, +h/2)
+        s111 = Vec3(+l/2, +w/2, +h/2)
+
+        dic = {
+            BoxVertexEnum.s000: s000,  # 000
+            BoxVertexEnum.s100: s100,  # 100
+            BoxVertexEnum.s010: s010,  # 010
+            BoxVertexEnum.s110: s110,  # 110
+            BoxVertexEnum.s001: s001,  # 001
+            BoxVertexEnum.s101: s101,  # 101
+            BoxVertexEnum.s011: s011,  # 011
+            BoxVertexEnum.s111: s111,  # 111
+        }
+        return dic
+
 
 class Box(AbsMobilePointFollower):
-
-    def _on_notify(self, p: MobilePoint):
-        pass
 
     noms_sommets_pave = ('S000', 'S001', 'S010', 'S011', 'S100', 'S101', 'S110', 'S111')
 
     @staticmethod
-    def point_appartient_pave_origine(point, dimensions: BoxDimensions) -> bool:
-        """
-        Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
-        :param point:
-        :param dimensions: (dictionnaire) length, width, height du pave de la source
-        :return: False/True
-        """
+    def is_in_box_at_origin(point: Point, dimensions: BoxDimensions) -> bool:
+        """Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine."""
         long, larg, haut = dimensions.get_tuple()
         demi_long, demi_larg, demi_haut = long / 2, larg / 2, haut / 2
         x, y, z = point.get_tuple()
@@ -56,38 +76,45 @@ class Box(AbsMobilePointFollower):
                -demi_larg <= y <= demi_larg and \
                -demi_haut <= z <= demi_haut
 
-    def __init__(self, centre: MobilePoint, ypr_angles: Orientation, dimensions: BoxDimensions):
-        self.centre = centre
-        self.ypr_angles = ypr_angles
+    def __init__(self, centre: MobilePoint, orientation: Orientation, dimensions: BoxDimensions):
+        super(AbsMobilePointFollower, self).__init__()
+        self._centre = centre
+        self._centre.subscribe(self)
+        self.orientation = orientation
         self.dimensions = dimensions
         self.sommets_origine = self.set_sommets_pave_origine()
         self.points = self.get_sommets_pave()
+        self._points_from_self_reference = self.dimensions.get_dict_vertex_points_from_box_at_origin()
+
+    def _on_notify(self, center: MobilePoint):
+        pass
 
     def rotate(self, delta_yaw, delta_pitch, delta_row):
-        self.ypr_angles.incrementer(delta_yaw, delta_pitch, delta_row)
-        self.update_sommets()
+        self.orientation.incrementer(delta_yaw, delta_pitch, delta_row)
+        self.update_points()
 
     def translate(self, delta_x, delta_y, delta_z):
-        self.centre += Vec3(delta_x, delta_y, delta_z)
-        self.update_sommets()
+        self._centre += Vec3(delta_x, delta_y, delta_z)
+        self.update_points()
 
     def set_position(self, centre):
-        self.centre = centre
-        self.update_sommets()
+        self._centre = centre
+        self.update_points()
 
     def set_angles(self, ypr_angles):
-        self.ypr_angles = ypr_angles
-        self.update_sommets()
+        self.orientation = ypr_angles
+        self.update_points()
 
     def changer_systeme_repere_pave_vers_globale(self, point):
         # matrice de rotation
-        Rot = self.ypr_angles.get_matrice_rotation()
+        Rot = self.orientation.get_matrice_rotation()
 
-        res = (Rot * point) + self.centre
+        res = (Rot * point) + self._centre
 
         # il faut faire ça sinon le retour est une matrice rot
         return Vec3(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
 
+    @deprecated
     def set_sommets_pave_origine(self):
         # dimensions
         long, larg, haut = self.dimensions.get_tuple()
@@ -102,15 +129,18 @@ class Box(AbsMobilePointFollower):
         s011 = Vec3(- long / 2, + larg / 2, + haut / 2)
         s111 = Vec3(+ long / 2, + larg / 2, + haut / 2)
 
-        # points (coins) de la source repérés par rapport à son centre
+        # points (coins) de la source repérés par rapport à son _centre
         return [s000, s001, s010, s011, s100, s101, s110, s111]
 
+    @deprecated
     def sommets_pave_origine(self):
         return self.sommets_origine
 
-    def get_centre(self):
-        return self.centre
+    @property
+    def centre(self) -> Point:
+        return self._centre
 
+    @deprecated
     def get_sommets_pave(self):
         """
         convention utilisé pour les rotations : z-y’-x″ (intrinsic rotations) = Yaw, pitch, and roll rotations
@@ -119,14 +149,15 @@ class Box(AbsMobilePointFollower):
         https://en.wikipedia.org/wiki/Euler_angles#Tait.E2.80.93Bryan_angles
         https://en.wikipedia.org/wiki/Euler_angles#Rotation_matrix
 
-        On suppose qu'on veut orienter le centre de la source par des angles
-        et la position du centre, on calcule les positios des points (les coins de la source).
+        On suppose qu'on veut orienter le _centre de la source par des angles
+        et la position du _centre, on calcule les positios des points (les coins de la source).
         :return: liste des points de la source par rapport au système de repère de la chambre
         """
 
         s_origine = self.sommets_pave_origine()
         return [self.changer_systeme_repere_pave_vers_globale(s) for s in s_origine]
 
+    @deprecated
     def sommets_pave(self):
         return self.points
 
@@ -134,27 +165,31 @@ class Box(AbsMobilePointFollower):
     def get_dictionnaire_sommets(self):
         return {nom: sommet for nom, sommet in zip(self.noms_sommets_pave, self.points)}
 
-    def get_dict_vertex_point(self) -> bool:
+    def points(self) -> bool:
         return {vertex: point for vertex, point in zip(BoxVertexEnum.list_vertices(), self.points)}
+
+    def get_dict_vertex_point_from_self_reference(self):
+        """Dict of Vertex -> Point as if they were seen from the box's own self referenc frame."""
+        return deepcopy(self._points_from_self_reference)
 
     def is_in_box(self, point: Point) -> bool:
         """Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine."""
-        Rot = self.ypr_angles.get_tuple_angles_pour_inverser_rotation().get_matrice_rotation()
+        Rot = self.orientation.get_tuple_angles_pour_inverser_rotation().get_matrice_rotation()
 
-        point_repere_pave = Rot * (point - self.centre)
+        point_repere_pave = Rot * (point - self._centre)
 
         # il faut faire ça parce que l'operation cidessus renvoie une matrice rotation
         point_repere_pave = Vec3(point_repere_pave.__getitem__((0, 0)),
                                  point_repere_pave.__getitem__((1, 0)),
                                  point_repere_pave.__getitem__((2, 0)))
 
-        return self.point_appartient_pave_origine(point_repere_pave, self.dimensions)
+        return self.is_in_box_at_origin(point_repere_pave, self.dimensions)
 
     def test_colision_en_autre_pave(self, pave2, k_discretisation_arete=10):
         """
         Tests if there are points on pave1's faces inside pave2.
         the function needs to be called twice to be sure that there are no intersections
-        pave1: dictionary with dimensions(dictionary),centre(matrix 3x1), ypr_angles(dictionary)
+        pave1: dictionary with dimensions(dictionary),_centre(matrix 3x1), orientation(dictionary)
         k: (k+1)^2 = number of points to be tested on each face, the greater the k, the plus reliable the result.
         """
 
@@ -182,15 +217,15 @@ class Box(AbsMobilePointFollower):
                 points_to_be_tested.append(Vec3(length, y, z))
 
         for index in range(len(points_to_be_tested)):
-            points_to_be_tested[index] = (self.ypr_angles.get_matrice_rotation()) * points_to_be_tested[index]
+            points_to_be_tested[index] = (self.orientation.get_matrice_rotation()) * points_to_be_tested[index]
 
             # next line converts from 3d rotation matrix to vecteur3d
             points_to_be_tested[index] = Vec3(points_to_be_tested[index].__getitem__((0, 0)),
                                               points_to_be_tested[index].__getitem__((1, 0)),
                                               points_to_be_tested[index].__getitem__((2, 0)))
 
-            points_to_be_tested[index] = points_to_be_tested[index] + self.centre - Vec3(length / 2, width / 2,
-                                                                                         height / 2)
+            points_to_be_tested[index] = points_to_be_tested[index] + self._centre - Vec3(length / 2, width / 2,
+                                                                                          height / 2)
 
             if pave2.is_in_box(points_to_be_tested[index]):
                 return True
@@ -201,8 +236,8 @@ class Box(AbsMobilePointFollower):
 
         """
         Tests if there are inserctions between pave1 and pave2,
-        pave1: dictionary with dimensions(dictionary),centre(matrix 3x1), ypr_angles(dictionary)
-        pave2: dictionary with dimensions(dictionary),centre(matrix 3x1), ypr_angles(dictionary)
+        pave1: dictionary with dimensions(dictionary),_centre(matrix 3x1), orientation(dictionary)
+        pave2: dictionary with dimensions(dictionary),_centre(matrix 3x1), orientation(dictionary)
         k: (k+1)^2 = number of points to be tested on each face, the greater the k, the more reliable the result
         return True if there are no intersections, returns False otherwise
         """
@@ -224,7 +259,7 @@ class Box(AbsMobilePointFollower):
         '''
         roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=AngleUnityEnum.degree)
 
-        # p = centre de la source pour le systeme cartesien à partir du quel le spherique est defini
+        # p = _centre de la source pour le systeme cartesien à partir du quel le spherique est defini
         p = systeme_spherique.convertir_en_cartesien(coordonnees_spheriques)
 
         centre_systeme, ypr_angles_systeme = systeme_spherique.get_centre_et_ypr_angles()
@@ -235,9 +270,9 @@ class Box(AbsMobilePointFollower):
         res = Rot * p + centre_systeme
 
         # il faut faire ça sinon le retour est une matrice rot
-        self.centre = Vec3(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
+        self._centre = Vec3(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
 
-        self.ypr_angles = \
+        self.orientation = \
             Orientation(
                 row=0,
                 pitch=phi,
@@ -246,11 +281,11 @@ class Box(AbsMobilePointFollower):
                 unite=AngleUnityEnum.degree  # !!!!!!!!!!!!!!!!!!!!!!!!
             )
 
-    def update_sommets(self):
+    def update_points(self):
         newSommets = []
-        Rot = self.ypr_angles.get_matrice_rotation()
+        Rot = self.orientation.get_matrice_rotation()
         for sommet in self.sommets_origine:
-            newPoint = (Rot * sommet) + self.centre
+            newPoint = (Rot * sommet) + self._centre
             newSommets.append(newPoint)
         for i in range(len(newSommets)):
             self.points[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
@@ -261,8 +296,8 @@ class Box(AbsMobilePointFollower):
 
 
 class Source(Box):
-    def __init__(self, centre, ypr_angles, dimensions):
-        super().__init__(centre, ypr_angles, dimensions)
+    def __init__(self, centre, orientation, dimensions):
+        super().__init__(centre, orientation, dimensions)
         self.create_parable()
 
     def get_light_radius(self):
@@ -275,7 +310,7 @@ class Source(Box):
             4]) / 4  # 5,7,6,4 are the verticies of the light face
 
     def get_light_direction(self):
-        return (self.get_light_centre() - self.centre).direction()
+        return (self.get_light_centre() - self._centre).direction()
 
     def create_parable(self):  # creates visualization of the parable, must finish!!!!!!!
         length, width, height = self.dimensions.get_tuple()
@@ -302,21 +337,21 @@ class Source(Box):
                 self.points_parable.append(p2)
         self.squares_edges = []
         # for()
-        self.update_sommets()
+        self.update_points()
 
-    def update_sommets(self):
+    def update_points(self):
         length, width, height = self.dimensions.get_tuple()
         newSommets = []
         newSommetsParable = []
-        Rot = self.ypr_angles.get_matrice_rotation()
+        Rot = self.orientation.get_matrice_rotation()
         for sommet in self.sommets_origine:
-            newPoint = (Rot * sommet) + self.centre
+            newPoint = (Rot * sommet) + self._centre
             newSommets.append(newPoint)
         for i in range(len(newSommets)):
             self.points[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
 
         for sommet in self.points_parable_origin:
-            newPoint = (Rot * sommet) + self.centre
+            newPoint = (Rot * sommet) + self._centre
             newSommetsParable.append(newPoint)
         for i in range(len(self.points_parable)):
             self.points_parable[i].set_xyz(newSommetsParable[i].item(0), newSommetsParable[i].item(1),
@@ -333,8 +368,8 @@ class Source(Box):
 
 class Maisonette(Box):
 
-    def __init__(self, centre, ypr_angles, dimensions, window_dimensions, wall_width=150):
-        super().__init__(centre, ypr_angles, dimensions)
+    def __init__(self, centre, orientation, dimensions, window_dimensions, wall_width=150):
+        super().__init__(centre, orientation, dimensions)
         self.window_dimensions = window_dimensions
         self.wall_width = wall_width
         self.set_sommets_inside()

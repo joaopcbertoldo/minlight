@@ -8,6 +8,7 @@ from src.models.boxes import Box, Source, Maisonette
 from src.toolbox.useful import get_plane_normal
 from src.visualization.outils import Surface
 
+
 class DrawableCable(Cable):
 
     def draw(self, origin):
@@ -57,7 +58,7 @@ class DrawableBox(Box):
         if drawFaces:
             glBegin(GL_QUADS)
             for surface in surfaces:
-                normal = get_plane_normal(surface, self.points, self.centre)
+                normal = get_plane_normal(surface, self.points, self._centre)
                 normal_tuple = normal.get_tuple()
                 for vertex in surface:
                     glColor4fv(color)
@@ -75,8 +76,8 @@ class DrawableBox(Box):
 
 
 class Chambre(Box):
-    def __init__(self, centre, ypr_angles, dimensions):
-        super().__init__(centre, ypr_angles, dimensions)
+    def __init__(self, centre, orientation, dimensions):
+        super().__init__(centre, orientation, dimensions)
 
     def draw(self, origin, color=(0.2, 0.2, 0.2, 1.0), drawFaces=True):
         edges = (
@@ -95,7 +96,7 @@ class Chambre(Box):
         )
         ground = (4, 6, 2, 0)
 
-        normal = get_plane_normal(ground, self.points, -self.centre)
+        normal = get_plane_normal(ground, self.points, -self._centre)
         normal_tuple = normal.get_tuple()
 
         glBegin(GL_QUADS)
@@ -173,7 +174,7 @@ class DrawableSource(Source):
 
         light = (1, 3, 2, 0)
 
-        normal = get_plane_normal(light, self.points, self.centre)
+        normal = get_plane_normal(light, self.points, self._centre)
         normal_tuple = normal.get_tuple()
         glBegin(GL_QUADS)
         for vertex in light:

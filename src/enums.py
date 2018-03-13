@@ -47,3 +47,4 @@ class BoxVertexEnum(Enum):
             BoxVertexEnum.s011,
             BoxVertexEnum.s111,
         ]
+

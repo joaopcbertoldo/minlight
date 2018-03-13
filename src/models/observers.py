@@ -108,7 +108,7 @@ class ObserverPoint3D(CableRobotObserver):
     @staticmethod
     def centre_accessor(cable_robot):
         source = cable_robot.get_source()
-        centre = source.get_centre()
+        centre = source.centre()
         return centre
 
     def __init__(self, intervale, accessor):
