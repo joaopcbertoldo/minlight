@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.math_entities import Vec3
+from src.math_entities import *
 from src.models.cables import Cable
 
 
@@ -115,10 +115,10 @@ long = 1.0
 larg = 1.0
 haut = 1.0
 
-point_ancrage = [Vec3(0.0, 0.0, 5.0), Vec3(4.0, 0.0, 5.0),
-                 Vec3(4.0, 6.0, 5.0), Vec3(0.0, 6.0, 5.0)]
+point_ancrage = [Point(0.0, 0.0, 5.0), Point(4.0, 0.0, 5.0),
+                 Point(4.0, 6.0, 5.0), Point(0.0, 6.0, 5.0)]
 
-centre_masse = Vec3(2.0, 3.0, 2.5)
+centre_masse = Point(2.0, 3.0, 2.5)
 
 # sommet_source = [centre_masse + np.array([-long / 2, -larg / 2, -haut / 2]),
 #                 centre_masse + np.array([ long / 2, -larg / 2, -haut / 2]),
@@ -130,14 +130,14 @@ centre_masse = Vec3(2.0, 3.0, 2.5)
 #                 centre_masse + np.array([-long / 2,  larg / 2,  haut / 2])]
 
 sommet_source = [
-    Vec3(1.5, 2.5, 2.0),
-    Vec3(2.5, 2.5, 2.0),
-    Vec3(2.5, 3.5, 2.0),
-    Vec3(1.5, 3.5, 2.0),
-    Vec3(1.5, 2.5, 3.0),
-    Vec3(2.5, 2.5, 3.0),
-    Vec3(2.5, 3.5, 3.0),
-    Vec3(1.5, 3.5, 3.0),
+    MobilePoint(1.5, 2.5, 2.0),
+    MobilePoint(2.5, 2.5, 2.0),
+    MobilePoint(2.5, 3.5, 2.0),
+    MobilePoint(1.5, 3.5, 2.0),
+    MobilePoint(1.5, 2.5, 3.0),
+    MobilePoint(2.5, 2.5, 3.0),
+    MobilePoint(2.5, 3.5, 3.0),
+    MobilePoint(1.5, 3.5, 3.0),
 ]
 
 cable0 = Cable(sommet_source[4], "S001", point_ancrage[0], 1., 10., 100.)
