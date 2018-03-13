@@ -30,11 +30,11 @@ class CableRobot:
         self._notify_observers(notify)
 
     def translate_source(self, delta_x=0, delta_y=0, delta_z=0, notify=True):
-        self._source.translate(delta_x, delta_y, delta_z)
+        self._source.translate_centre(delta_x, delta_y, delta_z)
         self._notify_observers(notify)
 
     def set_source_position(self, centre, notify=True):
-        self._source.set_position(centre)
+        self._source.set_centre_position(centre)
         self._notify_observers(notify)
 
     def set_source_angles(self, angles, notify=True):

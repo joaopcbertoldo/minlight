@@ -1,6 +1,7 @@
 from deprecated import deprecated
 from copy import deepcopy
 from numpy import arcsin, degrees, radians, cos, sin, sqrt, isfinite
+from typing import Dict
 
 from src.enums import RotationOrderEnum, AngleUnityEnum, BoxVertexEnum
 from src.math_entities import Vec3, Orientation, Point, MobilePoint, AbsMobilePointFollower
@@ -90,50 +91,70 @@ class Box(AbsMobilePointFollower):
         self.orientation = orientation
         # dimensions
         self.dimensions = dimensions
-
-        self.sommets_origine = self.set_sommets_pave_origine()
+        # deprecated
+        # self.vertices_points_from_self_ref = self.set_sommets_pave_origine()
+        # new
+        self.vertices_points_from_self_ref = self.get_vertex_points_from_self_reference()
         self.points = self.get_sommets_pave()
         self._points_from_self_reference = self.dimensions.get_vertex_points_from_self_reference()
 
     def _on_notify(self, center: MobilePoint):
         pass
 
-    def get_vertex_points_from_self_reference(self):
-        """Dict of Vertex -> Point as if they were seen from the box's own reference frame."""
+    def get_vertex_points_from_self_reference(self) -> Dict[BoxVertexEnum, Point]:
+        """Dict of BoxVertexEnum -> Point as if they were seen from the box's own reference frame."""
+
         # dimensions
-        l, w, h = self.get_tuple()
+        l, w, h = self.dimensions.get_tuple()
 
         # points - corners of the box as if it was at origin
-        s000 = Vec3(-l/2, -w/2, -h/2)
-        s100 = Vec3(+l/2, -w/2, -h/2)
-        s010 = Vec3(-l/2, +w/2, -h/2)
-        s110 = Vec3(+l/2, +w/2, -h/2)
-        s001 = Vec3(-l/2, -w/2, +h/2)
-        s101 = Vec3(+l/2, -w/2, +h/2)
-        s011 = Vec3(-l/2, +w/2, +h/2)
-        s111 = Vec3(+l/2, +w/2, +h/2)
+        # cf. doc/vertices_names_notation.pdf
+        v000 = Vec3(-l/2, -w/2, -h/2)  # v000
+        v100 = Vec3(+l/2, -w/2, -h/2)  # v100
+        v010 = Vec3(-l/2, +w/2, -h/2)  # v010
+        v110 = Vec3(+l/2, +w/2, -h/2)  # v110
+        v001 = Vec3(-l/2, -w/2, +h/2)  # v001
+        v101 = Vec3(+l/2, -w/2, +h/2)  # v101
+        v011 = Vec3(-l/2, +w/2, +h/2)  # v011
+        v111 = Vec3(+l/2, +w/2, +h/2)  # v111
 
+        # the dict itself
         dic = {
-            BoxVertexEnum.s000: s000,  # 000
-            BoxVertexEnum.s100: s100,  # 100
-            BoxVertexEnum.s010: s010,  # 010
-            BoxVertexEnum.s110: s110,  # 110
-            BoxVertexEnum.s001: s001,  # 001
-            BoxVertexEnum.s101: s101,  # 101
-            BoxVertexEnum.s011: s011,  # 011
-            BoxVertexEnum.s111: s111,  # 111
+            BoxVertexEnum.v000: v000,  # 000
+            BoxVertexEnum.v100: v100,  # 100
+            BoxVertexEnum.v010: v010,  # 010
+            BoxVertexEnum.v110: v110,  # 110
+            BoxVertexEnum.v001: v001,  # 001
+            BoxVertexEnum.v101: v101,  # 101
+            BoxVertexEnum.v011: v011,  # 011
+            BoxVertexEnum.v111: v111,  # 111
         }
         return dic
-    def rotate(self, delta_yaw, delta_pitch, delta_row):
-        self.orientation.incrementer(delta_yaw, delta_pitch, delta_row)
+
+    def rotate(self, delta_yaw: float, delta_pitch: float, delta_row: float):
+        """Increment internal rotation. Unity must agree with Rotation object's unity."""
+        # increment the rotation
+        self.orientation.increment(delta_yaw, delta_pitch, delta_row)
+        # update the box's points
         self.update_points()
 
-    def translate(self, delta_x, delta_y, delta_z):
-        self._centre += Vec3(delta_x, delta_y, delta_z)
+    def translate_centre(self, dx: float, dy: float, dz: float):
+        """Increment the centre's coordinates."""
+        # deprecated
+        # self._centre += Vec3(dx, dy, dz)
+        # increment the mobile point
+        self._centre.increment(dx, dy, dz)
+        # update the box's points
         self.update_points()
 
-    def set_position(self, centre):
-        self._centre = centre
+    def set_centre_position(self, position: Point):
+        # deprecated
+        # self._centre = centre
+        # get coordinates
+        x, y, z = position.get_tuple()
+        # set the mobile point's coordinates
+        self._centre.set_xyz(x, y, z)
+        # update the box's points
         self.update_points()
 
     def set_angles(self, ypr_angles):
@@ -169,7 +190,7 @@ class Box(AbsMobilePointFollower):
 
     @deprecated
     def sommets_pave_origine(self):
-        return self.sommets_origine
+        return self.vertices_points_from_self_ref
 
     @property
     def centre(self) -> Point:
@@ -319,7 +340,7 @@ class Box(AbsMobilePointFollower):
     def update_points(self):
         newSommets = []
         Rot = self.orientation.get_matrice_rotation()
-        for sommet in self.sommets_origine:
+        for sommet in self.vertices_points_from_self_ref:
             newPoint = (Rot * sommet) + self._centre
             newSommets.append(newPoint)
         for i in range(len(newSommets)):
@@ -379,7 +400,7 @@ class Source(Box):
         newSommets = []
         newSommetsParable = []
         Rot = self.orientation.get_matrice_rotation()
-        for sommet in self.sommets_origine:
+        for sommet in self.vertices_points_from_self_ref:
             newPoint = (Rot * sommet) + self._centre
             newSommets.append(newPoint)
         for i in range(len(newSommets)):

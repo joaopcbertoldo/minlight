@@ -26,25 +26,25 @@ class RotationOrderEnum(Enum):
 class BoxVertexEnum(Enum):
     """Names of the vertices of a box in the system 's{x}{y}{z}'."""
     unknown = 0
-    s000 = 1
-    s100 = 2
-    s010 = 3
-    s110 = 4
-    s001 = 5
-    s101 = 6
-    s011 = 7
-    s111 = 8
+    v000 = 1
+    v100 = 2
+    v010 = 3
+    v110 = 4
+    v001 = 5
+    v101 = 6
+    v011 = 7
+    v111 = 8
 
     @staticmethod
     def list_vertices():
         return [
-            BoxVertexEnum.s000,
-            BoxVertexEnum.s100,
-            BoxVertexEnum.s010,
-            BoxVertexEnum.s110,
-            BoxVertexEnum.s001,
-            BoxVertexEnum.s101,
-            BoxVertexEnum.s011,
-            BoxVertexEnum.s111,
+            BoxVertexEnum.v000,
+            BoxVertexEnum.v100,
+            BoxVertexEnum.v010,
+            BoxVertexEnum.v110,
+            BoxVertexEnum.v001,
+            BoxVertexEnum.v101,
+            BoxVertexEnum.v011,
+            BoxVertexEnum.v111,
         ]
 

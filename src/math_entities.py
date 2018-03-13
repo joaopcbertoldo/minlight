@@ -1,12 +1,12 @@
 from deprecated import deprecated
 from copy import deepcopy
-from typing import Set, Iterable, Callable
+from typing import Set, Iterable, Callable, Tuple
 from threading import Thread
 from abc import ABC, abstractmethod
 
 import numpy as np
 
-from numpy import cos, sin, pi, matrix, sqrt, ndarray
+from numpy import cos, sin, pi, matrix, sqrt, ndarray, isfinite
 from numpy.linalg import norm
 
 from src.enums import RotationAngleEnum, AngleUnityEnum, RotationOrderEnum
@@ -23,8 +23,13 @@ class Vec3(matrix):
     def vec3_from_ndarray(ndarray_: ndarray) -> 'Vec3':
         return Vec3(ndarray_.item(0), ndarray_.item(1), ndarray_.item(2))
 
-    def __new__(cls, x, y, z):
+    def __new__(cls, x: float, y: float, z: float):
         """Vector 3D from its 3 euclidean coordinates."""
+        # validate values
+        assert isfinite(x), f"Coordinates must be finite (x = {x})."
+        assert isfinite(y), f"Coordinates must be finite (y = {y})."
+        assert isfinite(z), f"Coordinates must be finite (z = {z})."
+        # create
         return super(Vec3, cls).__new__(cls, "{}; {}; {}".format(x, y, z))
 
     @deprecated
@@ -144,7 +149,7 @@ class Point:
         """Z component setter."""
         return self._vec3.item(2)
 
-    def get_tuple(self):
+    def get_tuple(self) -> Tuple[float, float, float]:
         """Return a tuple with the 3 coordinates (x, y, z)."""
         return self._vec3.get_tuple()
 
@@ -173,6 +178,10 @@ class MobilePoint(Point):
         super().__init__(x, y, z, name)
         self._followers: Set[AbsMobilePointFollower] = set()
 
+    def _notify(self):
+        for f in self._followers:
+            f.notify(self)
+
     def subscribe(self, follower):
         if type(follower) != AbsMobilePointFollower:
             raise Exception(f"follower must be of type '{AbsMobilePointFollower}'.")
@@ -182,11 +191,16 @@ class MobilePoint(Point):
         for f in followers:
             self.subscribe(f)
 
-    def set_xyz(self, x, y, z):
+    def set_xyz(self, x: float, y: float, z: float):
         """Set all 3 coordinates at a time and notify followers."""
         self._vec3 = Vec3(x, y, z)
-        for f in self._followers:
-            f.notify(self)
+        self._notify()
+
+    def increment(self, dx, dy, dz):
+        """Increment all 3 coordinates at a time and notify followers."""
+        x, y, z = self.get_tuple()
+        self._vec3 = Vec3(x+dx, y+dx, z+dx)
+        self._notify()
 
 
 class AbsMobilePointFollower(ABC):
@@ -253,10 +267,19 @@ class Orientation:
         else:
             raise Exception('RotationOrderEnum inconu')
 
-    def incrementer(self, delta_yaw, delta_pitch, delta_row):
+    def increment(self, delta_yaw: float, delta_pitch: float, delta_row: float):
+        """Increment internal angles. Unity must agree with Rotation object's unity."""
+        # validate values
+        assert isfinite(delta_yaw), f"Deltas must be finite (delta_yaw = {delta_yaw})."
+        assert isfinite(delta_pitch), f"Deltas must be finite (delta_pitch = {delta_pitch})."
+        assert isfinite(delta_row), f"Deltas must be finite (delta_row = {delta_row})."
+        # yaw
         self._yaw += delta_yaw
+        # pitch
         self._pitch += delta_pitch
+        # row
         self._row += delta_row
+        # rotation matrix must be recalculated
         self._recalculer_matrice = True
 
     def get_angles(self):
