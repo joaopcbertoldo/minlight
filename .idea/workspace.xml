@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="got the drawing stuff out of boxes">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/math_entities.py" afterPath="$PROJECT_DIR$/src/math_entities.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/boxes.py" afterPath="$PROJECT_DIR$/src/models/boxes.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/system.py" afterPath="$PROJECT_DIR$/src/models/system.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/trajectoire.py" afterPath="$PROJECT_DIR$/src/models/trajectoire.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,11 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="boxes.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="boxes.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/models/boxes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="191" column="47" lean-forward="true" selection-start-line="191" selection-start-column="47" selection-end-line="191" selection-end-column="47" />
+            <state relative-caret-position="203">
+              <caret line="194" column="4" lean-forward="false" selection-start-line="194" selection-start-column="4" selection-end-line="194" selection-end-column="4" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -41,11 +38,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="math_entities.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="math_entities.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/math_entities.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="352" column="0" lean-forward="true" selection-start-line="352" selection-start-column="0" selection-end-line="352" selection-end-column="0" />
+            <state relative-caret-position="1288">
+              <caret line="351" column="18" lean-forward="true" selection-start-line="351" selection-start-column="18" selection-end-line="351" selection-end-column="18" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -245,8 +242,8 @@
         <option value="$PROJECT_DIR$/src/models/cables.py" />
         <option value="$PROJECT_DIR$/src/models/drawables.py" />
         <option value="$PROJECT_DIR$/src/enums.py" />
-        <option value="$PROJECT_DIR$/src/models/boxes.py" />
         <option value="$PROJECT_DIR$/src/math_entities.py" />
+        <option value="$PROJECT_DIR$/src/models/boxes.py" />
       </list>
     </option>
   </component>
@@ -1343,16 +1340,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/boxes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="191" column="47" lean-forward="true" selection-start-line="191" selection-start-column="47" selection-end-line="191" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/trajectoire.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
@@ -1365,8 +1352,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/math_entities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="352" column="0" lean-forward="true" selection-start-line="352" selection-start-column="0" selection-end-line="352" selection-end-column="0" />
+        <state relative-caret-position="1288">
+          <caret line="351" column="18" lean-forward="true" selection-start-line="351" selection-start-column="18" selection-end-line="351" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/boxes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="194" column="4" lean-forward="false" selection-start-line="194" selection-start-column="4" selection-end-line="194" selection-end-column="4" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>

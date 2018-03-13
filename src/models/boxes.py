@@ -173,16 +173,13 @@ class Box(AbsMobilePointFollower):
 
     def translate_centre(self, dx: float, dy: float, dz: float):
         """Increment the centre's coordinates."""
-        # deprecated
-        # self._centre += Vec3(dx, dy, dz)
         # increment the mobile point
         self._centre.increment(dx, dy, dz)
         # update the box's points
         self._update_points()
 
     def set_centre_position(self, position: Point):
-        # deprecated
-        # self._centre = centre
+        """Change the box's centre position in space."""
         # get coordinates
         x, y, z = position.get_tuple()
         # set the mobile point's coordinates
@@ -190,9 +187,12 @@ class Box(AbsMobilePointFollower):
         # update is done with the notification
 
     def set_orientation(self, orientation: Orientation):
+        """ATTENTION: this changes the orientation object itself."""
         self._orientation = orientation
         self._update_points()
 
+    """ *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** """
+    @deprecated
     def changer_systeme_repere_pave_vers_globale(self, point):
         # matrice de rotation
         Rot = self.orientation.rotation_matrix()
