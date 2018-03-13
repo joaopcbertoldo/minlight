@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../MECATRO_contribuicoes/.idea/MECATRO_contribuicoes.iml" filepath="$PROJECT_DIR$/../MECATRO_contribuicoes/.idea/MECATRO_contribuicoes.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/minlight.iml" filepath="$PROJECT_DIR$/.idea/minlight.iml" />
     </modules>
   </component>

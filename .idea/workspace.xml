@@ -4,7 +4,7 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
+    <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="got the drawing stuff out of boxes">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/math_entities.py" afterPath="$PROJECT_DIR$/src/math_entities.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,7 +29,7 @@
       <file leaf-file-name="boxes.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/boxes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
+            <state relative-caret-position="253">
               <caret line="135" column="22" lean-forward="false" selection-start-line="135" selection-start-column="22" selection-end-line="135" selection-end-column="22" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
@@ -41,8 +41,8 @@
       <file leaf-file-name="math_entities.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/math_entities.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="200" column="0" lean-forward="false" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
+            <state relative-caret-position="295">
+              <caret line="204" column="29" lean-forward="false" selection-start-line="204" selection-start-column="29" selection-end-line="204" selection-end-column="29" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -121,10 +121,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fixed_</find>
-      <find>fixed_po</find>
-      <find>fixed_poi</find>
-      <find>fixed_poin</find>
       <find>fixed_point</find>
       <find>get_config_cable</find>
       <find>get_cables</find>
@@ -151,6 +147,10 @@
       <find>Point</find>
       <find>class Point</find>
       <find>get_unite</find>
+      <find>t</find>
+      <find>type9</find>
+      <find>type</find>
+      <find>type(</find>
     </findStrings>
     <replaceStrings>
       <replace>rpy</replace>
@@ -1348,7 +1348,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/models/boxes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
+        <state relative-caret-position="253">
           <caret line="135" column="22" lean-forward="false" selection-start-line="135" selection-start-column="22" selection-end-line="135" selection-end-column="22" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
@@ -1358,8 +1358,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/math_entities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="200" column="0" lean-forward="false" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
+        <state relative-caret-position="295">
+          <caret line="204" column="29" lean-forward="false" selection-start-line="204" selection-start-column="29" selection-end-line="204" selection-end-column="29" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>
