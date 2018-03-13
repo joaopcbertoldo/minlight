@@ -197,8 +197,7 @@ class MobilePoint(Point):
             f.notify(self)
 
     def subscribe(self, follower):
-        if type(follower) != AbsMobilePointFollower:
-            raise Exception(f"follower must be of type '{AbsMobilePointFollower}'.")
+        assert isinstance(follower, AbsMobilePointFollower), f"Follower must be of type '{AbsMobilePointFollower}'."
         self._followers.update([follower])
 
     def subscribe_many(self, followers: Iterable):
