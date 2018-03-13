@@ -38,7 +38,7 @@ class CableRobot:
         self._notify_observers(notify)
 
     def set_source_angles(self, angles, notify=True):
-        self._source.set_angles(angles)
+        self._source.set_orientation(angles)
         self._notify_observers(notify)
 
     def set_source_configuration(self, centre, angles, notify=True):

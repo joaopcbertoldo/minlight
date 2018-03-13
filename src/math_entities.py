@@ -332,6 +332,25 @@ class Orientation:
         # return
         return self._matrice_rotation
 
+    @property
+    def inversed_rotation_matrix(self):
+        # garantie updates if necessary
+        self.rotation_matrix
+        # get an orientation inversed
+        inv_orient = Orientation(
+            row=-self._row,
+            pitch=-self._pitch,
+            yaw=-self._yaw,
+            order=RotationOrderEnum.rpy if self._order == RotationOrderEnum.ypr else
+            RotationOrderEnum.ypr if self._order == RotationOrderEnum.rpy else
+            RotationOrderEnum.unknown,
+            unite=self._unite
+        )
+        # get its rot mat
+        rot = inv_orient.rotation_matrix
+        # return
+        return rot
+
     def _compute_rotation_matrices(self):
         """ """
         # row (rotation around x)
@@ -386,32 +405,6 @@ class Orientation:
         }
 
         return switch[self._order]()
-
-    def set_angles(self, row: float, pitch: float, yaw: float):
-        """Increment internal angles. Unity must agree with Rotation object's unity."""
-        # validate values
-        assert isfinite(yaw), f"Angles must be finite (yaw = {yaw})."
-        assert isfinite(pitch), f"Angles must be finite (pitch = {pitch})."
-        assert isfinite(row), f"Angles must be finite (row = {row})."
-        # yaw
-        self._yaw = yaw
-        # pitch
-        self._pitch = pitch
-        # row
-        self._row = row
-        # rotation matrix must be recalculated
-        self._recompute_flag = True
-
-    def get_tuple_angles_pour_inverser_rotation(self):
-        return Orientation(
-            row=-self._row,
-            pitch=-self._pitch,
-            yaw=-self._yaw,
-            order=RotationOrderEnum.rpy if self._order == RotationOrderEnum.ypr else
-            RotationOrderEnum.ypr if self._order == RotationOrderEnum.rpy else
-            RotationOrderEnum.unknown,
-            unite=self._unite
-        )
 
 
 class SphericalCoordinates:

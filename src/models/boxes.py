@@ -189,9 +189,8 @@ class Box(AbsMobilePointFollower):
         self._centre.set_xyz(x, y, z)
         # update is done with the notification
 
-    def set_angles(self, ypr_angles: Orientation):
-        # self._orientation = ypr_angles
-        self._orientation.
+    def set_orientation(self, orientation: Orientation):
+        self._orientation = orientation
         self._update_points()
 
     def changer_systeme_repere_pave_vers_globale(self, point):
@@ -263,7 +262,7 @@ class Box(AbsMobilePointFollower):
 
     def is_in_box(self, point: Point) -> bool:
         """Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine."""
-        Rot = self.orientation.get_tuple_angles_pour_inverser_rotation().rotation_matrix()
+        Rot = self.orientation.inversed_rotation_matrix
 
         point_repere_pave = Rot * (point - self._centre)
 
@@ -353,8 +352,7 @@ class Box(AbsMobilePointFollower):
 
         centre_systeme, ypr_angles_systeme = systeme_spherique.get_centre_et_ypr_angles()
 
-        Rot = ypr_angles_systeme.get_tuple_angles_pour_inverser_rotation() \
-            .rotation_matrix()
+        Rot = ypr_angles_systeme.inversed_rotation_matrix
 
         res = Rot * p + centre_systeme
 
