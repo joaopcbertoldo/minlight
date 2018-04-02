@@ -70,8 +70,8 @@
       <file leaf-file-name="math_entities.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/math_entities.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="280" column="35" lean-forward="true" selection-start-line="280" selection-start-column="35" selection-end-line="280" selection-end-column="35" />
+            <state relative-caret-position="51">
+              <caret line="315" column="92" selection-start-line="315" selection-start-column="92" selection-end-line="315" selection-end-column="92" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -859,14 +859,14 @@
     <frame x="-8" y="-8" width="1376" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" x="408" y="53" width="307" height="639" id="Project" order="0" sideWeight="0.49902534" visible="true" weight="0.20441176" />
+      <window_info content_ui="combo" x="408" y="53" width="307" height="639" id="Project" order="0" sideWeight="0.49902534" visible="true" weight="0.20441176" />
       <window_info id="TODO" order="2" weight="0.3492647" />
       <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.51445967" side_tool="true" weight="0.2562814" />
       <window_info id="Version Control" order="4" weight="0.24048707" />
       <window_info x="129" y="160" width="937" height="492" id="Python Console" order="1" type="WINDOWED" visible="true" weight="0.28235295" />
       <window_info anchor="bottom" id="Run" order="7" sideWeight="0.47723824" weight="0.32894737" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
-      <window_info anchor="top" id="Terminal" order="0" visible="true" weight="0.2167414" />
+      <window_info active="true" anchor="top" id="Terminal" order="0" visible="true" weight="0.2167414" />
       <window_info id="Favorites" order="5" sideWeight="0.50097466" side_tool="true" weight="0.20441176" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.48860183" weight="0.21105528" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
@@ -1211,8 +1211,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/math_entities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="280" column="35" lean-forward="true" selection-start-line="280" selection-start-column="35" selection-end-line="280" selection-end-column="35" />
+        <state relative-caret-position="51">
+          <caret line="315" column="92" selection-start-line="315" selection-start-column="92" selection-end-line="315" selection-end-column="92" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

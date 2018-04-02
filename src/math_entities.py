@@ -284,24 +284,38 @@ class MobilePoint(Point):
 
 # AbsMobilePointFollower
 class AbsMobilePointFollower(ABC):
+    """Abstract point follower --> oberver in observer pattern for a mobile point."""
+
+    # CLASS variable - counts the number of existing followers
     _serial_register = 1
 
+    # _on_notify
     @abstractmethod
     def _on_notify(self, p: MobilePoint):
+        """Abstract method that takes an action on notification. TO BE OVERWRITTEN."""
         pass
 
-    # def __init__(self, action: Callable[[MobilePoint], None]):
+    # init
     def __init__(self):
+        """Assign the serial nb (used to uniquely identify a follower)."""
+        # assign
         self._serial_nb = AbsMobilePointFollower._serial_register
+        # counter ++
         AbsMobilePointFollower._serial_register += 1
-        # self._on_notify: Callable[[MobilePoint], None] = action
 
+    # hash
     def __hash__(self):
+        """
+        Followers are uniquely identified by the hash of their serial numbers.
+        This is done because the mobile points use sets.
+        """
         return hash(self._serial_nb)
 
-    def notify(self, mobile_point):
-        p = Thread(target=self._on_notify, args=(mobile_point,))
-        p.start()
+    # notify
+    def notify(self, mobile_point: MobilePoint):
+        """Start a new thread to execute the follower's action. Called by the mobile points."""
+        p = Thread(target=self._on_notify, args=(mobile_point,))  # create a thread
+        p.start()  # start it
 
 
 class RotationMatrix(matrix):
