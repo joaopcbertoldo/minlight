@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/toolbox/followables.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/math_entities.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/math_entities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/boxes.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/boxes.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -72,8 +72,8 @@
       <file leaf-file-name="math_entities.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/math_entities.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="318" column="31" selection-start-line="318" selection-start-column="31" selection-end-line="318" selection-end-column="31" />
+            <state relative-caret-position="34">
+              <caret line="256" column="27" lean-forward="true" selection-start-line="256" selection-start-column="27" selection-end-line="256" selection-end-column="27" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -81,20 +81,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="enums.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/enums.py">
+      <file leaf-file-name="followables.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/toolbox/followables.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="typing.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/Program Files/Python36/Lib/typing.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="837" column="36" lean-forward="true" selection-start-line="837" selection-start-column="36" selection-end-line="837" selection-end-column="36" />
+            <state>
+              <caret line="3" column="28" lean-forward="true" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -180,7 +174,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/calculs/drawCube2.py" />
         <option value="$PROJECT_DIR$/src/calculs/control/pygame_view_controlable.py" />
         <option value="$PROJECT_DIR$/src/calculs/control/keyboard_controlers.py" />
         <option value="$PROJECT_DIR$/TODO list" />
@@ -230,6 +223,7 @@
         <option value="$PROJECT_DIR$/src/models/boxes.py" />
         <option value="$PROJECT_DIR$/src/models/tension.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/toolbox/followables.py" />
         <option value="$PROJECT_DIR$/src/math_entities.py" />
       </list>
     </option>
@@ -265,14 +259,13 @@
               <item name="minlight" type="b2602c69:ProjectViewProjectNode" />
               <item name="minlight" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="math_entities.py" type="8704e2dd:PyFileNode" />
+              <item name="toolbox" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="minlight" type="b2602c69:ProjectViewProjectNode" />
               <item name="minlight" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="math_entities.py" type="8704e2dd:PyFileNode" />
-              <item name="RotationMatrix" type="dd8bbb05:PyElementNode" />
             </path>
           </expand>
           <select />
@@ -882,7 +875,7 @@
       <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.51445967" side_tool="true" weight="0.25560537" />
       <window_info anchor="bottom" id="Find" order="2" sideWeight="0.48554033" weight="0.2236842" />
       <window_info id="Version Control" order="4" weight="0.24048707" />
-      <window_info x="129" y="160" width="937" height="492" id="Python Console" order="1" type="WINDOWED" visible="true" weight="0.28235295" />
+      <window_info active="true" x="129" y="77" width="1000" height="648" id="Python Console" order="1" type="WINDOWED" visible="true" weight="0.28235295" />
       <window_info anchor="bottom" id="Run" order="7" sideWeight="0.47723824" weight="0.32894737" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="top" id="Terminal" order="0" visible="true" weight="0.2167414" />
@@ -984,16 +977,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/math_entities.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1275">
-          <caret line="75" column="80" selection-start-line="75" selection-start-column="80" selection-end-line="75" selection-end-column="80" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -1215,22 +1198,32 @@
     </entry>
     <entry file="file://C:/Program Files/Python36/Lib/typing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="837" column="36" lean-forward="true" selection-start-line="837" selection-start-column="36" selection-end-line="837" selection-end-column="36" />
+        <state relative-caret-position="158">
+          <caret line="177" selection-start-line="177" selection-end-line="178" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/enums.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+        <state relative-caret-position="-153">
+          <caret line="19" column="36" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/toolbox/followables.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="3" column="28" lean-forward="true" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/math_entities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="318" column="31" selection-start-line="318" selection-start-column="31" selection-end-line="318" selection-end-column="31" />
+        <state relative-caret-position="34">
+          <caret line="256" column="27" lean-forward="true" selection-start-line="256" selection-start-column="27" selection-end-line="256" selection-end-column="27" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

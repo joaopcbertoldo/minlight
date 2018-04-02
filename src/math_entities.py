@@ -5,11 +5,12 @@ from numpy.linalg import norm
 
 from deprecated import deprecated
 from copy import deepcopy
-from typing import Set, Iterable, Callable, Tuple, Union
+from typing import Set, Iterable, Callable, Tuple, Union, TypeVar, Generic
 from threading import Thread
 from abc import ABC, abstractmethod
 
 from src.enums import RotationAngleEnum, AngleUnityEnum, RotationOrderEnum
+from src.toolbox.followables import Followable
 
 
 # Vec3
@@ -228,7 +229,7 @@ class Point:
 
 
 # MobilePoint
-class MobilePoint(Point):
+class MobilePoint(Point, Followable):
     """
     Point with the capability of changing its position dinamically (mutable).
     It keeps followers informed about changes (observer pattern).
@@ -237,33 +238,15 @@ class MobilePoint(Point):
     # init
     def __init__(self, x: float, y: float, z: float, name: str = None):
         # Point init (validation in Point)
-        super().__init__(x, y, z, name)
-        # followers (observers)
-        self._followers: Set['AbsMobilePointFollower'] = set()
-
-    # notify
-    def _notify(self):
-        """Call notify on all the followers."""
-        for f in self._followers:
-            f.notify(self)
-
-    # subscribe
-    def subscribe(self, follower: 'AbsMobilePointFollower'):
-        """Subscribe a new follower to the MobilePoint."""
-        assert isinstance(follower, AbsMobilePointFollower), f'Follower must be \'{AbsMobilePointFollower.__name__}\'.'
-        # update the set
-        self._followers.update([follower])
-
-    # subscribe_many
-    def subscribe_many(self, followers: Iterable['AbsMobilePointFollower']):
-        """Subscribe all the followers."""
-        for f in followers:
-            self.subscribe(f)
+        super(Point, self).__init__(x, y, z, name)
+        # followable init
+        super(Followable, self).__init__()
 
     # set_xyz
     def set_xyz(self, x: float, y: float, z: float):
         """Set all 3 coordinates at a time and notify followers."""
         self._vec3 = Vec3(x, y, z)  # validation in Vec3's __new__
+        # notify
         self._notify()
 
     # set
@@ -279,10 +262,13 @@ class MobilePoint(Point):
         """Increment all 3 coordinates at a time and notify followers."""
         dv = Vec3(dx, dy, dz)  # validation in Vec3's __new__
         self._vec3 = self.vec3 + dv
+        # notify
         self._notify()
 
 
+"""******************************************** deprecated section ******************************************** """
 # AbsMobilePointFollower
+@deprecated('Use the new class "AbsFollower".')
 class AbsMobilePointFollower(ABC):
     """Abstract point follower --> oberver in observer pattern for a mobile point."""
 
@@ -318,6 +304,7 @@ class AbsMobilePointFollower(ABC):
         p.start()  # start it
         # TODO: remove the join, create a "follower set" --> //ize the followers, but wait until all are done
         p.join()
+"""******************************************** deprecated section ******************************************** """
 
 
 # RotationMatrix
@@ -599,3 +586,4 @@ class SpaceRechercheAnglesLimites:
 
     def get_intervalles(self):
         return self.intervalle_rho, self.intervalle_phi, self.intervalle_theta
+
