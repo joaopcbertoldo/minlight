@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import List
 
 
 class AngleUnityEnum(Enum):
@@ -24,7 +25,7 @@ class RotationOrderEnum(Enum):
 
 
 class BoxVertexEnum(Enum):
-    """Names of the vertices of a box in the system 's{x}{y}{z}'."""
+    """Names of the vertices of a box in the system 's{x}{y}{z}'. Cf. doc/vertices_names_notation.pdf"""
     unknown = 0
     v000 = 1
     v100 = 2
@@ -36,7 +37,8 @@ class BoxVertexEnum(Enum):
     v111 = 8
 
     @staticmethod
-    def list_vertices():
+    def list_vertices() -> List['BoxVertexEnum']:
+        """Vertices names in our standard order. Cf. doc/vertices_names_notation.pdf"""
         return [
             BoxVertexEnum.v000,
             BoxVertexEnum.v100,

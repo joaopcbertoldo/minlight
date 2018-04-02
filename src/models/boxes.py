@@ -5,6 +5,7 @@ from typing import Dict, Tuple
 
 from src.enums import RotationOrderEnum, AngleUnityEnum, BoxVertexEnum
 from src.math_entities import Vec3, Orientation, Point, MobilePoint, AbsMobilePointFollower
+from src.toolbox.followables import AbsFollower
 
 
 # BoxDimensions
@@ -68,10 +69,13 @@ class BoxDimensions:
         return self.length, self.width, self.height
 
 
-class Box(AbsMobilePointFollower):
+# Box
+class Box(AbsFollower):
+    """(mutable) Represents a box object that has a 3D position, orientation and one can find its corners (vertices)."""
 
     # vertices points
     _vertices_points: Dict[BoxVertexEnum, Point]
+
     # vertices points from self reference frame
     vertices_points_from_self_ref: Dict[BoxVertexEnum, Point]
 
@@ -80,6 +84,7 @@ class Box(AbsMobilePointFollower):
     # TODO: draw the vertices when box not in origin
     # TODO: define standard order in doc
 
+    # _is_in_box_at_origin
     @staticmethod
     def _is_in_box_at_origin(point: Point, dimensions: BoxDimensions) -> bool:
         """Auxiliar function that checks if a given point is inside a box supposed in the origin."""
@@ -93,55 +98,72 @@ class Box(AbsMobilePointFollower):
                -demi_larg <= y <= demi_larg and \
                -demi_haut <= z <= demi_haut
 
-    def __init__(self, centre: MobilePoint, orientation: Orientation, dimensions: BoxDimensions):
+    # init
+    def __init__(self, center: MobilePoint, orientation: Orientation, dimensions: BoxDimensions):
         """Create a box that follows the _center as it moves around."""
         # abstract mobile point follower
         super(AbsMobilePointFollower, self).__init__()
         # the center
-        self._centre = centre
+        self._center = center
         # become a follower (to get notifs about changes)
-        self._centre.subscribe(self)
+        self._center.subscribe(self)
         # orientation
         self._orientation = orientation
         # dimensions
         self._dimensions = dimensions
-        # deprecated
-        # self.vertices_points_from_self_ref = self.set_sommets_pave_origine()
-        # new
-        self.vertices_points_from_self_ref = self._generate_vertex_points_from_self_reference()
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+        # vertices from self point of view
+        self._vertices_points_from_self_ref = self._generate_vertex_points_from_self_reference()
+        # in global
         self._vertices_points = self._generate_vertex_points_from_self_reference()
+        # update them...
+        self._update_vertices_points()
 
+    # orientation
     @property
     def orientation(self) -> Orientation:
+        """Copy of the box's orientation."""
         return deepcopy(self._orientation)
 
+    # dimensions
     @property
     def dimensions(self) -> BoxDimensions:
+        """Copy of the box's dimensions."""
         return deepcopy(self._dimensions)
 
+    # center
     @property
-    def centre(self) -> Point:
-        x, y, z = self._centre.get_tuple()
+    def center(self) -> Point:
+        """Copy of the box's center (as immutable point)."""
+        x, y, z = self._center.get_tuple()
         return Point(x, y, z)
 
+    # vertices_points_from_self_ref
     @property
-    def vertices_points(self):
-        return self._vertices_points
+    def vertices_points_from_self_ref(self) -> Dict[BoxVertexEnum, Point]:
+        """Copy of a Dict of BoxVertexEnum -> Point of the Box's vertices points as seen from its self referential."""
+        return deepcopy(self._vertices_points_from_self_ref)
 
+    # vertices_points
+    @property
+    def vertices_points(self) -> Dict[BoxVertexEnum, Point]:
+        """Copy of a Dict of BoxVertexEnum -> Point of the Box's vertices points (in global reference frame)."""
+        return deepcopy(self._vertices_points)
+
+    # _on_notify
     def _on_notify(self, center: MobilePoint):
-        """ """
+        """Override on AbsFollower action method."""
         # update the box's points
-        self._update_points()
+        self._update_vertices_points()
 
-    def _update_points(self):
-        """ """
+    # update points
+    def _update_vertices_points(self):
+        """Recompute the vertices points."""
         #  get the rotation matrix
-        Rot = self._orientation.rotation_matrix
+        Rot = self.orientation.rotation_matrix
         # iterate with the vertices points in origin
         for vertex, point_in_self_ref in self.vertices_points_from_self_ref.items():
             # compute the point
-            point = (Rot * point_in_self_ref) + self._centre.vec3
+            point = (Rot * point_in_self_ref) + self.center.vec3
             # store it
             self._vertices_points[vertex] = point
 
@@ -178,27 +200,27 @@ class Box(AbsMobilePointFollower):
         # increment the rotation
         self._orientation.increment(delta_yaw, delta_pitch, delta_row)
         # update the box's points
-        self._update_points()
+        self._update_vertices_points()
 
     def translate_centre(self, dx: float, dy: float, dz: float):
         """Increment the _center's coordinates."""
         # increment the mobile point
-        self._centre.increment(dx, dy, dz)
+        self._center.increment(dx, dy, dz)
         # update the box's points
-        self._update_points()
+        self._update_vertices_points()
 
     def set_centre_position(self, position: Point):
         """Change the box's _center position in space."""
         # get coordinates
         x, y, z = position.get_tuple()
         # set the mobile point's coordinates
-        self._centre.set_xyz(x, y, z)
+        self._center.set_xyz(x, y, z)
         # update is done with the notification
 
     def set_orientation(self, orientation: Orientation):
         """ATTENTION: this changes the orientation object itself."""
         self._orientation = orientation
-        self._update_points()
+        self._update_vertices_points()
 
     """ *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** """
     @deprecated
@@ -206,7 +228,7 @@ class Box(AbsMobilePointFollower):
         # matrice de rotation
         Rot = self.orientation.rotation_matrix()
 
-        res = (Rot * point) + self._centre
+        res = (Rot * point) + self._center
 
         # il faut faire ça sinon le retour est une matrice rot
         return Vec3(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
@@ -235,7 +257,7 @@ class Box(AbsMobilePointFollower):
 
     @property
     def centre(self) -> Point:
-        return self._centre
+        return self._center
 
     @deprecated
     def get_sommets_pave(self):
@@ -273,7 +295,7 @@ class Box(AbsMobilePointFollower):
         """Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine."""
         Rot = self.orientation.inversed_rotation_matrix
 
-        point_repere_pave = Rot * (point - self._centre)
+        point_repere_pave = Rot * (point - self._center)
 
         # il faut faire ça parce que l'operation cidessus renvoie une matrice rotation
         point_repere_pave = Vec3(point_repere_pave.__getitem__((0, 0)),
@@ -321,7 +343,7 @@ class Box(AbsMobilePointFollower):
                                               points_to_be_tested[index].__getitem__((1, 0)),
                                               points_to_be_tested[index].__getitem__((2, 0)))
 
-            points_to_be_tested[index] = points_to_be_tested[index] + self._centre - Vec3(length / 2, width / 2,
+            points_to_be_tested[index] = points_to_be_tested[index] + self._center - Vec3(length / 2, width / 2,
                                                                                           height / 2)
 
             if pave2.is_in_box(points_to_be_tested[index]):
@@ -366,7 +388,7 @@ class Box(AbsMobilePointFollower):
         res = Rot * p + centre_systeme
 
         # il faut faire ça sinon le retour est une matrice rot
-        self._centre = Vec3(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
+        self._center = Vec3(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
 
         self.orientation = \
             Orientation(
@@ -384,8 +406,8 @@ class Box(AbsMobilePointFollower):
 
 
 class Source(Box):
-    def __init__(self, centre, orientation, dimensions):
-        super().__init__(centre, orientation, dimensions)
+    def __init__(self, center, orientation, dimensions):
+        super().__init__(center, orientation, dimensions)
         self.create_parable()
 
     def get_light_radius(self):
@@ -398,7 +420,7 @@ class Source(Box):
             4]) / 4  # 5,7,6,4 are the verticies of the light face
 
     def get_light_direction(self):
-        return (self.get_light_centre() - self._centre).direction()
+        return (self.get_light_centre() - self._center).direction()
 
     def create_parable(self):  # creates visualization of the parable, must finish!!!!!!!
         length, width, height = self.dimensions.get_tuple()
@@ -425,21 +447,21 @@ class Source(Box):
                 self.points_parable.append(p2)
         self.squares_edges = []
         # for()
-        self._update_points()
+        self._update_vertices_points()
 
-    def _update_points(self):
+    def _update_vertices_points(self):
         length, width, height = self.dimensions.get_tuple()
         newSommets = []
         newSommetsParable = []
         Rot = self.orientation.rotation_matrix()
         for sommet in self.vertices_points_from_self_ref:
-            newPoint = (Rot * sommet) + self._centre
+            newPoint = (Rot * sommet) + self._center
             newSommets.append(newPoint)
         for i in range(len(newSommets)):
             self.points[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
 
         for sommet in self.points_parable_origin:
-            newPoint = (Rot * sommet) + self._centre
+            newPoint = (Rot * sommet) + self._center
             newSommetsParable.append(newPoint)
         for i in range(len(self.points_parable)):
             self.points_parable[i].set_xyz(newSommetsParable[i].item(0), newSommetsParable[i].item(1),
@@ -456,8 +478,8 @@ class Source(Box):
 
 class Maisonette(Box):
 
-    def __init__(self, centre, orientation, dimensions, window_dimensions, wall_width=150):
-        super().__init__(centre, orientation, dimensions)
+    def __init__(self, center, orientation, dimensions, window_dimensions, wall_width=150):
+        super().__init__(center, orientation, dimensions)
         self.window_dimensions = window_dimensions
         self.wall_width = wall_width
         self.set_sommets_inside()

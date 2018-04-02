@@ -56,7 +56,7 @@ class CableRobot:
         return self._source.get_light_radius()
 
     def get_centre(self):
-        return self._chambre.centre()
+        return self._chambre.center()
 
     def subscribe_observer(self, observer):
         self._observers.append(observer)

@@ -191,7 +191,7 @@ class VerificateurAnglesLimites:
         glTranslatef(0, 0, -5)
         source = self._get_source_demo_config_ancrage()
         cables = self._get_cables_demo_config_ancrage()
-        origin = source.centre
+        origin = source.center
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
