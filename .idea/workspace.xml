@@ -71,7 +71,7 @@
         <entry file="file://$PROJECT_DIR$/src/math_entities.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
-              <caret line="134" column="7" selection-start-line="134" selection-start-column="7" selection-end-line="134" selection-end-column="7" />
+              <caret line="228" selection-start-line="228" selection-end-line="228" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -263,6 +263,17 @@
             <path>
               <item name="minlight" type="b2602c69:ProjectViewProjectNode" />
               <item name="minlight" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="minlight" type="b2602c69:ProjectViewProjectNode" />
+              <item name="minlight" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="minlight" type="b2602c69:ProjectViewProjectNode" />
+              <item name="minlight" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="math_entities.py" type="8704e2dd:PyFileNode" />
             </path>
           </expand>
           <select />
@@ -867,11 +878,11 @@
     <frame x="-8" y="-8" width="1376" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" x="408" y="53" width="307" height="639" id="Project" order="0" sideWeight="0.49902534" visible="true" weight="0.20441176" />
+      <window_info content_ui="combo" x="408" y="53" width="307" height="639" id="Project" order="0" sideWeight="0.49902534" visible="true" weight="0.20441176" />
       <window_info id="TODO" order="2" weight="0.3492647" />
       <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.51445967" side_tool="true" weight="0.2562814" />
       <window_info id="Version Control" order="4" weight="0.24048707" />
-      <window_info x="129" y="160" width="937" height="492" id="Python Console" order="1" type="WINDOWED" weight="0.28235295" />
+      <window_info active="true" x="129" y="160" width="937" height="492" id="Python Console" order="1" type="WINDOWED" visible="true" weight="0.28235295" />
       <window_info anchor="bottom" id="Run" order="7" sideWeight="0.47723824" weight="0.32894737" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="top" id="Terminal" order="0" visible="true" weight="0.2167414" />
@@ -1198,6 +1209,12 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/support/bibliothèques graphiques.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_position.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1205,16 +1222,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/support/bibliothèques graphiques.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_position.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/math_entities.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="134" column="7" selection-start-line="134" selection-start-column="7" selection-end-line="134" selection-end-column="7" />
+          <caret line="228" selection-start-line="228" selection-end-line="228" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

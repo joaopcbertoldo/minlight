@@ -136,73 +136,93 @@ class Vec3(matrix):
 class Point:
     """Point 3D. It represents an entity (immutable)."""
 
+    _vec3: Vec3
+    _name: str
+
     @staticmethod
     def _point_from_vec3(vec: Vec3) -> 'Point':
         """Create a Point from a Vec3."""
         return Point(*vec.get_tuple())
 
+    # init
     def __init__(self, x, y, z, name: str = None):
-        """Create a Point from its 3 coordinates (x, y, z)."""
+        """Create a Point from its 3 coordinates (x, y, z). Name is optional."""
         self._vec3 = Vec3(x, y, z)
-        self._name = name
+        # remove white leading and trilling spaces
+        name = name.strip()
+        self._name = str(name) if name else ""  # better safe than sorry
 
+    # vec3
     @property
-    def vec3(self):
+    def vec3(self) -> Vec3:
+        """Return a Vec3 of the point (copy). Equivalent to the vector from a supposed origine to the point."""
         return deepcopy(self._vec3)
 
-    @deprecated
+    """******************************************** deprecated section ******************************************** """
+    @deprecated("A Point should not be mutable. Use MobilePoint if needed or calculate a new point.")
     def set_xyz(self, x, y, z):
         """Set all 3 coordinates at a time."""
         self._vec3 = Vec3(x, y, z)
+    """******************************************** deprecated section ******************************************** """
 
+    # name
     @property
     def name(self) -> str:
+        """Get the name of the point (void string if it doesn't have one)."""
         return self._name
 
+    # x
     @property
     def x(self) -> float:
-        """X component getter."""
-        return self._vec3.item(0)
+        """X component (first)."""
+        return self._vec3.x
 
+    # y
     @property
     def y(self) -> float:
-        """Y component setter."""
-        return self._vec3.item(1)
+        """Y component (second)."""
+        return self._vec3.y
 
+    # z
     @property
     def z(self) -> float:
-        """Z component setter."""
-        return self._vec3.item(2)
+        """Z component (third)."""
+        return self._vec3.z
 
+    # (x, y, z)
     def get_tuple(self) -> Tuple[float, float, float]:
         """Return a tuple with the 3 coordinates (x, y, z)."""
         return self._vec3.get_tuple()
 
+    # + add
     def __add__(self, other: Vec3) -> 'Point':
-        """Addition of a point and a _vector (gives a Point)."""
+        """Addition of a point and a Vec3 (gives a Point). Point + Vec3 = Point."""
         # assert type
-        assert type(other) == Vec3, f"Operation undefined for {type(self)} and {type(other)}."
+        assert type(other) == Vec3, f"Operation undefined for {type(self).__name__} and {type(other).__name__}."
         # compute
         res = Point._point_from_vec3(self._vec3 + other)
         # return
         return res
 
+    # - sub
     def __sub__(self, other: 'Point') -> Vec3:
-        """Subtraction of two points (gives a Vector)."""
+        """Subtraction of two points (gives a Vector). Point - Point = Vec3."""
         # assert type
-        assert isinstance(other, Point), f"Operation undefined for {type(self)} and {type(other)}."
+        assert isinstance(other, Point), f"Operation undefined for {type(self).__name__} and {type(other).__name__}."
         # compute
         res = self._vec3 - other._vec3
         # return
         return res
 
+    # str
     def __str__(self):
-        """(name): Point(x, y, z)."""
-        str_ = f"{self._name}: " if self._name else ""
+        """name(if present): Point(x, y, z)."""
+        str_ = f'{self.name}: ' if self.name else ""
         return str_ + f"Point({self.x:.1f}, {self.y:.1f}, {self.z:.1f})"
 
+    # repr = str
     def __repr__(self):
-        """Point(x, y, z)."""
+        """name(if present): Point(x, y, z)."""
         return str(self)
 
 
