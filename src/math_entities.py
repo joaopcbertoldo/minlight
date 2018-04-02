@@ -656,7 +656,7 @@ class SphericalCoordinateSystem:
         return v
 
 
-#
+@deprecated('Use something from numpy!!!!!')
 class SpaceRechercheAnglesLimites:
     # np.arange !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     def __init__(self, intervalle_rho, intervalle_phi, intervalle_theta, unite):
