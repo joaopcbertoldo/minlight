@@ -70,11 +70,20 @@
       <file leaf-file-name="math_entities.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/math_entities.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="315" column="92" selection-start-line="315" selection-start-column="92" selection-end-line="315" selection-end-column="92" />
+            <state relative-caret-position="357">
+              <caret line="370" column="73" selection-start-line="370" selection-start-column="73" selection-end-line="370" selection-end-column="73" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="enums.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/enums.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="80">
+              <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -255,6 +264,13 @@
               <item name="minlight" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="math_entities.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="minlight" type="b2602c69:ProjectViewProjectNode" />
+              <item name="minlight" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="math_entities.py" type="8704e2dd:PyFileNode" />
+              <item name="Vec3" type="dd8bbb05:PyElementNode" />
             </path>
           </expand>
           <select />
@@ -859,14 +875,14 @@
     <frame x="-8" y="-8" width="1376" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" x="408" y="53" width="307" height="639" id="Project" order="0" sideWeight="0.49902534" visible="true" weight="0.20441176" />
+      <window_info active="true" content_ui="combo" x="408" y="53" width="307" height="639" id="Project" order="0" sideWeight="0.49902534" visible="true" weight="0.20441176" />
       <window_info id="TODO" order="2" weight="0.3492647" />
       <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.51445967" side_tool="true" weight="0.2562814" />
       <window_info id="Version Control" order="4" weight="0.24048707" />
       <window_info x="129" y="160" width="937" height="492" id="Python Console" order="1" type="WINDOWED" visible="true" weight="0.28235295" />
       <window_info anchor="bottom" id="Run" order="7" sideWeight="0.47723824" weight="0.32894737" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="top" id="Terminal" order="0" visible="true" weight="0.2167414" />
+      <window_info anchor="top" id="Terminal" order="0" visible="true" weight="0.2167414" />
       <window_info id="Favorites" order="5" sideWeight="0.50097466" side_tool="true" weight="0.20441176" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.48860183" weight="0.21105528" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
@@ -1139,13 +1155,6 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1120166012/numpy/core/multiarray.py" />
-    <entry file="file://$PROJECT_DIR$/src/enums.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="25" column="19" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/trajectoire.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
@@ -1209,10 +1218,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/enums.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/math_entities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="315" column="92" selection-start-line="315" selection-start-column="92" selection-end-line="315" selection-end-column="92" />
+        <state relative-caret-position="357">
+          <caret line="370" column="73" selection-start-line="370" selection-start-column="73" selection-end-line="370" selection-end-column="73" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

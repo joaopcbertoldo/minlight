@@ -30,9 +30,9 @@ class Vec3(matrix):
     def __new__(cls, x: float, y: float, z: float):
         """Vector 3D from its 3 euclidean coordinates."""
         # validate values
-        assert isfinite(x), f"Coordinates must be finite (x = {x})."
-        assert isfinite(y), f"Coordinates must be finite (y = {y})."
-        assert isfinite(z), f"Coordinates must be finite (z = {z})."
+        assert isfinite(x), f'Coordinates must be finite (x = {x}).'
+        assert isfinite(y), f'Coordinates must be finite (y = {y}).'
+        assert isfinite(z), f'Coordinates must be finite (z = {z}).'
         # create matrix (3,1)
         return super(Vec3, cls).__new__(cls, "{}; {}; {}".format(x, y, z))
 
@@ -318,45 +318,71 @@ class AbsMobilePointFollower(ABC):
         p.start()  # start it
 
 
+# RotationMatrix
 class RotationMatrix(matrix):
-    """Rotation matrix for a specific orientation."""
+    """Rotation matrix for a specific 3D orientation. (immutable)"""
 
+    # *********************************** strings to create matrices in numpy ***********************************
+    # rot in X
     _ROTATION_X_STR = '1,   0,    0 ;' + \
                       '0, {c}, -{s} ;' + \
                       '0, {s},  {c}  '
 
+    # rot in Y
     _ROTATION_Y_STR = ' {c}, 0, {s} ;' + \
                       '   0, 1,   0 ;' + \
                       '-{s}, 0, {c}  '
 
+    # rot in Z
     _ROTATION_Z_STR = '{c}, -{s}, 0 ;' + \
                       '{s},  {c}, 0 ;' + \
                       '  0,    0, 1  '
 
+    # switch (dict)
     _ROTATION_STR_SWITCH = {
         RotationAngleEnum.row: _ROTATION_X_STR,
         RotationAngleEnum.pitch: _ROTATION_Y_STR,
         RotationAngleEnum.yaw: _ROTATION_Z_STR
     }
+    # *********************************** strings to create matrices in numpy ***********************************
 
-    def __new__(cls, angle: RotationAngleEnum, valeur: float, unite: AngleUnityEnum = AngleUnityEnum.degree):
-        radians = valeur if unite == AngleUnityEnum.radian else valeur * pi / 180
+    # new
+    def __new__(cls, angle: RotationAngleEnum, value: float, unity: AngleUnityEnum = AngleUnityEnum.degree):
+        """Call Matrix's new with a string template."""
+        # convert to radians (if necessary) --> for numpy functions
+        radians = value if unity == AngleUnityEnum.radian else value * pi / 180
+        # format the creation string
         str_ = cls._ROTATION_STR_SWITCH[angle]
         str_ = str_.format(s=sin(radians), c=cos(radians))
+        # call the constructor of Matrix
         return super(RotationMatrix, cls).__new__(cls, str_)
 
-    def __init__(self, angle: RotationAngleEnum, valeur: float, unite: AngleUnityEnum = AngleUnityEnum.degree):
+    # init
+    def __init__(self, angle: RotationAngleEnum, value: float, unity: AngleUnityEnum = AngleUnityEnum.degree):
+        """
+        Create a new rotation matrix on one of the 3 angles (row, pitch, yaw) of 'value' ['unity'].
+        Unity is º by default.
+        """
+        # check the angle (row, pitch, yaw)
+        assert angle != RotationAngleEnum.unknown, f'The rotation angle cannot be unknown.'
+        # check the value
+        assert isfinite(angle), f'Value must be finite (value = {value}).'
+        # check the unity (row, pitch, yaw)
+        assert unity != AngleUnityEnum.unknown, f'The angle unity cannot be unknown.'
+        # assign attributes
         self._angle = angle
-        self._valeur = valeur
-        self._unite = unite
+        self._valeur = value
+        self._unite = unity
 
-    def __mul__(self, other):
+    # * mul
+    def __mul__(self, other: Union[Vec3, 'RotationMatrix', Point]) -> Union[Vec3, 'RotationMatrix', Point]:
+        """Multiplication. Vec3/Point: rotates it (immutable). RotationMatrix: combined RotationMatrix."""
         # rot mat * vec3
         if type(other) == Vec3:
-            return Vec3.vec3_from_ndarray(self.dot(other))
+            return Vec3.vec3_from_ndarray(self.dot(other))  # dot from numpy
         # rot mat * rot mat
         elif type(other) == RotationMatrix:
-            return self.dot(other)
+            return self.dot(other)  # dot from numpy
         # rot mat * point
         elif isinstance(other, Point):
             x, y, z = other.get_tuple()
@@ -365,13 +391,19 @@ class RotationMatrix(matrix):
         else:
             raise Exception(f'Operation not defined for {type(self)} * {type(other)}.')
 
+    # + add
     def __add__(self, other):
+        """Not defined."""
         raise Exception(f'Operation not defined for {type(self)}.')
 
+    # - sub
     def __sub__(self, other):
+        """Not defined."""
         raise Exception(f'Operation not defined for {type(self)}.')
 
+    # / truediv
     def __truediv__(self, other):
+        """Not defined."""
         raise Exception(f'Operation not defined for {type(self)}.')
 
 
@@ -437,20 +469,20 @@ class Orientation:
         # row (rotation around x)
         self._matrix_x = RotationMatrix(
             angle=RotationAngleEnum.row,
-            valeur=self._row,
-            unite=self._unite
+            value=self._row,
+            unity=self._unite
         )
         # pitch (rotation around y)
         self._matrix_y = RotationMatrix(
             angle=RotationAngleEnum.pitch,
-            valeur=self._pitch,
-            unite=self._unite
+            value=self._pitch,
+            unity=self._unite
         )
         # yaw (rotation around z)
         self._matrix_z = RotationMatrix(
             angle=RotationAngleEnum.yaw,
-            valeur=self._yaw,
-            unite=self._unite
+            value=self._yaw,
+            unity=self._unite
         )
         # resultant rotation matrix
         # multiplication for row-pitch-yaw
