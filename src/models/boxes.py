@@ -365,7 +365,7 @@ class Box(AbsMobilePointFollower):
                 pitch=phi,
                 yaw=theta,
                 sequence=RotationOrderEnum.ypr,
-                unite=AngleUnityEnum.degree  # !!!!!!!!!!!!!!!!!!!!!!!!
+                unity=AngleUnityEnum.degree  # !!!!!!!!!!!!!!!!!!!!!!!!
             )
 
 

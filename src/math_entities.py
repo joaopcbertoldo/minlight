@@ -316,6 +316,8 @@ class AbsMobilePointFollower(ABC):
         """Start a new thread to execute the follower's action. Called by the mobile points."""
         p = Thread(target=self._on_notify, args=(mobile_point,))  # create a thread
         p.start()  # start it
+        # TODO: remove the join, create a "follower set" --> //ize the followers, but wait until all are done
+        p.join()
 
 
 # RotationMatrix
@@ -367,7 +369,7 @@ class RotationMatrix(matrix):
         assert angle != RotationAngleEnum.unknown, f'The rotation angle cannot be unknown.'
         # check the value
         assert isfinite(angle), f'Value must be finite (value = {value}).'
-        # check the unity (row, pitch, yaw)
+        # check the unity
         assert unity != AngleUnityEnum.unknown, f'The angle unity cannot be unknown.'
         # assign attributes
         self._angle = angle
@@ -407,35 +409,54 @@ class RotationMatrix(matrix):
         raise Exception(f'Operation not defined for {type(self)}.')
 
 
+# Orientation
 class Orientation:
-    """(Mutable) Represent the orientation of a rigid body with 3 rotation angles in a specific order."""
+    """
+    (Mutable) Represents the orientation of a rigid body with 3 rotation angles in a specific order.
+    Cf: https://en.wikipedia.org/wiki/Euler_angles
+    Cf: https://en.wikipedia.org/wiki/Aircraft_principal_axes
+    """
 
+    # zero
     @staticmethod
     def zero():
         """Zero rotation dans toutes les directions (0, 0, 0)."""
-        return Orientation(0, 0, 0)
+        return Orientation(0.0, 0.0, 0.0)
 
+    # init
     def __init__(self, row: float, pitch: float, yaw: float,
                  order: RotationOrderEnum = RotationOrderEnum.ypr,
-                 unite: AngleUnityEnum = AngleUnityEnum.degree):
+                 unity: AngleUnityEnum = AngleUnityEnum.degree):
+        """Validate and assign the attributes. """
+        # validate values
+        assert isfinite(row), f'Angles must be finite (row= {row}).'
+        assert isfinite(pitch), f'Angles must be finite (pitch = {ypitch}).'
+        assert isfinite(yaw), f'Angles must be finite (yaw = {yaw}).'
+        # check the order
+        assert order != RotationOrderEnum.unknown, f'The rotation order cannot be unknown.'
+        # check the unity
+        assert unity != AngleUnityEnum.unknown, f'The angle unity cannot be unknown.'
+        # assign values
         self._row = row
         self._pitch = pitch
         self._yaw = yaw
         self._order = order
-        self._unite = unite
+        self._unity = unity
+        # this keeps track of changes, which implies recalculation of the rotation matrix
         self._recompute_flag = True
         # compute rotation matrices
         self._compute_rotation_matrices()
-        assert order == RotationOrderEnum.rpy or order == RotationOrderEnum.ypr, 'RotationOrderEnum inconu.'
 
+    # unity
     @property
     def unity(self) -> AngleUnityEnum:
-        """ """
-        return self._unite
+        """Unity of the angles (º, radians)."""
+        return self._unity
 
+    # rotation_matrix
     @property
     def rotation_matrix(self) -> RotationMatrix:
-        """ """
+        """Rotation matrix for the combination of rotations."""
         # check if it needs to be recomputed
         if self._recompute_flag:
             # compute them
@@ -445,44 +466,50 @@ class Orientation:
         # return
         return self._matrice_rotation
 
+    # inversed_rotation_matrix
     @property
-    def inversed_rotation_matrix(self):
+    def inversed_rotation_matrix(self) -> RotationMatrix:
+        """Rotation matrix to 'undo' a rotation."""
         # garantie updates if necessary
         self.rotation_matrix
         # get an orientation inversed
         inv_orient = Orientation(
+            # values are opposed
             row=-self._row,
             pitch=-self._pitch,
             yaw=-self._yaw,
+            # order is reversed
             order=RotationOrderEnum.rpy if self._order == RotationOrderEnum.ypr else
             RotationOrderEnum.ypr if self._order == RotationOrderEnum.rpy else
             RotationOrderEnum.unknown,
-            unite=self._unite
+            # unity is the same
+            unity=self._unity
         )
         # get its rot mat
         rot = inv_orient.rotation_matrix
         # return
         return rot
 
+    # _compute_rotation_matrices
     def _compute_rotation_matrices(self):
-        """ """
+        """Internaly compute and update the 3 rotation matrices and the resultant."""
         # row (rotation around x)
         self._matrix_x = RotationMatrix(
             angle=RotationAngleEnum.row,
             value=self._row,
-            unity=self._unite
+            unity=self._unity
         )
         # pitch (rotation around y)
         self._matrix_y = RotationMatrix(
             angle=RotationAngleEnum.pitch,
             value=self._pitch,
-            unity=self._unite
+            unity=self._unity
         )
         # yaw (rotation around z)
         self._matrix_z = RotationMatrix(
             angle=RotationAngleEnum.yaw,
             value=self._yaw,
-            unity=self._unite
+            unity=self._unity
         )
         # resultant rotation matrix
         # multiplication for row-pitch-yaw
@@ -492,6 +519,7 @@ class Orientation:
         elif self._order == RotationOrderEnum.ypr:
             self._matrice_rotation = self._matrix_z.dot(self._matrix_y.dot(self._matrix_x))
 
+    # increment
     def increment(self, delta_yaw: float, delta_pitch: float, delta_row: float):
         """Increment internal angles. Unity must agree with Rotation object's unity."""
         # validate values
@@ -560,11 +588,6 @@ class SystemeRepereSpherique:
         return Vec3(roh * cos(phi) * cos(theta),
                     roh * cos(phi) * sin(theta),
                     roh * sin(phi))
-
-
-class Interval:
-    def __new__(cls, a, b, step):
-        return np.arange(start=a, stop=b, step=step)
 
 
 class SpaceRechercheAnglesLimites:
