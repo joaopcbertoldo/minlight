@@ -227,71 +227,9 @@ class Box(AbsFollower):
     def set_orientation(self, orientation: Orientation):
         """Change the box's orientation in space."""
         angles = orientation.angles
-        # _orientation  (because the prop is a copy)
-        self._orientation.set_angles(*angles)
+        # _orientation (because the prop is a copy)
+        self._orientation.set_angles(angles)
         # update is done with the notification
-
-    """ *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** """
-    @deprecated
-    def changer_systeme_repere_pave_vers_globale(self, point):
-        # matrice de rotation
-        Rot = self.orientation.rotation_matrix()
-
-        res = (Rot * point) + self._center
-
-        # il faut faire ça sinon le retour est une matrice rot
-        return Vec3(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
-
-    @deprecated
-    def set_sommets_pave_origine(self):
-        # dimensions
-        long, larg, haut = self.dimensions.get_tuple()
-
-        # points (coins) du pavé centré dans l'origine
-        s000 = Vec3(- long / 2, - larg / 2, - haut / 2)
-        s100 = Vec3(+ long / 2, - larg / 2, - haut / 2)
-        s010 = Vec3(- long / 2, + larg / 2, - haut / 2)
-        s110 = Vec3(+ long / 2, + larg / 2, - haut / 2)
-        s001 = Vec3(- long / 2, - larg / 2, + haut / 2)
-        s101 = Vec3(+ long / 2, - larg / 2, + haut / 2)
-        s011 = Vec3(- long / 2, + larg / 2, + haut / 2)
-        s111 = Vec3(+ long / 2, + larg / 2, + haut / 2)
-
-        # points (coins) de la source repérés par rapport à son _center
-        return [s000, s001, s010, s011, s100, s101, s110, s111]
-
-    @deprecated
-    def sommets_pave_origine(self):
-        return self.vertices_points_from_self_ref
-
-    @property
-    def centre(self) -> Point:
-        return self._center
-
-    @deprecated
-    def get_sommets_pave(self):
-        """
-        convention utilisé pour les rotations : z-y’-x″ (intrinsic rotations) = Yaw, pitch, and roll rotations
-        http://planning.cs.uiuc.edu/node102.html
-        http://planning.cs.uiuc.edu/node104.html
-        https://en.wikipedia.org/wiki/Euler_angles#Tait.E2.80.93Bryan_angles
-        https://en.wikipedia.org/wiki/Euler_angles#Rotation_matrix
-
-        On suppose qu'on veut orienter le _center de la source par des angles
-        et la position du _center, on calcule les positios des points (les coins de la source).
-        :return: liste des points de la source par rapport au système de repère de la chambre
-        """
-
-        s_origine = self.sommets_pave_origine()
-        return [self.changer_systeme_repere_pave_vers_globale(s) for s in s_origine]
-
-    @deprecated
-    def sommets_pave(self):
-        return self.points
-
-    @deprecated
-    def get_dictionnaire_sommets(self):
-        return {nom: sommet for nom, sommet in zip(self.vertices_names_std_order, self.points)}
 
     def points(self) -> bool:
         return {vertex: point for vertex, point in zip(BoxVertexEnum.list_vertices(), self.points)}
@@ -408,8 +346,69 @@ class Box(AbsFollower):
                 unity=AngleUnityEnum.degree  # !!!!!!!!!!!!!!!!!!!!!!!!
             )
 
+    """ *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** """
+    @deprecated
+    def changer_systeme_repere_pave_vers_globale(self, point):
+        # matrice de rotation
+        Rot = self.orientation.rotation_matrix()
+
+        res = (Rot * point) + self._center
+
+        # il faut faire ça sinon le retour est une matrice rot
+        return Vec3(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
 
     @deprecated
+    def set_sommets_pave_origine(self):
+        # dimensions
+        long, larg, haut = self.dimensions.get_tuple()
+
+        # points (coins) du pavé centré dans l'origine
+        s000 = Vec3(- long / 2, - larg / 2, - haut / 2)
+        s100 = Vec3(+ long / 2, - larg / 2, - haut / 2)
+        s010 = Vec3(- long / 2, + larg / 2, - haut / 2)
+        s110 = Vec3(+ long / 2, + larg / 2, - haut / 2)
+        s001 = Vec3(- long / 2, - larg / 2, + haut / 2)
+        s101 = Vec3(+ long / 2, - larg / 2, + haut / 2)
+        s011 = Vec3(- long / 2, + larg / 2, + haut / 2)
+        s111 = Vec3(+ long / 2, + larg / 2, + haut / 2)
+
+        # points (coins) de la source repérés par rapport à son _center
+        return [s000, s001, s010, s011, s100, s101, s110, s111]
+
+    @deprecated
+    def sommets_pave_origine(self):
+        return self.vertices_points_from_self_ref
+
+    @property
+    def centre(self) -> Point:
+        return self._center
+
+    @deprecated
+    def get_sommets_pave(self):
+        """
+        convention utilisé pour les rotations : z-y’-x″ (intrinsic rotations) = Yaw, pitch, and roll rotations
+        http://planning.cs.uiuc.edu/node102.html
+        http://planning.cs.uiuc.edu/node104.html
+        https://en.wikipedia.org/wiki/Euler_angles#Tait.E2.80.93Bryan_angles
+        https://en.wikipedia.org/wiki/Euler_angles#Rotation_matrix
+
+        On suppose qu'on veut orienter le _center de la source par des angles
+        et la position du _center, on calcule les positios des points (les coins de la source).
+        :return: liste des points de la source par rapport au système de repère de la chambre
+        """
+
+        s_origine = self.sommets_pave_origine()
+        return [self.changer_systeme_repere_pave_vers_globale(s) for s in s_origine]
+
+    @deprecated
+    def sommets_pave(self):
+        return self.points
+
+    @deprecated
+    def get_dictionnaire_sommets(self):
+        return {nom: sommet for nom, sommet in zip(self.vertices_names_std_order, self.points)}
+
+    @deprecated('use the drawable object')
     def draw(self):
         pass
 
@@ -498,11 +497,6 @@ class Maisonette(Box):
         S1 = self.points[1] - Vec3(-self.wall_width, -self.wall_width, self.wall_width)
         S2 = self.points[2] - Vec3(-self.wall_width, self.wall_width, -self.wall_width)
         S3 = self.points[3] - Vec3(-self.wall_width, self.wall_width, self.wall_width)
-
-        S4 = self.points[4] - Vec3(self.wall_width, -self.wall_width, -self.wall_width)
-        S5 = self.points[5] - Vec3(self.wall_width, -self.wall_width, self.wall_width)
-        S6 = self.points[6] - Vec3(self.wall_width, self.wall_width, -self.wall_width)
-        S7 = self.points[7] - Vec3(self.wall_width, self.wall_width, self.wall_width)
 
         S4 = self.points[4] - Vec3(self.wall_width, -self.wall_width, -self.wall_width)
         S5 = self.points[5] - Vec3(self.wall_width, -self.wall_width, self.wall_width)
