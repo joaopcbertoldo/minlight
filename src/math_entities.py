@@ -541,6 +541,21 @@ class Orientation(Followable):
         else:
             raise Exception("The order some how got unknown.")
 
+    # set_angles
+    def set_angles(self, angles: Tuple[float, float, float]):
+        """Change the angles internaly. The given order is supposed to be the same as in the object."""
+        # R P Y
+        if self._order == RotationOrderEnum.rpy:
+            self._row, self._pitch, self._yaw = angles
+        # Y P R
+        elif self._order == RotationOrderEnum.ypr:
+            self._yaw, self._pitch, self._row = angles
+        # problem
+        else:
+            raise Exception("The order some how got unknown.")
+        # notify followers
+        self._notify_followers()
+
     """******************************************** deprecated section ******************************************** """
     @deprecated('Use the property angles.')
     def get_angles(self):

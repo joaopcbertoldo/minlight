@@ -102,13 +102,15 @@ class Box(AbsFollower):
     def __init__(self, center: MobilePoint, orientation: Orientation, dimensions: BoxDimensions):
         """Create a box that follows the _center as it moves around."""
         # abstract mobile point follower
-        super(AbsMobilePointFollower, self).__init__()
+        super(AbsFollower, self).__init__()
         # the center
         self._center = center
         # become a follower (to get notifs about changes)
         self._center.subscribe(self)
         # orientation
         self._orientation = orientation
+        # become a follower (to get notifs about changes)
+        self._orientation.subscribe(self)
         # dimensions
         self._dimensions = dimensions
         # vertices from self point of view
@@ -167,8 +169,9 @@ class Box(AbsFollower):
             # store it
             self._vertices_points[vertex] = point
 
+    # _generate_vertex_points_from_self_reference
     def _generate_vertex_points_from_self_reference(self) -> Dict[BoxVertexEnum, Point]:
-        """Dict of BoxVertexEnum -> Point as if they were seen from the box's own reference frame."""
+        """(initialization) Dict of BoxVertexEnum -> Point as if they were seen from the box's own reference frame."""
         # dimensions
         l, w, h = self._dimensions.get_tuple()
         # points - corners of the box as if it was at origin
@@ -181,7 +184,6 @@ class Box(AbsFollower):
         v101 = Vec3(+l/2, -w/2, +h/2)  # v101
         v011 = Vec3(-l/2, +w/2, +h/2)  # v011
         v111 = Vec3(+l/2, +w/2, +h/2)  # v111
-
         # the dict itself
         dic = {
             BoxVertexEnum.v000: v000,  # 000
@@ -195,32 +197,39 @@ class Box(AbsFollower):
         }
         return dic
 
+    # rotate
     def rotate(self, delta_yaw: float, delta_pitch: float, delta_row: float):
         """Increment internal rotation. Unity must agree with Rotation object's unity."""
         # increment the rotation
         self._orientation.increment(delta_yaw, delta_pitch, delta_row)
-        # update the box's points
-        self._update_vertices_points()
+        # _orientation (because the prop is a copy)
+        # update the box's points on the orientation's notification
 
-    def translate_centre(self, dx: float, dy: float, dz: float):
+    # translate_center
+    def translate_center(self, dx: float, dy: float, dz: float):
         """Increment the _center's coordinates."""
         # increment the mobile point
         self._center.increment(dx, dy, dz)
-        # update the box's points
-        self._update_vertices_points()
+        # _center (because the prop is a copy)
+        # update the box's points on the center's notification
 
-    def set_centre_position(self, position: Point):
-        """Change the box's _center position in space."""
+    # set_center_position
+    def set_center_position(self, position: Point):
+        """Change the box's center position in space."""
         # get coordinates
         x, y, z = position.get_tuple()
         # set the mobile point's coordinates
         self._center.set_xyz(x, y, z)
+        # _center (because the prop is a copy)
         # update is done with the notification
 
+    # set_orientation
     def set_orientation(self, orientation: Orientation):
-        """ATTENTION: this changes the orientation object itself."""
-        self._orientation = orientation
-        self._update_vertices_points()
+        """Change the box's orientation in space."""
+        angles = orientation.angles
+        # _orientation  (because the prop is a copy)
+        self._orientation.set_angles(*angles)
+        # update is done with the notification
 
     """ *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** """
     @deprecated
