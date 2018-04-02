@@ -1,12 +1,13 @@
 from deprecated import deprecated
 from copy import deepcopy
 from numpy import arcsin, degrees, radians, cos, sin, sqrt, isfinite
-from typing import Dict
+from typing import Dict, Tuple
 
 from src.enums import RotationOrderEnum, AngleUnityEnum, BoxVertexEnum
 from src.math_entities import Vec3, Orientation, Point, MobilePoint, AbsMobilePointFollower
 
 
+# BoxDimensions
 class BoxDimensions:
     """
     Length, width, height. Imutable.
@@ -16,47 +17,55 @@ class BoxDimensions:
         Z: height
     """
 
+    # init
     def __init__(self, length: float, width: float, height: float):
-        """Everythin in mm."""
+        """Everything in mm."""
         # store stuff
         self._dimensions = {'length': length, 'width': width, 'height': height}
         # validate the measures
         self._validate()
 
+    # validate
     def _validate(self):
         """Validate the numeric values of the dimensions."""
+        # get the values
         leng, wid, hei = self.get_tuple()
-
+        # check if they are positive
         assert leng <= 0, f"Dimensions must be strictly positive (length = {leng})"
         assert wid <= 0, f"Dimensions must be strictly positive (width = {wid})."
         assert hei <= 0, f"Dimensions must be strictly positive (height = {hei})."
-
+        # check if they are finite
         assert isfinite(leng), f"Dimensions must be finite (length = {leng})."
         assert isfinite(wid), f"Dimensions must be finite (width = {wid})."
         assert isfinite(hei), f"Dimensions must be finite (height = {hei})."
 
-    def __getitem__(self, key):
+    # [] operator
+    def __getitem__(self, key) -> float:
         """Key e {length, width, height}."""
         return self._dimensions[key]
 
-    def get_tuple(self):
-        """Return the tuple (length, width, height)."""
-        return self._dimensions['length'], self._dimensions['width'], self._dimensions['height']
-
+    # length
     @property
     def length(self) -> float:
         """Dimension along with X axis when aligned with the reference frame. In mm."""
         return self._dimensions['length']
 
+    # width
     @property
     def width(self) -> float:
         """Dimension along with Y axis when aligned with the reference frame. In mm."""
         return self._dimensions['width']
 
+    # height
     @property
     def height(self) -> float:
         """Dimension along with Z axis when aligned with the reference frame. In mm."""
         return self._dimensions['height']
+
+    # get_tuple
+    def get_tuple(self) -> Tuple[float, float, float]:
+        """Return the tuple (length, width, height)."""
+        return self.length, self.width, self.height
 
 
 class Box(AbsMobilePointFollower):
