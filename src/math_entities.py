@@ -145,7 +145,7 @@ class Point:
         return Point(*vec.get_tuple())
 
     # init
-    def __init__(self, x, y, z, name: str = None):
+    def __init__(self, x: float, y: float, z: float, name: str = None):
         """Create a Point from its 3 coordinates (x, y, z). Name is optional."""
         self._vec3 = Vec3(x, y, z)
         # remove white leading and trilling spaces
@@ -226,10 +226,15 @@ class Point:
         return str(self)
 
 
+# MobilePoint
 class MobilePoint(Point):
-    """Point with the capability of changing its position dinamically. It keeps followers informed about changes."""
+    """
+    Point with the capability of changing its position dinamically (mutable).
+    It keeps followers informed about changes (observer pattern).
+    """
 
-    def __init__(self, x, y, z, name: str = None):
+    # init
+    def __init__(self, x: float, y: float, z: float, name: str = None):
         super().__init__(x, y, z, name)
         self._followers: Set[AbsMobilePointFollower] = set()
 
