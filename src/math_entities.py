@@ -247,7 +247,7 @@ class MobilePoint(Point, Followable):
         """Set all 3 coordinates at a time and notify followers."""
         self._vec3 = Vec3(x, y, z)  # validation in Vec3's __new__
         # notify
-        self._notify()
+        self._notify_followers()
 
     # set
     def set(self, position: Union[Point, Vec3]):
@@ -263,7 +263,7 @@ class MobilePoint(Point, Followable):
         dv = Vec3(dx, dy, dz)  # validation in Vec3's __new__
         self._vec3 = self.vec3 + dv
         # notify
-        self._notify()
+        self._notify_followers()
 
 
 """******************************************** deprecated section ******************************************** """
@@ -397,9 +397,10 @@ class RotationMatrix(matrix):
 
 
 # Orientation
-class Orientation:
+class Orientation(Followable):
     """
     (Mutable) Represents the orientation of a rigid body with 3 rotation angles in a specific order.
+    It is followable.
     Cf: https://en.wikipedia.org/wiki/Euler_angles
     Cf: https://en.wikipedia.org/wiki/Aircraft_principal_axes
     """
@@ -433,6 +434,8 @@ class Orientation:
         self._recompute_flag = True
         # compute rotation matrices
         self._compute_rotation_matrices()
+        # followable init
+        super(Followable, self).__init__()
 
     # unity
     @property
@@ -521,7 +524,25 @@ class Orientation:
         self._row += delta_row
         # rotation matrix must be recalculated
         self._recompute_flag = True
+        # notify
+        self._notify_followers()
 
+    # angles
+    @property
+    def angles(self):
+        """Tuple of the rotation angles in the proper order."""
+        # R P Y
+        if self._order == RotationOrderEnum.rpy:
+            return self._row, self._pitch, self._yaw
+        # Y P R
+        elif self._order == RotationOrderEnum.ypr:
+            return self._yaw, self._pitch, self._row
+        # problem
+        else:
+            raise Exception("The order some how got unknown.")
+
+    """******************************************** deprecated section ******************************************** """
+    @deprecated('Use the property angles.')
     def get_angles(self):
         def rpy(): return self._row, self._pitch, self._yaw
 
@@ -533,8 +554,10 @@ class Orientation:
         }
 
         return switch[self._order]()
+    """******************************************** deprecated section ******************************************** """
 
 
+# SphericalCoordinates
 class SphericalCoordinates:
     """Point in spherical coordinates (roh, theta, phi)."""
 

@@ -12,7 +12,7 @@ class Followable:
         self._followers: Set['AbsFollower'] = set()
 
     # notify
-    def _notify(self):
+    def _notify_followers(self):
         """Call notify on all the followers."""
         for f in self._followers:
             f.notify(self)
