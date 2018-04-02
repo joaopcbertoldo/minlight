@@ -5,7 +5,7 @@ from numpy.linalg import norm
 
 from deprecated import deprecated
 from copy import deepcopy
-from typing import Set, Iterable, Callable, Tuple
+from typing import Set, Iterable, Callable, Tuple, Union
 from threading import Thread
 from abc import ABC, abstractmethod
 
@@ -147,7 +147,8 @@ class Point:
     # init
     def __init__(self, x: float, y: float, z: float, name: str = None):
         """Create a Point from its 3 coordinates (x, y, z). Name is optional."""
-        self._vec3 = Vec3(x, y, z)
+        # internal Vec3
+        self._vec3 = Vec3(x, y, z)  # validation done in Vec3's __new__
         # remove white leading and trilling spaces
         name = name.strip()
         self._name = str(name) if name else ""  # better safe than sorry
@@ -235,33 +236,53 @@ class MobilePoint(Point):
 
     # init
     def __init__(self, x: float, y: float, z: float, name: str = None):
+        # Point init (validation in Point)
         super().__init__(x, y, z, name)
-        self._followers: Set[AbsMobilePointFollower] = set()
+        # followers (observers)
+        self._followers: Set['AbsMobilePointFollower'] = set()
 
+    # notify
     def _notify(self):
+        """Call notify on all the followers."""
         for f in self._followers:
             f.notify(self)
 
-    def subscribe(self, follower):
-        assert isinstance(follower, AbsMobilePointFollower), f"Follower must be of type '{AbsMobilePointFollower}'."
+    # subscribe
+    def subscribe(self, follower: 'AbsMobilePointFollower'):
+        """Subscribe a new follower to the MobilePoint."""
+        assert isinstance(follower, AbsMobilePointFollower), f'Follower must be \'{AbsMobilePointFollower.__name__}\'.'
+        # update the set
         self._followers.update([follower])
 
-    def subscribe_many(self, followers: Iterable):
+    # subscribe_many
+    def subscribe_many(self, followers: Iterable['AbsMobilePointFollower']):
+        """Subscribe all the followers."""
         for f in followers:
             self.subscribe(f)
 
+    # set_xyz
     def set_xyz(self, x: float, y: float, z: float):
         """Set all 3 coordinates at a time and notify followers."""
-        self._vec3 = Vec3(x, y, z)
+        self._vec3 = Vec3(x, y, z)  # validation in Vec3's __new__
         self._notify()
 
-    def increment(self, dx, dy, dz):
+    # set
+    def set(self, position: Union[Point, Vec3]):
+        """Set to the given point's (or Vec3's) coordinates and notify followers."""
+        assert isinstance(position, Point) or isinstance(position, Vec3), \
+            f'position has to be an instance of {Point.__name__} or {Vec3.__name__}.'
+        # set it and notify
+        self.set_xyz(*position.get_tuple())  # validation in Vec3's __new__
+
+    # increment
+    def increment(self, dx: float, dy: float, dz: float):
         """Increment all 3 coordinates at a time and notify followers."""
-        x, y, z = self.get_tuple()
-        self._vec3 = Vec3(x+dx, y+dx, z+dx)
+        dv = Vec3(dx, dy, dz)  # validation in Vec3's __new__
+        self._vec3 = self.vec3 + dv
         self._notify()
 
 
+# AbsMobilePointFollower
 class AbsMobilePointFollower(ABC):
     _serial_register = 1
 
