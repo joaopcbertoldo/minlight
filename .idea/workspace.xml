@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/src/math_entities.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/math_entities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/toolbox/followables.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/toolbox/followables.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -71,8 +70,8 @@
       <file leaf-file-name="math_entities.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/math_entities.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="545" column="17" lean-forward="true" selection-start-line="545" selection-start-column="17" selection-end-line="545" selection-end-column="17" />
+            <state relative-caret-position="204">
+              <caret line="598" column="28" selection-start-line="598" selection-start-column="6" selection-end-line="598" selection-end-column="28" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -103,7 +102,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>get_direction_fixed_to_source</find>
       <find>get_direction_source_to_fixed</find>
       <find>get_discretisation</find>
       <find>get_generator_points_discretisation</find>
@@ -133,6 +131,7 @@
       <find>boxvertexe</find>
       <find>direction</find>
       <find>Coordinates</find>
+      <find>SystemeRepereSpherique</find>
     </findStrings>
     <replaceStrings>
       <replace>RotationAngleEnum</replace>
@@ -869,7 +868,7 @@
     <frame x="-8" y="-8" width="1376" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" x="408" y="53" width="307" height="639" id="Project" order="0" sideWeight="0.49902534" visible="true" weight="0.20441176" />
+      <window_info active="true" content_ui="combo" x="408" y="53" width="307" height="639" id="Project" order="0" sideWeight="0.49902534" visible="true" weight="0.20441176" />
       <window_info id="TODO" order="2" weight="0.3492647" />
       <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.51445967" side_tool="true" weight="0.25560537" />
       <window_info anchor="bottom" id="Find" order="2" sideWeight="0.48554033" weight="0.22272047" />
@@ -877,7 +876,7 @@
       <window_info x="129" y="77" width="1000" height="648" id="Python Console" order="1" type="WINDOWED" visible="true" weight="0.28235295" />
       <window_info anchor="bottom" id="Run" order="7" sideWeight="0.47723824" weight="0.32894737" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="top" id="Terminal" order="0" visible="true" weight="0.2167414" />
+      <window_info anchor="top" id="Terminal" order="0" visible="true" weight="0.2167414" />
       <window_info id="Favorites" order="5" sideWeight="0.50097466" side_tool="true" weight="0.20441176" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.48860183" weight="0.21105528" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
@@ -1221,8 +1220,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/math_entities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="545" column="17" lean-forward="true" selection-start-line="545" selection-start-column="17" selection-end-line="545" selection-end-column="17" />
+        <state relative-caret-position="204">
+          <caret line="598" column="28" selection-start-line="598" selection-start-column="6" selection-end-line="598" selection-end-column="28" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

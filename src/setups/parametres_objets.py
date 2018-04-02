@@ -3,7 +3,7 @@ from src.enums import AngleUnityEnum
 from src.math_entities import \
     Vec3,                                \
     TupleAnglesRotation,                      \
-    SystemeRepereSpherique
+    SphericalCoordinateSystem
 
 from src.models.entites_systeme_minlight import \
     BoxDimensions,                             \
@@ -125,7 +125,7 @@ rotation_systeme_spherique = \
     )
 
 # systeme sphérique
-systeme_spherique_baie_vitree = SystemeRepereSpherique(
+systeme_spherique_baie_vitree = SphericalCoordinateSystem(
     centre=centre_systeme_spherique,
     ypr_angles=rotation_systeme_spherique
 )

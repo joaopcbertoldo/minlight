@@ -5,7 +5,7 @@ from numpy.linalg import norm
 
 from deprecated import deprecated
 from copy import deepcopy
-from typing import Set, Iterable, Callable, Tuple, Union, TypeVar, Generic
+from typing import Tuple, Union
 from threading import Thread
 from abc import ABC, abstractmethod
 
@@ -418,7 +418,7 @@ class Orientation(Followable):
         """Validate and assign the attributes. """
         # validate values
         assert isfinite(row), f'Angles must be finite (row= {row}).'
-        assert isfinite(pitch), f'Angles must be finite (pitch = {ypitch}).'
+        assert isfinite(pitch), f'Angles must be finite (pitch = {pitch}).'
         assert isfinite(yaw), f'Angles must be finite (yaw = {yaw}).'
         # check the order
         assert order != RotationOrderEnum.unknown, f'The rotation order cannot be unknown.'
@@ -461,7 +461,7 @@ class Orientation(Followable):
     def inversed_rotation_matrix(self) -> RotationMatrix:
         """Rotation matrix to 'undo' a rotation."""
         # garantie updates if necessary
-        self.rotation_matrix
+        _ = self.rotation_matrix
         # get an orientation inversed
         inv_orient = Orientation(
             # values are opposed
@@ -559,32 +559,44 @@ class Orientation(Followable):
 
 # SphericalCoordinates
 class SphericalCoordinates:
-    """Point in spherical coordinates (roh, theta, phi)."""
+    """Point in spherical coordinates (roh, theta, phi). (immutable)"""
 
+    # init
     def __init__(self, roh: float, theta: float, phi: float, unity: AngleUnityEnum = AngleUnityEnum.degree):
         """Roh (mm), theta (unity), phi (unity)."""
+        # validate values
+        assert isfinite(roh), f'Coordinates must be finite (rho = {rho}).'
+        assert isfinite(theta), f'Coordinates must be finite (theta = {theta}).'
+        assert isfinite(phi), f'Coordinates must be finite (phi = {phi}).'
+        # check the unity
+        assert unity != AngleUnityEnum.unknown, f'The angle unity cannot be unknown.'
+        # assign attributes
         self.roh = roh
         self.theta = theta
         self.phi = phi
         self.unity = unity
 
-    def get_tuple(self, output_unity: AngleUnityEnum = AngleUnityEnum.degree):
-        """Return a tuple of (roh, theta, phi) with the angles in the given unity."""
-
-        if output_unity == self.unity:
+    # get_tuple
+    def get_tuple(self, unity: AngleUnityEnum = AngleUnityEnum.degree):
+        """Return a tuple of (roh, theta, phi) with the angles in the given unity (degree by default)."""
+        # check the unity
+        assert unity != AngleUnityEnum.unknown, f'The angle unity cannot be unknown.'
+        # same unitye
+        if unity == self.unity:
             return self.roh, self.theta, self.phi
-
-        elif output_unity == AngleUnityEnum.degree and self.unity == AngleUnityEnum.radian:
+        # asked degree but is radian
+        elif unity == AngleUnityEnum.degree and self.unity == AngleUnityEnum.radian:
             return self.roh, self.theta * 180 / pi, self.phi * 180 / pi
-
-        elif output_unity == AngleUnityEnum.radian and self.unity == AngleUnityEnum.degree:
+        # asked radian but is degree
+        elif unity == AngleUnityEnum.radian and self.unity == AngleUnityEnum.degree:
             return self.roh, self.theta * pi / 180, self.phi * pi / 180
-
+        # problem
         else:
             raise Exception('Could not define the correct unity.')
 
 
-class SystemeRepereSpherique:
+#
+class SphericalCoordinateSystem:
     def __init__(self, centre, ypr_angles):
         self.centre = centre
         self.ypr_angles = ypr_angles
@@ -593,7 +605,7 @@ class SystemeRepereSpherique:
         return self.centre, self.ypr_angles
 
     def convertir_en_cartesien(self, coordonnees_spheriques):
-        roh, theta, phi = coordonnees_spheriques.get_tuple(output_unity=AngleUnityEnum.radian)
+        roh, theta, phi = coordonnees_spheriques.get_tuple(unity=AngleUnityEnum.radian)
 
         return Vec3(roh * cos(phi) * cos(theta),
                     roh * cos(phi) * sin(theta),
