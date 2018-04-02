@@ -27,7 +27,7 @@ dimensions_chambre = \
         height=3800    # mm
     )
 
-# centre
+# _center
 centre_chambre = \
     Vec3(
         x=dimensions_chambre['length'] / 2,  # mm
@@ -56,7 +56,7 @@ dimensions_maisonette = \
         height=2900    # mm
     )
 
-# centre
+# _center
 centre_maisonette = \
     Vec3(
         x=distance_evaporateur_maisonette + dimensions_maisonette['length'] / 2,
@@ -107,7 +107,7 @@ source = \
 
 ''' ************************ Systeme Spherique Baie Vitrée ************************ '''
 
-# centre - supposé dans le centre de la face d'intérêt de la maisonette
+# _center - supposé dans le _center de la face d'intérêt de la maisonette
 centre_systeme_spherique = \
     Vec3(
         x=distance_evaporateur_maisonette,
@@ -126,8 +126,8 @@ rotation_systeme_spherique = \
 
 # systeme sphérique
 systeme_spherique_baie_vitree = SphericalCoordinateSystem(
-    centre=centre_systeme_spherique,
-    ypr_angles=rotation_systeme_spherique
+    center=centre_systeme_spherique,
+    orientation=rotation_systeme_spherique
 )
 
 ''' ************************ Camera ************************ '''

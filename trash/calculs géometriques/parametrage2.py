@@ -9,7 +9,7 @@ Paramètres
 LongCC = 1000; #CC pour chambre climatique en cm
 LargCC = 500;
 HautCC = 400;
-O = [0,0,0]; # centre du repère lié à la chambre
+O = [0,0,0]; # _center du repère lié à la chambre
 
 LongM = 500; #M pour maison
 LargM = 250;
@@ -31,8 +31,8 @@ def distance2points(ax,ay,az,bx,by,bz):
     return l
 
 """ 
-On suppose qu'on veut orienter le centre de la source par des angles 
-et la position du centre, on calcule les positios des sommets
+On suppose qu'on veut orienter le _center de la source par des angles 
+et la position du _center, on calcule les positios des sommets
 """
 def anglesToPos(centreSoleil,theta,phi): #p comme prime
     xp, yp, zp = getCoordonnees(centreSoleil)

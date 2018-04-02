@@ -45,10 +45,10 @@ def matrice_torsion(source, configs_ancrage):
     # comment ça marche
     # point d'application des tensions ?
     # momments ?
-    # centre de gravité
+    # _center de gravité
 
-    sommets_source = sommets_pave(centre     = source['centre'    ],
-                                  ypr_angles = source['ypr_angles'],
+    sommets_source = sommets_pave(centre     = source['_center'    ],
+                                  ypr_angles = source['_orientation'],
                                   dimensions = source['dimensions'])
 
     points_ancrage = get_points_ancrage_ordones(configs_ancrage)
@@ -74,7 +74,7 @@ print(matrice_torsion(source, configs_ancrage))
 
 masse = 50  # en kg
 
-S = sommets_pave(source['centre'], source['ypr_angles'], source['dimensions'])
+S = sommets_pave(source['_center'], source['_orientation'], source['dimensions'])
 
 g = 9.81
 
@@ -83,7 +83,7 @@ fy = 0
 fz = masse * g
 
 Force = vecteur_3d(fx, fy, fz)
-MomentPoids_P = vecteur_3d(0, 0, 0)  # ça suppose un bilan fait à partir du centre de masse
+MomentPoids_P = vecteur_3d(0, 0, 0)  # ça suppose un bilan fait à partir du _center de masse
 
 """
 Si d'autre actions extérieur il faudra mettre des moments qui s'appliquent en P
@@ -158,7 +158,7 @@ for quartette in combinations(sommets, 4):
 
 '''
 def maxTheta(r, phi, maisonette,source,chambre,configs_ancrag)
-#r : distance entre centre de la face de la maisonette et le centre de la source, r des coordonnes spheriques
+#r : distance entre _center de la face de la maisonette et le _center de la source, r des coordonnes spheriques
 #phi : angle verticale , coordonnes spheriques
 #centreRotation:
 #maisonette

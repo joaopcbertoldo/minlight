@@ -14,7 +14,7 @@ LongCC = 10  # m
 LargCC = 5   # m
 HautCC = 4   # m
 
-# centre du repère lié à la chambre
+# _center du repère lié à la chambre
 OCC = [0, 0, 0]
 
 # M = maison
@@ -89,9 +89,9 @@ def matriceRotation(angle, vecteur):
 # ancien 'anglesToPos'
 def sommetsDeLaSource(centreSource, theta, phi, dimensionsSource):  
     '''
-    On suppose qu'on veut orienter le centre de la source par des angles 
-    et la position du centre, on calcule les positios des sommets (les coins de la source).
-    :param centreSoleil: centre de la source dans le système de repère de la chambre
+    On suppose qu'on veut orienter le _center de la source par des angles
+    et la position du _center, on calcule les positios des sommets (les coins de la source).
+    :param centreSoleil: _center de la source dans le système de repère de la chambre
     :param theta: remplir...
     :param phi: remplir...
     :param dimensionsSource: (dictionnaire) length, width, height du pave de la source
@@ -102,7 +102,7 @@ def sommetsDeLaSource(centreSource, theta, phi, dimensionsSource):
     demiLarg = dimensionsSource['width'] / 2
     demiHaut = dimensionsSource['height'] / 2
 
-    # sommets (coins) de la source repérés par rapport à son centre
+    # sommets (coins) de la source repérés par rapport à son _center
     B11 = creerPoint(- demiLong, - demiLarg, + demiHaut)
     B12 = creerPoint(- demiLong, - demiLarg, - demiHaut)
     B21 = creerPoint(- demiLong, + demiLarg, + demiHaut)
@@ -112,7 +112,7 @@ def sommetsDeLaSource(centreSource, theta, phi, dimensionsSource):
     B41 = creerPoint(+ demiLong, + demiLarg, + demiHaut)
     B42 = creerPoint(+ demiLong, + demiLarg, - demiHaut)
 
-    # sommets (coins) de la source repérés par rapport à son centre
+    # sommets (coins) de la source repérés par rapport à son _center
     B_source = [B11, B12, B21, B22, B31, B32, B41, B42]
 
     # matrice de rotation du système de la source
@@ -159,7 +159,7 @@ def appartientVolumePaveDeplace(point, centre, dimensions):
     '''
     Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
     :param dimensions: (dictionnaire) length, width, height du pave de la source
-    :param centre: centre du pavé repéré dans le sys de coordonnées globale
+    :param centre: _center du pavé repéré dans le sys de coordonnées globale
     :return: False/True
     '''
     return appartientVolumePaveALOrigine(point - centre, dimensions)
@@ -215,7 +215,7 @@ def appartientVolumeSoleil(point, centre, theta, phi):
 
     """print(point)
     print(pointHomogene)
-    print(centre)
+    print(_center)
     print(Ry)
     print(Rz)
     print(R)

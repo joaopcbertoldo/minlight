@@ -529,7 +529,7 @@ class Orientation(Followable):
 
     # angles
     @property
-    def angles(self):
+    def angles(self) -> Tuple[float, float, float]:
         """Tuple of the rotation angles in the proper order."""
         # R P Y
         if self._order == RotationOrderEnum.rpy:
@@ -577,7 +577,7 @@ class SphericalCoordinates:
         self.unity = unity
 
     # get_tuple
-    def get_tuple(self, unity: AngleUnityEnum = AngleUnityEnum.degree):
+    def get_tuple(self, unity: AngleUnityEnum = AngleUnityEnum.degree) -> Tuple[float, float, float]:
         """Return a tuple of (roh, theta, phi) with the angles in the given unity (degree by default)."""
         # check the unity
         assert unity != AngleUnityEnum.unknown, f'The angle unity cannot be unknown.'
@@ -595,24 +595,70 @@ class SphericalCoordinates:
             raise Exception('Could not define the correct unity.')
 
 
-#
+# SphericalCoordinateSystem
 class SphericalCoordinateSystem:
-    def __init__(self, centre, ypr_angles):
-        self.centre = centre
-        self.ypr_angles = ypr_angles
+    """Represent a spherical coordinate system located in a cartesian reference frame (origin and orientation)."""
 
+    # init
+    def __init__(self, center: Point, orientation: Orientation):
+        """Just store the attributes."""
+        self._center = center
+        self._orientation = orientation
+
+    # center
+    @property
+    def center(self) -> Point:
+        """Copy of the system's center location."""
+        return deepcopy(self._center)
+
+    # orientation
+    @property
+    def orientation(self) -> Orientation:
+        """Copy of the system's orientaion."""
+        return deepcopy(self._orientation)
+
+    """******************************************** deprecated section ******************************************** """
+    @deprecated('Call the properties center and orientation.')
     def get_centre_et_ypr_angles(self):
-        return self.centre, self.ypr_angles
+        return self._center, self._orientation
+    """******************************************** deprecated section ******************************************** """
 
-    def convertir_en_cartesien(self, coordonnees_spheriques):
-        roh, theta, phi = coordonnees_spheriques.get_tuple(unity=AngleUnityEnum.radian)
+    # to_cartesian
+    @staticmethod
+    def to_cartesian(spherical_coordianates: SphericalCoordinates) -> Vec3:
+        """Transform a spherical coordinate relative to the system into a Vec3 in its own cartesian system."""
+        # get the coords
+        roh, theta, phi = spherical_coordianates.get_tuple(unity=AngleUnityEnum.radian)
+        # x
+        x = roh * cos(phi) * cos(theta)
+        # y
+        y = roh * cos(phi) * sin(theta)
+        # z
+        z = roh * sin(phi)
+        # compute the vector in its own cartesian referential
+        vec = Vec3(x, y, z)
+        return vec
 
-        return Vec3(roh * cos(phi) * cos(theta),
-                    roh * cos(phi) * sin(theta),
-                    roh * sin(phi))
+    # to_global_cartesian
+    def to_global_cartesian(self, spherical_coordianates: SphericalCoordinates) -> Vec3:
+        """
+        Transform a spherical coordinate relative to the system into a Vec3 in
+        the GLOBAL system (where the system is referenced.
+        """
+        # in its own referential
+        v_ = self.to_cartesian(spherical_coordianates)
+        # rot mat
+        rot = self.orientation.rotation_matrix
+        # center
+        c = self.center
+        # in the global's
+        v = (rot * v_) + c
+        return v
 
 
+#
 class SpaceRechercheAnglesLimites:
+    # np.arange !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     def __init__(self, intervalle_rho, intervalle_phi, intervalle_theta, unite):
         self.intervalle_rho = intervalle_rho
         self.intervalle_phi = intervalle_phi

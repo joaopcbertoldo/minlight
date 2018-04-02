@@ -21,7 +21,7 @@ from src.simulation.limit_angles.angles_limites import VerificateurAnglesLimites
 '''
 
 ''' ************************ Maisonette ************************ '''
-# centre
+# _center
 centre_maisonette = \
     Vec3(
         x=7500,  # mm
@@ -57,7 +57,7 @@ dimensions_source = \
 
 ''' ************************ Chambre ************************ '''
 
-# centre
+# _center
 centre_chambre = \
     Vec3(
         x=5000,  # mm
@@ -125,7 +125,7 @@ config_ancrage = CableLayout(
 
 ''' ************************ Systeme Spherique Baie Vitrée ************************ '''
 
-# centre - supposé dans le centre de la face d'intérêt de la maisonette
+# _center - supposé dans le _center de la face d'intérêt de la maisonette
 centre_systeme_spherique = \
     Vec3(
         x=5000,  # mm
@@ -144,8 +144,8 @@ rotation_systeme_spherique = \
 
 # systeme sphérique
 systeme_spherique_baie_vitree = SphericalCoordinateSystem(
-    centre=centre_systeme_spherique,
-    ypr_angles=rotation_systeme_spherique
+    center=centre_systeme_spherique,
+    orientation=rotation_systeme_spherique
 )
 
 ''' ************************ Configs Simulation ************************ '''

@@ -137,7 +137,7 @@ def sommets_pave_origine(dimensions):
     S011 = point_3d(+ long / 2, + larg / 2, + haut / 2)
     S111 = point_3d(- long / 2, + larg / 2, + haut / 2)
 
-    # sommets (coins) de la source repérés par rapport à son centre
+    # sommets (coins) de la source repérés par rapport à son _center
     return [S000, S100, S010, S110, S001, S101, S011, S111]
 
 
@@ -151,9 +151,9 @@ def sommets_pave(centre, ypr_angles, dimensions):
 
     *** ancien 'anglesToPos' ***
 
-    On suppose qu'on veut orienter le centre de la source par des angles 
-    et la position du centre, on calcule les positios des sommets (les coins de la source).
-    :param centreSoleil: centre de la source dans le système de repère de la chambre
+    On suppose qu'on veut orienter le _center de la source par des angles
+    et la position du _center, on calcule les positios des sommets (les coins de la source).
+    :param centreSoleil: _center de la source dans le système de repère de la chambre
     :param theta: remplir...
     :param phi: remplir...
     :param dimensionsSource: (dictionnaire) length, width, height du pave de la source
@@ -161,7 +161,7 @@ def sommets_pave(centre, ypr_angles, dimensions):
     '''
 
     # Sommets
-    # sommets (coins) de la source repérés par rapport à son centre
+    # sommets (coins) de la source repérés par rapport à son _center
     S_origine = sommets_pave_origine(dimensions)
 
     # matrice de rotation
@@ -197,7 +197,7 @@ def point_appartient_pave(point, centre, ypr_angles, dimensions):
     '''
     Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
     :param dimensions: (dictionnaire) length, width, height du pave de la source
-    :param centre: centre du pavé repéré dans le sys de coordonnées globale
+    :param centre: _center du pavé repéré dans le sys de coordonnées globale
     :return: False/True
     '''
     point_repere_translate = point - centre
@@ -217,7 +217,7 @@ def point_appartient_pave_droit_S000(point, centre, dimensions):
     '''
     Fonction qui teste si un point est dans le volume d'un pavé dont le point Mini est donné.
     :param dimensions: (dictionnaire) length, width, height du pave de la source
-    :param centre: centre du pavé repéré dans le sys de coordonnées globale
+    :param centre: _center du pavé repéré dans le sys de coordonnées globale
     :return: False/True
     '''
     return point_appartient_pave_origine(point - centre, dimensions)
@@ -263,9 +263,9 @@ def tester_interdictions_points(generator_points, tests_interdictions):
 
 """
 def verifier_cables(cables, maisonette, source, chambre, N_discretisation=300):
-    centre_maisonette, dimensions_maisonette = maisonette['centre'], maisonette['dimensions']
+    centre_maisonette, dimensions_maisonette = maisonette['_center'], maisonette['dimensions']
 
-    centre_source, ypr_angles_source, dimensions_source = source['centre'], source['ypr_angles'], source['dimensions']
+    centre_source, ypr_angles_source, dimensions_source = source['_center'], source['_orientation'], source['dimensions']
 
     dimensions_chambre = chambre['dimensions']
 
@@ -306,8 +306,8 @@ def verifier_cables(cables, maisonette, source, chambre, N_discretisation=300):
 
 
 def verifier_position(maisonette, source, chambre, configs_ancrage, print_results=False):
-    sommets_source = sommets_pave(centre=source['centre'],
-                                  ypr_angles=source['ypr_angles'],
+    sommets_source = sommets_pave(_center=source['_center'],
+                                  _orientation=source['_orientation'],
                                   dimensions=source['dimensions'])
 
     points_ancrage = get_points_ancrage_ordones(configs_ancrage)
@@ -330,7 +330,7 @@ def verifier_position(maisonette, source, chambre, configs_ancrage, print_result
 
 
 def maxTheta(r, phi, maisonette, source, chambre, configs_ancrag)
-    # r : distance entre centre de la face de la maisonette et le centre de la source, r des coordonnes spheriques
+    # r : distance entre _center de la face de la maisonette et le _center de la source, r des coordonnes spheriques
     # phi : angle verticale , coordonnes spheriques
     # centreRotation:
     # maisonette

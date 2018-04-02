@@ -85,7 +85,7 @@ class Box(AbsMobilePointFollower):
                -demi_haut <= z <= demi_haut
 
     def __init__(self, centre: MobilePoint, orientation: Orientation, dimensions: BoxDimensions):
-        """Create a box that follows the centre as it moves around."""
+        """Create a box that follows the _center as it moves around."""
         # abstract mobile point follower
         super(AbsMobilePointFollower, self).__init__()
         # the center
@@ -172,14 +172,14 @@ class Box(AbsMobilePointFollower):
         self._update_points()
 
     def translate_centre(self, dx: float, dy: float, dz: float):
-        """Increment the centre's coordinates."""
+        """Increment the _center's coordinates."""
         # increment the mobile point
         self._centre.increment(dx, dy, dz)
         # update the box's points
         self._update_points()
 
     def set_centre_position(self, position: Point):
-        """Change the box's centre position in space."""
+        """Change the box's _center position in space."""
         # get coordinates
         x, y, z = position.get_tuple()
         # set the mobile point's coordinates
@@ -217,7 +217,7 @@ class Box(AbsMobilePointFollower):
         s011 = Vec3(- long / 2, + larg / 2, + haut / 2)
         s111 = Vec3(+ long / 2, + larg / 2, + haut / 2)
 
-        # points (coins) de la source repérés par rapport à son _centre
+        # points (coins) de la source repérés par rapport à son _center
         return [s000, s001, s010, s011, s100, s101, s110, s111]
 
     @deprecated
@@ -237,8 +237,8 @@ class Box(AbsMobilePointFollower):
         https://en.wikipedia.org/wiki/Euler_angles#Tait.E2.80.93Bryan_angles
         https://en.wikipedia.org/wiki/Euler_angles#Rotation_matrix
 
-        On suppose qu'on veut orienter le _centre de la source par des angles
-        et la position du _centre, on calcule les positios des points (les coins de la source).
+        On suppose qu'on veut orienter le _center de la source par des angles
+        et la position du _center, on calcule les positios des points (les coins de la source).
         :return: liste des points de la source par rapport au système de repère de la chambre
         """
 
@@ -277,7 +277,7 @@ class Box(AbsMobilePointFollower):
         """
         Tests if there are points on pave1's faces inside pave2.
         the function needs to be called twice to be sure that there are no intersections
-        pave1: dictionary with dimensions(dictionary),_centre(matrix 3x1), orientation(dictionary)
+        pave1: dictionary with dimensions(dictionary),_center(matrix 3x1), orientation(dictionary)
         k: (k+1)^2 = number of points to be tested on each face, the greater the k, the plus reliable the result.
         """
 
@@ -324,8 +324,8 @@ class Box(AbsMobilePointFollower):
 
         """
         Tests if there are inserctions between pave1 and pave2,
-        pave1: dictionary with dimensions(dictionary),_centre(matrix 3x1), orientation(dictionary)
-        pave2: dictionary with dimensions(dictionary),_centre(matrix 3x1), orientation(dictionary)
+        pave1: dictionary with dimensions(dictionary),_center(matrix 3x1), orientation(dictionary)
+        pave2: dictionary with dimensions(dictionary),_center(matrix 3x1), orientation(dictionary)
         k: (k+1)^2 = number of points to be tested on each face, the greater the k, the more reliable the result
         return True if there are no intersections, returns False otherwise
         """
@@ -347,8 +347,8 @@ class Box(AbsMobilePointFollower):
         '''
         roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=AngleUnityEnum.degree)
 
-        # p = _centre de la source pour le systeme cartesien à partir du quel le spherique est defini
-        p = systeme_spherique.convertir_en_cartesien(coordonnees_spheriques)
+        # p = _center de la source pour le systeme cartesien à partir du quel le spherique est defini
+        p = systeme_spherique.to_cartesian(coordonnees_spheriques)
 
         centre_systeme, ypr_angles_systeme = systeme_spherique.get_centre_et_ypr_angles()
 
