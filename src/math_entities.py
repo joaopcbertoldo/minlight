@@ -1,37 +1,42 @@
+import numpy as np
+
+from numpy import cos, sin, pi, matrix, sqrt, ndarray, isfinite
+from numpy.linalg import norm
+
 from deprecated import deprecated
 from copy import deepcopy
 from typing import Set, Iterable, Callable, Tuple
 from threading import Thread
 from abc import ABC, abstractmethod
 
-import numpy as np
-
-from numpy import cos, sin, pi, matrix, sqrt, ndarray, isfinite
-from numpy.linalg import norm
-
 from src.enums import RotationAngleEnum, AngleUnityEnum, RotationOrderEnum
 
 
+# Vec3
 class Vec3(matrix):
-    """3D _vector. Used to perform _vector operations."""
+    """3D vector. Used to perform vector operations. (immutable)"""
 
     @staticmethod
     def zero():
+        """Null vector (0, 0, 0)."""
         return Vec3(0, 0, 0)
 
     @staticmethod
     def vec3_from_ndarray(ndarray_: ndarray) -> 'Vec3':
+        """Create a Vec3 from a ndarray's 3 first items."""
         return Vec3(ndarray_.item(0), ndarray_.item(1), ndarray_.item(2))
 
+    # new
     def __new__(cls, x: float, y: float, z: float):
         """Vector 3D from its 3 euclidean coordinates."""
         # validate values
         assert isfinite(x), f"Coordinates must be finite (x = {x})."
         assert isfinite(y), f"Coordinates must be finite (y = {y})."
         assert isfinite(z), f"Coordinates must be finite (z = {z})."
-        # create
+        # create matrix (3,1)
         return super(Vec3, cls).__new__(cls, "{}; {}; {}".format(x, y, z))
 
+    """******************************************** deprecated section ******************************************** """
     @deprecated
     def set_xyz(self, x, y, z):
         self[0] = x
@@ -49,53 +54,68 @@ class Vec3(matrix):
     @deprecated
     def get_z(self):
         return self.item(2)
+    """******************************************** deprecated section ******************************************** """
 
+    # x
     @property
     def x(self) -> float:
+        """The x component (first)."""
         return self.item(0)
 
+    # y
     @property
     def y(self) -> float:
+        """The y component (second)."""
         return self.item(1)
 
+    # z
     @property
     def z(self) -> float:
+        """The y component (third)."""
         return self.item(2)
 
+    # (x, y, z)
     def get_tuple(self):
         """Return a tuple with the 3 coordinates (x, y, z)."""
         return self.item(0), self.item(1), self.item(2)
 
+    # norm
     @property
     def norm(self) -> float:
-        """Euclidean norm of the _vector."""
+        """Euclidean norm of the vector."""
         return norm(self)
 
+    # direction
     @property
     def direction(self) -> 'Vec3':
         """Return a normalized instance of itself (same direction, norm = 1)."""
         # noinspection PyTypeChecker
         return Vec3.vec3_from_ndarray(deepcopy(self) / self.norm)
 
-    def inner(self, v) -> float:
-        """Inner product of self * other ('Scalar product')."""
+    # inner product
+    def inner(self, v: 'Vec3') -> float:
+        """Inner product of self * v ('Scalar product')."""
         x1, y1, z1 = self.get_tuple()
         x2, y2, z2 = v.get_tuple()
         return sqrt(x1 * x2 + y1 * y2 + z1 * z2)
 
+    # cross product
     def cross(self, v: 'Vec3') -> 'Vec3':
-        """Cross product of self * other."""
+        """Cross product of self * v."""
         res = np.cross(self.T, v.T)
         return Vec3(res[0, 0], res[0, 1], res[0, 2])
 
+    # str
     def __str__(self):
         """Vec(x, y, z)"""
         return f'Vec3({self["x"]:.1f}, {self["y"]:.1f}, {self["z"]:.1f})'
 
+    # repr = str
     def __repr__(self):
         """Vec(x, y, z)"""
         return str(self)
 
+    # [] operator
     def __getitem__(self, item):
         """Elements accessible via 0, 1, 2 or x, y, z."""
         # 0 or x
@@ -112,8 +132,9 @@ class Vec3(matrix):
             raise IndexError('Elements are only accessible via 0, 1, 2 or x, y, z.')
 
 
+# Point
 class Point:
-    """Point 3D. It represents an entity (object like)."""
+    """Point 3D. It represents an entity (immutable)."""
 
     @staticmethod
     def _point_from_vec3(vec: Vec3) -> 'Point':
