@@ -6,7 +6,7 @@ class DefaultValues:
     minimal_tention = 10.  # Newtons
     maximal_tention = 100.  # Newtons
     cable_diameter = 10  # mm
-    cable_discretisation_nb_points = 300
-    cable_discretisation_nb_points_box_intersection = 100
+    cable_discretisation_nb_points = 300  # points / cable
+    cable_discretisation_nb_points_box_intersection = 100  # points / cable
 
 
