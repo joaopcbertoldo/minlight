@@ -1,16 +1,7 @@
 from src.enums import AngleUnityEnum
 
-from src.math_entities import \
-    Vec3,                                \
-    TupleAnglesRotation,                      \
-    SphericalCoordinateSystem
-
-from src.models.entites_systeme_minlight import \
-    BoxDimensions,                             \
-    Source,                                     \
-    Chambre,                                     \
-    Maisonette
-
+from src.math_entities import Vec3, Orientation, SphericalCoordinateSystem, Point, MobilePoint
+from src.models.boxes import BoxDimensions, Box, Source, Maisonette
 
 '''
 Paramètres
@@ -19,28 +10,28 @@ Paramètres
 ''' ************************ Chambre ************************ '''
 
 # dimensions
-dimensions_chambre = \
+dimensions_room = \
     BoxDimensions(
         # on considere le sisteme à partir de l'évaporateur
-        length=8500,  # mm
-        width=5000,   # mm
-        height=3800    # mm
+        length=8500.,  # mm
+        width=5000.,   # mm
+        height=3800.    # mm
     )
 
 # _center
-centre_chambre = \
-    Vec3(
-        x=dimensions_chambre['length'] / 2,  # mm
-        y=dimensions_chambre['width'] / 2,  # mm
-        z=dimensions_chambre['height'] / 2   # mm
+centre_room = \
+    MobilePoint(
+        name="Room's center.",
+        x=dimensions_room['length'] / 2,  # mm
+        y=dimensions_room['width'] / 2,  # mm
+        z=dimensions_room['height'] / 2   # mm
     )
 
 # pavé
-chambre = \
-    Chambre(
-        centre=centre_chambre,
-        ypr_angles=TupleAnglesRotation.ZERO(),
-        dimensions=dimensions_chambre
+room = Box(
+        center=centre_room,
+        orientation=Orientation.zero(),
+        dimensions=dimensions_room
     )
 
 
@@ -58,24 +49,27 @@ dimensions_maisonette = \
 
 # _center
 centre_maisonette = \
-    Vec3(
+    MobilePoint(
+        name="Maisonette's center.",
         x=distance_evaporateur_maisonette + dimensions_maisonette['length'] / 2,
-        y=dimensions_chambre['width'] / 2,
+        y=dimensions_room['width'] / 2,
         z=dimensions_maisonette['height'] / 2
     )
-
+"""
 # window dimensions
 window_dimensions = {
     'width': 1200,
     'height': 2150
 }
-
+"""
+window_dimensions = (1200, 2150)  # mm
+# todo window dimension, change to dict or class
 
 # pave
 maisonette = \
     Maisonette(
-        centre=centre_maisonette,
-        ypr_angles=TupleAnglesRotation.ZERO(),
+        center=centre_maisonette,
+        orientation=Orientation.zero(),
         dimensions=dimensions_maisonette,
         window_dimensions=window_dimensions
     )
@@ -87,21 +81,22 @@ maisonette = \
 dimensions_source = \
     BoxDimensions(
         length=800,  # mm
-        width=1600,   # mm
-        height=1600    # mm
+        width=1600,  # mm
+        height=1600  # mm
     )
 
 centre_source = \
-    Vec3(
-        x=dimensions_chambre['length'] / 5,  # mm
-        y=dimensions_chambre['width'] / 2,  # mm
-        z=dimensions_chambre['height'] / 2   # mm
+    MobilePoint(
+        name="Source's center",
+        x=dimensions_room['length'] / 5,  # mm
+        y=dimensions_room['width'] / 2,  # mm
+        z=dimensions_room['height'] / 2   # mm
     )
 
 source = \
     Source(
-        centre=centre_source,
-        ypr_angles=TupleAnglesRotation.ZERO(),
+        center=centre_source,
+        orientation=Orientation.zero(),
         dimensions=dimensions_source
     )
 
@@ -109,19 +104,19 @@ source = \
 
 # _center - supposé dans le _center de la face d'intérêt de la maisonette
 centre_systeme_spherique = \
-    Vec3(
+    Point(
         x=distance_evaporateur_maisonette,
-        y=dimensions_chambre['width'] / 2,
+        y=dimensions_room['width'] / 2,
         z=dimensions_maisonette['height'] / 2
     )
 
 # rotation
 rotation_systeme_spherique = \
-    TupleAnglesRotation(
+    Orientation(
         yaw=180,  # degrés
         pitch=0,  # degrés
         row=0,    # degrés
-        unite=AngleUnityEnum.degree,
+        unity=AngleUnityEnum.degree,
     )
 
 # systeme sphérique
@@ -139,39 +134,39 @@ camera_direction = Vec3(
 
 # position
 camera_position1 = Vec3(
-        x=-dimensions_chambre['length']/2,  # mm
-        y=-0.25*dimensions_chambre['width'],  # mm
-        z=-0.1*dimensions_chambre['height']  # mm
+        x=-dimensions_room['length']/2,  # mm
+        y=-0.25*dimensions_room['width'],  # mm
+        z=-0.1*dimensions_room['height']  # mm
 )
 
 camera_position2 = Vec3(
-        x=-dimensions_chambre['length']/2,  # mm
-        y=-0.25*dimensions_chambre['width'],  # mm
-        z=0.25*dimensions_chambre['height']  # mm
+        x=-dimensions_room['length']/2,  # mm
+        y=-0.25*dimensions_room['width'],  # mm
+        z=0.25*dimensions_room['height']  # mm
 )
 
 camera_position3 = Vec3(
-        x=-dimensions_chambre['length']/2,  # mm
-        y=0.25*dimensions_chambre['width'],  # mm
-        z=-0.25*dimensions_chambre['height']  # mm
+        x=-dimensions_room['length']/2,  # mm
+        y=0.25*dimensions_room['width'],  # mm
+        z=-0.25*dimensions_room['height']  # mm
 )
 
 camera_position4 = Vec3(
-        x=-dimensions_chambre['length']/2,  # mm
-        y=0.25*dimensions_chambre['width'],  # mm
-        z=0.25*dimensions_chambre['height']  # mm
+        x=-dimensions_room['length']/2,  # mm
+        y=0.25*dimensions_room['width'],  # mm
+        z=0.25*dimensions_room['height']  # mm
 )
 
 
 def __main__():
     print('parametres_objets chargés')
     print('Objets crées : ')
-    print(dimensions_chambre)
-    print(centre_chambre)
-    print(chambre)
+    print(dimensions_room)
+    print(centre_room)
+    print(room)
     print(dimensions_maisonette)
     print(centre_maisonette)
-    print(chambre)
+    print(room)
     print(dimensions_source)
     print(centre_systeme_spherique)
     print(rotation_systeme_spherique)

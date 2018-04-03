@@ -20,7 +20,7 @@ class Followable:
     # subscribe
     def subscribe(self, follower: 'AbsFollower'):
         """Subscribe a new follower to the MobilePoint."""
-        assert isinstance(follower, 'AbsFollower'), f'Follower must be AbsFollower.'
+        assert isinstance(follower, AbsFollower), f'Follower must be AbsFollower.'
         # update the set
         self._followers.update([follower])
 

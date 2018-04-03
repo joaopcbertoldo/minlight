@@ -129,7 +129,8 @@ class Cable(AbsFollower):
                  diameter: float = None, tension_min: float = None, tension_max: float = None):
         """TODO doc str"""
         # super
-        super(AbsFollower, self).__init__()
+        AbsFollower.__init__(self)
+        # super(AbsFollower, self).__init__()
         # TODO validate cable's init
         # assign attributes
         self._fixed_point = fixed_point

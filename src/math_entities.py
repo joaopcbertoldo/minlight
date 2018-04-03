@@ -238,9 +238,11 @@ class MobilePoint(Point, Followable):
     # init
     def __init__(self, x: float, y: float, z: float, name: str = None):
         # Point init (validation in Point)
-        super(Point, self).__init__(x, y, z, name)
+        Point.__init__(self, x, y, z, name)
+        # super(Point, self).__init__(x, y, z, name)
         # followable init
-        super(Followable, self).__init__()
+        # super(Followable, self).__init__()
+        Followable.__init__(self)
 
     # set_xyz
     def set_xyz(self, x: float, y: float, z: float):
@@ -355,7 +357,7 @@ class RotationMatrix(matrix):
         # check the angle (row, pitch, yaw)
         assert angle != RotationAngleEnum.unknown, f'The rotation angle cannot be unknown.'
         # check the value
-        assert isfinite(angle), f'Value must be finite (value = {value}).'
+        assert isfinite(value), f'Value must be finite (value = {value}).'
         # check the unity
         assert unity != AngleUnityEnum.unknown, f'The angle unity cannot be unknown.'
         # assign attributes
@@ -440,7 +442,8 @@ class Orientation(Followable):
         # compute rotation matrices
         self._compute_rotation_matrices()
         # followable init
-        super(Followable, self).__init__()
+        Followable.__init__(self)
+        # super(Followable, self).__init__()
 
     # unity
     @property

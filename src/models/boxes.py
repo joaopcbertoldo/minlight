@@ -35,9 +35,9 @@ class BoxDimensions:
         # get the values
         leng, wid, hei = self.get_tuple()
         # check if they are positive
-        assert leng <= 0, f"Dimensions must be strictly positive (length = {leng})"
-        assert wid <= 0, f"Dimensions must be strictly positive (width = {wid})."
-        assert hei <= 0, f"Dimensions must be strictly positive (height = {hei})."
+        assert leng > 0, f"Dimensions must be strictly positive (length = {leng})"
+        assert wid > 0, f"Dimensions must be strictly positive (width = {wid})."
+        assert hei > 0, f"Dimensions must be strictly positive (height = {hei})."
         # check if they are finite
         assert isfinite(leng), f"Dimensions must be finite (length = {leng})."
         assert isfinite(wid), f"Dimensions must be finite (width = {wid})."
@@ -112,7 +112,8 @@ class Box(AbsFollower):
     def __init__(self, center: MobilePoint, orientation: Orientation, dimensions: BoxDimensions):
         """Create a box that follows the _center as it moves around."""
         # abstract mobile point follower
-        super(AbsFollower, self).__init__()
+        AbsFollower.__init__(self)
+        # super(AbsFollower, self).__init__()
         # the center
         self._center = center
         # become a follower (to get notifs about changes)
@@ -510,13 +511,13 @@ class Maisonette(Box):
                  window_dimensions: Tuple[float, float], wall_width: float = None):
         """TODO doc string"""
         # super
-        super().__init__(center, orientation, dimensions)
+        Box.__init__(self, center, orientation, dimensions)
         # validate wall_width
         if wall_width:
             assert isfinite(wall_width) and wall_width > 0, f'wall_width must be finite and >0 (wall_width = {wall_width}).'
         # validate window_dimensions
         assert type(window_dimensions) == tuple and len(window_dimensions) == 2 \
-            and window_dimensions[0] > 0 and window_dimensions[1], \
+            and window_dimensions[0] > 0 and window_dimensions[1] > 0, \
             f'window_dimensions are not valid (window_dimensions = {window_dimensions}).'
         # attributes assignments
         self.wall_width = wall_width if wall_width else DefaultValues.wall_width

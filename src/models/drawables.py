@@ -77,7 +77,7 @@ class DrawableBox(Box):
 
 class Chambre(Box):
     def __init__(self, center, orientation, dimensions):
-        super().__init__(center, orientation, dimensions)
+        Box.__init__(self, center, orientation, dimensions)
 
     def draw(self, origin, color=(0.2, 0.2, 0.2, 1.0), drawFaces=True):
         edges = (
