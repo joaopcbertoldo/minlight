@@ -2,6 +2,8 @@ from typing import List, Dict
 from copy import deepcopy
 from deprecated import deprecated
 
+from numpy import isfinite
+
 from src.enums import BoxVertexEnum
 from src.math_entities import Point, Vec3, MobilePoint, AbsMobilePointFollower
 from src.models.boxes import Box
@@ -45,43 +47,52 @@ class CableEnds:
             raise KeyError('source_point or fixed_point')
 
 
+# CableLayout
 class CableLayout:
     """
     Describes the way that the cables are connected to the source.
     Does a mapping from Fixed Points X Source Vertices consisting of 8 cable ends.
     """
 
+    # init
     def __init__(self, cables_ends: List[CableEnds], diameter: float = None):
-        if len(cables_ends) != 8:
-            raise Exception('Exactly 8 cable ends must be given.')
+        """"""
+        # validations
+        assert len(cables_ends) == 8, 'Exactly 8 cable ends must be given.'
+        assert all(type(ce) == CableEnds for ce in cables_ends), f'cable ends must be of type {CableEnds.__name__}.'
+        if diameter:
+            assert isfinite(diameter) and diameter > 0, f'invalid diameter ({diameter})'
+        # assign attributes
         self._cables_ends = cables_ends
-        self._diameter = diameter
+        self._diameter = diameter if diameter else DefaultValues.cable_diameter
 
+    # get_fixed_point
     def get_fixed_point(self, source_vertex: BoxVertexEnum) -> Point:
         """Return the respective fixed point of a certain soruce's vertex."""
         try:
+            # find it
             return next(ce.fixed_point for ce in self._cables_ends if ce.source_vertex == source_vertex)
         except StopIteration:
-            raise KeyError(f"Problem with the given {type(source_vertex)} of value '{source_vertex}'")
+            raise KeyError(f"Problem with the given {type(source_vertex).__name__} of value '{source_vertex}'")
 
+    # get_source_vertex
     def get_source_vertex(self, fixed_point_name: str) -> BoxVertexEnum:
-        """"""
+        """TODO doc str"""
         try:
+            # find it
             return next(ce.source_vertex for ce in self._cables_ends if ce.fixed_point.name == fixed_point_name)
         except StopIteration:
             raise KeyError(f"The fixed point of name '{fixed_point_name}' does not exist.")
 
-    @deprecated('use generate cables')
-    def get_cables(self, source_points, diameter):
-        pass
-
     # generate_cables
-    def generate_cables(self, source_vertices_points: Dict[BoxVertexEnum, Point], d: float = None) -> List['Cable']:
-        """Return a list of cables connection the cable layout to the given source vertices (withe d d)."""
-        if not self._diameter and not d:
-            raise Exception("Diameter must be provided.")
-        else:
-            diameter = d if d else self._diameter
+    def generate_cables(self, source_vertices_points: Dict[BoxVertexEnum, Point],
+                        diameter: float = None) -> List['Cable']:
+        """Return a list of cables connection the cable layout to the given source vertices (with diameter in mm)."""
+        if diameter:
+            assert isfinite(diameter) and diameter > 0, f'invalid diameter ({diameter})'
+        # ensure a value
+        diameter = diameter if diameter else self._diameter
+        # ret
         return [
             Cable(
                 fixed_point=self.get_fixed_point(vertex),
@@ -92,13 +103,19 @@ class CableLayout:
             for vertex in BoxVertexEnum.list_vertices()
         ]
 
-    def get_fixed_points(self):
-        """Return a list of all fixed points."""
+    # get_fixed_points
+    def get_fixed_points(self) -> List[Point]:
+        """Return a list of all fixed points. TODO to property"""
         return [ce.fixed_point for ce in self._cables_ends]
 
+    # get_dict_fixed_points
     def get_dict_fixed_points(self):
-        """Return a dict that maps source vertices to fixed points."""
+        """Return a dict that maps source vertices to fixed points. TODO to property"""
         return {ce.source_vertex: ce.fixed_point for ce in self._cables_ends}
+
+    @deprecated('use generate cables')
+    def get_cables(self, source_points, diameter):
+        pass
 
 
 # Cable

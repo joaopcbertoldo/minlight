@@ -77,7 +77,7 @@ class VerificateurAnglesLimites:
 
     def position_ok(self):
         vertices_points = self.source.vertices_points
-        cables = self.config_ancrage.generate_cables(vertices_points, d=self.diametre_cable)
+        cables = self.config_ancrage.generate_cables(vertices_points, diameter=self.diametre_cable)
 
         if not self.cables_ok(cables):
             return False
@@ -170,7 +170,7 @@ class VerificateurAnglesLimites:
 
     def _get_cables_demo_config_ancrage(self):
         sommets_source_demo = self._source_demo.vertices_points
-        cables_demo = self.config_ancrage.generate_cables(sommets_source_demo, d=self.diametre_cable)
+        cables_demo = self.config_ancrage.generate_cables(sommets_source_demo, diameter=self.diametre_cable)
         return cables_demo
 
     def draw_demo_config_ancrage(self):

@@ -15,7 +15,7 @@ class CableRobot:
 
         # create cables
         sommets_source = self._source.vertices_points
-        self._cables = self._config_ancrage.generate_cables(sommets_source, d=self._diametre_cables)
+        self._cables = self._config_ancrage.generate_cables(sommets_source, diameter=self._diametre_cables)
 
         self._observers = list()
 
