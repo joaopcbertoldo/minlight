@@ -79,6 +79,8 @@ class BoxDimensions:
 # Box
 class Box(AbsFollower):
     """(mutable) Represents a box object that has a 3D position, orientation and one can find its corners (vertices)."""
+    # TODO: draw the vertices when box not in origin
+    # TODO: define standard order in doc
 
     # ******************************************* special attributes *******************************************
 
@@ -86,7 +88,7 @@ class Box(AbsFollower):
     _vertices_points: Dict[BoxVertexEnum, Point]
 
     # vertices points from self reference frame
-    vertices_points_from_self_ref: Dict[BoxVertexEnum, Point]
+    _vertices_points_from_self_ref: Dict[BoxVertexEnum, Point]
 
     # ******************************************* auxiliar logic *******************************************
 
@@ -369,72 +371,29 @@ class Box(AbsFollower):
 
     """ *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** """
 
-    # vertices names in our notation, cf. doc/vertices_names_notation.pdf
-    vertices_names_std_order = ('S000', 'S001', 'S010', 'S011', 'S100', 'S101', 'S110', 'S111')
-    # TODO: draw the vertices when box not in origin
-    # TODO: define standard order in doc
-
     @deprecated
     def changer_systeme_repere_pave_vers_globale(self, point):
-        # matrice de rotation
-        Rot = self.orientation.rotation_matrix()
+        pass
 
-        res = (Rot * point) + self._center
-
-        # il faut faire ça sinon le retour est une matrice rot
-        return Vec3(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
-
-    @deprecated
+    @deprecated('use vertices_points_from_self_ref')
     def set_sommets_pave_origine(self):
-        # dimensions
-        long, larg, haut = self.dimensions.get_tuple()
+        pass
 
-        # points (coins) du pavé centré dans l'origine
-        s000 = Vec3(- long / 2, - larg / 2, - haut / 2)
-        s100 = Vec3(+ long / 2, - larg / 2, - haut / 2)
-        s010 = Vec3(- long / 2, + larg / 2, - haut / 2)
-        s110 = Vec3(+ long / 2, + larg / 2, - haut / 2)
-        s001 = Vec3(- long / 2, - larg / 2, + haut / 2)
-        s101 = Vec3(+ long / 2, - larg / 2, + haut / 2)
-        s011 = Vec3(- long / 2, + larg / 2, + haut / 2)
-        s111 = Vec3(+ long / 2, + larg / 2, + haut / 2)
-
-        # points (coins) de la source repérés par rapport à son _center
-        return [s000, s001, s010, s011, s100, s101, s110, s111]
-
-    @deprecated
+    @deprecated('use vertices_points_from_self_ref')
     def sommets_pave_origine(self):
-        return self.vertices_points_from_self_ref
+        pass
 
-    @deprecated('use center')
-    @property
-    def centre(self) -> Point:
-        return self._center
-
-    @deprecated
+    @deprecated('use vertices_points or vertices_points_list')
     def get_sommets_pave(self):
-        """
-        convention utilisé pour les rotations : z-y’-x″ (intrinsic rotations) = Yaw, pitch, and roll rotations
-        http://planning.cs.uiuc.edu/node102.html
-        http://planning.cs.uiuc.edu/node104.html
-        https://en.wikipedia.org/wiki/Euler_angles#Tait.E2.80.93Bryan_angles
-        https://en.wikipedia.org/wiki/Euler_angles#Rotation_matrix
+        pass
 
-        On suppose qu'on veut orienter le _center de la source par des angles
-        et la position du _center, on calcule les positios des points (les coins de la source).
-        :return: liste des points de la source par rapport au système de repère de la chambre
-        """
-
-        s_origine = self.sommets_pave_origine()
-        return [self.changer_systeme_repere_pave_vers_globale(s) for s in s_origine]
-
-    @deprecated
+    @deprecated('use vertices_points_list with order ZYX or XYZ, cf enums and doc')
     def sommets_pave(self):
-        return self.vertices_points_list(BoxVertexOrderEnum.ZYX)
+        pass
 
-    @deprecated
+    @deprecated('use vertices_points')
     def get_dictionnaire_sommets(self):
-        return {nom: sommet for nom, sommet in zip(self.vertices_names_std_order, self.vertices_points_list)}
+        pass
 
     @deprecated('use the drawable object')
     def draw(self):
@@ -509,7 +468,7 @@ class Source(Box):
             self.points_parable[i].set_xyz(newSommetsParable[i].item(0), newSommetsParable[i].item(1),
                                            newSommetsParable[i].item(2))
 
-    deprecated
+    @deprecated
     def draw(self):
         pass
 

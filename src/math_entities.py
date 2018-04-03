@@ -403,6 +403,11 @@ class Orientation(Followable):
     It is followable.
     Cf: https://en.wikipedia.org/wiki/Euler_angles
     Cf: https://en.wikipedia.org/wiki/Aircraft_principal_axes
+        http://planning.cs.uiuc.edu/node102.html
+        http://planning.cs.uiuc.edu/node104.html
+        https://en.wikipedia.org/wiki/Euler_angles#Tait.E2.80.93Bryan_angles
+        https://en.wikipedia.org/wiki/Euler_angles#Rotation_matrix
+        TODO organize these refs
     """
 
     # zero

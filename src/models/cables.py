@@ -61,19 +61,12 @@ class CableLayout:
         except StopIteration:
             raise KeyError(f"The fixed point of name '{fixed_point_name}' does not exist.")
 
-    @deprecated
+    @deprecated('use generate cables')
     def get_cables(self, source_points, diameter):
-        return [
-            Cable(
-                source_vertex=vertex_name,
-                fixed_point=self.get_fixed_point(vertex_name),
-                source_point=source_points[vertex_name],
-                diameter=diameter
-            )
-            for vertex_name in Box.vertices_names_std_order
-        ]
+        pass
 
-    def generate_cables(self, source_vertices_points: Dict[BoxVertexEnum, Point], d: float = None):
+    # generate_cables
+    def generate_cables(self, source_vertices_points: Dict[BoxVertexEnum, Point], d: float = None) -> List['Cable']:
         """Return a list of cables connection the cable layout to the given source vertices (withe d d)."""
         if not self._diameter and not d:
             raise Exception("Diameter must be provided.")

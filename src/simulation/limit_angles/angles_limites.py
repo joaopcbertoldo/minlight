@@ -7,14 +7,15 @@ import pygame
 import pickle
 import matplotlib.pyplot as plt
 
-from src.math_entities import Vec3, TupleAnglesRotation, CoordonnesSpherique
-from src.models.entites_systeme_minlight import Box
+from src.math_entities import Vec3, Orientation, SphericalCoordinates
+from src.models.boxes import Box
+from src.models.cables import CableLayout
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 
 
 class VerificateurAnglesLimites:
-    def __init__(self, dimensions_source, maisonette, chambre, config_ancrage,
+    def __init__(self, dimensions_source, maisonette, chambre, config_ancrage: CableLayout,
                  systeme_spherique_baie_vitree, configs_simulation):
         self.dimensions_source = dimensions_source
         self.maisonette = maisonette
@@ -75,8 +76,8 @@ class VerificateurAnglesLimites:
             self.sauvegarder_limites(nom_fichier_sauvegarde)
 
     def position_ok(self):
-        sommets_source = self.source.get_dictionnaire_sommets()
-        cables = self.config_ancrage.get_cables(sommets_source, diametre_cable=self.diametre_cable)
+        vertices_points = self.source.vertices_points
+        cables = self.config_ancrage.generate_cables(vertices_points, d=self.diametre_cable)
 
         if not self.cables_ok(cables):
             return False
@@ -168,8 +169,8 @@ class VerificateurAnglesLimites:
         return source_demo
 
     def _get_cables_demo_config_ancrage(self):
-        sommets_source_demo = self._source_demo.get_dictionnaire_sommets()
-        cables_demo = self.config_ancrage.get_cables(sommets_source_demo, self.diametre_cable)
+        sommets_source_demo = self._source_demo.vertices_points
+        cables_demo = self.config_ancrage.generate_cables(sommets_source_demo, d=self.diametre_cable)
         return cables_demo
 
     def draw_demo_config_ancrage(self):

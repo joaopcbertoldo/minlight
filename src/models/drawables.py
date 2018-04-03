@@ -7,7 +7,7 @@ from src.models.cables import Cable
 from src.models.boxes import Box, Source, Maisonette
 from src.toolbox.useful import get_plane_normal
 from src.visualization.outils import Surface
-
+from src.enums import BoxVertexOrderEnum
 
 class DrawableCable(Cable):
 
@@ -49,7 +49,7 @@ class DrawableBox(Box):
             (1, 0, 4, 5)
         )
 
-        verticies = self.sommets_pave()
+        verticies = self.vertices_points_list(BoxVertexOrderEnum.ZYX)
         verticiesInOrigin = []
 
         for v in verticies:
@@ -293,7 +293,7 @@ class DrawableMaisonette(Maisonette):
 
         )
 
-        verticies = self.sommets_pave()
+        verticies = self.vertices_points_list(BoxVertexOrderEnum.ZYX)
         verticiesInOrigin = []
         for v in verticies:
             verticiesInOrigin.append(v - origin)

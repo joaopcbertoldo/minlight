@@ -1,10 +1,12 @@
 import copy
 from abc import ABCMeta, abstractmethod
+from src.models.boxes import Box
+from src.models.cables import CableLayout
 
 
 class CableRobot:
 
-    def __init__(self, chambre, maisonette, source, diametre_cables, config_ancrage):
+    def __init__(self, chambre, maisonette, source: Box, diametre_cables, config_ancrage: CableLayout):
         self._chambre = copy.deepcopy(chambre)
         self._maisonette = copy.deepcopy(maisonette)
         self._source = copy.deepcopy(source)
@@ -12,8 +14,8 @@ class CableRobot:
         self._config_ancrage = copy.deepcopy(config_ancrage)
 
         # create cables
-        sommets_source = self._source.get_dictionnaire_sommets()
-        self._cables = self._config_ancrage.get_cables(sommets_source, self._diametre_cables)
+        sommets_source = self._source.vertices_points
+        self._cables = self._config_ancrage.generate_cables(sommets_source, d=self._diametre_cables)
 
         self._observers = list()
 
