@@ -325,7 +325,7 @@ def _creer_config_ancrage():
 def get_simple(points_fixes):
     """
     
-    :param points_fixes: dictionnaire des points fixes d'ancrage
+    :param points_fixes: dictionnaire des vertices_points_as_list fixes d'ancrage
     :return: 
     """
     Aux.sous_config_cable_0 = SousConfigCable(SousConfigCableEnum.SIMPLE, PlanEnum.XY)
@@ -340,7 +340,7 @@ def get_simple(points_fixes):
 
 def get_tourne_sh_sch(points_fixes):
     """
-    :param points_fixes: dictionnaire des points fixes d'ancrage
+    :param points_fixes: dictionnaire des vertices_points_as_list fixes d'ancrage
     :return: 
     """
     Aux.sous_config_cable_0 = SousConfigCable(SousConfigCableEnum.TOURNE_SENS_HORLOGE, PlanEnum.XY)
@@ -355,7 +355,7 @@ def get_tourne_sh_sch(points_fixes):
 
 def get_tourne_sch_sh(points_fixes):
     """
-    :param points_fixes: dictionnaire des points fixes d'ancrage
+    :param points_fixes: dictionnaire des vertices_points_as_list fixes d'ancrage
     :return: 
     """
     Aux.sous_config_cable_0 = SousConfigCable(SousConfigCableEnum.TOURNE_SENS_CONTRE_HORLOGE, PlanEnum.XY)

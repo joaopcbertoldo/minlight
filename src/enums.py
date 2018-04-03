@@ -34,6 +34,11 @@ class BoxVertexOrderEnum(Enum):
     XYZ = 1
     ZYX = 2
 
+    # standard
+    @staticmethod
+    def standard() -> 'BoxVertexOrderEnum':
+        return BoxVertexOrderEnum.XYZ
+
 
 class BoxVertexEnum(Enum):
     """Names of the vertices of a box in the system 's{x}{y}{z}'. Cf. doc/vertices_names_notation.pdf"""

@@ -58,7 +58,7 @@ class DrawableBox(Box):
         if drawFaces:
             glBegin(GL_QUADS)
             for surface in surfaces:
-                normal = get_plane_normal(surface, self.points, self._center)
+                normal = get_plane_normal(surface, self.vertices_points_as_list, self._center)
                 normal_tuple = normal.get_tuple()
                 for vertex in surface:
                     glColor4fv(color)
@@ -96,14 +96,14 @@ class Chambre(Box):
         )
         ground = (4, 6, 2, 0)
 
-        normal = get_plane_normal(ground, self.points, -self._center)
+        normal = get_plane_normal(ground, self.vertices_points_as_list, -self._center)
         normal_tuple = normal.get_tuple()
 
         glBegin(GL_QUADS)
         for vertex in ground:
             glColor4fv(color)
             glNormal3fv(normal_tuple)
-            glVertex3fv(self.points[vertex] - origin)
+            glVertex3fv(self.vertices_points_as_list[vertex] - origin)
         glEnd()
 
         glBegin(GL_LINES)
@@ -111,7 +111,7 @@ class Chambre(Box):
             for vertex in edge:
                 glColor4fv((0.0, 0.0, 0.0, 1.0))
                 glNormal3fv((0.0, 0.0, 0.0))
-                glVertex3fv(self.points[vertex] - origin)
+                glVertex3fv(self.vertices_points_as_list[vertex] - origin)
         glEnd()
 
 
@@ -174,13 +174,13 @@ class DrawableSource(Source):
 
         light = (1, 3, 2, 0)
 
-        normal = get_plane_normal(light, self.points, self._center)
+        normal = get_plane_normal(light, self.vertices_points_as_list, self._center)
         normal_tuple = normal.get_tuple()
         glBegin(GL_QUADS)
         for vertex in light:
             glNormal3fv(normal_tuple)
             glColor4fv((1.0, 1.0, 1.0, 1.0))
-            glVertex3fv(self.points[vertex] - origin)
+            glVertex3fv(self.vertices_points_as_list[vertex] - origin)
         glEnd()
 
         glBegin(GL_LINES)
@@ -188,7 +188,7 @@ class DrawableSource(Source):
             for vertex in edge:
                 glColor4fv((0.0, 0.0, 0.0, 1.0))
                 glNormal3fv((0.0, 0.0, 0.0))
-                glVertex3fv(self.points[vertex] - origin)
+                glVertex3fv(self.vertices_points_as_list[vertex] - origin)
         glEnd()
 
 

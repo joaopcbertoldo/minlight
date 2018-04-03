@@ -52,13 +52,13 @@ def getCoordonnees(point):
 
 
 def distance2points(ax, ay, az, bx, by, bz):
-    '''Distance euclidienne en 3D entre 2 points.'''
+    '''Distance euclidienne en 3D entre 2 vertices_points_as_list.'''
     l = math.sqrt((ax - bx) ** 2 + (ay - by) ** 2 + (az - bz) ** 2);
     return l
 
 
 def distance2pointsV(A, B):
-    '''Distance euclidieinne en 3D entre 2 points (A et B son matrices 3x1).'''
+    '''Distance euclidieinne en 3D entre 2 vertices_points_as_list (A et B son matrices 3x1).'''
     ax, ay, az = getCoordonnees(A)
     bx, by, bz = getCoordonnees(B)
     return distance2points(ax, ay, az, bx, by, bz)
@@ -234,7 +234,7 @@ def appartientVolumeSoleil(point, centre, theta, phi):
 
 
 """
-On calcule le vecteur normalisé entre les points d'encrages et les 
+On calcule le vecteur normalisé entre les vertices_points_as_list d'encrages et les 
 sommets de la sources c'est cette fonction qu'il faut modifier pour 
 tester plusieurs configuration
 """

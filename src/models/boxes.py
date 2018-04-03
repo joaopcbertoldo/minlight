@@ -1,10 +1,10 @@
 from deprecated import deprecated
 from copy import deepcopy
 from numpy import arcsin, degrees, radians, cos, sin, sqrt, isfinite
-from typing import Dict, Tuple
+from typing import Dict, Tuple, List
 
-from src.enums import RotationOrderEnum, AngleUnityEnum, BoxVertexEnum
-from src.math_entities import Vec3, Orientation, Point, MobilePoint, AbsMobilePointFollower
+from src.enums import RotationOrderEnum, AngleUnityEnum, BoxVertexEnum, BoxVertexOrderEnum
+from src.math_entities import Vec3, Orientation, Point, MobilePoint
 from src.toolbox.followables import AbsFollower
 
 
@@ -231,8 +231,9 @@ class Box(AbsFollower):
         self._orientation.set_angles(angles)
         # update is done with the notification
 
-    def points(self) -> bool:
-        return {vertex: point for vertex, point in zip(BoxVertexEnum.list_vertices(), self.points)}
+    def vertices_points_as_list(self, order: BoxVertexOrderEnum.XYZ) -> List[Point]:
+        points = self.vertices_points_as_list(BoxVertexOrderEnum.ZYX)
+        return {vertex: point for vertex, point in zip(BoxVertexEnum.list_vertices(), points)}
 
     def get_dict_vertex_point_from_self_reference(self):
         """Dict of Vertex -> Point as if they were seen from the box's own self referenc frame."""
@@ -402,11 +403,11 @@ class Box(AbsFollower):
 
     @deprecated
     def sommets_pave(self):
-        return self.points
+        return self.vertices_points_as_list(BoxVertexOrderEnum.ZYX)
 
     @deprecated
     def get_dictionnaire_sommets(self):
-        return {nom: sommet for nom, sommet in zip(self.vertices_names_std_order, self.points)}
+        return {nom: sommet for nom, sommet in zip(self.vertices_names_std_order, self.vertices_points_as_list)}
 
     @deprecated('use the drawable object')
     def draw(self):
@@ -423,8 +424,10 @@ class Source(Box):
         return height / 2
 
     def get_light_centre(self):
-
-        return (self.points[5] + self.points[7] + self.points[6] + self.points[
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        # pontos da face YZ com X positivo
+        points = self.vertices_points_as_list()
+        return (points[5] + points[7] + points[6] + points[
             4]) / 4  # 5,7,6,4 are the verticies of the light face
 
     def get_light_direction(self):
@@ -457,6 +460,7 @@ class Source(Box):
         # for()
         self._update_vertices_points()
 
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     def _update_vertices_points(self):
         length, width, height = self.dimensions.get_tuple()
         newSommets = []
@@ -465,8 +469,11 @@ class Source(Box):
         for sommet in self.vertices_points_from_self_ref:
             newPoint = (Rot * sommet) + self._center
             newSommets.append(newPoint)
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         for i in range(len(newSommets)):
-            self.points[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
+            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            # pontos da face YZ com X positivo
+            self.vertices_points_as_list[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
 
         for sommet in self.points_parable_origin:
             newPoint = (Rot * sommet) + self._center
@@ -493,44 +500,45 @@ class Maisonette(Box):
         self.set_sommets_inside()
 
     def set_sommets_inside(self):
-        S0 = self.points[0] - Vec3(-self.wall_width, -self.wall_width, -self.wall_width)
-        S1 = self.points[1] - Vec3(-self.wall_width, -self.wall_width, self.wall_width)
-        S2 = self.points[2] - Vec3(-self.wall_width, self.wall_width, -self.wall_width)
-        S3 = self.points[3] - Vec3(-self.wall_width, self.wall_width, self.wall_width)
+        points = self.vertices_points_as_list(BoxVertexOrderEnum.ZYX)
+        S0 = points[0] - Vec3(-self.wall_width, -self.wall_width, -self.wall_width)
+        S1 = points[1] - Vec3(-self.wall_width, -self.wall_width, self.wall_width)
+        S2 = points[2] - Vec3(-self.wall_width, self.wall_width, -self.wall_width)
+        S3 = points[3] - Vec3(-self.wall_width, self.wall_width, self.wall_width)
 
-        S4 = self.points[4] - Vec3(self.wall_width, -self.wall_width, -self.wall_width)
-        S5 = self.points[5] - Vec3(self.wall_width, -self.wall_width, self.wall_width)
-        S6 = self.points[6] - Vec3(self.wall_width, self.wall_width, -self.wall_width)
-        S7 = self.points[7] - Vec3(self.wall_width, self.wall_width, self.wall_width)
+        S4 = points[4] - Vec3(self.wall_width, -self.wall_width, -self.wall_width)
+        S5 = points[5] - Vec3(self.wall_width, -self.wall_width, self.wall_width)
+        S6 = points[6] - Vec3(self.wall_width, self.wall_width, -self.wall_width)
+        S7 = points[7] - Vec3(self.wall_width, self.wall_width, self.wall_width)
 
         length, width, height = self.dimensions.get_tuple()
 
         # window_inside_points
 
-        S8 = self.points[1] - Vec3(-self.wall_width, -(width / 2 - self.window_dimensions['width'] / 2),
-                                   (height / 2 - self.window_dimensions['height'] / 2))
-        S9 = self.points[3] - Vec3(-self.wall_width, (width / 2 - self.window_dimensions['width'] / 2),
-                                   (height / 2 - self.window_dimensions['height'] / 2))
-        S10 = self.points[2] - Vec3(-self.wall_width, (width / 2 - self.window_dimensions['width'] / 2),
-                                    -(height / 2 - self.window_dimensions['height'] / 2))
-        S11 = self.points[0] - Vec3(-self.wall_width, -(width / 2 - self.window_dimensions['width'] / 2),
-                                    -(height / 2 - self.window_dimensions['height'] / 2))
+        S8 = points[1] - Vec3(-self.wall_width, -(width / 2 - self.window_dimensions['width'] / 2),
+                                                    (height / 2 - self.window_dimensions['height'] / 2))
+        S9 = points[3] - Vec3(-self.wall_width, (width / 2 - self.window_dimensions['width'] / 2),
+                                                    (height / 2 - self.window_dimensions['height'] / 2))
+        S10 = points[2] - Vec3(-self.wall_width, (width / 2 - self.window_dimensions['width'] / 2),
+                                                     -(height / 2 - self.window_dimensions['height'] / 2))
+        S11 = points[0] - Vec3(-self.wall_width, -(width / 2 - self.window_dimensions['width'] / 2),
+                                                     -(height / 2 - self.window_dimensions['height'] / 2))
 
         #  window_outside_points
 
-        S12 = self.points[1] - Vec3(0, -(width / 2 - self.window_dimensions['width'] / 2),
-                                    (height / 2 - self.window_dimensions['height'] / 2))
-        S13 = self.points[3] - Vec3(0, (width / 2 - self.window_dimensions['width'] / 2),
-                                    (height / 2 - self.window_dimensions['height'] / 2))
-        S14 = self.points[2] - Vec3(0, (width / 2 - self.window_dimensions['width'] / 2),
-                                    -(height / 2 - self.window_dimensions['height'] / 2))
-        S15 = self.points[0] - Vec3(0, -(width / 2 - self.window_dimensions['width'] / 2),
-                                    -(height / 2 - self.window_dimensions['height'] / 2))
+        S12 = points[1] - Vec3(0, -(width / 2 - self.window_dimensions['width'] / 2),
+                                                     (height / 2 - self.window_dimensions['height'] / 2))
+        S13 = points[3] - Vec3(0, (width / 2 - self.window_dimensions['width'] / 2),
+                                                     (height / 2 - self.window_dimensions['height'] / 2))
+        S14 = points[2] - Vec3(0, (width / 2 - self.window_dimensions['width'] / 2),
+                                                     -(height / 2 - self.window_dimensions['height'] / 2))
+        S15 = points[0] - Vec3(0, -(width / 2 - self.window_dimensions['width'] / 2),
+                                                     -(height / 2 - self.window_dimensions['height'] / 2))
 
-        S16 = self.points[0]
-        S17 = self.points[1]
-        S18 = self.points[2]
-        S19 = self.points[3]
+        S16 = points[0]
+        S17 = points[1]
+        S18 = points[2]
+        S19 = points[3]
 
         self.sommets_extras = [S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19]
 

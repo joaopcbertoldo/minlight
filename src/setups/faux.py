@@ -166,7 +166,7 @@ diametre_cable = 10  # mm
 n_discretisation_cables = 20  # point/câble
 
 # discretisation des cubes
-k_dicretisation_cubes = 3  # division/arête --> nb points/face = (k+1)^2
+k_dicretisation_cubes = 3  # division/arête --> nb vertices_points_as_list/face = (k+1)^2
 
 # verbose
 verbose = True
