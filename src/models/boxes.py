@@ -19,6 +19,8 @@ class BoxDimensions:
         Z: height
     """
 
+    # ******************************************* initializaton *******************************************
+
     # init
     def __init__(self, length: float, width: float, height: float):
         """Everything in mm."""
@@ -41,10 +43,14 @@ class BoxDimensions:
         assert isfinite(wid), f"Dimensions must be finite (width = {wid})."
         assert isfinite(hei), f"Dimensions must be finite (height = {hei})."
 
+    # ******************************************* operators *******************************************
+
     # [] operator
     def __getitem__(self, key) -> float:
         """Key e {length, width, height}."""
         return self._dimensions[key]
+
+    # ******************************************* properties *******************************************
 
     # length
     @property
@@ -74,16 +80,15 @@ class BoxDimensions:
 class Box(AbsFollower):
     """(mutable) Represents a box object that has a 3D position, orientation and one can find its corners (vertices)."""
 
+    # ******************************************* special attributes *******************************************
+
     # vertices points
     _vertices_points: Dict[BoxVertexEnum, Point]
 
     # vertices points from self reference frame
     vertices_points_from_self_ref: Dict[BoxVertexEnum, Point]
 
-    # vertices names in our notation, cf. doc/vertices_names_notation.pdf
-    vertices_names_std_order = ('S000', 'S001', 'S010', 'S011', 'S100', 'S101', 'S110', 'S111')
-    # TODO: draw the vertices when box not in origin
-    # TODO: define standard order in doc
+    # ******************************************* auxiliar logic *******************************************
 
     # _is_in_box_at_origin
     @staticmethod
@@ -98,6 +103,8 @@ class Box(AbsFollower):
         return -demi_long <= x <= demi_long and \
                -demi_larg <= y <= demi_larg and \
                -demi_haut <= z <= demi_haut
+
+    # ******************************************* initialization *******************************************
 
     # init
     def __init__(self, center: MobilePoint, orientation: Orientation, dimensions: BoxDimensions):
@@ -120,6 +127,36 @@ class Box(AbsFollower):
         self._vertices_points = self._generate_vertex_points_from_self_reference()
         # update them...
         self._update_vertices_points()
+
+    # _generate_vertex_points_from_self_reference
+    def _generate_vertex_points_from_self_reference(self) -> Dict[BoxVertexEnum, Point]:
+        """(initialization) Dict of BoxVertexEnum -> Point as if they were seen from the box's own reference frame."""
+        # dimensions
+        l, w, h = self._dimensions.get_tuple()
+        # points - corners of the box as if it was at origin
+        # cf. doc/vertices_names_notation.pdf
+        v000 = Vec3(-l/2, -w/2, -h/2)  # v000
+        v100 = Vec3(+l/2, -w/2, -h/2)  # v100
+        v010 = Vec3(-l/2, +w/2, -h/2)  # v010
+        v110 = Vec3(+l/2, +w/2, -h/2)  # v110
+        v001 = Vec3(-l/2, -w/2, +h/2)  # v001
+        v101 = Vec3(+l/2, -w/2, +h/2)  # v101
+        v011 = Vec3(-l/2, +w/2, +h/2)  # v011
+        v111 = Vec3(+l/2, +w/2, +h/2)  # v111
+        # the dict itself
+        dic = {
+            BoxVertexEnum.v000: v000,  # 000
+            BoxVertexEnum.v100: v100,  # 100
+            BoxVertexEnum.v010: v010,  # 010
+            BoxVertexEnum.v110: v110,  # 110
+            BoxVertexEnum.v001: v001,  # 001
+            BoxVertexEnum.v101: v101,  # 101
+            BoxVertexEnum.v011: v011,  # 011
+            BoxVertexEnum.v111: v111,  # 111
+        }
+        return dic
+
+    # ******************************************* properties *******************************************
 
     # orientation
     @property
@@ -152,6 +189,19 @@ class Box(AbsFollower):
         """Copy of a Dict of BoxVertexEnum -> Point of the Box's vertices points (in global reference frame)."""
         return deepcopy(self._vertices_points)
 
+    # vertices_points_list
+    def vertices_points_list(self, order: BoxVertexOrderEnum) -> List[Point]:
+        """List of the vertices points ordered in the given order. Cf BoxVertexOrderEnum."""
+        # order of vertices
+        vertices = BoxVertexEnum.list_vertices_ordered_as(order)
+        # the box's points
+        vertices_points = self.vertices_points
+        # the list in the correct order
+        ret = [vertices_points[vx] for vx in vertices]
+        return ret
+
+    # ******************************************* follower action *******************************************
+
     # _on_notify
     def _on_notify(self, center: MobilePoint):
         """Override on AbsFollower action method."""
@@ -170,33 +220,7 @@ class Box(AbsFollower):
             # store it
             self._vertices_points[vertex] = point
 
-    # _generate_vertex_points_from_self_reference
-    def _generate_vertex_points_from_self_reference(self) -> Dict[BoxVertexEnum, Point]:
-        """(initialization) Dict of BoxVertexEnum -> Point as if they were seen from the box's own reference frame."""
-        # dimensions
-        l, w, h = self._dimensions.get_tuple()
-        # points - corners of the box as if it was at origin
-        # cf. doc/vertices_names_notation.pdf
-        v000 = Vec3(-l/2, -w/2, -h/2)  # v000
-        v100 = Vec3(+l/2, -w/2, -h/2)  # v100
-        v010 = Vec3(-l/2, +w/2, -h/2)  # v010
-        v110 = Vec3(+l/2, +w/2, -h/2)  # v110
-        v001 = Vec3(-l/2, -w/2, +h/2)  # v001
-        v101 = Vec3(+l/2, -w/2, +h/2)  # v101
-        v011 = Vec3(-l/2, +w/2, +h/2)  # v011
-        v111 = Vec3(+l/2, +w/2, +h/2)  # v111
-        # the dict itself
-        dic = {
-            BoxVertexEnum.v000: v000,  # 000
-            BoxVertexEnum.v100: v100,  # 100
-            BoxVertexEnum.v010: v010,  # 010
-            BoxVertexEnum.v110: v110,  # 110
-            BoxVertexEnum.v001: v001,  # 001
-            BoxVertexEnum.v101: v101,  # 101
-            BoxVertexEnum.v011: v011,  # 011
-            BoxVertexEnum.v111: v111,  # 111
-        }
-        return dic
+    # ******************************************* dynamic changes methods *******************************************
 
     # rotate
     def rotate(self, delta_yaw: float, delta_pitch: float, delta_row: float):
@@ -232,16 +256,7 @@ class Box(AbsFollower):
         self._orientation.set_angles(angles)
         # update is done with the notification
 
-    # vertices_points_list
-    def vertices_points_list(self, order: BoxVertexOrderEnum) -> List[Point]:
-        """List of the vertices points ordered in the given order. Cf BoxVertexOrderEnum."""
-        # order of vertices
-        vertices = BoxVertexEnum.list_vertices_ordered_as(order)
-        # the box's points
-        vertices_points = self.vertices_points
-        # the list in the correct order
-        ret = [vertices_points[vx] for vx in vertices]
-        return ret
+    # ******************************************* colision logics *******************************************
 
     # is_in_box
     def is_in_box(self, point: Point) -> bool:
@@ -324,6 +339,7 @@ class Box(AbsFollower):
     def is_inside_box(self, other_box: 'Box') -> bool:
         return all(other_box.is_in_box(p) for p in self.vertices_points_list(BoxVertexOrderEnum.standard()))
 
+    #
     def changer_a_partir_de_coordonnes_spheriques(self, coordonnees_spheriques, systeme_spherique):
         '''
         source changed to self, not sure if it works
@@ -352,6 +368,12 @@ class Box(AbsFollower):
             )
 
     """ *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** """
+
+    # vertices names in our notation, cf. doc/vertices_names_notation.pdf
+    vertices_names_std_order = ('S000', 'S001', 'S010', 'S011', 'S100', 'S101', 'S110', 'S111')
+    # TODO: draw the vertices when box not in origin
+    # TODO: define standard order in doc
+
     @deprecated
     def changer_systeme_repere_pave_vers_globale(self, point):
         # matrice de rotation
@@ -384,6 +406,7 @@ class Box(AbsFollower):
     def sommets_pave_origine(self):
         return self.vertices_points_from_self_ref
 
+    @deprecated('use center')
     @property
     def centre(self) -> Point:
         return self._center
