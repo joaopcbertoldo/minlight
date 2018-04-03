@@ -451,22 +451,24 @@ class Source(Box):
     # light_radius
     @property
     def light_radius(self) -> float:
-        """"""
+        """Radius of the circular light that leaves the parabola."""
         return self._light_radius
 
     # light_center
     @property
     def light_center(self) -> Point:
-        """"""
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        """The point in the middle of the light face (face YZ with positive X). TODO define de vocabulary used here."""
         # pontos da face YZ com X positivo
-        points = self.vertices_points_list()
-        return (points[5] + points[7] + points[6] + points[4]) / 4  # 5,7,6,4 are the verticies of the light face
+        points = self.vertices_points
+        summ = points[BoxVertexEnum.v100] + points[BoxVertexEnum.v101] + \
+               points[BoxVertexEnum.v111] + points[BoxVertexEnum.v110]  # 5,7,6,4 are the verticies of the light face
+        return summ / 4
+        # return (points[5] + points[7] + points[6] + points[4]) / 4
 
     # light_direction
     @property
     def light_direction(self):
-        """"""
+        """Direction vector (norm = 1) that is in the light's main direction."""
         return (self.light_center - self.center).direction
 
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -500,15 +502,30 @@ class Source(Box):
         pass
 
 
+# Maisonette
 class Maisonette(Box):
 
-    def __init__(self, center, orientation, dimensions, window_dimensions, wall_width=150):
+    # init
+    def __init__(self, center: Point, orientation: Orientation, dimensions: BoxDimensions,
+                 window_dimensions: Tuple[float, float], wall_width: float = None):
+        """TODO doc string"""
+        # super
         super().__init__(center, orientation, dimensions)
+        # validate wall_width
+        if wall_width:
+            assert isfinite(wall_width) and wall_width > 0, f'wall_width must be finite and >0 (wall_width = {wall_width}).'
+        # validate window_dimensions
+        assert type(window_dimensions) == tuple and len(window_dimensions) == 2 \
+            and window_dimensions[0] > 0 and window_dimensions[1], \
+            f'window_dimensions are not valid (window_dimensions = {window_dimensions}).'
+        # attributes assignments
+        self.wall_width = wall_width if wall_width else DefaultValues.wall_width
         self.window_dimensions = window_dimensions
-        self.wall_width = wall_width
-        self.set_sommets_inside()
+        self._set_sommets_inside()
 
-    def set_sommets_inside(self):
+    # _set_sommets_inside
+    def _set_sommets_inside(self):
+        """TODO doc string"""
         points = self.vertices_points_list(BoxVertexOrderEnum.ZYX)
         S0 = points[0] - Vec3(-self.wall_width, -self.wall_width, -self.wall_width)
         S1 = points[1] - Vec3(-self.wall_width, -self.wall_width, self.wall_width)
