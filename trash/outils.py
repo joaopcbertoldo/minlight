@@ -67,7 +67,7 @@ def norme_vecteur(vecteur):
 
 def distance_2_points(A, B):
     '''
-    Distance euclidiainne en 3D entre 2 vertices_points_as_list.
+    Distance euclidiainne en 3D entre 2 vertices_points_list.
     :param A: matrice (numpy.matrix) colonne 3x1
     :param B: matrice (numpy.matrix) colonne 3x1
     '''

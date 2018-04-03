@@ -232,8 +232,8 @@ class Box(AbsFollower):
         self._orientation.set_angles(angles)
         # update is done with the notification
 
-    # vertices_points_as_list
-    def vertices_points_as_list(self, order: BoxVertexOrderEnum) -> List[Point]:
+    # vertices_points_list
+    def vertices_points_list(self, order: BoxVertexOrderEnum) -> List[Point]:
         """List of the vertices points ordered in the given order. Cf BoxVertexOrderEnum."""
         # order of vertices
         vertices = BoxVertexEnum.list_vertices_ordered_as(order)
@@ -255,8 +255,8 @@ class Box(AbsFollower):
         # logic
         return self._is_in_box_at_origin(point_from_box, self.dimensions)
 
-    # is_coliding
-    def is_coliding(self, other_box: 'Box', k_discretisation=None):
+    # _is_coliding (the logic)
+    def _is_coliding(self, other_box: 'Box', k_discretisation=None) -> bool:
         """
         Tests if there are points on pave1's faces inside other_box.
         the function needs to be called twice to be sure that there are no intersections
@@ -309,8 +309,8 @@ class Box(AbsFollower):
 
         return False
 
-    def intersection_avec_autre_pave(self, pave, k_discretisation_arete=10):
-
+    # is_coliding (the interface)
+    def is_coliding(self, other_box: 'Box', k_discretisation=None) -> bool:
         """
         Tests if there are inserctions between pave1 and pave2,
         pave1: dictionary with dimensions(dictionary),_center(matrix 3x1), orientation(dictionary)
@@ -318,17 +318,11 @@ class Box(AbsFollower):
         k: (k+1)^2 = number of points to be tested on each face, the greater the k, the more reliable the result
         return True if there are no intersections, returns False otherwise
         """
-        if self.is_coliding(pave, k_discretisation_arete):
-            return True
+        return self._is_coliding(other_box, k_discretisation) or other_box._is_coliding(self, k_discretisation)
 
-        if pave.is_coliding(self, k_discretisation_arete):
-            return True
-
-        return False
-        # FIX POINT_APPARTIENT_PAVE AND POINT_3d
-
-    def entierement_dans_autre_pave(self, autre):
-        return all(autre.is_in_box(sommet) for sommet in self.sommets_pave())
+    # is_inside_box
+    def is_inside_box(self, other_box: 'Box') -> bool:
+        return all(other_box.is_in_box(p) for p in self.vertices_points_list(BoxVertexOrderEnum.standard()))
 
     def changer_a_partir_de_coordonnes_spheriques(self, coordonnees_spheriques, systeme_spherique):
         '''
@@ -413,11 +407,11 @@ class Box(AbsFollower):
 
     @deprecated
     def sommets_pave(self):
-        return self.vertices_points_as_list(BoxVertexOrderEnum.ZYX)
+        return self.vertices_points_list(BoxVertexOrderEnum.ZYX)
 
     @deprecated
     def get_dictionnaire_sommets(self):
-        return {nom: sommet for nom, sommet in zip(self.vertices_names_std_order, self.vertices_points_as_list)}
+        return {nom: sommet for nom, sommet in zip(self.vertices_names_std_order, self.vertices_points_list)}
 
     @deprecated('use the drawable object')
     def draw(self):
@@ -436,7 +430,7 @@ class Source(Box):
     def get_light_centre(self):
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         # pontos da face YZ com X positivo
-        points = self.vertices_points_as_list()
+        points = self.vertices_points_list()
         return (points[5] + points[7] + points[6] + points[
             4]) / 4  # 5,7,6,4 are the verticies of the light face
 
@@ -483,7 +477,7 @@ class Source(Box):
         for i in range(len(newSommets)):
             # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             # pontos da face YZ com X positivo
-            self.vertices_points_as_list[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
+            self.vertices_points_list[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
 
         for sommet in self.points_parable_origin:
             newPoint = (Rot * sommet) + self._center
@@ -510,7 +504,7 @@ class Maisonette(Box):
         self.set_sommets_inside()
 
     def set_sommets_inside(self):
-        points = self.vertices_points_as_list(BoxVertexOrderEnum.ZYX)
+        points = self.vertices_points_list(BoxVertexOrderEnum.ZYX)
         S0 = points[0] - Vec3(-self.wall_width, -self.wall_width, -self.wall_width)
         S1 = points[1] - Vec3(-self.wall_width, -self.wall_width, self.wall_width)
         S2 = points[2] - Vec3(-self.wall_width, self.wall_width, -self.wall_width)

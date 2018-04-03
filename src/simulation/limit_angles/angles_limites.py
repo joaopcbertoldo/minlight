@@ -81,11 +81,11 @@ class VerificateurAnglesLimites:
         if not self.cables_ok(cables):
             return False
 
-        if self.source.intersection_avec_autre_pave(self.maisonette,
-                                                    k_discretisation_arete=self.k_dicretisation_cubes):
+        if self.source.is_coliding(self.maisonette,
+                                                    k_discretisation=self.k_dicretisation_cubes):
             return False
 
-        if not self.source.entierement_dans_autre_pave(self.chambre):
+        if not self.source.is_inside_box(self.chambre):
             return False
 
         return True

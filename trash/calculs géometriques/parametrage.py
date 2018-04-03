@@ -73,7 +73,7 @@ def appartientVolumeMaison(x,y,z):
 
 
 """
-On calcule le vecteur normalisé entre les vertices_points_as_list d'encrages et les 
+On calcule le vecteur normalisé entre les vertices_points_list d'encrages et les 
 sommets de la sources c'est cette fonction qu'il faut modifier pour 
 tester plusieurs configuration
 """
