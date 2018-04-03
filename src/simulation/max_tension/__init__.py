@@ -1,5 +1,5 @@
 import sys
-from .main import main
+from src.simulation.max_tension.main import main
 
 
 # main
