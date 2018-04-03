@@ -1,6 +1,11 @@
 import numpy as np
-from src.setups import palaiseau
 
+from src.setups import palaiseau
+from src.enums import AngleUnityEnum
+from src.toolbox.useful import get_terminal_size
+
+
+# setup
 stp = palaiseau
 
 # ! everythin in mm ! ! everythin in mm ! ! everythin in mm ! ! everythin in mm ! ! everythin in mm !
@@ -36,6 +41,21 @@ Notation used here:
 """
 
 
+class Simulation:
+
+    max_evals = 10
+    random_state_fixed = True
+    allow_trials = False
+
+    fmin_verbose = 0
+    script_verbose = 0
+    config_verbose = 1
+
+    @staticmethod
+    def random_state():
+        return 42 if Simulation.random_state_fixed else np.randint(1, 1000)
+
+
 class Fixation:
 
     # fix_X0 - it won't change at first
@@ -44,9 +64,9 @@ class Fixation:
     # range for X1 - this is the mobile part (close to the maisonette)
     X1_min = 5000.
     X1_max = 10000.
-    X1_n = 3
+    X1_n = 2
 
-    X1_range = np.linspace(X1_min, X1_max, X1_n)
+    X1_vals = np.linspace(X1_min, X1_max, X1_n)
 
     # fix_Y0 and Y1 fixed
     Y0 = 325.
@@ -60,6 +80,7 @@ class Fixation:
 class Source:
 
     class Center:
+
         # x min
         x_min = Fixation.X0 + stp.Source.Dimensions.length / 2
 
@@ -80,15 +101,67 @@ class Source:
         # z max
         z_max = Fixation.Z1 - stp.Source.Dimensions.height / 2
 
-        # n of discretization
-        x_n = 5
-        y_n = 5
-        z_n = 5
-
     class Orientation:
+        # angles unity
+        angles_unity = AngleUnityEnum.degree
+
+        # row min
+        row_min = 0
+
+        # row max
+        row_max = 0
+
+        # pitch min
+        pitch_min = -45
+
+        # pitch max
+        pitch_max = +45
+
+        # yaw min
+        yaw_min = -90
+
+        # yaw max
+        yaw_max = +90
+
+
+(width, height) = get_terminal_size()
+
+
+def print_separator(msg: str = None):
+    msg = ' ' + str(msg) + ' ' if msg else ''
+    msg = msg.center(width, '-')
+    print(msg)
+
+
+def config_verbose_1():
+    print('setup: ', stp.__name__)
+    print_separator('source')
+    print('source length: ', stp.Source.Dimensions.length)
+    print('source width: ', stp.Source.Dimensions.width)
+    print('source height: ', stp.Source.Dimensions.height)
+    print_separator('fixation')
+    print('X0', Fixation.X0)
+    print('X1 values: ', list(f'{val:.0f}' for val in Fixation.X1_vals))
+    print('Y0', Fixation.Y0)
+    print('Y1', Fixation.Y1)
+    print('Z0', Fixation.Z0)
+    print('Z1', Fixation.Z1)
+
+
+def verbose():
+    print_separator()
+    print_separator('CONFIG VERBOSE')
+
+    if Simulation.config_verbose == 0:
         pass
+    elif Simulation.config_verbose == 1:
+        config_verbose_1()
+    else:
+        print('INVALID CONFIG VERBOSE VALUE')
 
+    print_separator()
+    print_separator()
+    print()
+    print()
 
-
-
-
+verbose()

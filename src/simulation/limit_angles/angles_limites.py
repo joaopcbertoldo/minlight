@@ -26,7 +26,7 @@ class VerificateurAnglesLimites:
         self.space_recherche = configs_simulation['space_recherche']
         self.n_discretisation_cables = configs_simulation['n_discretisation_cables']
         self.k_dicretisation_cubes = configs_simulation['k_dicretisation_cubes']
-        self.verbose = configs_simulation['verbose']
+        self.verbose = configs_simulation['fmin_verbose']
         self.source = Box(
             centre=Vec3(0, 0, 0),
             ypr_angles=TupleAnglesRotation(0, 0, 0),

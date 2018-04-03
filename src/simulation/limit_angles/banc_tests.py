@@ -34,7 +34,7 @@ n_discretisation_cables = 30  # point/câble
 # discretisation des cubes
 k_dicretisation_cubes = 3  # division/arête --> nb vertices_points_list/face = (k+1)^2
 
-# verbose
+# fmin_verbose
 verbose = True
 
 # dictionnaire de configs
@@ -43,7 +43,7 @@ configs_simulation = {
     'diametre_cable': diametre_cable,
     'n_discretisation_cables': n_discretisation_cables,
     'k_dicretisation_cubes': k_dicretisation_cubes,
-    'verbose': verbose
+    'fmin_verbose': verbose
 }
 
 
