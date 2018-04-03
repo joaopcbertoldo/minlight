@@ -4,7 +4,7 @@ from numpy import arcsin, degrees, radians, cos, sin, sqrt, isfinite
 from typing import Dict, Tuple, List
 
 from src.enums import RotationOrderEnum, AngleUnityEnum, BoxVertexEnum, BoxVertexOrderEnum
-from src.math_entities import Vec3, Orientation, Point, MobilePoint
+from src.math_entities import Vec3, Orientation, Point, MobilePoint, SphericalCoordinates, SphericalCoordinateSystem
 from src.toolbox.followables import AbsFollower
 from src.configs import DefaultValues
 
@@ -256,6 +256,34 @@ class Box(AbsFollower):
         self._orientation.set_angles(angles)
         # update is done with the notification
 
+    # set_from_sph_coordinates
+    def set_from_sph_coordinates(self, sph_coordinates: SphericalCoordinates, sph_system: SphericalCoordinateSystem):
+        """
+        Change the boc`s position and orientation.
+            Position: point given by the spherical coords.
+            Orientation: such that the normal of the positif YZ face points to the system center.
+            TODO document the faces names.
+        """
+        # get the coords
+        roh, theta, phi = sph_coordinates.get_tuple(unity=AngleUnityEnum.degree)
+        # point in the sph sys referetial
+        p = sph_system.to_cartesian(sph_coordinates)
+        # center and orientation of the system
+        center = sph_system.center
+        orientation = sph_system.orientation
+        # rot mat
+        rot = orientation.rotation_matrix
+        # the point in the global ref
+        res = (rot * p) + center.vec3
+        # check it is a point TODO remove this assert
+        assert isinstance(res, Point), 'type problem here'
+        # move the box's center
+        self.set_center_position(res)
+        # temp orientation -- this is done not to deal with angle orders
+        temp = Orientation(row=0, pitch=phi, yaw=theta, order=RotationOrderEnum.ypr, unity=self.orientation.unity)
+        # rotate it
+        self.orientation.set_angles(temp.angles)
+
     # ******************************************* colision logics *******************************************
 
     # is_in_box
@@ -338,34 +366,6 @@ class Box(AbsFollower):
     # is_inside_box
     def is_inside_box(self, other_box: 'Box') -> bool:
         return all(other_box.is_in_box(p) for p in self.vertices_points_list(BoxVertexOrderEnum.standard()))
-
-    #
-    def changer_a_partir_de_coordonnes_spheriques(self, coordonnees_spheriques, systeme_spherique):
-        '''
-        source changed to self, not sure if it works
-        '''
-        roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=AngleUnityEnum.degree)
-
-        # p = _center de la source pour le systeme cartesien à partir du quel le spherique est defini
-        p = systeme_spherique.to_cartesian(coordonnees_spheriques)
-
-        centre_systeme, ypr_angles_systeme = systeme_spherique.get_centre_et_ypr_angles()
-
-        Rot = ypr_angles_systeme.inversed_rotation_matrix
-
-        res = Rot * p + centre_systeme
-
-        # il faut faire ça sinon le retour est une matrice rot
-        self._center = Vec3(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
-
-        self.orientation = \
-            Orientation(
-                row=0,
-                pitch=phi,
-                yaw=theta,
-                sequence=RotationOrderEnum.ypr,
-                unity=AngleUnityEnum.degree  # !!!!!!!!!!!!!!!!!!!!!!!!
-            )
 
     """ *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** DEPRECATED *********** """
 

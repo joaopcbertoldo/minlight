@@ -50,8 +50,8 @@ class VerificateurAnglesLimites:
 
                 for theta in intervalle_theta:
                     theta_max = theta
-                    self.source.changer_a_partir_de_coordonnes_spheriques(
-                        coordonnees_spheriques=CoordonnesSpherique(rho, theta, phi, unite=unite_angles),
+                    self.source.set_from_sph_coordinates(
+                        sph_coordinates=CoordonnesSpherique(rho, theta, phi, unite=unite_angles),
                         systeme_spherique=self.systeme_spherique_baie_vitree
                     )
 
