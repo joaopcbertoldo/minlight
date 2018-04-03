@@ -35,7 +35,9 @@ class Vec3(matrix):
         assert isfinite(y), f'Coordinates must be finite (y = {y}).'
         assert isfinite(z), f'Coordinates must be finite (z = {z}).'
         # create matrix (3,1)
-        return super(Vec3, cls).__new__(cls, "{}; {}; {}".format(x, y, z))
+        str_mat = "{}; {}; {}".format(x, y, z)
+        obj = matrix.__new__(cls, data=str_mat)
+        return obj
 
     """******************************************** deprecated section ******************************************** """
     @deprecated
@@ -112,11 +114,15 @@ class Vec3(matrix):
         return f'Vec3({self["x"]:.1f}, {self["y"]:.1f}, {self["z"]:.1f})'
 
     # repr = str
+    '''
     def __repr__(self):
         """Vec(x, y, z)"""
-        return str(self)
+        s = self.__str__()
+        return s
+    '''
 
     # [] operator
+    '''
     def __getitem__(self, item):
         """Elements accessible via 0, 1, 2 or x, y, z."""
         # 0 or x
@@ -131,6 +137,7 @@ class Vec3(matrix):
         # error
         else:
             raise IndexError('Elements are only accessible via 0, 1, 2 or x, y, z.')
+    '''
 
 
 # Point
@@ -151,8 +158,8 @@ class Point:
         # internal Vec3
         self._vec3 = Vec3(x, y, z)  # validation done in Vec3's __new__
         # remove white leading and trilling spaces
-        name = name.strip()
-        self._name = str(name) if name else ""  # better safe than sorry
+        name = str(name) if name else ""  # better safe than sorry
+        self._name = name.strip()
 
     # vec3
     @property
@@ -207,12 +214,17 @@ class Point:
         return res
 
     # - sub
-    def __sub__(self, other: 'Point') -> Vec3:
-        """Subtraction of two points (gives a Vector). Point - Point = Vec3."""
+    def __sub__(self, other: Union['Point', Vec3]) -> Union[Vec3, 'Point']:
+        """Subtraction of 2 Point or a Point and a Vec3. Point-Point=Vec3. Point - Vec3 == Point + (-Vec3) = Point."""
         # assert type
-        assert isinstance(other, Point), f"Operation undefined for {type(self).__name__} and {type(other).__name__}."
-        # compute
-        res = self._vec3 - other._vec3
+        assert isinstance(other, Point) or type(other) == Vec3, \
+            f"Operation undefined for {type(self).__name__} and {type(other).__name__}."
+        # other = Point
+        if isinstance(other, Point):
+            # compute
+            res = self._vec3 - other._vec3
+        else:
+            res = self + (-other)
         # return
         return res
 
@@ -222,10 +234,12 @@ class Point:
         str_ = f'{self.name}: ' if self.name else ""
         return str_ + f"Point({self.x:.1f}, {self.y:.1f}, {self.z:.1f})"
 
+    '''
     # repr = str
     def __repr__(self):
         """name(if present): Point(x, y, z)."""
         return str(self)
+    '''
 
     # deepcopy
     def __deepcopy__(self, memodict={}):
@@ -385,7 +399,8 @@ class RotationMatrix(matrix):
         """Multiplication. Vec3/Point: rotates it (immutable). RotationMatrix: combined RotationMatrix."""
         # rot mat * vec3
         if type(other) == Vec3:
-            return Vec3.vec3_from_ndarray(self.dot(other))  # dot from numpy
+            prod = self.dot(other)
+            return Vec3.vec3_from_ndarray(prod)  # dot from numpy
         # rot mat * rot mat
         elif type(other) == RotationMatrix:
             return self.dot(other)  # dot from numpy

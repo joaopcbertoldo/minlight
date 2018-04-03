@@ -138,14 +138,14 @@ class Box(AbsFollower):
         l, w, h = self._dimensions.get_tuple()
         # points - corners of the box as if it was at origin
         # cf. doc/vertices_names_notation.pdf
-        v000 = Vec3(-l/2, -w/2, -h/2)  # v000
-        v100 = Vec3(+l/2, -w/2, -h/2)  # v100
-        v010 = Vec3(-l/2, +w/2, -h/2)  # v010
-        v110 = Vec3(+l/2, +w/2, -h/2)  # v110
-        v001 = Vec3(-l/2, -w/2, +h/2)  # v001
-        v101 = Vec3(+l/2, -w/2, +h/2)  # v101
-        v011 = Vec3(-l/2, +w/2, +h/2)  # v011
-        v111 = Vec3(+l/2, +w/2, +h/2)  # v111
+        v000 = Point(-l/2, -w/2, -h/2, name=f'Point of {BoxVertexEnum.v000.name} of box <<{self.name}>>')  # v000
+        v100 = Point(+l/2, -w/2, -h/2, name=f'Point of {BoxVertexEnum.v100.name} of box <<{self.name}>>')  # v100
+        v010 = Point(-l/2, +w/2, -h/2, name=f'Point of {BoxVertexEnum.v010.name} of box <<{self.name}>>')  # v010
+        v110 = Point(+l/2, +w/2, -h/2, name=f'Point of {BoxVertexEnum.v110.name} of box <<{self.name}>>')  # v110
+        v001 = Point(-l/2, -w/2, +h/2, name=f'Point of {BoxVertexEnum.v001.name} of box <<{self.name}>>')  # v001
+        v101 = Point(+l/2, -w/2, +h/2, name=f'Point of {BoxVertexEnum.v101.name} of box <<{self.name}>>')  # v101
+        v011 = Point(-l/2, +w/2, +h/2, name=f'Point of {BoxVertexEnum.v011.name} of box <<{self.name}>>')  # v011
+        v111 = Point(+l/2, +w/2, +h/2, name=f'Point of {BoxVertexEnum.v111.name} of box <<{self.name}>>')  # v111
         # the dict itself
         dic = {
             BoxVertexEnum.v000: v000,  # 000
@@ -160,6 +160,12 @@ class Box(AbsFollower):
         return dic
 
     # ******************************************* properties *******************************************
+
+    # name
+    @property
+    def name(self) -> str:
+        """TODO BOX NAME*"""
+        return 'box'
 
     # orientation
     @property
@@ -184,7 +190,9 @@ class Box(AbsFollower):
     @property
     def vertices_points_from_self_ref(self) -> Dict[BoxVertexEnum, Point]:
         """Copy of a Dict of BoxVertexEnum -> Point of the Box's vertices points as seen from its self referential."""
-        return deepcopy(self._vertices_points_from_self_ref)
+        obj = self._vertices_points_from_self_ref
+        ret = deepcopy(obj)
+        return ret
 
     # vertices_points
     @property
@@ -217,11 +225,14 @@ class Box(AbsFollower):
         #  get the rotation matrix
         Rot = self.orientation.rotation_matrix
         # iterate with the vertices points in origin
-        for vertex, point_in_self_ref in self.vertices_points_from_self_ref.items():
+        items = self.vertices_points_from_self_ref.items()
+        for vertex, point in items :
             # compute the point
-            point = (Rot * point_in_self_ref) + self.center.vec3
+            point_ = (Rot * point) + self.center.vec3
             # store it
-            self._vertices_points[vertex] = point
+            self._vertices_points[vertex] = point_
+
+        pass  # for debug
 
     # ******************************************* dynamic changes methods *******************************************
 
@@ -413,14 +424,16 @@ class Source(Box):
 
     # init
     def __init__(self, center: MobilePoint, orientation: Orientation, dimensions: BoxDimensions,
-                 light_radius: float = None):
+                 light_radius: float = None, with_parabola:bool=False):  # TODO better solution for the parabola
         """Initialize as a normal box + creates the parabole."""
         super().__init__(center, orientation, dimensions)
         self._light_radius = light_radius if light_radius else dimensions.height / 2
-        self._create_parable()
+        self._with_parabola = with_parabola
+        if self._with_parabola:
+            self._create_parabola()
 
     # _create_parabole ---> TO CHECK
-    def _create_parable(self):  # creates visualization of the parable, must finish!!!!!!!
+    def _create_parabola(self):  # creates visualization of the parable, must finish!!!!!!!
         length, width, height = self.dimensions.get_tuple()
         r = ((height * height / 4) + length * length) / (2 * length)
         self.angle_ouverture = degrees(arcsin(height / (2 * r)))
@@ -474,25 +487,32 @@ class Source(Box):
 
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     def _update_vertices_points(self):
+
+        super()._update_vertices_points()
+        '''
         length, width, height = self.dimensions.get_tuple()
         newSommets = []
         newSommetsParable = []
-        Rot = self.orientation.rotation_matrix()
-        for sommet in self.vertices_points_from_self_ref:
-            newPoint = (Rot * sommet) + self._center
+        Rot = self.orientation.rotation_matrix
+        sommets = self.vertices_points_from_self_ref.values()
+        c = self.center
+        for sommet in sommets:
+            rotated = Rot * sommet
+            newPoint = rotated + c.vec3
             newSommets.append(newPoint)
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         for i in range(len(newSommets)):
             # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             # pontos da face YZ com X positivo
             self.vertices_points_list[i].set_xyz(newSommets[i].item(0), newSommets[i].item(1), newSommets[i].item(2))
-
-        for sommet in self.points_parable_origin:
-            newPoint = (Rot * sommet) + self._center
-            newSommetsParable.append(newPoint)
-        for i in range(len(self.points_parable)):
-            self.points_parable[i].set_xyz(newSommetsParable[i].item(0), newSommetsParable[i].item(1),
-                                           newSommetsParable[i].item(2))
+        '''
+        if self._with_parabola:  # TODO check this !!!!!! parabola in box
+            for sommet in self.points_parable_origin:
+                newPoint = (Rot * sommet) + self._center
+                newSommetsParable.append(newPoint)
+            for i in range(len(self.points_parable)):
+                self.points_parable[i].set_xyz(newSommetsParable[i].item(0), newSommetsParable[i].item(1),
+                                               newSommetsParable[i].item(2))
 
     @deprecated
     def draw(self):
@@ -508,16 +528,17 @@ class Maisonette(Box):
 
     # init
     def __init__(self, center: Point, orientation: Orientation, dimensions: BoxDimensions,
-                 window_dimensions: Tuple[float, float], wall_width: float = None):
+                 window_dimensions: Dict[str, float], wall_width: float = None):
         """TODO doc string"""
         # super
         Box.__init__(self, center, orientation, dimensions)
         # validate wall_width
         if wall_width:
-            assert isfinite(wall_width) and wall_width > 0, f'wall_width must be finite and >0 (wall_width = {wall_width}).'
+            assert isfinite(wall_width) and wall_width > 0, \
+                f'wall_width must be finite and >0 (wall_width = {wall_width}).'
         # validate window_dimensions
-        assert type(window_dimensions) == tuple and len(window_dimensions) == 2 \
-            and window_dimensions[0] > 0 and window_dimensions[1] > 0, \
+        assert type(window_dimensions) == dict and len(window_dimensions) == 2 \
+            and window_dimensions['width'] > 0 and window_dimensions['height'] > 0, \
             f'window_dimensions are not valid (window_dimensions = {window_dimensions}).'
         # attributes assignments
         self.wall_width = wall_width if wall_width else DefaultValues.wall_width

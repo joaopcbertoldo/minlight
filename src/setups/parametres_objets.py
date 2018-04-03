@@ -55,15 +55,12 @@ centre_maisonette = \
         y=dimensions_room['width'] / 2,
         z=dimensions_maisonette['height'] / 2
     )
-"""
+
 # window dimensions
 window_dimensions = {
-    'width': 1200,
-    'height': 2150
+    'width': 1200,  # mm
+    'height': 2150  # mm
 }
-"""
-window_dimensions = (1200, 2150)  # mm
-# todo window dimension, change to dict or class
 
 # pave
 maisonette = \
