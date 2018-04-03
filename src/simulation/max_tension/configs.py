@@ -1,3 +1,7 @@
+import numpy as np
+from src.setups import palaiseau
+
+stp = palaiseau
 
 # ! everythin in mm ! ! everythin in mm ! ! everythin in mm ! ! everythin in mm ! ! everythin in mm !
 
@@ -17,9 +21,9 @@ fixation	  x     y	    z
 
 TODO doc this notation
 Notation used here:
-    X0 refers to the X's value for points where fixation is 0YZ
+    fix_X0 refers to the X's value for points where fixation is 0YZ
     X1 refers to the X's value for points where fixation is 1YZ
-    Y0 idem...
+    fix_Y0 idem...
     Y1 idem...
     Z0 idem...
     Z1 idem...
@@ -31,30 +35,58 @@ Notation used here:
     n = number of discretization
 """
 
-# range for X0 - it won't change at first
-X0_min = 1950.
-X0_max = 1950.
-X0_n = 1
 
-# X0 =
+class Fixation:
 
-# range for X1 - this is the mobile part (close to the maisonette)
-X1_min = 5000.
-X1_max = 10000.
-X1_n = 3
+    # fix_X0 - it won't change at first
+    X0 = 1950.
 
-# X1 =
+    # range for X1 - this is the mobile part (close to the maisonette)
+    X1_min = 5000.
+    X1_max = 10000.
+    X1_n = 3
 
-# Y0 and Y1 fixed
-Y0 = 325.
-Y1 = 4675.
+    X1_range = np.linspace(X1_min, X1_max, X1_n)
 
-# Z0 and Z1 fixed
-Z0 = 400.
-Z1 = 3750.
+    # fix_Y0 and Y1 fixed
+    Y0 = 325.
+    Y1 = 4675.
 
+    # Z0 and Z1 fixed
+    Z0 = 400.
+    Z1 = 3300.
 
 
+class Source:
+
+    class Center:
+        # x min
+        x_min = Fixation.X0 + stp.Source.Dimensions.length / 2
+
+        # x max = f(X1)
+        @staticmethod
+        def x_max(X1):
+            return X1 - stp.Source.Dimensions.length / 2
+
+        # y min
+        y_min = Fixation.Y0 + stp.Source.Dimensions.width / 2
+
+        # y max
+        y_max = Fixation.Y1 - stp.Source.Dimensions.width / 2
+
+        # z min
+        z_min = Fixation.Z0 + stp.Source.Dimensions.height / 2
+
+        # z max
+        z_max = Fixation.Z1 - stp.Source.Dimensions.height / 2
+
+        # n of discretization
+        x_n = 5
+        y_n = 5
+        z_n = 5
+
+    class Orientation:
+        pass
 
 
 
