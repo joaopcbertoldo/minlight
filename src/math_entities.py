@@ -227,6 +227,14 @@ class Point:
         """name(if present): Point(x, y, z)."""
         return str(self)
 
+    # deepcopy
+    def __deepcopy__(self, memodict={}):
+        """TODO DOC THIS SHIT (DEBUG OF DEEPCOPY)"""
+        x, y, z = self._vec3.get_tuple()
+        name = self._name
+        dcp = Point(x=x, y=y, z=z, name=name)
+        return dcp
+
 
 # MobilePoint
 class MobilePoint(Point, Followable):
@@ -266,6 +274,13 @@ class MobilePoint(Point, Followable):
         self._vec3 = self.vec3 + dv
         # notify
         self._notify_followers()
+
+    def __deepcopy__(self, memodict={}):
+        """TODO DOC THIS SHIT (DEBUG OF DEEPCOPY)"""
+        x, y, z = self._vec3.get_tuple()
+        name = self._name
+        dcp = MobilePoint(x=x, y=y, z=z, name=name)
+        return dcp
 
 
 """******************************************** deprecated section ******************************************** """
@@ -363,7 +378,7 @@ class RotationMatrix(matrix):
         # assign attributes
         self._angle = angle
         self._valeur = value
-        self._unite = unity
+        self._unity = unity
 
     # * mul
     def __mul__(self, other: Union[Vec3, 'RotationMatrix', Point]) -> Union[Vec3, 'RotationMatrix', Point]:
@@ -396,6 +411,15 @@ class RotationMatrix(matrix):
     def __truediv__(self, other):
         """Not defined."""
         raise Exception(f'Operation not defined for {type(self)}.')
+
+    # deepcopy
+    def __deepcopy__(self, memodict={}):
+        """TODO DOC THIS SHIT (DEBUG OF DEEPCOPY)"""
+        dcp = RotationMatrix(
+            angle=self._angle,
+            value=self._valeur,
+            unity=self._unity
+        )
 
 
 # Orientation
@@ -564,6 +588,18 @@ class Orientation(Followable):
         # notify followers
         self._notify_followers()
 
+    # deepcopy
+    def __deepcopy__(self, memodict={}):
+        """TODO DOC THIS SHIT (DEBUG OF DEEPCOPY)"""
+        dcp = Orientation(
+            row=self._row,
+            pitch=self._pitch,
+            yaw=self._yaw,
+            order=self._order,
+            unity=self._unity
+        )
+        return dcp
+
     """******************************************** deprecated section ******************************************** """
     @deprecated('Use the property angles.')
     def get_angles(self):
@@ -616,6 +652,17 @@ class SphericalCoordinates:
         # problem
         else:
             raise Exception('Could not define the correct unity.')
+
+    # deepcopy
+    def __deepcopy__(self, memodict={}):
+        """TODO DOC THIS SHIT (DEBUG OF DEEPCOPY)"""
+        dcp = SphericalCoordinates(
+            roh=self.roh,
+            theta=self.theta,
+            phi=self.phi,
+            unity=self.unity
+        )
+        return dcp
 
 
 # SphericalCoordinateSystem
@@ -677,6 +724,14 @@ class SphericalCoordinateSystem:
         # in the global's
         v = (rot * v_) + c
         return v
+
+    # deepcopy
+    def __deepcopy__(self, memodict={}):
+        """TODO DOC THIS SHIT (DEBUG OF DEEPCOPY)"""
+        dcp = SphericalCoordinateSystem(
+            orientation=deepcopy(self._orientation),
+            center=deepcopy(self._center)
+        )
 
 
 @deprecated('Use something from numpy!!!!!')
