@@ -6,6 +6,7 @@ from typing import Dict, Tuple, List
 from src.enums import RotationOrderEnum, AngleUnityEnum, BoxVertexEnum, BoxVertexOrderEnum
 from src.math_entities import Vec3, Orientation, Point, MobilePoint
 from src.toolbox.followables import AbsFollower
+from src.configs import DefaultValues
 
 
 # BoxDimensions
@@ -242,66 +243,68 @@ class Box(AbsFollower):
         ret = [vertices_points[vx] for vx in vertices]
         return ret
 
-    def get_dict_vertex_point_from_self_reference(self):
-        """Dict of Vertex -> Point as if they were seen from the box's own self referenc frame."""
-        return deepcopy(self._points_from_self_reference)
-
+    # is_in_box
     def is_in_box(self, point: Point) -> bool:
-        """Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine."""
-        Rot = self.orientation.inversed_rotation_matrix
+        """Says wether a given point is inside the box or not."""
+        # inv rot mat
+        rot_int = self.orientation.inversed_rotation_matrix
+        # point from the box's center point of view
+        point_from_box = rot_int * (point + (- self.center.vec3))
+        # check the type TODO: remove this
+        assert isinstance(point_from_box, Point)
+        # logic
+        return self._is_in_box_at_origin(point_from_box, self.dimensions)
 
-        point_repere_pave = Rot * (point - self._center)
-
-        # il faut faire ça parce que l'operation cidessus renvoie une matrice rotation
-        point_repere_pave = Vec3(point_repere_pave.__getitem__((0, 0)),
-                                 point_repere_pave.__getitem__((1, 0)),
-                                 point_repere_pave.__getitem__((2, 0)))
-
-        return self._is_in_box_at_origin(point_repere_pave, self.dimensions)
-
-    def test_colision_en_autre_pave(self, pave2, k_discretisation_arete=10):
+    # is_coliding
+    def is_coliding(self, other_box: 'Box', k_discretisation=None):
         """
-        Tests if there are points on pave1's faces inside pave2.
+        Tests if there are points on pave1's faces inside other_box.
         the function needs to be called twice to be sure that there are no intersections
         pave1: dictionary with dimensions(dictionary),_center(matrix 3x1), orientation(dictionary)
         k: (k+1)^2 = number of points to be tested on each face, the greater the k, the plus reliable the result.
         """
-
-        k = k_discretisation_arete
-
+        # default value if needed
+        k = k_discretisation if k_discretisation else DefaultValues.box_colision_k_dicretisation
+        # dimensions
         length, width, height = self.dimensions.get_tuple()
-
+        # points to test
         points_to_be_tested = []
-
+        # create "points" on the faces
         for i in range(k + 1):
             for j in range(k + 1):
+                # XZ faces
                 x = i * length / k
                 z = j * height / k
                 points_to_be_tested.append(Vec3(x, 0, z))
                 points_to_be_tested.append(Vec3(x, width, z))
 
+                # XY faces
                 x = i * length / k
                 y = j * width / k
                 points_to_be_tested.append(Vec3(x, y, 0))
                 points_to_be_tested.append(Vec3(x, y, height))
 
+                # YZ faces
                 y = i * width / k
                 z = j * height / k
                 points_to_be_tested.append(Vec3(0, y, z))
                 points_to_be_tested.append(Vec3(length, y, z))
 
+        # test them
         for index in range(len(points_to_be_tested)):
-            points_to_be_tested[index] = (self.orientation.rotation_matrix()) * points_to_be_tested[index]
+            # rotate the point
+            points_to_be_tested[index] = self.orientation.rotation_matrix * points_to_be_tested[index]
 
+            # check type TODO: remove this assert
+            assert isinstance(points_to_be_tested[index], Vec3), "problem here with vec3"
             # next line converts from 3d rotation matrix to vecteur3d
-            points_to_be_tested[index] = Vec3(points_to_be_tested[index].__getitem__((0, 0)),
-                                              points_to_be_tested[index].__getitem__((1, 0)),
-                                              points_to_be_tested[index].__getitem__((2, 0)))
-
-            points_to_be_tested[index] = points_to_be_tested[index] + self._center - Vec3(length / 2, width / 2,
-                                                                                          height / 2)
-
-            if pave2.is_in_box(points_to_be_tested[index]):
+            # points_to_be_tested[index] = Vec3(points_to_be_tested[index].__getitem__((0, 0)),
+            #                                   points_to_be_tested[index].__getitem__((1, 0)),
+            #                                   points_to_be_tested[index].__getitem__((2, 0)))
+            halves = Vec3(length / 2, width / 2, height / 2)
+            points_to_be_tested[index] = points_to_be_tested[index] + self.center + (-halves)
+            # check if the point is in the other
+            if other_box.is_in_box(points_to_be_tested[index]):
                 return True
 
         return False
@@ -315,10 +318,10 @@ class Box(AbsFollower):
         k: (k+1)^2 = number of points to be tested on each face, the greater the k, the more reliable the result
         return True if there are no intersections, returns False otherwise
         """
-        if self.test_colision_en_autre_pave(pave, k_discretisation_arete):
+        if self.is_coliding(pave, k_discretisation_arete):
             return True
 
-        if pave.test_colision_en_autre_pave(self, k_discretisation_arete):
+        if pave.is_coliding(self, k_discretisation_arete):
             return True
 
         return False
