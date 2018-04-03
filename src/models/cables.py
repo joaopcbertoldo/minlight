@@ -205,8 +205,12 @@ class Cable(AbsFollower):
 
     # get_discretisation
     def get_discretisation(self, nb_points: int = None,
-                           include_fixed_point=False, include_source_point=False) -> Generator[Point]:
-        """Return an iterable of points that are along the cables' line. TODO review method"""
+                           include_fixed_point=False, include_source_point=False):
+        """
+        Return an iterable of points that are along the cables' line
+        . TODO review method
+        :rtype Generator[Point]
+        """
         # check nb_points
         if nb_points:
             assert type(nb_points) == int and nb_points > 0, "nb_points must be an int and > 0."
