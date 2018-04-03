@@ -33,7 +33,7 @@ def verifier_cables(cables, maisonette, source, chambre, n_discretisation_cables
                 break
 
         # chambre
-        if not cable.entierement_dans_pave(chambre):
+        if not cable.is_inside_box(chambre):
             bilan[cable.nom_sommet_source]['chambre'] = '!'
 
             if bilan_incomplet:

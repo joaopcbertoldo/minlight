@@ -100,7 +100,7 @@ class VerificateurAnglesLimites:
             if cable.intersection_avec_pave(self.source, self.n_discretisation_cables):
                 return False
             # chambre
-            if not cable.entierement_dans_pave(self.chambre, self.n_discretisation_cables):
+            if not cable.is_inside_box(self.chambre):
                 return False
             # croisements
             for autre_cable in cables:

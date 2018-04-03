@@ -1,14 +1,15 @@
-from typing import List, Dict
+from typing import List, Dict, Generator
 from copy import deepcopy
 from deprecated import deprecated
 
 from numpy import isfinite
 
 from src.enums import BoxVertexEnum
-from src.math_entities import Point, Vec3, MobilePoint, AbsMobilePointFollower
+from src.math_entities import Point, Vec3, MobilePoint
 from src.models.boxes import Box
 from src.toolbox.useful import solutions_formule_quadratique
 from src.configs import DefaultValues
+from src.toolbox.followables import AbsFollower
 
 
 # CableEnds
@@ -119,9 +120,8 @@ class CableLayout:
 
 
 # Cable
-class Cable(AbsMobilePointFollower):
+class Cable(AbsFollower):
     """Ideal representation of a cable that is attached at a fixed point and a source vertex."""
-    default_discretisation_number_of_points = 300
     default_discretisation_number_of_points_box_intersection = 100
 
     # init
@@ -129,77 +129,98 @@ class Cable(AbsMobilePointFollower):
                  diameter: float = None, tension_min: float = None, tension_max: float = None):
         """TODO doc str"""
         # super
-        super().__init__()
+        super(AbsFollower, self).__init__()
+        # TODO validate cable's init
         # assign attributes
         self._fixed_point = fixed_point
-        self._source_point = source_point
-        self._source_point.subscribe(self)
+        self._source_mobile_point = source_point
         self._source_vertex = source_vertex
         self._diameter = diameter if diameter else DefaultValues.cable_diameter
-        self._vector = self.fixed_point - self.source_point
         self._tension_min = tension_min if tension_min else DefaultValues.minimal_tention
         self._tension_max = tension_max if tension_max else DefaultValues.maximal_tention
+        # compute its vector
+        self._vector = self.fixed_point - self.source_point
+        # subscribe to the mobile point
+        self._source_mobile_point.subscribe(self)
 
+    # _on_notify (follower action)
     def _on_notify(self, p: MobilePoint):
+        """Update the internal vector of its direction."""
         self._vector = self.fixed_point - self.source_point
 
+    # diameter
     @property
     def diameter(self) -> float:
+        """Cable's diameter in mm."""
         return self._diameter
 
+    # source_point
     @property
     def source_point(self) -> Point:
         """Return a deepcopy of the source point."""
-        return deepcopy(self._source_point)
+        return deepcopy(self._source_mobile_point)
 
+    # source_vertex
     @property
     def source_vertex(self) -> BoxVertexEnum:
         """Return the source vertex."""
         return self._source_vertex
 
+    # fixed_point
     @property
     def fixed_point(self) -> Point:
         """Return a deepcopy of the fixed point."""
         return deepcopy(self._fixed_point)
 
+    # tension_min
     @property
     def tension_min(self) -> float:
+        """Minimal tension needed in the cable (in Newtons)."""
         return self._tension_min
 
+    # tension_max
     @property
     def tension_max(self) -> float:
+        """Maximal tension needed in the cable (in Newtons)."""
         return self._tension_max
 
-    @deprecated
-    def get_vecteur_unitaire(self):
-        return self._vector / self.length
-
+    # direction_fixed_to_source
     @property
     def direction_fixed_to_source(self) -> Vec3:
         """Unitary _vector in the direction fixed point -> source point."""
         return self._vector.direction
 
+    # direction_source_to_fixed
     @property
     def direction_source_to_fixed(self) -> Vec3:
         """Unitary _vector in the direction source point -> fixed point."""
         return Vec3.zero() - self._vector.direction
 
+    # length
     @property
     def length(self) -> float:
         """Distance from the fixed point and the source point."""
         return self._vector.norm
 
-    def get_discretisation(self, nb_points: int = None, include_fixed_point=False, include_source_point=False):
-        """Return an iterable of points that are along the cables' line."""
-        if not nb_points:
-            nb_points = Cable.default_discretisation_number_of_points
+    # get_discretisation
+    def get_discretisation(self, nb_points: int = None,
+                           include_fixed_point=False, include_source_point=False) -> Generator[Point]:
+        """Return an iterable of points that are along the cables' line. TODO review method"""
+        # check nb_points
+        if nb_points:
+            assert type(nb_points) == int and nb_points > 0, "nb_points must be an int and > 0."
+        nb_points = nb_points if nb_points else DefaultValues.cable_discretisation_nb_points
+        # include ends or not
         range_min = 0 if include_fixed_point else 1
         range_max = nb_points + (1 if include_source_point else 0)  # 1 pour compenser l'intervalle ouvert
+        # range
         linear_range = range(range_min, range_max)
+        # ret the generator
         return (self.fixed_point + (i / nb_points) * self._vector for i in linear_range)
 
+    # intersects_cable
     def intersects_cable(self, cable2: 'Cable') -> bool:
-        """Returns whether a cable 2 intersects self."""
+        """Returns whether a cable 2 intersects self. TODO review method"""
         origin = self.fixed_point
         direction = self.fixed_point - self.source_point
         direction = direction.direction
@@ -238,11 +259,14 @@ class Cable(AbsMobilePointFollower):
 
         return False
 
+    # intersects_box
     def intersects_box(self, box: Box, nb_points: int = None, include_fixed_point=False, include_source_point=False) \
             -> bool:
-        """Wheter a cable intersects a box. Verification done by discretizing the cable in many points."""
-        if not nb_points:
-            nb_points = Cable.default_discretisation_number_of_points_box_intersection
+        """Wheter a cable intersects a box. Verification done by discretizing the cable in many points. TODO review method"""
+        # check nb_points
+        if nb_points:
+            assert type(nb_points) == int and nb_points > 0, "nb_points must be an int and > 0."
+        nb_points = nb_points if nb_points else DefaultValues.cable_discretisation_nb_points_box_intersection
 
         dicretisation = self.get_discretisation(nb_points=nb_points,
                                                 include_fixed_point=include_fixed_point,
@@ -250,7 +274,18 @@ class Cable(AbsMobilePointFollower):
         appartient = (box.is_in_box(point) for point in dicretisation)
         return any(appartient)
 
-    @deprecated
+    # is_inside_box
+    def is_inside_box(self, box: Box, ends_considered=False) -> bool:
+        """Wheter a cable is entirely inside a box."""
+        if ends_considered:
+            e1 = self.fixed_point
+            e2 = self.source_point
+        else:
+            e1 = self.fixed_point + self.direction_fixed_to_source / 1000
+            e2 = self.source_point + self.direction_source_to_fixed / 1000
+        return box.is_in_box(e1) and box.is_in_box(e2)
+
+    @deprecated('use is_inside_box')
     def entierement_dans_pave(self, pave,
                               nombre_points_discretisation=100,
                               inclure_sommet_ancrage=False,
@@ -262,12 +297,6 @@ class Cable(AbsMobilePointFollower):
 
         return all(pave.is_in_box(point) for point in generateur_points)
 
-    def is_inside_box(self, box: Box, ends_considered=False) -> bool:
-        """Wheter a cable is entirely inside a box."""
-        if ends_considered:
-            e1 = self.fixed_point
-            e2 = self.source_point
-        else:
-            e1 = self.fixed_point + self.direction_fixed_to_source / 1000
-            e2 = self.source_point + self.direction_source_to_fixed / 1000
-        return box.is_in_box(e1) and box.is_in_box(e2)
+    @deprecated
+    def get_vecteur_unitaire(self):
+        pass
