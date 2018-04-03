@@ -6,31 +6,41 @@ from src.enums import BoxVertexEnum
 from src.math_entities import Point, Vec3, MobilePoint, AbsMobilePointFollower
 from src.models.boxes import Box
 from src.toolbox.useful import solutions_formule_quadratique
-
-DEFAULT_MINIMAL_TENSION = 10.
-DEFAULT_MAXIMAL_TENSION = 100.
+from src.configs import DefaultValues
 
 
+# CableEnds
 class CableEnds:
     """Describes the configuration of cable by having the ends to where that cable is attached."""
 
+    # init
     def __init__(self, fixed_point: Point, source_vertex: BoxVertexEnum):
+        """Assign internal attributes. Fixed point is the one attached to the room and the vertex is to the source."""
         self._source_vertex = source_vertex
         self._fixed_point = fixed_point
 
+    # fixed_point
     @property
     def fixed_point(self) -> Point:
+        """Return the fixed point (no need of copy cuz points are immutable)."""
         return self._fixed_point
 
+    # source_vertex
     @property
     def source_vertex(self) -> BoxVertexEnum:
+        """Return the source's vertex."""
         return self._source_vertex
 
+    # [] operator
     def __getitem__(self, key):
+        """Return one of the two attributes."""
+        # source_point
         if key == 'source_point':
             return self._source_vertex
+        # fixed_point
         elif key == 'fixed_point':
             return self._fixed_point
+        # problem
         else:
             raise KeyError('source_point or fixed_point')
 
@@ -91,22 +101,27 @@ class CableLayout:
         return {ce.source_vertex: ce.fixed_point for ce in self._cables_ends}
 
 
+# Cable
 class Cable(AbsMobilePointFollower):
     """Ideal representation of a cable that is attached at a fixed point and a source vertex."""
     default_discretisation_number_of_points = 300
     default_discretisation_number_of_points_box_intersection = 100
 
-    def __init__(self, fixed_point: Point, source_point: MobilePoint, source_vertex: BoxVertexEnum, diameter: float,
-                 tension_min: float = DEFAULT_MINIMAL_TENSION, tension_max: float = DEFAULT_MAXIMAL_TENSION):
+    # init
+    def __init__(self, fixed_point: Point, source_point: MobilePoint, source_vertex: BoxVertexEnum,
+                 diameter: float = None, tension_min: float = None, tension_max: float = None):
+        """TODO doc str"""
+        # super
         super().__init__()
+        # assign attributes
         self._fixed_point = fixed_point
         self._source_point = source_point
         self._source_point.subscribe(self)
         self._source_vertex = source_vertex
-        self._diameter = diameter
+        self._diameter = diameter if diameter else DefaultValues.cable_diameter
         self._vector = self.fixed_point - self.source_point
-        self._tension_min = tension_min
-        self._tension_max = tension_max
+        self._tension_min = tension_min if tension_min else DefaultValues.minimal_tention
+        self._tension_max = tension_max if tension_max else DefaultValues.maximal_tention
 
     def _on_notify(self, p: MobilePoint):
         self._vector = self.fixed_point - self.source_point
