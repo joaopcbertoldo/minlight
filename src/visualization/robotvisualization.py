@@ -47,9 +47,9 @@ class RobotVisualization:
         self.window_limit_bottom = glGetUniformLocation(self.gl_program, "window_limit_bottom")
 
     def update_uniforms(self):
-        glUniform4fv(self.light_position_uniform, 1, self._cable_robot.get_light_centre() - self._cable_robot.get_centre() + (1,))
-        glUniform4fv(self.light_direction_uniform, 1, self._cable_robot.get_light_direction() + (0,))
-        glUniform1fv(self.light_radius_uniform, 1, self._cable_robot.get_light_radius())
+        glUniform4fv(self.light_position_uniform, 1, self._cable_robot.light_center - self._cable_robot.get_centre() + (1,))
+        glUniform4fv(self.light_direction_uniform, 1, self._cable_robot.light_direction() + (0,))
+        glUniform1fv(self.light_radius_uniform, 1, self._cable_robot.light_radius)
         #glUniform1fv(self.window_limit_bottom, 1, )
         #glUniform1fv(self.window_limit_top,1, )
 

@@ -400,26 +400,26 @@ class Box(AbsFollower):
         pass
 
 
+# Source
 class Source(Box):
-    def __init__(self, center, orientation, dimensions):
+    """
+    Source (of the light) is the ensemble where the parabole, the light bulb and the reg system will be.
+    Spacealy it is determined as a cubic envelop here.
+    """
+    # TODO review this class` design at the parabole`s part
+
+    # ******************************************* initialization *******************************************
+
+    # init
+    def __init__(self, center: MobilePoint, orientation: Orientation, dimensions: BoxDimensions,
+                 light_radius: float = None):
+        """Initialize as a normal box + creates the parabole."""
         super().__init__(center, orientation, dimensions)
-        self.create_parable()
+        self._light_radius = light_radius if light_radius else dimensions.height / 2
+        self._create_parable()
 
-    def get_light_radius(self):
-        length, width, height = self.dimensions.get_tuple()
-        return height / 2
-
-    def get_light_centre(self):
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        # pontos da face YZ com X positivo
-        points = self.vertices_points_list()
-        return (points[5] + points[7] + points[6] + points[
-            4]) / 4  # 5,7,6,4 are the verticies of the light face
-
-    def get_light_direction(self):
-        return (self.get_light_centre() - self._center).direction()
-
-    def create_parable(self):  # creates visualization of the parable, must finish!!!!!!!
+    # _create_parabole ---> TO CHECK
+    def _create_parable(self):  # creates visualization of the parable, must finish!!!!!!!
         length, width, height = self.dimensions.get_tuple()
         r = ((height * height / 4) + length * length) / (2 * length)
         self.angle_ouverture = degrees(arcsin(height / (2 * r)))
@@ -445,6 +445,29 @@ class Source(Box):
         self.squares_edges = []
         # for()
         self._update_vertices_points()
+
+    # ******************************************* properties *******************************************
+
+    # light_radius
+    @property
+    def light_radius(self) -> float:
+        """"""
+        return self._light_radius
+
+    # light_center
+    @property
+    def light_center(self) -> Point:
+        """"""
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        # pontos da face YZ com X positivo
+        points = self.vertices_points_list()
+        return (points[5] + points[7] + points[6] + points[4]) / 4  # 5,7,6,4 are the verticies of the light face
+
+    # light_direction
+    @property
+    def light_direction(self):
+        """"""
+        return (self.light_center - self.center).direction
 
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     def _update_vertices_points(self):

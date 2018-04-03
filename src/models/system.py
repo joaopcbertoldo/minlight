@@ -48,14 +48,14 @@ class CableRobot:
         self.set_source_angles(angles, notify=False)
         self._notify_observers(notify)
 
-    def get_light_centre(self):
-        return self._source.get_light_centre()
+    def light_center(self):
+        return self._source.light_center
 
     def get_light_direction(self):
-        return self._source.get_light_direction()
+        return self._source.light_direction
 
     def get_light_radius(self):
-        return self._source.get_light_radius()
+        return self._source.light_radius
 
     def get_centre(self):
         return self._chambre.center()
