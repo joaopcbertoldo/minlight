@@ -1,6 +1,6 @@
 from src.math_entities import Vec3
 
-from src.setups.parametres_objets import dimensions_chambre, distance_evaporateur_maisonette
+from src.setups.parametres_objets import dimensions_room, distance_evaporateur_maisonette
 
 '''
 Paramètres 
@@ -17,8 +17,8 @@ Paramètres
 class Ideal:
     # coordonnées d'ancrage
     x = distance_evaporateur_maisonette  # mm
-    y = dimensions_chambre['width']  # mm
-    z = dimensions_chambre['height']  # mm
+    y = dimensions_room['width']  # mm
+    z = dimensions_room['height']  # mm
 
     # la numérotation <<PF_xxx>> suit la logique des sommets des pavés
     # le <<xxx>> indique à quel "coin" de la chambre le point est fixé

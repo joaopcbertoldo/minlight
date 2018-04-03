@@ -66,7 +66,7 @@ centre_chambre = \
     )
 
 # dimensions
-dimensions_chambre = \
+dimensions_room = \
     BoxDimensions(
         length=10000,  # mm
         width=10000,  # mm
@@ -78,7 +78,7 @@ chambre = \
     Box(
         centre=centre_chambre,
         ypr_angles=TupleAnglesRotation.ZERO(),
-        dimensions=dimensions_chambre
+        dimensions=dimensions_room
     )
 
 ''' ************************ Ancrage ************************ '''

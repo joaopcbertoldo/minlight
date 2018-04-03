@@ -426,9 +426,9 @@ class Source(Box):
     def __init__(self, center: MobilePoint, orientation: Orientation, dimensions: BoxDimensions,
                  light_radius: float = None, with_parabola:bool=False):  # TODO better solution for the parabola
         """Initialize as a normal box + creates the parabole."""
+        self._with_parabola = with_parabola
         super().__init__(center, orientation, dimensions)
         self._light_radius = light_radius if light_radius else dimensions.height / 2
-        self._with_parabola = with_parabola
         if self._with_parabola:
             self._create_parabola()
 
@@ -487,7 +487,6 @@ class Source(Box):
 
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     def _update_vertices_points(self):
-
         super()._update_vertices_points()
         '''
         length, width, height = self.dimensions.get_tuple()

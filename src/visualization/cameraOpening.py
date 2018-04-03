@@ -3,7 +3,7 @@ from numpy import tan
 from OpenGL.GL import *
 
 from src.math_entities import Vec3
-from src.setups.parametres_objets import dimensions_chambre
+from src.setups.parametres_objets import dimensions_room
 
 
 class CameraOpening:
@@ -21,10 +21,10 @@ class CameraOpening:
         pos_z = -self.position.get_z()
 
         self.vertexList.append(self.position)
-        self.vertexList.append(Vec3(self.position.get_x() + 0.25*dimensions_chambre['length'],self.position.get_y() + 0.25*dimensions_chambre['length']*tan(self.opening/2),self.position.get_z() + 0.25*dimensions_chambre['length']*tan(self.opening/2)))
-        self.vertexList.append(Vec3(self.position.get_x() + 0.25*dimensions_chambre['length'],self.position.get_y() + 0.25*dimensions_chambre['length']*tan(self.opening/2),self.position.get_z()- 0.25*dimensions_chambre['length']*tan(self.opening/2)))
-        self.vertexList.append(Vec3(self.position.get_x() + 0.25*dimensions_chambre['length'],self.position.get_y()  -0.25*dimensions_chambre['length']*tan(self.opening/2),self.position.get_z() + 0.25*dimensions_chambre['length']*tan(self.opening/2)))
-        self.vertexList.append(Vec3(self.position.get_x() + 0.25*dimensions_chambre['length'],self.position.get_y()  -0.25*dimensions_chambre['length']*tan(self.opening/2),self.position.get_z()-0.25*dimensions_chambre['length']*tan(self.opening/2)))
+        self.vertexList.append(Vec3(self.position.get_x() + 0.25*dimensions_room['length'],self.position.get_y() + 0.25*dimensions_room['length']*tan(self.opening/2),self.position.get_z() + 0.25*dimensions_room['length']*tan(self.opening/2)))
+        self.vertexList.append(Vec3(self.position.get_x() + 0.25*dimensions_room['length'],self.position.get_y() + 0.25*dimensions_room['length']*tan(self.opening/2),self.position.get_z()- 0.25*dimensions_room['length']*tan(self.opening/2)))
+        self.vertexList.append(Vec3(self.position.get_x() + 0.25*dimensions_room['length'],self.position.get_y()  -0.25*dimensions_room['length']*tan(self.opening/2),self.position.get_z() + 0.25*dimensions_room['length']*tan(self.opening/2)))
+        self.vertexList.append(Vec3(self.position.get_x() + 0.25*dimensions_room['length'],self.position.get_y()  -0.25*dimensions_room['length']*tan(self.opening/2),self.position.get_z()-0.25*dimensions_room['length']*tan(self.opening/2)))
 
     def draw(self):
         triangles = (

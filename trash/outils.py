@@ -267,7 +267,7 @@ def verifier_cables(cables, maisonette, source, chambre, N_discretisation=300):
 
     centre_source, ypr_angles_source, dimensions_source = source['_center'], source['_orientation'], source['dimensions']
 
-    dimensions_chambre = chambre['dimensions']
+    dimensions_room = chambre['dimensions']
 
     generators_points = {}
     for cable in cables:
@@ -295,7 +295,7 @@ def verifier_cables(cables, maisonette, source, chambre, N_discretisation=300):
                 message['source'] = '!'
 
             # chambre
-            if not point_appartient_pave_droit_S000(p, point_3d(0, 0, 0), dimensions_chambre):
+            if not point_appartient_pave_droit_S000(p, point_3d(0, 0, 0), dimensions_room):
                 message['chambre'] = '!'
 
                 # ajouter les croisements

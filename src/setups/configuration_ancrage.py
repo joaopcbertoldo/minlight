@@ -1,7 +1,7 @@
 from enum import Enum
 from pprint import pprint
 
-from src.models.entites_systeme_minlight import CableLayout, CableConfiguration
+from src.models.cables import CableLayout
 
 
 ''' ************************ Configurations des Câbles ************************ '''
