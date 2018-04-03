@@ -231,9 +231,16 @@ class Box(AbsFollower):
         self._orientation.set_angles(angles)
         # update is done with the notification
 
-    def vertices_points_as_list(self, order: BoxVertexOrderEnum.XYZ) -> List[Point]:
-        points = self.vertices_points_as_list(BoxVertexOrderEnum.ZYX)
-        return {vertex: point for vertex, point in zip(BoxVertexEnum.list_vertices(), points)}
+    # vertices_points_as_list
+    def vertices_points_as_list(self, order: BoxVertexOrderEnum) -> List[Point]:
+        """List of the vertices points ordered in the given order. Cf BoxVertexOrderEnum."""
+        # order of vertices
+        vertices = BoxVertexEnum.list_vertices_ordered_as(order)
+        # the box's points
+        vertices_points = self.vertices_points
+        # the list in the correct order
+        ret = [vertices_points[vx] for vx in vertices]
+        return ret
 
     def get_dict_vertex_point_from_self_reference(self):
         """Dict of Vertex -> Point as if they were seen from the box's own self referenc frame."""
