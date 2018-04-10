@@ -197,8 +197,8 @@ class Box(AbsFollower):
     # vertices_points
     @property
     def vertices_points(self) -> Dict[BoxVertexEnum, Point]:
-        """Copy of a Dict of BoxVertexEnum -> Point of the Box's vertices points (in global reference frame)."""
-        return deepcopy(self._vertices_points)
+        """ATTENTION NOT COPY: Dict of BoxVertexEnum -> Point of the Box's vertices points (in global ref frame)."""
+        return self._vertices_points
 
     # vertices_points_list
     def vertices_points_list(self, order: BoxVertexOrderEnum) -> List[Point]:

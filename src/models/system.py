@@ -1,12 +1,16 @@
 import copy
 from abc import ABCMeta, abstractmethod
-from src.models.boxes import Box
+
+from src.models.boxes import Box, Maisonette
 from src.models.cables import CableLayout
 
 
+# Cable Robot
 class CableRobot:
 
-    def __init__(self, chambre, maisonette, source: Box, diametre_cables, config_ancrage: CableLayout):
+    # init
+    def __init__(self, chambre: Box, maisonette: Maisonette, source: , diametre_cables, config_ancrage: CableLayout):
+        """ """
         self._chambre = copy.deepcopy(chambre)
         self._maisonette = copy.deepcopy(maisonette)
         self._source = copy.deepcopy(source)
