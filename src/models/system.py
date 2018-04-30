@@ -1,32 +1,34 @@
 import copy
 from abc import ABCMeta, abstractmethod
 
-from src.models.boxes import Box, Maisonette
+from src.toolbox.followables import Followable
+from src.models.boxes import Box, Maisonette, Source
 from src.models.cables import CableLayout
 
 
 # Cable Robot
-class CableRobot:
+class CableRobot(Followable):
 
     # init
-    def __init__(self, chambre: Box, maisonette: Maisonette, source: , diametre_cables, config_ancrage: CableLayout):
+    def __init__(self, room: Box, maisonette: Maisonette, source: Source,
+                 cable_diameter: float, cable_layout: CableLayout):
         """ """
-        self._chambre = copy.deepcopy(chambre)
+        self._room = copy.deepcopy(room)
         self._maisonette = copy.deepcopy(maisonette)
         self._source = copy.deepcopy(source)
-        self._diametre_cables = diametre_cables
-        self._config_ancrage = copy.deepcopy(config_ancrage)
+        self._cable_diameter = cable_diameter
+        self._cable_layout = copy.deepcopy(cable_layout)
 
         # create cables
         sommets_source = self._source.vertices_points
-        self._cables = self._config_ancrage.generate_cables(sommets_source, diameter=self._diametre_cables)
+        self._cables = self._cable_layout.generate_cables(sommets_source, diameter=self._cable_diameter)
 
         self._observers = list()
 
     def draw(self, origin, draw_maisonette):
         for cable in self._cables:
             cable.draw(origin)
-        self._chambre.draw(origin)
+        self._room.draw(origin)
         if draw_maisonette:
             self._maisonette.draw(origin)
         self._source.draw(origin)
@@ -62,7 +64,7 @@ class CableRobot:
         return self._source.light_radius
 
     def get_centre(self):
-        return self._chambre.center()
+        return self._room.center()
 
     def subscribe_observer(self, observer):
         self._observers.append(observer)
