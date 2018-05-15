@@ -295,7 +295,7 @@ def verifier_cables(cables, maisonette, source, chambre, N_discretisation=300):
                 message['source'] = '!'
 
             # chambre
-            if not point_appartient_pave_droit_S000(p, point_3d(0, 0, 0), dimensions_room):
+            if not point_appartient_pave_droit_S000(thisdir, point_3d(0, 0, 0), dimensions_room):
                 message['chambre'] = '!'
 
                 # ajouter les croisements

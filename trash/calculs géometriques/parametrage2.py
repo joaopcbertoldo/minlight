@@ -34,7 +34,7 @@ def distance2points(ax,ay,az,bx,by,bz):
 On suppose qu'on veut orienter le _center de la source par des angles 
 et la position du _center, on calcule les positios des sommets
 """
-def anglesToPos(centreSoleil,theta,phi): #p comme prime
+def anglesToPos(centreSoleil,theta,phi): #thisdir comme prime
     xp, yp, zp = getCoordonnees(centreSoleil)
 
     matriceRot = np.matrix([[math.cos(theta)*math.cos(phi), -math.cos(theta)*math.sin(phi), math.sin(theta)],
