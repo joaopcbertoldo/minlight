@@ -18,15 +18,12 @@ class Trajectoire:
     # provavelmente é melhor tirar heure_initiale, heure_finale e intervalle do construtor
     # e coloca-los como parametro dos metodos
     def __init__(self, date, latitude, heure_initiale, heure_finale,
-                 intervalle, ro, orientation_nord = 0.0, orientation_zenit=0.0):
+                 intervalle, orientation_nord = 0.0, orientation_zenit=0.0):
         self.date = date
         self.latitude = latitude
         self.heure_initiale = heure_initiale
         self.heure_finale = heure_finale
         self.intervalle = intervalle
-
-        self.ro = ro
-
         self.orientation_nord = orientation_nord
         self.orientation_zenit = orientation_zenit
 
@@ -75,16 +72,25 @@ class Trajectoire:
         declin = -pi / 180 * 23.45 * cos(2 * pi * (n + 10) / 365)
 
         # determiner la position [soleil_aizmut, soleil_altitude] du soleil:
-        w__terre = 2*pi/(24*60*60)  # en rad/seconde
+        w_terre = 2*pi/(24*60*60)  # en rad/seconde
 
-        x = x_sph(declin, w__terre*secs)
-        y = y_sph(declin, w__terre*secs) * sin(lat) + z_sph(declin) * cos(lat)
-        z = -y_sph(declin, w__terre*secs) * cos(lat) + z_sph(declin) * sin(lat)
+        x = x_sph(declin, w_terre*secs)
+        y = y_sph(declin, w_terre*secs) * sin(lat) + z_sph(declin) * cos(lat)
+        z = -y_sph(declin, w_terre*secs) * cos(lat) + z_sph(declin) * sin(lat)
 
         soleil_altitude = asin(z)*180/pi  # en degres
         soleil_azimut = point_azimut(x, y)
 
-        return [soleil_azimut-self.orientation_nord + 180, soleil_altitude-self.orientation_zenit]
+        # limiter l'intervalle de soleil_azimut entre -90 et 90
+
+        if soleil_azimut > 90.0 and soleil_azimut <= 270.0:
+            soleil_azimut -= 180.0
+        elif soleil_azimut > 270.0:
+            soleil_azimut -= 360.0
+
+        # !!!! hardcoded 180 degrees !!!!
+        #return [soleil_azimut-self.orientation_nord + 180, soleil_altitude-self.orientation_zenit]
+        return [soleil_azimut - self.orientation_nord, soleil_altitude - self.orientation_zenit]
 
     def get_trajectoire(self):
         points_trajectoire = []
@@ -141,6 +147,26 @@ class Configuration:
     def get_centre(self):
         return self.centre
 
+###### <TrajectoryTranslator> ###### maybe useful
+
+class TrajectoryTranslator:
+    def __init__(self, trajectory : Trajectoire):
+        self.traj = trajectory
+        """" Geometrical parameters  """
+        self.R = -1.0
+        self.H = -1.0
+        self.L = -1.0
+        self.D = -1.0
+        self.alpha = -1.0
+
+    def set_parameters(self, R, H, L, D, alpha):
+        self.R = R
+        self.H = H
+        self.L = L
+        self.D = D
+        self.alpha = alpha
+
+###### </TrajectoryTranslator> ######
 
 # test
 traj = Trajectoire('03/03', '60.3/N', '16:01', '20:00', 600, 2000)
