@@ -6,7 +6,7 @@ from src.toolbox.useful import x_sph, y_sph, z_sph, secondes_dans_horaire, point
 from src.setups import parametres_objets
 
 
-class Trajectoire:
+class Trajectory:
     """
     :param date: String en format '29/07'
     :param latitude: string en format '63.2/N', ou '63.2/S'
@@ -92,7 +92,7 @@ class Trajectoire:
         #return [soleil_azimut-self.orientation_nord + 180, soleil_altitude-self.orientation_zenit]
         return [soleil_azimut - self.orientation_nord, soleil_altitude - self.orientation_zenit]
 
-    def get_trajectoire(self):
+    def get_trajectory(self):
         points_trajectoire = []
 
         n_points = int((secondes_dans_horaire(self.heure_finale)-secondes_dans_horaire(self.heure_initiale))/self.intervalle)
@@ -108,7 +108,7 @@ class Trajectoire:
             lista_config.append(config)
         return lista_config
 
-
+## needs some fixes (?)
 class Configuration:
 
     def __init__(self, pair_theta_phi, ro):
@@ -150,28 +150,61 @@ class Configuration:
 ###### <TrajectoryTranslator> ###### maybe useful
 
 class TrajectoryTranslator:
-    def __init__(self, trajectory : Trajectoire):
+    def __init__(self, trajectory : Trajectory, R, H, L, W, alpha):
         self.traj = trajectory
-        """" Geometrical parameters  """
-        self.R = -1.0
-        self.H = -1.0
-        self.L = -1.0
-        self.D = -1.0
-        self.alpha = -1.0
 
-    def set_parameters(self, R, H, L, D, alpha):
+        """" 
+        Geometrical parameters:
+        R = Roh (trajectory's radius) 
+        H = Height (Maquette)
+        L = Length (Maquette)
+        D = Depth (Maquette)
+        alpha = ratio between 0 and 1 (maisonnette center = alpha * H)
+        """
         self.R = R
         self.H = H
         self.L = L
-        self.D = D
+        self.W = W
         self.alpha = alpha
+
+    def get_config(self, pair_theta_phi):
+        theta = pair_theta_phi[0]*pi/180 # radians
+        phi = pair_theta_phi[1]*pi/180 # radians
+
+        #reference: ask Mateus
+        x = self.L - self.R*cos(theta)*cos(phi)
+        y = self.W/2 + self.R*cos(theta)*sin(phi)
+        z = self.alpha*self.H + self.R*sin(theta)
+
+        center = Vec3(x, y, z)
+        ### there must be an updated version of TupleAnglesRotation....
+        #ypr_angles = TupleAnglesRotation(
+        #        row = 0,
+        #        pitch = -theta, # Must be confirmed !!!!!
+        #        yaw = -phi, # Must be confirmed !!!!!
+        #        sequence=RotationSequenceEnum.ypr,
+        #        unite=AngleUnityEnum.degree  # !!!!
+        #    )
+        ypr_angles = (-phi, -theta, 0) # RADIANS !!
+
+        return (center, ypr_angles)
+
+    def translate(self):
+        list_tuple_center_angles = []
+        for pair_theta_phi in self.traj.get_trajectory():
+            list_tuple_center_angles.append(self.get_config(pair_theta_phi))
+
+        return list_tuple_center_angles
+
+
+
 
 ###### </TrajectoryTranslator> ######
 
 # test
-traj = Trajectoire('03/03', '60.3/N', '16:01', '20:00', 600, 2000)
-a = traj.position_soleil('12:01')
+traj = Trajectory('03/03', '60.3/N', '10:00', '14:00', 2000)
+#print(traj.get_trajectory())
 
-print(a)
-print('')
-print(traj.get_configurations())
+trans = TrajectoryTranslator(traj, 20, 40, 80, 40, 0.5)
+print (trans.translate())
+
