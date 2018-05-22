@@ -11,7 +11,14 @@ from src.visualization.control.pygame_view_controlable import PygameViewControla
 
 
 class RobotVisualization2:
-
+    """
+    Class to visualize the cable robot behaviour
+    usage: draw_trajectory(...) to draw a trajectory
+            show() to draw a single position
+    :param cable_robot: CableRobot object to be drawn
+    :param draw_maisonette: bool, true=maisonette will be drawn
+    """
+    
     def __init__(self, cable_robot, source_controlable):
         print("Initializing cable robot.")
         self._cable_robot = cable_robot
@@ -20,6 +27,7 @@ class RobotVisualization2:
         self.window_height = 800
         self.window_width = 1200
         self.reset_mvt_variables()
+        #initializes a trackball to rotate the camera using the mouse
         self.trackball = Trackball(self.window_width, self.window_height)
         self.mouse_position = (0, 0)
         self._view_controlable = PygameViewControlable()
@@ -28,9 +36,17 @@ class RobotVisualization2:
         self._keyboard_view_controller = ViewKeyboardController(view_controlable=self._view_controlable)
 
     def light_on(self):
+    '''  
+    turns the sun's light on
+    '''
+    
         self.use_shaders = True
 
     def light_off(self):
+    '''
+    turns the sun's light off
+    '''
+    
         self.use_shaders = False
 
     def set_display_dimensions(self, height, width):
@@ -39,23 +55,40 @@ class RobotVisualization2:
         self.window_width = width
 
     def set_uniforms(self):
+    '''
+    Initializes uniforms and stores their locations.
+    '''
+    
         print("Setting shaders.")
         self.light_position_uniform = glGetUniformLocation(self.gl_program, "light_position")
         self.light_direction_uniform = glGetUniformLocation(self.gl_program, "light_direction")
         self.light_radius_uniform = glGetUniformLocation(self.gl_program, "light_radius")
 
     def update_uniforms(self):
+    '''
+    Updates the information given to the shaders through the uniforms.
+    '''
+    
         glUniform4fv(self.light_position_uniform, 1, self._cable_robot.light_center - self._cable_robot.get_centre() + (1,))
         glUniform4fv(self.light_direction_uniform, 1, self._cable_robot.light_direction() + (0,))
         glUniform1fv(self.light_radius_uniform, 1, self._cable_robot.light_radius)
 
     def create_window(self):
+    '''
+    Creates a window context for the visualization
+    '''
+    
         print("Creating window.")
         pygame.display.set_mode((self.window_width, self.window_height), DOUBLEBUF | OPENGL | RESIZABLE)
         glClearColor(1.0, 1.0, 1.0, 1.0)
 
     def set_opengl_parameters(self):
+    '''
+    Sets some opengl consts.
+    '''
+    
         print("Setting opengl parameters.")
+        #enables z coordinate testing
         glEnable(GL_DEPTH_TEST)
         glDepthFunc(GL_LEQUAL)
         # setting line smooth parameters
@@ -68,6 +101,10 @@ class RobotVisualization2:
         print("opengl parameters set.")
 
     def set_shaders(self):
+    '''
+    Initializes the shaders, this function won't be used if the lights are off
+    '''
+    
         print("Setting shaders.")
         v = glCreateShader(GL_VERTEX_SHADER)
         f = glCreateShader(GL_FRAGMENT_SHADER)
@@ -99,6 +136,13 @@ class RobotVisualization2:
         quit()
 
     def reset_mvt_variables(self):
+    '''
+    #resets/initializes all the mvt variables to make sure there isn't anything moving
+    #CW = clockwise
+    #CCW = counter clockwise
+    #pos = positive
+    #neg = negative
+    '''
         print("Resetting mvt variables.")
         self.rotateX_CW = False
         self.rotateX_CCW = False
@@ -118,6 +162,11 @@ class RobotVisualization2:
         self.rotate_source_row_pos = False
 
     def reset_viewer_matrix(self):
+    '''
+    resets the camera to the initial position and rotation,
+    very useful  when trackball does crazy things
+    '''
+    
         glLoadIdentity()
         gluPerspective(45, (self.window_width / self.window_height), 0.1, 50.0)
         glTranslatef(0, 0, -15)
@@ -125,6 +174,12 @@ class RobotVisualization2:
         glScalef(0.001, 0.001, 0.001)
 
     def manage_events(self):
+    ''' 
+    Function to manage the keyboard/mouse events. 
+    It is responsible for changing the mvt variables when an event is detected
+    '''
+     
+        #iterate over all the events detected by pygame and changes the mvt variable that corresponds to the event 
         for event in pygame.event.get():
             self._keyboard_source_controller.manage_event(event)
             self._keyboard_view_controller.manage_event(event)
@@ -156,6 +211,10 @@ class RobotVisualization2:
                     quit()
 
     def show(self):
+    """
+    draws a static cable robot
+    """
+    
         print("start drawing....")
         self.create_window()
         self.set_opengl_parameters()
@@ -178,6 +237,13 @@ class RobotVisualization2:
             #pygame.time.wait(10)
 
     def draw_trajectory(self, trajectory, time_step, speed):
+    """
+    draws a trajectory
+    :param trajectory: Trajectory object
+    :param time_step: time_step: time in ms between two position in the trajectory
+    :param speed: speed of the trajectory, i.e. how many ms of trajectory will be shown in 1 ms
+    """
+    
         print("start drawing....")
         self.create_window()
         self.set_opengl_parameters()
