@@ -15,7 +15,7 @@ from src.setups.parametres_objets import camera_position1, camera_position2, cam
 
 class RobotVisualization:
       """
-    draws a trajectory
+    Class to visualize the cable robot behaviour
     usage: draw_trajectory(...) to draw a trajectory
             show() to draw a single position
     :param cable_robot: CableRobot object to be drawn
