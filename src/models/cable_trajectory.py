@@ -44,7 +44,7 @@ maq_W = 240
 maquette = Box(MobilePoint(maq_L/2, maq_H/2, maq_W/2), Orientation(0.0, 0.0, 0.0), BoxDimensions(maq_L, maq_W, maq_H))
 
 # maisonette, completely useless in this case
-dic = {'string':0.0} # does not matter, just for instanciating a Maisonette
+dic = {'width':1.0, 'height':1.0} # does not matter, just for instanciating a Maisonette
 maisonnete = Maisonette(Point(100000.0, 1000000.0, 1000000.0), Orientation(0.0, 0.0, 0.0), BoxDimensions(1.0, 1.0, 1.0),dic)
 
 # source:

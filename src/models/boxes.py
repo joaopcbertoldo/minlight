@@ -530,7 +530,8 @@ class Maisonette(Box):
                  window_dimensions: Dict[str, float], wall_width: float = None):
         """TODO doc string"""
         # super
-        Box.__init__(self, center, orientation, dimensions)
+        center_mobile = MobilePoint(center.x, center.y, center.z)
+        Box.__init__(self, center_mobile, orientation, dimensions)
         # validate wall_width
         if wall_width:
             assert isfinite(wall_width) and wall_width > 0, \
