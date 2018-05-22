@@ -207,6 +207,6 @@ traj = Trajectory('03/03', '60.3/N', '10:00', '14:00', 2000)
 #print(traj.get_trajectory())
 
 trans = TrajectoryTranslator(traj, 20, 40, 80, 40, 0.5)
-print (trans.get_config_list())
+print(trans.get_config_list())
 print(trans.get_config_list()[0][1])
 
