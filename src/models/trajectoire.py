@@ -4,6 +4,7 @@ from src.enums import AngleUnityEnum, RotationOrderEnum
 from src.math_entities import SphericalCoordinates, Vec3, Orientation
 from src.toolbox.useful import x_sph, y_sph, z_sph, secondes_dans_horaire, point_azimut
 from src.setups import parametres_objets
+from src.math_entities import *
 
 
 class Trajectory:
@@ -176,7 +177,7 @@ class TrajectoryTranslator:
         y = self.W/2 + self.R*cos(theta)*sin(phi)
         z = self.alpha*self.H + self.R*sin(theta)
 
-        center = Vec3(x, y, z)
+        center = Point(x, y, z)
         ### there must be an updated version of TupleAnglesRotation....
         #ypr_angles = TupleAnglesRotation(
         #        row = 0,
@@ -185,11 +186,11 @@ class TrajectoryTranslator:
         #        sequence=RotationSequenceEnum.ypr,
         #        unite=AngleUnityEnum.degree  # !!!!
         #    )
-        ypr_angles = (-phi, -theta, 0) # RADIANS !!
+        ypr_angles = Orientation(0.0, -theta, -phi) # RADIANS !!
 
         return (center, ypr_angles)
 
-    def translate(self):
+    def get_config_list(self):
         list_tuple_center_angles = []
         for pair_theta_phi in self.traj.get_trajectory():
             list_tuple_center_angles.append(self.get_config(pair_theta_phi))
@@ -206,5 +207,6 @@ traj = Trajectory('03/03', '60.3/N', '10:00', '14:00', 2000)
 #print(traj.get_trajectory())
 
 trans = TrajectoryTranslator(traj, 20, 40, 80, 40, 0.5)
-print (trans.translate())
+print (trans.get_config_list())
+print(trans.get_config_list()[0][1])
 
